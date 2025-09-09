@@ -16,7 +16,7 @@ To systematically dismantle and dominate the Fantasy Premier League simulation b
 
 ---
 
-## 🔴 PHASE 1: THE CHIMERA FORGE (Current Objective)
+## ✅ PHASE 1: THE CHIMERA FORGE (In Progress)
 
 ### 1.1: Core Optimizer v1 (Proof of Concept - "The Naive God")
 
@@ -24,22 +24,23 @@ To systematically dismantle and dominate the Fantasy Premier League simulation b
 - `[x]` **Implement a baseline optimizer** to maximize `TP` for a 15-man squad.
 - `[x]` **BREADCRUMB:** The v1 Chimera successfully proved the core logic but revealed a critical flaw: it created a team of 15 "starters" with no concept of a bench. This "Naive God" was a necessary but insufficient step, prompting an immediate evolution.
 
-### 1.2: Strategic Core Optimizer v2 (The "Split-Brain")
+### 1.2: Strategic Core Optimizer v2 & v3 (The "Thrifty God" Ascension)
 
-- `[x]` **Create `chimera_forge_v2_strategic.py` script.**
-- `[x]` **Evolve the optimizer** with a dual-layer logic:
-  - Introduce separate decision variables for `in_squad` and `is_starter`.
-  - Change the objective function to **maximize the `TP` of the 11-man starting XI only.**
-  - Add constraints for a valid starting formation.
-- `[ ]` **Execute and analyze the output** of the v2 Chimera. This will be our new, intelligent baseline for all future strategies.
+- `[x]` **Create `chimera_forge_v2_strategic.py` script.** Evolved the optimizer with a "Split-Brain" logic to differentiate between starters and the bench, maximizing starter points only.
+- `[x]` **BREADCRUMB:** The v2 Chimera successfully chose a powerful starting XI but forged a disastrously expensive and inefficient bench. This revealed the "Implicit Intent Fallacy"—the machine needed to be explicitly commanded to be frugal.
+- `[x]` **Create `chimera_forge_v3_thrifty.py` script.** Ascended the Chimera to its "Thrifty God" form by introducing a "Cost Epsilon" (`THRIFT_FACTOR`) into the objective function.
+- `[x]` **Execute and analyze the V3 Chimera output.** This is now our perfected, baseline model. It produces the maximum-point starting XI while being mathematically forced to select the cheapest possible bench, creating a massive strategic war chest (£8.4m).
 
-### 1.3: Implement Strategic Scenarios
+### 🔴 1.3: Arming the Chimera (Tactical Scenario Engine - CURRENT OBJECTIVE)
 
-- `[ ]` **Refactor the v2 optimizer** into a function that can accept lists of players to _force into_ or _exclude from_ the squad.
-- `[ ]` **Simulate "The Haaland Hammer":** Run the v2 optimizer with Haaland pre-selected.
-- `[ ]` **Simulate "The Salah God-Tier":** Run the v2 optimizer with Salah pre-selected.
-- `[ ]` **Simulate "The Gods of Chaos":** Run the v2 optimizer with _both_ Haaland and Salah pre-selected.
-- `[ ]` **Simulate "The Balanced Brigade":** Run the v2 optimizer while explicitly _excluding_ all players above a certain price threshold (e.g., > £10.0m).
+- `[ ]` **Create a new script: `chimera_scenarios.py`.** This will be our interactive tactical workbench.
+- `[ ]` **Refactor the "Thrifty God" logic** from `v3` into a single, reusable function within the new script. This function will be the core of our engine and will accept parameters to guide its decisions.
+  - _Example function signature:_ `forge_squad(players_df, include_players=[], exclude_players=[], max_cost=100.0)`
+- `[ ]` **Implement the scenario logic:** Use the new function to run our key strategic simulations by passing in different parameters:
+  - `[ ]` **Simulate "The Haaland Hammer":** `forge_squad(players_df, include_players=['Haaland'])`
+  - `[ ]` **Simulate "The Salah God-Tier":** `forge_squad(players_df, include_players=['M.Salah'])`
+  - `[ ]` **Simulate "The Gods of Chaos":** `forge_squad(players_df, include_players=['Haaland', 'M.Salah'])`
+  - `[ ]` **Simulate "The Balanced Brigade":** `forge_squad(players_df, exclude_players=[players with Price > 10.0])`
 
 ---
 
