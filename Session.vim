@@ -15,11 +15,12 @@ else
 endif
 badd +81 forge_cauldron.py
 badd +0 term://~/Projects/fpl-dominator//112454:/bin/bash
-badd +23 TODO.md
-badd +0 chimera_forge.py
+badd +13 TODO.md
+badd +20 chimera_forge.py
+badd +0 chimera_forge_v2_strategic.py
 argglobal
 %argdel
-edit chimera_forge.py
+edit chimera_forge_v2_strategic.py
 let s:save_splitbelow = &splitbelow
 let s:save_splitright = &splitright
 set splitbelow splitright
@@ -50,11 +51,11 @@ setlocal foldnestmax=20
 setlocal foldenable
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 20 - ((19 * winheight(0) + 17) / 34)
+let s:l = 1 - ((0 * winheight(0) + 17) / 34)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 20
+keepjumps 1
 normal! 0
 wincmd w
 argglobal
@@ -71,12 +72,12 @@ setlocal foldlevel=0
 setlocal foldminlines=1
 setlocal foldnestmax=20
 setlocal foldenable
-let s:l = 47 - ((16 * winheight(0) + 17) / 34)
+let s:l = 257 - ((32 * winheight(0) + 17) / 34)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 47
-normal! 0
+keepjumps 257
+normal! 063|
 wincmd w
 2wincmd w
 exe 'vert 1resize ' . ((&columns * 86 + 86) / 173)

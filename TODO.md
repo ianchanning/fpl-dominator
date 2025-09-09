@@ -1,4 +1,4 @@
-# PROJECT: FPL DOMINATOR - STRATEGIC BLUEPRINT (v1.0)
+# PROJECT: FPL DOMINATOR - STRATEGIC BLUEPRINT (v1.1 - Revised)
 
 ## MISSION STATEMENT
 
@@ -18,28 +18,28 @@ To systematically dismantle and dominate the Fantasy Premier League simulation b
 
 ## 🔴 PHASE 1: THE CHIMERA FORGE (Current Objective)
 
-### 1.1: Forge the Core Optimizer
+### 1.1: Core Optimizer v1 (Proof of Concept - "The Naive God")
 
-- `[ ]` **Create the `chimera_forge.py` script.** This will be the home of our squad optimization logic.
-- `[ ]` **Load the Enriched Database:** The script must read `fpl_master_database_enriched.csv` as its source of truth.
-- `[ ]` **Define the Optimization Problem using `PuLP`:**
-  - **Objective Function:** Maximize the sum of `TP` (Total Points) for the 15 selected players. This is our baseline "best team on paper."
-  - **Constraints:** Codify the FPL rules as mathematical constraints:
-    - `[ ]` Total cost must be `<= 100.0`.
-    - `[ ]` Exactly `2` Goalkeepers must be chosen.
-    - `[ ]` Exactly `5` Defenders must be chosen.
-    - `[ ]` Exactly `5` Midfielders must be chosen.
-    - `[ ]` Exactly `3` Forwards must be chosen.
-    - `[ ]` A maximum of `3` players from any single team.
-- `[ ]` **Solve & Output:** Command `PuLP` to solve the problem and print the resulting 15-man squad, including total points and total cost.
+- `[x]` **Create `chimera_forge.py` script.**
+- `[x]` **Implement a baseline optimizer** to maximize `TP` for a 15-man squad.
+- `[x]` **BREADCRUMB:** The v1 Chimera successfully proved the core logic but revealed a critical flaw: it created a team of 15 "starters" with no concept of a bench. This "Naive God" was a necessary but insufficient step, prompting an immediate evolution.
 
-### 1.2: Implement Strategic Scenarios
+### 1.2: Strategic Core Optimizer v2 (The "Split-Brain")
 
-- `[ ]` **Refactor the optimizer** into a function that can accept a list of players to _force_ into the squad.
-- `[ ]` **Simulate "The Haaland Hammer":** Run the optimizer with Haaland pre-selected.
-- `[ ]` **Simulate "The Salah God-Tier":** Run the optimizer with Salah pre-selected.
-- `[ ]` **Simulate "The Gods of Chaos":** Run the optimizer with _both_ Haaland and Salah pre-selected to see what sacrifices are required.
-- `[ ]` **Simulate "The Balanced Brigade":** Run the optimizer while explicitly _excluding_ all players above a certain price threshold (e.g., > £10.0m).
+- `[x]` **Create `chimera_forge_v2_strategic.py` script.**
+- `[x]` **Evolve the optimizer** with a dual-layer logic:
+  - Introduce separate decision variables for `in_squad` and `is_starter`.
+  - Change the objective function to **maximize the `TP` of the 11-man starting XI only.**
+  - Add constraints for a valid starting formation.
+- `[ ]` **Execute and analyze the output** of the v2 Chimera. This will be our new, intelligent baseline for all future strategies.
+
+### 1.3: Implement Strategic Scenarios
+
+- `[ ]` **Refactor the v2 optimizer** into a function that can accept lists of players to _force into_ or _exclude from_ the squad.
+- `[ ]` **Simulate "The Haaland Hammer":** Run the v2 optimizer with Haaland pre-selected.
+- `[ ]` **Simulate "The Salah God-Tier":** Run the v2 optimizer with Salah pre-selected.
+- `[ ]` **Simulate "The Gods of Chaos":** Run the v2 optimizer with _both_ Haaland and Salah pre-selected.
+- `[ ]` **Simulate "The Balanced Brigade":** Run the v2 optimizer while explicitly _excluding_ all players above a certain price threshold (e.g., > £10.0m).
 
 ---
 
@@ -48,27 +48,26 @@ To systematically dismantle and dominate the Fantasy Premier League simulation b
 ### 2.1: Integrate Fixture Difficulty
 
 - `[ ]` **Source Fixture Data:** Find a reliable source (API or static file) for the full season's fixture list.
-- `[ ]` **Develop a Fixture Difficulty Rating (FDR) model:** Assign a difficulty score (e.g., 1-5) to each opponent.
-- `[ ]` **Calculate Player FDR:** For each player, calculate an average FDR for their next `N` (e.g., 3-5) games.
-- `[ ]` **Refactor Optimizer:** Change the objective function from maximizing historical `TP` to maximizing a weighted score of `PPM` and inverse `FDR`.
+- `[ ]` **Develop a Fixture Difficulty Rating (FDR) model.**
+- `[ ]` **Refactor Optimizer:** Evolve the objective function from maximizing historical `TP` to maximizing a predictive score based on upcoming fixtures.
 
 ### 2.2: Quantify Player Form
 
-- `[ ]` **Source Gameweek-by-Gameweek Data:** Find a data source for player points per match.
-- `[ ]` **Implement a "Form" Metric:** Calculate a rolling points average over the last `X` (e.g., 5) matches.
+- `[ ]` **Source Gameweek-by-Gameweek Data.**
+- `[ ]` **Implement a "Form" Metric** (e.g., rolling points average).
 - `[ ]` **Refactor Optimizer:** Add "Form" as another variable to the objective function.
 
 ### 2.3: The Economic Engine
 
-- `[ ]` **Source Ownership Data:** Find a source for player ownership percentages and price changes.
-- `[ ]` **Develop a "Bandwagon" Metric:** Track the velocity of ownership changes to predict imminent price rises.
+- `[ ]` **Source Ownership & Price Change Data.**
+- `[ ]` **Develop a "Bandwagon" Metric** to predict imminent price rises.
 
 ---
 
 ## 🟢 PHASE 3: THE COMMAND DECK (Operational Tooling)
 
-- `[ ]` **Build a CLI:** Wrap our Python scripts in a command-line interface using `argparse` or `click` for easy execution of different strategic scenarios.
-- `[ ]` **Create a Data Refresh Pipeline:** Write a script to automate the updating of player and fixture data, so our engine is always running on the latest intelligence.
+- `[ ]` **Build a CLI** to streamline the execution of different strategic scenarios.
+- `[ ]` **Create a Data Refresh Pipeline** to automate data updates.
 
 ---
 
