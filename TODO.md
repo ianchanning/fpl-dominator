@@ -20,27 +20,37 @@ To systematically dismantle and dominate the Fantasy Premier League simulation b
 
 ### 1.1: Core Optimizer v1 (Proof of Concept - "The Naive God")
 
-- `[x]` **Create `chimera_forge.py` script.**
-- `[x]` **Implement a baseline optimizer** to maximize `TP` for a 15-man squad.
-- `[x]` **BREADCRUMB:** The v1 Chimera successfully proved the core logic but revealed a critical flaw: it created a team of 15 "starters" with no concept of a bench. This "Naive God" was a necessary but insufficient step, prompting an immediate evolution.
+- `[x]` **BREADCRUMB:** Successfully proved the core optimization logic but revealed the tactical necessity of a bench.
 
 ### 1.2: Strategic Core Optimizer v2 & v3 (The "Thrifty God" Ascension)
 
-- `[x]` **Create `chimera_forge_v2_strategic.py` script.** Evolved the optimizer with a "Split-Brain" logic to differentiate between starters and the bench, maximizing starter points only.
-- `[x]` **BREADCRUMB:** The v2 Chimera successfully chose a powerful starting XI but forged a disastrously expensive and inefficient bench. This revealed the "Implicit Intent Fallacy"—the machine needed to be explicitly commanded to be frugal.
-- `[x]` **Create `chimera_forge_v3_thrifty.py` script.** Ascended the Chimera to its "Thrifty God" form by introducing a "Cost Epsilon" (`THRIFT_FACTOR`) into the objective function.
-- `[x]` **Execute and analyze the V3 Chimera output.** This is now our perfected, baseline model. It produces the maximum-point starting XI while being mathematically forced to select the cheapest possible bench, creating a massive strategic war chest (£8.4m).
+- `[x]` **BREADCRUMB:** Successfully evolved the Chimera to understand the Starter/Bench duality and to be ruthlessly cost-efficient, forging our perfected baseline model.
 
-### 🔴 1.3: Arming the Chimera (Tactical Scenario Engine - CURRENT OBJECTIVE)
+### 1.3: Arming the Chimera (Tactical Scenario Engine)
 
-- `[ ]` **Create a new script: `chimera_scenarios.py`.** This will be our interactive tactical workbench.
-- `[ ]` **Refactor the "Thrifty God" logic** from `v3` into a single, reusable function within the new script. This function will be the core of our engine and will accept parameters to guide its decisions.
-  - _Example function signature:_ `forge_squad(players_df, include_players=[], exclude_players=[], max_cost=100.0)`
-- `[ ]` **Implement the scenario logic:** Use the new function to run our key strategic simulations by passing in different parameters:
-  - `[ ]` **Simulate "The Haaland Hammer":** `forge_squad(players_df, include_players=['Haaland'])`
-  - `[ ]` **Simulate "The Salah God-Tier":** `forge_squad(players_df, include_players=['M.Salah'])`
-  - `[ ]` **Simulate "The Gods of Chaos":** `forge_squad(players_df, include_players=['Haaland', 'M.Salah'])`
-  - `[ ]` **Simulate "The Balanced Brigade":** `forge_squad(players_df, exclude_players=[players with Price > 10.0])`
+- `[x]` **Create `chimera_scenarios.py` script.**
+- `[x]` **Refactor the "Thrifty God" logic** into a reusable, parameter-driven function.
+- `[x]` **Execute and analyze all core strategic scenarios.**
+- `[x]` **BREADCRUMB:** The simulations were a monumental success but revealed the Chimera's final, critical flaw: "Captaincy Blindness." It optimizes based on pure historical points (`TP`) and has no concept of a player's explosive ceiling or their value as a weekly captaincy choice. This was proven when it benched M.Salah.
+
+### 🔴 1.4: Granting Sight (The Captaincy Coefficient - CURRENT OBJECTIVE)
+
+- `[ ]` **Create a new script: `enrich_with_insight.py`.** This script will be used to inject our `(π)` pirate's strategic knowledge into the raw data.
+- `[ ]` **Define the "Captaincy Coefficient":**
+  - In the new script, load the `fpl_master_database_enriched.csv`.
+  - Create a new column called `Captaincy_Coef`.
+  - Assign coefficients based on our strategic assessment:
+    - **Tier 1 (Gods):** Haaland, M.Salah -> Coef `1.5`
+    - **Tier 2 (Demigods):** Other reliable, high-ceiling assets (e.g., João Pedro, Ekitiké, Enzo) -> Coef `1.2`
+    - **Tier 3 (Mortals):** Everyone else -> Coef `1.0`
+- `[ ]` **Create the `Prophetic_Points` Metric:**
+  - Create a new column, `PP` (Prophetic Points), calculated as `TP * Captaincy_Coef`.
+- `[ ]` **Save a new, final database:** `fpl_master_database_prophetic.csv`.
+- `[ ]` **Create `chimera_prophet.py`:**
+  - Copy the `chimera_scenarios.py` script to a new file.
+  - Modify it to load the new `prophetic` database.
+  - Change the objective function to maximize the sum of `PP` instead of `TP`.
+- `[ ]` **Run the "Salah God-Tier" scenario** with the new Prophet Chimera and verify that it now correctly places Salah in the starting XI.
 
 ---
 
