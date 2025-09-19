@@ -3,7 +3,8 @@ import pulp
 import os
 
 # --- Configuration ---
-OMNISCIENT_DB_PATH = 'fpl_master_database_OMNISCIENT.csv' # <-- The ULTIMATE source of truth
+DIR = 'gw3'
+OMNISCIENT_DB_PATH = f'{DIR}/fpl_master_database_OMNISCIENT.csv' # <-- The ULTIMATE source of truth
 THRIFT_FACTOR = 0.001
 
 # --- CORE FUNCTIONS (Unchanged, but now wielding ultimate power) ---

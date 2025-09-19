@@ -3,7 +3,8 @@ import pulp
 import os
 
 # --- Configuration ---
-ENRICHED_DB_PATH = 'fpl_master_database_enriched.csv'
+DIR = 'gw3'
+ENRICHED_DB_PATH = f'{DIR}/fpl_master_database_enriched.csv'
 THRIFT_FACTOR = 0.001
 
 # --- CORE REUSABLE FUNCTIONS ---

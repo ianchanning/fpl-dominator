@@ -3,7 +3,8 @@ import pulp
 import os
 
 # --- Configuration ---
-PROPHETIC_DB_PATH = 'fpl_master_database_prophetic.csv' # <-- The NEW source of truth
+DIR = 'gw3'
+PROPHETIC_DB_PATH = f'{DIR}/fpl_master_database_prophetic.csv' # <-- The NEW source of truth
 THRIFT_FACTOR = 0.001
 
 # --- CORE REUSABLE FUNCTIONS (Unchanged from scenarios) ---

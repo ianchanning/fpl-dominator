@@ -4,16 +4,17 @@ import os
 # --- Configuration ---
 # A dictionary mapping the player position to its corresponding CSV file.
 # This makes the script easily extendable if we ever get more data types.
+DIR = 'gw3'
 DATA_SOURCES = {
-    'GKP': 'goalkeepers.csv',
-    'DEF': 'defenders.csv',
-    'MID': 'midfielders.csv',
-    'FWD': 'forwards.csv'
+    'GKP': f'{DIR}/goalkeepers.csv',
+    'DEF': f'{DIR}/defenders.csv',
+    'MID': f'{DIR}/midfielders.csv',
+    'FWD': f'{DIR}/forwards.csv'
 }
 
 # The names of the output files we will create.
-MASTER_DB_RAW_PATH = 'fpl_master_database_raw.csv'
-MASTER_DB_ENRICHED_PATH = 'fpl_master_database_enriched.csv'
+MASTER_DB_RAW_PATH = f'{DIR}/fpl_master_database_raw.csv'
+MASTER_DB_ENRICHED_PATH = f'{DIR}/fpl_master_database_enriched.csv'
 
 # --- Core Functions ---
 

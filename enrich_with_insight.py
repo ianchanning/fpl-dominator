@@ -2,8 +2,9 @@ import pandas as pd
 import os
 
 # --- Configuration ---
-SOURCE_DB_PATH = 'fpl_master_database_enriched.csv'
-PROPHETIC_DB_PATH = 'fpl_master_database_prophetic.csv'
+DIR = 'gw3'
+SOURCE_DB_PATH = f'{DIR}/fpl_master_database_enriched.csv'
+PROPHETIC_DB_PATH = f'{DIR}/fpl_master_database_prophetic.csv'
 
 # --- The Pirate's Insight (π) ---
 # Here we codify our strategic assessment of player ceilings.
