@@ -2,9 +2,10 @@ import pandas as pd
 import os
 
 # --- Configuration ---
-PROPHETIC_DB_PATH = 'fpl_master_database_prophetic.csv'
-FIXTURE_DB_PATH = 'fixtures_gw4-gw8.csv'
-OMNISCIENT_DB_PATH = 'fpl_master_database_OMNISCIENT.csv'
+DIR = 'gw3'
+PROPHETIC_DB_PATH = f'{DIR}/fpl_master_database_prophetic.csv'
+FIXTURE_DB_PATH = f'{DIR}/fixtures.csv'
+OMNISCIENT_DB_PATH = f'{DIR}/fpl_master_database_OMNISCIENT.csv'
 
 # --- The Pirate's Rosetta Stone (π) ---
 # A crucial mapping to bridge the gap between our two data sources.
