@@ -1,0 +1,119 @@
+import pandas as pd
+import pulp
+import os
+import re
+
+# --- Configuration ---
+DIR = 'gw4'
+OMNISCIENT_DB_PATH = f'{DIR}/fpl_master_database_OMNISCIENT.csv'
+SET_PIECE_DB_PATH = 'set_pieces.csv' # <-- The NEW Fuel Source
+FINAL_FORM_DB_PATH = f'{DIR}/fpl_master_database_FINAL_v3.csv'
+THRIFT_FACTOR = 0.001
+SPP_SCORES = {
+    'Penalties': {'primary': 5.0, 'secondary': 2.5},
+    'Direct Free Kicks': {'primary': 2.5, 'secondary': 1.25},
+    'Corners & Indirect Free Kicks': {'primary': 1.5, 'secondary': 0.75}
+}
+
+def sanitize_name(name: str) -> str:
+    return re.sub(r'[\.\-\s]', '', name.lower())
+
+def enrich_with_set_pieces(players_df, set_piece_path, score_model):
+    print("[+] Beginning Set-Piece Potency (SPP) enrichment (v3 - Production)...")
+    if not os.path.exists(set_piece_path):
+        print(f"!!! CRITICAL FAILURE: Set-piece database not found at '{set_piece_path}'. Aborting enrichment.")
+        return players_df
+
+    set_pieces_df = pd.read_csv(set_piece_path)
+    players_df['SPP'] = 0.0
+    players_df['match_key'] = players_df['Surname'].apply(sanitize_name)
+    
+    # Iterate over the rows of the CSV, a much cleaner process
+    for _, row in set_pieces_df.iterrows():
+        club = row['Club']
+        duties = {
+            'Penalties': str(row['Penalties']).split(','),
+            'Direct Free Kicks': str(row['Direct Free Kicks']).split(','),
+            'Corners & Indirect Free Kicks': str(row['Corners & Indirect Free Kicks']).split(',')
+        }
+        
+        for duty_type, takers in duties.items():
+            for i, taker_name in enumerate(takers):
+                sanitized_taker = sanitize_name(taker_name.strip())
+                target_indices = players_df[
+                    (players_df['Team'] == club) &
+                    (players_df['match_key'].str.contains(sanitized_taker, na=False))
+                ].index
+                
+                if not target_indices.empty:
+                    score = score_model[duty_type]['primary'] if i == 0 else score_model[duty_type]['secondary']
+                    players_df.loc[target_indices, 'SPP'] += score
+
+    players_df.drop(columns=['match_key'], inplace=True)
+    print("[+] SPP enrichment complete.")
+    return players_df
+
+# The rest of the script is now a pure, beautiful engine.
+def forge_final_form_squad(data_path: str):
+    print("--- CHIMERA FINAL FORM ENGINE (V3 - PRODUCTION) ONLINE ---")
+    if not os.path.exists(data_path):
+        print(f"!!! CRITICAL FAILURE: Omniscient Database not found at '{data_path}'. Aborting.")
+        return
+
+    players = pd.read_csv(data_path)
+    players = enrich_with_set_pieces(players, SET_PIECE_DB_PATH, SPP_SCORES)
+    
+    players['Final_Score'] = ((players['PP'] + players['SPP']) / players['FDR_Horizon_5GW']).round(2)
+    players.to_csv(FINAL_FORM_DB_PATH, index=False)
+    print(f"[+] Final Form database (v3) forged at '{FINAL_FORM_DB_PATH}'.")
+
+    # The PuLP solver section is identical to the v2 script
+    # ... (PuLP logic to solve and print the squad) ...
+    # ... I will include it in full for a complete, runnable script ...
+    print("\n>>> LAUNCHING FINAL FORM SIMULATION (V3)...")
+    prob = pulp.LpProblem("FPL_Final_Form_v3", pulp.LpMaximize)
+    
+    squad_vars = pulp.LpVariable.dicts("in_squad", players.index, cat='Binary')
+    starter_vars = pulp.LpVariable.dicts("is_starter", players.index, cat='Binary')
+
+    starter_final_score = pulp.lpSum([players.loc[i, 'Final_Score'] * starter_vars[i] for i in players.index])
+    bench_cost_penalty = pulp.lpSum([(squad_vars[i] - starter_vars[i]) * players.loc[i, 'Price'] * THRIFT_FACTOR for i in players.index])
+    prob += starter_final_score - bench_cost_penalty, "Final_Form_Objective_v3"
+
+    prob += pulp.lpSum([players.loc[i, 'Price'] * squad_vars[i] for i in players.index]) <= 100.0, "Cost"
+    prob += pulp.lpSum([squad_vars[i] for i in players.index]) == 15, "SquadSize"
+    for pos, count in {'GKP': 2, 'DEF': 5, 'MID': 5, 'FWD': 3}.items():
+        prob += pulp.lpSum([squad_vars[i] for i in players.index if players.loc[i, 'Position'] == pos]) == count, f"Squad_{pos}"
+    for team in players['Team_TLA'].unique():
+        prob += pulp.lpSum([squad_vars[i] for i in players.index if players.loc[i, 'Team_TLA'] == team]) <= 3, f"Team_{team.replace(' ', '_')}"
+    prob += pulp.lpSum([starter_vars[i] for i in players.index]) == 11, "StarterSize"
+    prob += pulp.lpSum([starter_vars[i] for i in players.index if players.loc[i, 'Position'] == 'GKP']) == 1, "Starter_GKP"
+    prob += pulp.lpSum([starter_vars[i] for i in players.index if players.loc[i, 'Position'] == 'DEF']) >= 3, "Starter_DEF"
+    prob += pulp.lpSum([starter_vars[i] for i in players.index if players.loc[i, 'Position'] == 'FWD']) >= 1, "Starter_FWD"
+    for i in players.index: prob += starter_vars[i] <= squad_vars[i], f"Bridge_{i}"
+
+    prob.solve(pulp.PULP_CBC_CMD(msg=0))
+    status = pulp.LpStatus[prob.status]
+
+    if status == 'Optimal':
+        squad_indices = [i for i in players.index if squad_vars[i].varValue == 1]
+        starter_indices = [i for i in players.index if starter_vars[i].varValue == 1]
+        squad = players.loc[squad_indices]
+        starters = players.loc[starter_indices]
+        bench = squad.drop(starter_indices)
+        
+        print("\n" + "="*20 + " FINAL FORM SQUAD (V3) FORGED " + "="*20)
+        print("\n--- STARTING XI (Final Score Maximized) ---")
+        print(starters[['Surname', 'Team', 'Position', 'Price', 'Final_Score']].sort_values(by=['Position', 'Final_Score'], ascending=[True, False]).to_string(index=False))
+        print("\n--- BENCH (RUTHLESSLY Cost-Optimized) ---")
+        print(bench[['Surname', 'Team', 'Position', 'Price', 'Final_Score']].sort_values(by=['Position', 'Price']).to_string(index=False))
+        print("\n-------------------------------------------")
+        print(f"Total Squad Cost:          £{squad['Price'].sum():.1f}m")
+        print(f"Projected Starting Score:    {starters['Final_Score'].sum():.2f}")
+        print(f"Money in the Bank:         £{100.0 - squad['Price'].sum():.1f}m")
+        print("-------------------------------------------")
+    else:
+        print(f"\n!!! FAILURE: An optimal FINAL FORM solution could not be found. Status: {status}")
+
+if __name__ == "__main__":
+    forge_final_form_squad(OMNISCIENT_DB_PATH)
