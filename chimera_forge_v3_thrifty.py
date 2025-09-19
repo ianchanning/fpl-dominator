@@ -3,7 +3,7 @@ import pulp
 import os
 
 # --- Configuration ---
-DIR = 'gw3'
+DIR = 'gw4'
 ENRICHED_DB_PATH = f'{DIR}/fpl_master_database_enriched.csv'
 # The Cost Epsilon: A tiny penalty to encourage the cheapest bench as a tie-breaker.
 THRIFT_FACTOR = 0.001

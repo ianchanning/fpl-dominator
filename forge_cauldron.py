@@ -4,7 +4,7 @@ import os
 # --- Configuration ---
 # A dictionary mapping the player position to its corresponding CSV file.
 # This makes the script easily extendable if we ever get more data types.
-DIR = 'gw3'
+DIR = 'gw4'
 DATA_SOURCES = {
     'GKP': f'{DIR}/goalkeepers.csv',
     'DEF': f'{DIR}/defenders.csv',

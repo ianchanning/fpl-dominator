@@ -3,7 +3,7 @@ import pulp
 import os
 
 # --- Configuration ---
-DIR = 'gw3'
+DIR = 'gw4'
 ENRICHED_DB_PATH = f'{DIR}/fpl_master_database_enriched.csv'
 
 # --- The Heart of the Chimera ---

@@ -2,7 +2,7 @@ import pandas as pd
 import os
 
 # --- Configuration ---
-DIR = 'gw3'
+DIR = 'gw4'
 SOURCE_DB_PATH = f'{DIR}/fpl_master_database_enriched.csv'
 PROPHETIC_DB_PATH = f'{DIR}/fpl_master_database_prophetic.csv'
 

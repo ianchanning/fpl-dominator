@@ -25,7 +25,7 @@ The Oracle is omniscient, but it cannot see data that does not yet exist. Before
     > **ACTION:** Update these files with the latest **Price** and **Total Points (TP)** for all players. This is the historical record of what has been.
 
 - **Fixture Data CSV:**
-  - `fixtures_gwX-gwY.csv` (e.g., `fixtures_gw5-gw9.csv`)
+  - `fixtures.csv`
     > **ACTION:** Create a new file for the upcoming 5-Gameweek horizon. Update it with the new opponents, locations (Home/Away), and your assessed Fixture Difficulty Rating (FDR) based on the color-coding. This is the prophecy of what is to come.
 
 ### Step 2: The Forging (Automated Script Execution)

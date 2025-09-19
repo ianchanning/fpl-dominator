@@ -2,7 +2,7 @@ import pandas as pd
 import os
 
 # --- Configuration ---
-DIR = 'gw3'
+DIR = 'gw4'
 PROPHETIC_DB_PATH = f'{DIR}/fpl_master_database_prophetic.csv'
 FIXTURE_DB_PATH = f'{DIR}/fixtures.csv'
 OMNISCIENT_DB_PATH = f'{DIR}/fpl_master_database_OMNISCIENT.csv'
