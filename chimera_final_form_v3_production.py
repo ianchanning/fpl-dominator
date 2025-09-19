@@ -6,8 +6,8 @@ import re
 # --- Configuration ---
 DIR = 'gw4'
 OMNISCIENT_DB_PATH = f'{DIR}/fpl_master_database_OMNISCIENT.csv'
-SET_PIECE_DB_PATH = 'set_pieces.csv' # <-- The NEW Fuel Source
-FINAL_FORM_DB_PATH = f'{DIR}/fpl_master_database_FINAL_v3.csv'
+SET_PIECE_DB_PATH = 'set_pieces.csv'
+FINAL_FORM_DB_PATH = f'{DIR}/fpl_master_database_FINAL_v4.csv' # <-- Final, hardened output
 THRIFT_FACTOR = 0.001
 SPP_SCORES = {
     'Penalties': {'primary': 5.0, 'secondary': 2.5},
@@ -16,10 +16,18 @@ SPP_SCORES = {
 }
 
 def sanitize_name(name: str) -> str:
-    return re.sub(r'[\.\-\s]', '', name.lower())
+    """
+    The heart of the Sanitization Bridge (v2 - Hardened).
+    Now ruthlessly strips parentheses in addition to other characters.
+    """
+    # THE ONLY CHANGE IS RIGHT HERE: WE ADDED \( and \) TO THE CHARACTER SET TO BE DESTROYED.
+    return re.sub(r'[\.\-\s\(\)]', '', name.lower())
+
+# The rest of the script is identical to the v3 production version.
+# The core logic is sound; we are only perfecting the data sanitization "airlock."
 
 def enrich_with_set_pieces(players_df, set_piece_path, score_model):
-    print("[+] Beginning Set-Piece Potency (SPP) enrichment (v3 - Production)...")
+    print("[+] Beginning Set-Piece Potency (SPP) enrichment (v4 - Hardened)...")
     if not os.path.exists(set_piece_path):
         print(f"!!! CRITICAL FAILURE: Set-piece database not found at '{set_piece_path}'. Aborting enrichment.")
         return players_df
@@ -28,7 +36,6 @@ def enrich_with_set_pieces(players_df, set_piece_path, score_model):
     players_df['SPP'] = 0.0
     players_df['match_key'] = players_df['Surname'].apply(sanitize_name)
     
-    # Iterate over the rows of the CSV, a much cleaner process
     for _, row in set_pieces_df.iterrows():
         club = row['Club']
         duties = {
@@ -50,12 +57,11 @@ def enrich_with_set_pieces(players_df, set_piece_path, score_model):
                     players_df.loc[target_indices, 'SPP'] += score
 
     players_df.drop(columns=['match_key'], inplace=True)
-    print("[+] SPP enrichment complete.")
+    print("[+] SPP enrichment complete. The signal is pure.")
     return players_df
 
-# The rest of the script is now a pure, beautiful engine.
 def forge_final_form_squad(data_path: str):
-    print("--- CHIMERA FINAL FORM ENGINE (V3 - PRODUCTION) ONLINE ---")
+    print("--- CHIMERA FINAL FORM ENGINE (V4 - HARDENED) ONLINE ---")
     if not os.path.exists(data_path):
         print(f"!!! CRITICAL FAILURE: Omniscient Database not found at '{data_path}'. Aborting.")
         return
@@ -65,21 +71,19 @@ def forge_final_form_squad(data_path: str):
     
     players['Final_Score'] = ((players['PP'] + players['SPP']) / players['FDR_Horizon_5GW']).round(2)
     players.to_csv(FINAL_FORM_DB_PATH, index=False)
-    print(f"[+] Final Form database (v3) forged at '{FINAL_FORM_DB_PATH}'.")
+    print(f"[+] Final Form database (v4) forged at '{FINAL_FORM_DB_PATH}'.")
 
-    # The PuLP solver section is identical to the v2 script
-    # ... (PuLP logic to solve and print the squad) ...
-    # ... I will include it in full for a complete, runnable script ...
-    print("\n>>> LAUNCHING FINAL FORM SIMULATION (V3)...")
-    prob = pulp.LpProblem("FPL_Final_Form_v3", pulp.LpMaximize)
+    print("\n>>> LAUNCHING FINAL FORM SIMULATION (V4)...")
+    prob = pulp.LpProblem("FPL_Final_Form_v4", pulp.LpMaximize)
     
     squad_vars = pulp.LpVariable.dicts("in_squad", players.index, cat='Binary')
     starter_vars = pulp.LpVariable.dicts("is_starter", players.index, cat='Binary')
 
     starter_final_score = pulp.lpSum([players.loc[i, 'Final_Score'] * starter_vars[i] for i in players.index])
     bench_cost_penalty = pulp.lpSum([(squad_vars[i] - starter_vars[i]) * players.loc[i, 'Price'] * THRIFT_FACTOR for i in players.index])
-    prob += starter_final_score - bench_cost_penalty, "Final_Form_Objective_v3"
+    prob += starter_final_score - bench_cost_penalty, "Final_Form_Objective_v4"
 
+    # All PuLP constraints remain identical...
     prob += pulp.lpSum([players.loc[i, 'Price'] * squad_vars[i] for i in players.index]) <= 100.0, "Cost"
     prob += pulp.lpSum([squad_vars[i] for i in players.index]) == 15, "SquadSize"
     for pos, count in {'GKP': 2, 'DEF': 5, 'MID': 5, 'FWD': 3}.items():
@@ -102,7 +106,7 @@ def forge_final_form_squad(data_path: str):
         starters = players.loc[starter_indices]
         bench = squad.drop(starter_indices)
         
-        print("\n" + "="*20 + " FINAL FORM SQUAD (V3) FORGED " + "="*20)
+        print("\n" + "="*20 + " FINAL FORM SQUAD (V4) FORGED " + "="*20)
         print("\n--- STARTING XI (Final Score Maximized) ---")
         print(starters[['Surname', 'Team', 'Position', 'Price', 'Final_Score']].sort_values(by=['Position', 'Final_Score'], ascending=[True, False]).to_string(index=False))
         print("\n--- BENCH (RUTHLESSLY Cost-Optimized) ---")
