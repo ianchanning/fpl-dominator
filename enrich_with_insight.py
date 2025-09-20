@@ -4,6 +4,11 @@ import sys
 
 # --- The Heart of the Prophet ---
 def enrich_with_insight(gameweek_dir: str):
+    """
+    Loads the enriched database and injects our strategic insights, creating
+    the final, prophetic dataset for the Chimera Prophet to consume.
+    """
+    print("--- [2/4] PROPHETIC ENRICHMENT PROTOCOL ONLINE ---")
 
     # --- Configuration ---
     SOURCE_DB_PATH = f'{gameweek_dir}/fpl_master_database_enriched.csv'
@@ -25,11 +30,6 @@ def enrich_with_insight(gameweek_dir: str):
         }
         # Tier 3 (Mortals) is everyone else, with a default coefficient of 1.0.
     }
-    """
-    Loads the enriched database and injects our strategic insights, creating
-    the final, prophetic dataset for the Chimera Prophet to consume.
-    """
-    print("--- PROPHETIC ENRICHMENT PROTOCOL ONLINE ---")
     if not os.path.exists(SOURCE_DB_PATH):
         print(f"!!! CRITICAL FAILURE: Enriched database not found at '{SOURCE_DB_PATH}'. Aborting.")
         return False

@@ -64,7 +64,7 @@ def enrich_with_set_pieces(players_df, set_piece_path, score_model):
     return players_df
 
 def forge_final_form_squad(gameweek_dir: str):
-    print("--- CHIMERA FINAL FORM ENGINE (V5 - ROSETTA) ONLINE ---")
+    print("--- [4/4] CHIMERA FINAL FORM ENGINE (V5 - PRODUCTION) ONLINE ---")
 
     # --- Configuration ---
     OMNISCIENT_DB_PATH = f'{gameweek_dir}/fpl_master_database_OMNISCIENT.csv'

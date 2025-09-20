@@ -10,7 +10,7 @@ def perform_grand_synthesis(gameweek_dir: str):
     Merges the Prophetic player database with the Temporal fixture database,
     creating the ultimate Omniscient dataset for our final Chimera.
     """
-    print("--- GRAND SYNTHESIS PROTOCOL ONLINE ---")
+    print("--- [3/4] GRAND SYNTHESIS PROTOCOL ONLINE ---")
 
     # --- Configuration ---
     PROPHETIC_DB_PATH = f'{gameweek_dir}/fpl_master_database_prophetic.csv'
