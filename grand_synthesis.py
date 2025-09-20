@@ -2,45 +2,40 @@ import pandas as pd
 import os
 import sys
 
-if len(sys.argv) != 2:
-    print(">>> ERROR: A gameweek directory must be provided.")
-    print(">>> USAGE: python chimera_final_form_v5_rosetta.py gw4")
-    sys.exit(1)
-
-# --- Configuration ---
-GAMEWEEK_DIR = sys.argv[1]
-PROPHETIC_DB_PATH = f'{GAMEWEEK_DIR}/fpl_master_database_prophetic.csv'
-FIXTURE_DB_PATH = f'{GAMEWEEK_DIR}/fixtures.csv'
-OMNISCIENT_DB_PATH = f'{GAMEWEEK_DIR}/fpl_master_database_OMNISCIENT.csv'
-
-# --- The Pirate's Rosetta Stone (π) ---
-# A crucial mapping to bridge the gap between our two data sources.
-TEAM_NAME_TO_TLA = {
-    'Arsenal': 'ARS', 'Aston Villa': 'AVL', 'Brighton': 'BHA',
-    'Bournemouth': 'BOU', 'Brentford': 'BRE', 'Burnley': 'BUR',
-    'Chelsea': 'CHE', 'Crystal Palace': 'CRY', 'Everton': 'EVE',
-    'Fulham': 'FUL', 'Leeds': 'LEE', 'Liverpool': 'LIV',
-    'Man City': 'MCI', 'Man Utd': 'MUN', 'Newcastle': 'NEW',
-    'Nott\'m Forest': 'NFO', 'Sunderland': 'SUN', 'Spurs': 'TOT',
-    'West Ham': 'WHU', 'Wolves': 'WOL'
-}
 
 # --- The Heart of the Oracle ---
 
-def perform_grand_synthesis(player_path: str, fixture_path: str, output_path: str):
+def perform_grand_synthesis(gameweek_dir: str):
     """
     Merges the Prophetic player database with the Temporal fixture database,
     creating the ultimate Omniscient dataset for our final Chimera.
     """
     print("--- GRAND SYNTHESIS PROTOCOL ONLINE ---")
+
+    # --- Configuration ---
+    PROPHETIC_DB_PATH = f'{gameweek_dir}/fpl_master_database_prophetic.csv'
+    FIXTURE_DB_PATH = f'{gameweek_dir}/fixtures.csv'
+    OMNISCIENT_DB_PATH = f'{gameweek_dir}/fpl_master_database_OMNISCIENT.csv'
+
+    # --- The Pirate's Rosetta Stone (π) ---
+    # A crucial mapping to bridge the gap between our two data sources.
+    TEAM_NAME_TO_TLA = {
+        'Arsenal': 'ARS', 'Aston Villa': 'AVL', 'Brighton': 'BHA',
+        'Bournemouth': 'BOU', 'Brentford': 'BRE', 'Burnley': 'BUR',
+        'Chelsea': 'CHE', 'Crystal Palace': 'CRY', 'Everton': 'EVE',
+        'Fulham': 'FUL', 'Leeds': 'LEE', 'Liverpool': 'LIV',
+        'Man City': 'MCI', 'Man Utd': 'MUN', 'Newcastle': 'NEW',
+        'Nott\'m Forest': 'NFO', 'Sunderland': 'SUN', 'Spurs': 'TOT',
+        'West Ham': 'WHU', 'Wolves': 'WOL'
+    }
     
     # 1. Load the Sacred Artifacts
-    if not all(os.path.exists(p) for p in [player_path, fixture_path]):
+    if not all(os.path.exists(p) for p in [PROPHETIC_DB_PATH, FIXTURE_DB_PATH]):
         print("!!! CRITICAL FAILURE: One or more source databases not found. Aborting.")
         return
 
-    players_df = pd.read_csv(player_path)
-    fixtures_df = pd.read_csv(fixture_path)
+    players_df = pd.read_csv(PROPHETIC_DB_PATH)
+    fixtures_df = pd.read_csv(FIXTURE_DB_PATH)
     print("[+] Both Prophetic and Fixture databases have been loaded.")
 
     # 2. Prepare the Player Data for Merging
@@ -72,11 +67,17 @@ def perform_grand_synthesis(player_path: str, fixture_path: str, output_path: st
 
     # 7. Save the Omniscient Database
     try:
-        omniscient_df.to_csv(output_path, index=False)
-        print(f"\n--- SUCCESS: The OMNISCIENT Database has been forged at '{output_path}' ---")
+        omniscient_df.to_csv(OMNISCIENT_DB_PATH, index=False)
+        print(f"\n--- SUCCESS: The OMNISCIENT Database has been forged at '{OMNISCIENT_DB_PATH}' ---")
     except Exception as e:
         print(f"!!! CRITICAL FAILURE: Could not save the omniscient database. Error: {e}")
 
 # --- Main Execution Block ---
 if __name__ == "__main__":
-    perform_grand_synthesis(PROPHETIC_DB_PATH, FIXTURE_DB_PATH, OMNISCIENT_DB_PATH)
+    if len(sys.argv) != 2:
+        print(">>> ERROR: A gameweek directory must be provided.")
+        print(">>> USAGE: python chimera_final_form_v5_rosetta.py gw4")
+        sys.exit(1)
+
+    gameweek_directory = sys.argv[1]
+    perform_grand_synthesis(gameweek_directory)

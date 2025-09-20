@@ -4,23 +4,6 @@ import os
 import re
 import sys
 
-if len(sys.argv) != 2:
-    print(">>> ERROR: A gameweek directory must be provided.")
-    print(">>> USAGE: python chimera_final_form_v5_rosetta.py gw4")
-    sys.exit(1)
-
-# --- Configuration ---
-GAMEWEEK_DIR = sys.argv[1]
-OMNISCIENT_DB_PATH = f'{GAMEWEEK_DIR}/fpl_master_database_OMNISCIENT.csv'
-SET_PIECE_DB_PATH = 'set_pieces.csv'
-FINAL_FORM_DB_PATH = f'{GAMEWEEK_DIR}/fpl_master_database_FINAL_v5.csv'
-THRIFT_FACTOR = 0.001
-SPP_SCORES = {
-    'Penalties': {'primary': 5.0, 'secondary': 2.5},
-    'Direct Free Kicks': {'primary': 2.5, 'secondary': 1.25},
-    'Corners & Indirect Free Kicks': {'primary': 1.5, 'secondary': 0.75}
-}
-
 # --- The Rosetta Stone (π): The key to inter-dimensional communication ---
 # Forged directly from the findings of your Reality Audit.
 TEAM_SHORT_TO_FULL = {
@@ -80,13 +63,25 @@ def enrich_with_set_pieces(players_df, set_piece_path, score_model):
     print("[+] SPP enrichment complete. Realities have been aligned.")
     return players_df
 
-def forge_final_form_squad(data_path: str):
+def forge_final_form_squad(gameweek_dir: str):
     print("--- CHIMERA FINAL FORM ENGINE (V5 - ROSETTA) ONLINE ---")
-    if not os.path.exists(data_path):
-        print(f"!!! CRITICAL FAILURE: Omniscient Database not found at '{data_path}'. Aborting.")
+
+    # --- Configuration ---
+    OMNISCIENT_DB_PATH = f'{gameweek_dir}/fpl_master_database_OMNISCIENT.csv'
+    SET_PIECE_DB_PATH = 'set_pieces.csv'
+    FINAL_FORM_DB_PATH = f'{gameweek_dir}/fpl_master_database_FINAL_v5.csv'
+    THRIFT_FACTOR = 0.001
+    SPP_SCORES = {
+        'Penalties': {'primary': 5.0, 'secondary': 2.5},
+        'Direct Free Kicks': {'primary': 2.5, 'secondary': 1.25},
+        'Corners & Indirect Free Kicks': {'primary': 1.5, 'secondary': 0.75}
+    }
+
+    if not os.path.exists(OMNISCIENT_DB_PATH):
+        print(f"!!! CRITICAL FAILURE: Omniscient Database not found at '{OMNISCIENT_DB_PATH}'. Aborting.")
         return
 
-    players = pd.read_csv(data_path)
+    players = pd.read_csv(OMNISCIENT_DB_PATH)
     players = enrich_with_set_pieces(players, SET_PIECE_DB_PATH, SPP_SCORES)
     
     players['Final_Score'] = ((players['PP'] + players['SPP']) / players['FDR_Horizon_5GW']).round(2)
@@ -140,4 +135,10 @@ def forge_final_form_squad(data_path: str):
         print(f"\n!!! FAILURE: An optimal FINAL FORM solution could not be found. Status: {status}")
 
 if __name__ == "__main__":
-    forge_final_form_squad(OMNISCIENT_DB_PATH)
+    if len(sys.argv) != 2:
+        print(">>> ERROR: A gameweek directory must be provided.")
+        print(">>> USAGE: python chimera_final_form_v5_production.py gw4")
+        sys.exit(1)
+
+    gameweek_directory = sys.argv[1]
+    forge_final_form_squad(gameweek_directory)

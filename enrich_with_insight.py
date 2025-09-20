@@ -2,47 +2,40 @@ import pandas as pd
 import os
 import sys
 
-if len(sys.argv) != 2:
-    print(">>> ERROR: A gameweek directory must be provided.")
-    print(">>> USAGE: python chimera_final_form_v5_rosetta.py gw4")
-    sys.exit(1)
-
-# --- Configuration ---
-GAMEWEEK_DIR = sys.argv[1]
-SOURCE_DB_PATH = f'{GAMEWEEK_DIR}/fpl_master_database_enriched.csv'
-PROPHETIC_DB_PATH = f'{GAMEWEEK_DIR}/fpl_master_database_prophetic.csv'
-
-# --- The Pirate's Insight (π) ---
-# Here we codify our strategic assessment of player ceilings.
-# This is where we inject our soul into the machine.
-CAPTAINCY_TIERS = {
-    # Tier 1: The Gods of Chaos. Their true value is far beyond their base points.
-    "Gods": {
-        "players": ['Haaland', 'M.Salah'],
-        "coefficient": 1.5
-    },
-    # Tier 2: The Demigods. Reliable, high-ceiling assets who are strong captaincy shouts.
-    "Demigods": {
-        "players": ['João Pedro', 'Ekitiké', 'Enzo', 'Calafiori', 'Chalobah'],
-        "coefficient": 1.2
-    }
-    # Tier 3 (Mortals) is everyone else, with a default coefficient of 1.0.
-}
-
 # --- The Heart of the Prophet ---
+def enrich_with_insight(gameweek_dir: str):
 
-def imbue_with_prophecy(source_path: str, output_path: str):
+    # --- Configuration ---
+    SOURCE_DB_PATH = f'{gameweek_dir}/fpl_master_database_enriched.csv'
+    PROPHETIC_DB_PATH = f'{gameweek_dir}/fpl_master_database_prophetic.csv'
+
+    # --- The Pirate's Insight (π) ---
+    # Here we codify our strategic assessment of player ceilings.
+    # This is where we inject our soul into the machine.
+    CAPTAINCY_TIERS = {
+        # Tier 1: The Gods of Chaos. Their true value is far beyond their base points.
+        "Gods": {
+            "players": ['Haaland', 'M.Salah'],
+            "coefficient": 1.5
+        },
+        # Tier 2: The Demigods. Reliable, high-ceiling assets who are strong captaincy shouts.
+        "Demigods": {
+            "players": ['João Pedro', 'Ekitiké', 'Enzo', 'Calafiori', 'Chalobah'],
+            "coefficient": 1.2
+        }
+        # Tier 3 (Mortals) is everyone else, with a default coefficient of 1.0.
+    }
     """
     Loads the enriched database and injects our strategic insights, creating
     the final, prophetic dataset for the Chimera Prophet to consume.
     """
     print("--- PROPHETIC ENRICHMENT PROTOCOL ONLINE ---")
-    if not os.path.exists(source_path):
-        print(f"!!! CRITICAL FAILURE: Enriched database not found at '{source_path}'. Aborting.")
+    if not os.path.exists(SOURCE_DB_PATH):
+        print(f"!!! CRITICAL FAILURE: Enriched database not found at '{SOURCE_DB_PATH}'. Aborting.")
         return
 
     try:
-        players = pd.read_csv(source_path)
+        players = pd.read_csv(SOURCE_DB_PATH)
         print(f"[+] Intelligence loaded. Preparing to imbue {len(players)} players with strategic insight.")
     except Exception as e:
         print(f"!!! CRITICAL FAILURE: Could not read the database. Error: {e}")
@@ -75,12 +68,20 @@ def imbue_with_prophecy(source_path: str, output_path: str):
 
     # 5. Save the Prophetic Database
     try:
-        players.to_csv(output_path, index=False)
-        print(f"\n--- SUCCESS: The Prophetic Database has been forged at '{output_path}' ---")
+        players.to_csv(PROPHETIC_DB_PATH, index=False)
+        print(f"\n--- SUCCESS: The Prophetic Database has been forged at '{PROPHETIC_DB_PATH}' ---")
     except Exception as e:
         print(f"!!! CRITICAL FAILURE: Could not save the prophetic database. Error: {e}")
 
 # --- Main Execution Block ---
 
+# This block now only runs if you execute "python enrich_with_insight.py gw5" directly.
+# It allows the script to still be used as a standalone tool.
 if __name__ == "__main__":
-    imbue_with_prophecy(SOURCE_DB_PATH, PROPHETIC_DB_PATH)
+    if len(sys.argv) != 2:
+        print(">>> ERROR: A gameweek directory must be provided.")
+        print(">>> USAGE: python enrich_with_insight.py gw4")
+        sys.exit(1)
+
+    gameweek_directory = sys.argv[1]
+    enrich_with_insight(gameweek_directory)
