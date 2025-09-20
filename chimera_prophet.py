@@ -1,10 +1,16 @@
 import pandas as pd
 import pulp
 import os
+import sys
+
+if len(sys.argv) != 2:
+    print(">>> ERROR: A gameweek directory must be provided.")
+    print(">>> USAGE: python chimera_final_form_v5_rosetta.py gw4")
+    sys.exit(1)
 
 # --- Configuration ---
-DIR = 'gw4'
-PROPHETIC_DB_PATH = f'{DIR}/fpl_master_database_prophetic.csv' # <-- The NEW source of truth
+GAMEWEEK_DIR = sys.argv[1]
+PROPHETIC_DB_PATH = f'{GAMEWEEK_DIR}/fpl_master_database_prophetic.csv' # <-- The NEW source of truth
 THRIFT_FACTOR = 0.001
 
 # --- CORE REUSABLE FUNCTIONS (Unchanged from scenarios) ---

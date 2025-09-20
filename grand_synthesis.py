@@ -1,11 +1,17 @@
 import pandas as pd
 import os
+import sys
+
+if len(sys.argv) != 2:
+    print(">>> ERROR: A gameweek directory must be provided.")
+    print(">>> USAGE: python chimera_final_form_v5_rosetta.py gw4")
+    sys.exit(1)
 
 # --- Configuration ---
-DIR = 'gw4'
-PROPHETIC_DB_PATH = f'{DIR}/fpl_master_database_prophetic.csv'
-FIXTURE_DB_PATH = f'{DIR}/fixtures.csv'
-OMNISCIENT_DB_PATH = f'{DIR}/fpl_master_database_OMNISCIENT.csv'
+GAMEWEEK_DIR = sys.argv[1]
+PROPHETIC_DB_PATH = f'{GAMEWEEK_DIR}/fpl_master_database_prophetic.csv'
+FIXTURE_DB_PATH = f'{GAMEWEEK_DIR}/fixtures.csv'
+OMNISCIENT_DB_PATH = f'{GAMEWEEK_DIR}/fpl_master_database_OMNISCIENT.csv'
 
 # --- The Pirate's Rosetta Stone (π) ---
 # A crucial mapping to bridge the gap between our two data sources.

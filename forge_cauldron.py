@@ -1,20 +1,26 @@
 import pandas as pd
 import os
+import sys
+
+if len(sys.argv) != 2:
+    print(">>> ERROR: A gameweek directory must be provided.")
+    print(">>> USAGE: python chimera_final_form_v5_rosetta.py gw4")
+    sys.exit(1)
 
 # --- Configuration ---
 # A dictionary mapping the player position to its corresponding CSV file.
 # This makes the script easily extendable if we ever get more data types.
-DIR = 'gw4'
+GAMEWEEK_DIR = sys.argv[1]
 DATA_SOURCES = {
-    'GKP': f'{DIR}/goalkeepers.csv',
-    'DEF': f'{DIR}/defenders.csv',
-    'MID': f'{DIR}/midfielders.csv',
-    'FWD': f'{DIR}/forwards.csv'
+    'GKP': f'{GAMEWEEK_DIR}/goalkeepers.csv',
+    'DEF': f'{GAMEWEEK_DIR}/defenders.csv',
+    'MID': f'{GAMEWEEK_DIR}/midfielders.csv',
+    'FWD': f'{GAMEWEEK_DIR}/forwards.csv'
 }
 
 # The names of the output files we will create.
-MASTER_DB_RAW_PATH = f'{DIR}/fpl_master_database_raw.csv'
-MASTER_DB_ENRICHED_PATH = f'{DIR}/fpl_master_database_enriched.csv'
+MASTER_DB_RAW_PATH = f'{GAMEWEEK_DIR}/fpl_master_database_raw.csv'
+MASTER_DB_ENRICHED_PATH = f'{GAMEWEEK_DIR}/fpl_master_database_enriched.csv'
 
 # --- Core Functions ---
 

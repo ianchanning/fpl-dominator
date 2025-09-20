@@ -13,7 +13,7 @@ if len(sys.argv) != 2:
 GAMEWEEK_DIR = sys.argv[1]
 OMNISCIENT_DB_PATH = f'{GAMEWEEK_DIR}/fpl_master_database_OMNISCIENT.csv'
 SET_PIECE_DB_PATH = 'set_pieces.csv'
-FINAL_FORM_DB_PATH = f'{GAMEWEEK_DIR}/fpl_master_database_FINAL_v4.csv' # <-- Final, hardened output
+FINAL_FORM_DB_PATH = f'{GAMEWEEK_DIR}/fpl_master_database_FINAL_v5.csv'
 THRIFT_FACTOR = 0.001
 SPP_SCORES = {
     'Penalties': {'primary': 5.0, 'secondary': 2.5},
@@ -21,19 +21,27 @@ SPP_SCORES = {
     'Corners & Indirect Free Kicks': {'primary': 1.5, 'secondary': 0.75}
 }
 
+# --- The Rosetta Stone (π): The key to inter-dimensional communication ---
+# Forged directly from the findings of your Reality Audit.
+TEAM_SHORT_TO_FULL = {
+    'Spurs': 'Tottenham Hotspur', 'Man City': 'Manchester City',
+    'Man Utd': 'Manchester United', 'Newcastle': 'Newcastle United',
+    'Nott\'m Forest': 'Nottingham Forest', 'West Ham': 'West Ham United',
+    'Wolves': 'Wolverhampton Wanderers', 'Leeds': 'Leeds United',
+    'Brighton': 'Brighton and Hove Albion',
+    # Adding the ones that already match for a complete, robust mapping
+    'Arsenal': 'Arsenal', 'Chelsea': 'Chelsea', 'Bournemouth': 'Bournemouth',
+    'Everton': 'Everton', 'Liverpool': 'Liverpool', 'Burnley': 'Burnley',
+    'Sunderland': 'Sunderland', 'Fulham': 'Fulham', 'Crystal Palace': 'Crystal Palace',
+    'Brentford': 'Brentford', 'Aston Villa': 'Aston Villa'
+}
+
 def sanitize_name(name: str) -> str:
-    """
-    The heart of the Sanitization Bridge (v2 - Hardened).
-    Now ruthlessly strips parentheses in addition to other characters.
-    """
-    # THE ONLY CHANGE IS RIGHT HERE: WE ADDED \( and \) TO THE CHARACTER SET TO BE DESTROYED.
+    """The heart of the Sanitization Bridge (v2 - Hardened)."""
     return re.sub(r'[\.\-\s\(\)]', '', name.lower())
 
-# The rest of the script is identical to the v3 production version.
-# The core logic is sound; we are only perfecting the data sanitization "airlock."
-
 def enrich_with_set_pieces(players_df, set_piece_path, score_model):
-    print("[+] Beginning Set-Piece Potency (SPP) enrichment (v4 - Hardened)...")
+    print("[+] Beginning Set-Piece Potency (SPP) enrichment (v5 - Rosetta Protocol)...")
     if not os.path.exists(set_piece_path):
         print(f"!!! CRITICAL FAILURE: Set-piece database not found at '{set_piece_path}'. Aborting enrichment.")
         return players_df
@@ -42,8 +50,11 @@ def enrich_with_set_pieces(players_df, set_piece_path, score_model):
     players_df['SPP'] = 0.0
     players_df['match_key'] = players_df['Surname'].apply(sanitize_name)
     
+    # THE CRITICAL STEP: Use the Rosetta Stone to create a new column for a perfect join.
+    players_df['Team_Full_For_Join'] = players_df['Team'].map(TEAM_SHORT_TO_FULL)
+
     for _, row in set_pieces_df.iterrows():
-        club = row['Club']
+        club_full_name = row['Club']
         duties = {
             'Penalties': str(row['Penalties']).split(','),
             'Direct Free Kicks': str(row['Direct Free Kicks']).split(','),
@@ -53,8 +64,10 @@ def enrich_with_set_pieces(players_df, set_piece_path, score_model):
         for duty_type, takers in duties.items():
             for i, taker_name in enumerate(takers):
                 sanitized_taker = sanitize_name(taker_name.strip())
+                
+                # THE FIX: We now match on the new, perfect, translated full name column.
                 target_indices = players_df[
-                    (players_df['Team'] == club) &
+                    (players_df['Team_Full_For_Join'] == club_full_name) &
                     (players_df['match_key'].str.contains(sanitized_taker, na=False))
                 ].index
                 
@@ -62,12 +75,13 @@ def enrich_with_set_pieces(players_df, set_piece_path, score_model):
                     score = score_model[duty_type]['primary'] if i == 0 else score_model[duty_type]['secondary']
                     players_df.loc[target_indices, 'SPP'] += score
 
-    players_df.drop(columns=['match_key'], inplace=True)
-    print("[+] SPP enrichment complete. The signal is pure.")
+    # Clean up our temporary join columns
+    players_df.drop(columns=['match_key', 'Team_Full_For_Join'], inplace=True)
+    print("[+] SPP enrichment complete. Realities have been aligned.")
     return players_df
 
 def forge_final_form_squad(data_path: str):
-    print("--- CHIMERA FINAL FORM ENGINE (V4 - HARDENED) ONLINE ---")
+    print("--- CHIMERA FINAL FORM ENGINE (V5 - ROSETTA) ONLINE ---")
     if not os.path.exists(data_path):
         print(f"!!! CRITICAL FAILURE: Omniscient Database not found at '{data_path}'. Aborting.")
         return
@@ -77,19 +91,19 @@ def forge_final_form_squad(data_path: str):
     
     players['Final_Score'] = ((players['PP'] + players['SPP']) / players['FDR_Horizon_5GW']).round(2)
     players.to_csv(FINAL_FORM_DB_PATH, index=False)
-    print(f"[+] Final Form database (v4) forged at '{FINAL_FORM_DB_PATH}'.")
+    print(f"[+] Final Form database (v5) forged at '{FINAL_FORM_DB_PATH}'.")
 
-    print("\n>>> LAUNCHING FINAL FORM SIMULATION (V4)...")
-    prob = pulp.LpProblem("FPL_Final_Form_v4", pulp.LpMaximize)
+    print("\n>>> LAUNCHING FINAL FORM SIMULATION (V5)...")
+    prob = pulp.LpProblem("FPL_Final_Form_v5", pulp.LpMaximize)
     
+    # ... (The entire PuLP section is identical to v4, as the logic is now perfect) ...
     squad_vars = pulp.LpVariable.dicts("in_squad", players.index, cat='Binary')
     starter_vars = pulp.LpVariable.dicts("is_starter", players.index, cat='Binary')
 
     starter_final_score = pulp.lpSum([players.loc[i, 'Final_Score'] * starter_vars[i] for i in players.index])
     bench_cost_penalty = pulp.lpSum([(squad_vars[i] - starter_vars[i]) * players.loc[i, 'Price'] * THRIFT_FACTOR for i in players.index])
-    prob += starter_final_score - bench_cost_penalty, "Final_Form_Objective_v4"
+    prob += starter_final_score - bench_cost_penalty, "Final_Form_Objective_v5"
 
-    # All PuLP constraints remain identical...
     prob += pulp.lpSum([players.loc[i, 'Price'] * squad_vars[i] for i in players.index]) <= 100.0, "Cost"
     prob += pulp.lpSum([squad_vars[i] for i in players.index]) == 15, "SquadSize"
     for pos, count in {'GKP': 2, 'DEF': 5, 'MID': 5, 'FWD': 3}.items():
@@ -112,7 +126,7 @@ def forge_final_form_squad(data_path: str):
         starters = players.loc[starter_indices]
         bench = squad.drop(starter_indices)
         
-        print("\n" + "="*20 + " FINAL FORM SQUAD (V4) FORGED " + "="*20)
+        print("\n" + "="*20 + " FINAL FORM SQUAD (V5) FORGED " + "="*20)
         print("\n--- STARTING XI (Final Score Maximized) ---")
         print(starters[['Surname', 'Team', 'Position', 'Price', 'Final_Score']].sort_values(by=['Position', 'Final_Score'], ascending=[True, False]).to_string(index=False))
         print("\n--- BENCH (RUTHLESSLY Cost-Optimized) ---")
