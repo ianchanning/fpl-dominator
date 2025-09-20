@@ -32,14 +32,14 @@ def enrich_with_insight(gameweek_dir: str):
     print("--- PROPHETIC ENRICHMENT PROTOCOL ONLINE ---")
     if not os.path.exists(SOURCE_DB_PATH):
         print(f"!!! CRITICAL FAILURE: Enriched database not found at '{SOURCE_DB_PATH}'. Aborting.")
-        return
+        return False
 
     try:
         players = pd.read_csv(SOURCE_DB_PATH)
         print(f"[+] Intelligence loaded. Preparing to imbue {len(players)} players with strategic insight.")
     except Exception as e:
         print(f"!!! CRITICAL FAILURE: Could not read the database. Error: {e}")
-        return
+        return False
 
     # 1. Create the 'Captaincy_Coef' column, defaulting all players to "Mortal"
     players['Captaincy_Coef'] = 1.0
@@ -70,8 +70,11 @@ def enrich_with_insight(gameweek_dir: str):
     try:
         players.to_csv(PROPHETIC_DB_PATH, index=False)
         print(f"\n--- SUCCESS: The Prophetic Database has been forged at '{PROPHETIC_DB_PATH}' ---")
+        return True
     except Exception as e:
         print(f"!!! CRITICAL FAILURE: Could not save the prophetic database. Error: {e}")
+        return False
+
 
 # --- Main Execution Block ---
 

@@ -32,7 +32,7 @@ def perform_grand_synthesis(gameweek_dir: str):
     # 1. Load the Sacred Artifacts
     if not all(os.path.exists(p) for p in [PROPHETIC_DB_PATH, FIXTURE_DB_PATH]):
         print("!!! CRITICAL FAILURE: One or more source databases not found. Aborting.")
-        return
+        return False
 
     players_df = pd.read_csv(PROPHETIC_DB_PATH)
     fixtures_df = pd.read_csv(FIXTURE_DB_PATH)
@@ -69,8 +69,10 @@ def perform_grand_synthesis(gameweek_dir: str):
     try:
         omniscient_df.to_csv(OMNISCIENT_DB_PATH, index=False)
         print(f"\n--- SUCCESS: The OMNISCIENT Database has been forged at '{OMNISCIENT_DB_PATH}' ---")
+        return True
     except Exception as e:
         print(f"!!! CRITICAL FAILURE: Could not save the omniscient database. Error: {e}")
+        return False
 
 # --- Main Execution Block ---
 if __name__ == "__main__":

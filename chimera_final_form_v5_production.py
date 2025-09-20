@@ -79,7 +79,7 @@ def forge_final_form_squad(gameweek_dir: str):
 
     if not os.path.exists(OMNISCIENT_DB_PATH):
         print(f"!!! CRITICAL FAILURE: Omniscient Database not found at '{OMNISCIENT_DB_PATH}'. Aborting.")
-        return
+        return False
 
     players = pd.read_csv(OMNISCIENT_DB_PATH)
     players = enrich_with_set_pieces(players, SET_PIECE_DB_PATH, SPP_SCORES)
@@ -131,8 +131,10 @@ def forge_final_form_squad(gameweek_dir: str):
         print(f"Projected Starting Score:    {starters['Final_Score'].sum():.2f}")
         print(f"Money in the Bank:         £{100.0 - squad['Price'].sum():.1f}m")
         print("-------------------------------------------")
+        return True
     else:
         print(f"\n!!! FAILURE: An optimal FINAL FORM solution could not be found. Status: {status}")
+        return False
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
