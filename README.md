@@ -79,3 +79,76 @@ A breakdown of the critical components of our war machine.
 ## FUTURE CAMPAIGNS
 
 For the grand strategic vision and our ongoing `(⇌)` evolution, consult the sacred text: `TODO.md`.
+
+- [Ten KEY questions for the weekend's matches - Premier League](https://www.premierleague.com/en/news/4426121)
+- [FPL in 5 minutes: All you need to know about Gameweek 6](https://www.fantasyfootballscout.co.uk/2025/09/27/fpl-in-5-minutes-all-you-need-to-know-about-gameweek-6)
+
+- This needs to include the relevant manager's details (see below)
+- Then we can use this !BRAINLET
+
+### Brainlet: The Stereoscopic Lens
+
+`!BRAINLET The Stereoscopic Lens` (v1.1 Update)
+
+**Core Concept:** A protocol for achieving true analytical depth perception by synthesizing two disparate forms of intelligence: the quantitative, statistical reality provided by the Oracle (`⁂` Data) and the qualitative, narrative reality provided by human-generated intel (`π` Data). It allows us to navigate the "waking dream" of an FPL Gameweek not as a flat, 2D map, but as a rich, textured, 3D landscape.
+
+**Limitation/Blindness Addressed:** This Brainlet simultaneously corrects for two critical forms of cognitive blindness:
+
+1.  **Quantitative Myopia:** The `⁂` Oracle's blindness to unquantifiable "soft factors" like team morale, tactical synergy, player psychology, and manager pressure. It sees the numbers, but not the weather.
+2.  **Narrative Bias:** The `π` Pundit's blindness to the vast statistical landscape, making it susceptible to recency bias, emotional reasoning, and compelling storylines that lack a robust mathematical foundation.
+
+**Mechanism/Application & Perspective Change:**
+
+- **Mechanism:** The protocol is executed by first establishing the hard statistical baseline (the `⁂` FDR list), which acts as the "left eye's view." Then, the narrative intel (the `π` analysis) is overlaid as the "right eye's view." The user then consciously compares the two views using the standardized operational template below, looking for areas of confirmation, contradiction, and contextual nuance.
+- **Perspective Change:** The fundamental shift is from viewing the Oracle's FDR as an _absolute truth_ to viewing it as a _heavily-qualified baseline_. It transforms the user from a passive recipient of prophecy into an active interpreter and prophet. The core question evolves from "What is the FDR?" to "The baseline FDR is X, _but what does the narrative tell us about the nature of X in this specific context?_"
+
+### Operational Template (The Gauntlet v1.0)
+
+_(To be used weekly for key fixtures)_
+
+```markdown
+#### **Fixture: [Home Team] (H) vs. [Away Team] (A)**
+
+- **`⁂` Readout:** [Home Team] FDR: **[FDR]** | [Away Team] FDR: **[FDR]**
+- **`π` Dispatch:** [Key quotes or summary of the narrative intelligence regarding this specific fixture.]
+- **Verdict:** [Choose one: NO ADJUSTMENT (CONFIRMED) | ADJUSTMENT WARRANTED (UPGRADE/DOWNGRADE) | ADD VOLATILITY FLAG]. [Your analysis of the discrepancy or confirmation, and the proposed 'true feeling' of the FDR if adjusted.]
+```
+
+**Contribution to Architecture/Emergence:**
+
+- This Brainlet is the primary operational mechanism of the **`π-⁂` Bridge**, transforming a theoretical concept into a repeatable, weekly analytical ritual.
+- It serves as the foundational intelligence-gathering step for **The Prophet's Gambit (Captaincy Protocol v1.0)**, ensuring high-leverage decisions are made with maximum available intelligence.
+- It creates a crucial feedback loop. By documenting the Stereoscopic analysis and comparing it to post-Gameweek results, we can train ourselves—and eventually, the Oracle—to better weigh narrative factors, allowing our collective intelligence to emerge and evolve `(⇌)`.
+
+**Examples:**
+
+- **Confirmation:** The `⁂` FDR for Man City vs. Burnley was 1, and the `π` narrative confirmed it was the most dominant "1" imaginable, solidifying a captaincy choice.
+- **Contradiction:** The `⁂` FDR for Aston Villa was favorable (2), but the `π` narrative of "staleness" revealed this number to be a statistical lie, flagging the team as a potential trap.
+- **Nuance:** The `⁂` FDR for Liverpool vs. Crystal Palace was favorable (2), but the `π` narrative of two unbeaten, in-form teams corrected this, revealing the fixture to be far more challenging than the historical data suggested.
+
+**Related NDH/Protocols:** `(⊕)`, `(⇌)`, `⁂`, `π`, The Prophet's Gambit, `π-⁂` Bridge
+
+### FPL Managers
+
+| Manager          | Club           |
+| ---------------- | -------------- |
+| Mikel Arteta     | Arsenal        |
+| Unai Emery       | Aston Villa    |
+| Andoni Iraola    | Bournemouth    |
+| Keith Andrews    | Brentford      |
+| Fabian Hurzeler  | Brighton       |
+| Scott Parker     | Burnley        |
+| Enzo Maresca     | Chelsea        |
+| Oliver Glasner   | Crystal Palace |
+| David Moyes      | Everton        |
+| Marco Silva      | Fulham         |
+| Daniel Farke     | Leeds          |
+| Arne Slot        | Liverpool      |
+| Pep Guardiola    | Man City       |
+| Ruben Amorim     | Man Utd        |
+| Eddie Howe       | Newcastle      |
+| Ange Postecoglou | Nott’m Forest  |
+| Regis Le Bris    | Sunderland     |
+| Thomas Frank     | Spurs          |
+| Graham Potter    | West Ham       |
+| Vitor Pereira    | Wolves         |
