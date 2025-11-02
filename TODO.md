@@ -54,31 +54,53 @@ To systematically dismantle and dominate the Fantasy Premier League simulation b
 
 ---
 
-## 🟡 PHASE 2: THE ORACLE (Predictive Engine)
+## 🔴 PHASE 2: THE PYOMO ASCENSION (Current Objective)
 
-### 2.1: Integrate Fixture Difficulty
+Having reached the limits of `pulp`'s expressive power, we now undertake a full heart transplant. We will re-forge our solver engine using the more powerful and flexible `pyomo` framework, unlocking new levels of strategic complexity and future potential.
 
-- `[ ]` **Source Fixture Data:** Find a reliable source (API or static file) for the full season's fixture list.
-- `[ ]` **Develop a Fixture Difficulty Rating (FDR) model.**
-- `[ ]` **Refactor Optimizer:** Evolve the objective function from maximizing historical `TP` to maximizing a predictive score based on upcoming fixtures.
+### 2.1: Arming the Forge (Pre-Op)
 
-### 2.2: Quantify Player Form
+- `[x]` **Install `pyomo` Framework:** `uv pip install pyomo`.
+- `[x]` **Install `glpk` Solver:** `sudo apt-get install -y glpk-utils`.
 
-- `[ ]` **Source Gameweek-by-Gameweek Data.**
-- `[ ]` **Implement a "Form" Metric** (e.g., rolling points average).
-- `[ ]` **Refactor Optimizer:** Add "Form" as another variable to the objective function.
+### 2.2: The Heart Transplant (`pulp` → `pyomo`)
 
-### 2.3: The Economic Engine
+- `[ ]` **Create the New Grimoire:** `chimera_pyomo_v1.py`. This will be the new home for our solver logic.
+- `[ ]` **Translate the Model:** Painstakingly re-write the core logic from `chimera_final_form_v5_rosetta.py` into `pyomo` syntax. This involves:
+  - `[ ]` Defining the abstract `model` object.
+  - `[ ]` Defining the `Sets` (players, teams, positions).
+  - `[ ]` Defining the `Parameters` (player cost, projected score, etc.).
+  - `[ ]` Defining the `Variables` (our dual `in_squad` and `is_starter` binaries).
+  - `[ ]` Defining the `Constraints` as `pyomo` rules (squad size, cost, positions, etc.).
+  - `[ ]` Defining the **Objective Function** as a `pyomo` rule (the "Thrifty God" logic).
+- `[ ]` **Wire the New Engine:** Integrate the `pyomo` solver call and write the logic to parse the results back into a clean `pandas` DataFrame for display.
+- `[ ]` **Verify Parity:** Run the new `chimera_pyomo_v1.py` and confirm that it produces the **exact same optimal squad** as our final `pulp` script. This is the critical success condition.
 
-- `[ ]` **Source Ownership & Price Change Data.**
-- `[ ]` **Develop a "Bandwagon" Metric** to predict imminent price rises.
+### 2.3: The Commander's New Orders
+
+- `[ ]` **Perform the `commander.py` Transplant:** Once parity is confirmed, perform the one-line surgery in `commander.py`, changing the import from the old `pulp` script to the new `pyomo` script.
+- `[ ]` **Update Documentation:** Update `README.md` to reflect the new dependencies and the new master script.
 
 ---
 
-## 🟢 PHASE 3: THE COMMAND DECK (Operational Tooling)
+## 🟡 PHASE 3: THE COMMAND DECK (The Throne Room)
 
-- `[ ]` **Build a CLI** to streamline the execution of different strategic scenarios.
-- `[ ]` **Create a Data Refresh Pipeline** to automate data updates.
+The final phase: building the elegant, powerful, and interactive command center from which we will wield the Chimera's power.
+
+### 3.1: Forge the Scepter (Master Orchestration Script)
+
+- `[x]` **Create `commander.py`:** A single, top-level script that orchestrates the entire four-stage data pipeline (`forge_cauldron` -> `enrich_with_insight` -> `grand_synthesis` -> `chimera_solver`).
+- `[x]` **Refactor Core Scripts:** Ensure all pipeline scripts are importable and can be commanded by `commander.py`.
+- `[x]` **BREADCRUMB:** The Scepter is forged. We have a "one script to rule them all," but it is not yet a true, flexible Command Deck.
+
+### 3.2: Build the Throne (Full CLI Implementation)
+
+- `[ ]` **Choose a Framework:** Select a proper CLI framework (e.g., `argparse`, `click`, `typer`).
+- `[ ]` **Create the `bamf` CLI:** Build a master script that provides sub-commands for all our core functions:
+  - `[ ]` `run-gauntlet`: The primary command to forge the weekly squad.
+  - `[ ]` `run-scenario`: An interactive command to run "what-if" simulations with flags for including/excluding players.
+  - `[ ]` `audit`: Sub-commands for auditing team names, player names, etc.
+  - `[ ]` `init`: A helper command to create the new gameweek vault.
 
 ---
 
