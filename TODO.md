@@ -33,24 +33,24 @@ To systematically dismantle and dominate the Fantasy Premier League simulation b
 - `[x]` **Execute and analyze all core strategic scenarios.**
 - `[x]` **BREADCRUMB:** The simulations were a monumental success but revealed the Chimera's final, critical flaw: "Captaincy Blindness." It optimizes based on pure historical points (`TP`) and has no concept of a player's explosive ceiling or their value as a weekly captaincy choice. This was proven when it benched M.Salah.
 
-### 🔴 1.4: Granting Sight (The Captaincy Coefficient - CURRENT OBJECTIVE)
+### 🔴 1.4: Granting Sight (The Captaincy Coefficient)
 
-- `[ ]` **Create a new script: `enrich_with_insight.py`.** This script will be used to inject our `(π)` pirate's strategic knowledge into the raw data.
-- `[ ]` **Define the "Captaincy Coefficient":**
+- `[x]` **Create a new script: `enrich_with_insight.py`.** This script will be used to inject our `(π)` pirate's strategic knowledge into the raw data.
+- `[x]` **Define the "Captaincy Coefficient":**
   - In the new script, load the `fpl_master_database_enriched.csv`.
   - Create a new column called `Captaincy_Coef`.
   - Assign coefficients based on our strategic assessment:
     - **Tier 1 (Gods):** Haaland, M.Salah -> Coef `1.5`
     - **Tier 2 (Demigods):** Other reliable, high-ceiling assets (e.g., João Pedro, Ekitiké, Enzo) -> Coef `1.2`
     - **Tier 3 (Mortals):** Everyone else -> Coef `1.0`
-- `[ ]` **Create the `Prophetic_Points` Metric:**
+- `[x]` **Create the `Prophetic_Points` Metric:**
   - Create a new column, `PP` (Prophetic Points), calculated as `TP * Captaincy_Coef`.
-- `[ ]` **Save a new, final database:** `fpl_master_database_prophetic.csv`.
-- `[ ]` **Create `chimera_prophet.py`:**
+- `[x]` **Save a new, final database:** `fpl_master_database_prophetic.csv`.
+- `[x]` **Create `chimera_prophet.py`:**
   - Copy the `chimera_scenarios.py` script to a new file.
   - Modify it to load the new `prophetic` database.
   - Change the objective function to maximize the sum of `PP` instead of `TP`.
-- `[ ]` **Run the "Salah God-Tier" scenario** with the new Prophet Chimera and verify that it now correctly places Salah in the starting XI.
+- `[x]` **Run the "Salah God-Tier" scenario** with the new Prophet Chimera and verify that it now correctly places Salah in the starting XI.
 
 ---
 
@@ -66,7 +66,7 @@ Having reached the limits of `pulp`'s expressive power, we now undertake a full 
 ### 2.2: The Heart Transplant (`pulp` → `pyomo`)
 
 - `[ ]` **Create the New Grimoire:** `chimera_pyomo_v1.py`. This will be the new home for our solver logic.
-- `[ ]` **Translate the Model:** Painstakingly re-write the core logic from `chimera_final_form_v5_rosetta.py` into `pyomo` syntax. This involves:
+- `[ ]` **Translate the Model:** Painstakingly re-write the core logic from `chimera_final_form_v5_production.py` into `pyomo` syntax. This involves:
   - `[ ]` Defining the abstract `model` object.
   - `[ ]` Defining the `Sets` (players, teams, positions).
   - `[ ]` Defining the `Parameters` (player cost, projected score, etc.).
