@@ -5,25 +5,23 @@ import sys
 
 # --- Configuration (Mirrors the v5 Pulp script for parity testing) ---
 # We will use the final, perfected database from our last successful run
-FINAL_FORM_DB_PATH_V5 = (
-    "gw6/fpl_master_database_FINAL_v5.csv"  # Using the known-good gw6 data for our test
-)
 THRIFT_FACTOR = 0.001
 
 
-def forge_pyomo_squad(data_path: str):
+def forge_pyomo_squad(gameweek_dir: str):
     """
     The New Heart. Forges the optimal squad using the Pyomo framework.
     This function is a direct translation of the v5 pulp logic.
     """
+    FINAL_FORM_DB_PATH = f"{gameweek_dir}/fpl_master_database_FINAL_v5.csv"
     print("--- CHIMERA PYOMO ENGINE (V1 - HEART TRANSPLANT) ONLINE ---")
-    if not os.path.exists(data_path):
+    if not os.path.exists(FINAL_FORM_DB_PATH):
         print(
-            f"!!! CRITICAL FAILURE: Final Form Database not found at '{data_path}'. Aborting."
+            f"!!! CRITICAL FAILURE: Final Form Database not found at '{FINAL_FORM_DB_PATH}'. Aborting."
         )
         return False
 
-    players_df = pd.read_csv(data_path)
+    players_df = pd.read_csv(FINAL_FORM_DB_PATH)
     print(f"[+] Intelligence loaded. Analyzing {len(players_df)} players.")
 
     # --- 1. Model Initialization ---
@@ -167,4 +165,4 @@ def forge_pyomo_squad(data_path: str):
 
 
 if __name__ == "__main__":
-    forge_pyomo_squad(FINAL_FORM_DB_PATH_V5)
+    forge_pyomo_squad("gw10")
