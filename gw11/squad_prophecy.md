@@ -14,24 +14,24 @@
 
 --- STARTING XI (Final Score Maximized) ---
     Surname           Team Position  Price  Final_Score
+       Pope      Newcastle      GKP    5.2        26.00
     Gabriel        Arsenal      DEF    6.6        33.75
      Senesi    Bournemouth      DEF    4.6        32.22
       Guehi Crystal Palace      DEF    4.6        32.00
   Calafiori        Arsenal      DEF    5.7        30.50
       Muñoz Crystal Palace      DEF    5.7        30.00
-    Haaland       Man City      FWD   14.1        72.39
- João Pedro        Chelsea      FWD    7.7        29.50
-       Pope      Newcastle      GKP    5.2        26.00
     M.Salah      Liverpool      MID   14.5        48.47
     Semenyo    Bournemouth      MID    7.4        43.06
 Gravenberch      Liverpool      MID    5.6        28.89
+    Haaland       Man City      FWD   14.1        72.39
+ João Pedro        Chelsea      FWD    7.7        29.50
 
 --- BENCH (RUTHLESSLY Cost-Optimized) ---
   Surname        Team Position  Price  Final_Score
-Kroupi.Jr Bournemouth      FWD    4.6        16.67
  Dúbravka     Burnley      GKP    4.0        13.46
      King       Spurs      MID    4.5         7.31
  P.M.Sarr       Spurs      MID    4.8        14.23
+Kroupi.Jr Bournemouth      FWD    4.6        16.67
 
 -------------------------------------------
 Total Squad Cost:          £99.6m
@@ -60,24 +60,24 @@ Money in the Bank:         £0.4m
 
 --- STARTING XI (Final Score Maximized) ---
     Surname           Team Position  Price  Final_Score
+       Pope      Newcastle      GKP    5.2        26.00
     Gabriel        Arsenal      DEF    6.6        33.75
      Senesi    Bournemouth      DEF    4.6        32.22
       Guehi Crystal Palace      DEF    4.6        32.00
   Calafiori        Arsenal      DEF    5.7        30.50
       Muñoz Crystal Palace      DEF    5.7        30.00
-    Haaland       Man City      FWD   14.1        72.39
- João Pedro        Chelsea      FWD    7.7        29.50
-       Pope      Newcastle      GKP    5.2        26.00
     M.Salah      Liverpool      MID   14.5        48.47
     Semenyo    Bournemouth      MID    7.4        43.06
 Gravenberch      Liverpool      MID    5.6        28.89
+    Haaland       Man City      FWD   14.1        72.39
+ João Pedro        Chelsea      FWD    7.7        29.50
 
 --- BENCH (Potency & Cost Optimized) ---
   Surname        Team Position  Price  Final_Score
-Kroupi.Jr Bournemouth      FWD    4.6        16.67
  Dúbravka     Burnley      GKP    4.0        13.46
  P.M.Sarr       Spurs      MID    4.8        14.23
      King       Spurs      MID    4.5         7.31
+Kroupi.Jr Bournemouth      FWD    4.6        16.67
 
 -------------------------------------------
 Total Squad Cost:          £99.6m

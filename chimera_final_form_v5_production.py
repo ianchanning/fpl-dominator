@@ -120,6 +120,11 @@ def forge_final_form_squad(gameweek_dir: str):
         squad = players.loc[squad_indices]
         starters = players.loc[starter_indices]
         bench = squad.drop(starter_indices)
+
+        # --- Enforce Positional Order for Printing ---
+        position_order = ['GKP', 'DEF', 'MID', 'FWD']
+        starters['Position'] = pd.Categorical(starters['Position'], categories=position_order, ordered=True)
+        bench['Position'] = pd.Categorical(bench['Position'], categories=position_order, ordered=True)
         
         print("\n" + "="*20 + " FINAL FORM SQUAD (V5) FORGED " + "="*20)
         print("\n--- STARTING XI (Final Score Maximized) ---")

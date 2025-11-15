@@ -146,6 +146,11 @@ def forge_pyomo_squad(gameweek_dir: str):
         starters = players_df.loc[starter_indices]
         bench = squad.drop(starter_indices)
 
+        # --- Enforce Positional Order for Printing ---
+        position_order = ['GKP', 'DEF', 'MID', 'FWD']
+        starters['Position'] = pd.Categorical(starters['Position'], categories=position_order, ordered=True)
+        bench['Position'] = pd.Categorical(bench['Position'], categories=position_order, ordered=True)
+
         print("\n" + "=" * 20 + " PYOMO SQUAD FORGED (V2 - APOTHEOSIS) " + "=" * 20)
         print("\n--- STARTING XI (Final Score Maximized) ---")
         print(
