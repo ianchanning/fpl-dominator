@@ -1,5 +1,6 @@
 import click
 import sys
+import os
 from commander import run_the_gauntlet
 
 @click.group()
@@ -25,6 +26,35 @@ def run_gauntlet(gameweek_dir):
     click.secho(f"+++ Invoking the Commander for {gameweek_dir.upper()} +++", fg='magenta')
     run_the_gauntlet(gameweek_dir)
     click.secho("+++ Gauntlet run complete. The prophecy is forged and scribed. +++", fg='magenta')
+
+@cli.command()
+@click.argument('gameweek_dir')
+def init(gameweek_dir):
+    """Creates a new gameweek vault with empty data files."""
+    if os.path.exists(gameweek_dir):
+        click.secho(f"Error: Directory '{gameweek_dir}' already exists. Aborting.", fg='red')
+        return
+
+    click.echo(f"Creating new gameweek vault at '{gameweek_dir}'...")
+    os.makedirs(gameweek_dir)
+
+    files_to_create = {
+        "goalkeepers.csv": "Surname,Team,Position,Price,TP,Status",
+        "defenders.csv": "Surname,Team,Position,Price,TP,Status",
+        "midfielders.csv": "Surname,Team,Position,Price,TP,Status",
+        "forwards.csv": "Surname,Team,Position,Price,TP,Status",
+        "fixtures.csv": "Team,Opponent,Venue,FDR",
+        "squad.csv": "Surname,Team,Position,CP,SP,PP,Status"
+    }
+
+    for filename, header in files_to_create.items():
+        filepath = os.path.join(gameweek_dir, filename)
+        with open(filepath, "w", encoding="utf-8") as f:
+            f.write(header + "\n")
+        click.echo(f" - Created {filepath}")
+
+    click.secho(f"Success! New vault '{gameweek_dir}' created and ready for data.", fg='green')
+
 
 if __name__ == '__main__':
     cli()

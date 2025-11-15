@@ -82,9 +82,9 @@ The final phase: building the elegant, powerful, and interactive command center 
 
 ### 3.2: Build the Throne (Full CLI Implementation)
 
-- `[ ]` **Choose a Framework:** Select a proper CLI framework (e.g., `argparse`, `click`, `typer`).
-- `[ ]` **Create the `bamf` CLI:** Build a master script that provides sub-commands for all our core functions:
-  - `[ ]` `run-gauntlet`: The primary command to forge the weekly squad.
+- `[x]` **Choose a Framework:** `click` has been chosen for its power and elegance.
+- `[x]` **Create the `bamf` CLI:** The `bamf.py` script is our new entry point.
+  - `[x]` `run-gauntlet`: The primary command is forged and functional.
   - `[ ]` `run-scenario`: An interactive command to run "what-if" simulations with flags for including/excluding players.
   - `[ ]` `audit`: Sub-commands for auditing team names, player names, etc.
   - `[ ]` `init`: A helper command to create the new gameweek vault.
