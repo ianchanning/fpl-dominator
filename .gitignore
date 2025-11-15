@@ -1,3 +1,4 @@
 .aider*
 Session.vim
 __pycache__
+.vscode/
