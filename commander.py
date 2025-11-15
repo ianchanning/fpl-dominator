@@ -99,13 +99,3 @@ def run_the_gauntlet(gameweek_dir: str):
     print(
         f"\n--- SUCCESS: THE GAUNTLET IS COMPLETE. THE PROPHECY FOR {gameweek_dir.upper()} IS FORGED. ---"
     )
-
-
-if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        print(">>> ERROR: The Commander requires a single, sacred argument.")
-        print(">>> USAGE: python commander.py gw5")
-        sys.exit(1)
-
-    gameweek_directory = sys.argv[1]
-    run_the_gauntlet(gameweek_directory)

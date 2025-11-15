@@ -39,7 +39,7 @@ pip install uv
 With the environment active, install the required Python libraries using the much faster `uv`.
 
 ```bash
-uv pip install pandas pyomo
+uv pip install pandas pyomo click
 ```
 
 ---
