@@ -28,11 +28,11 @@ M.Bizot,Aston Villa,GKP,4.3,7,OK,1.63,1.0,7.0,AVL,2.4,2.92
 José Sá,Wolves,GKP,4.3,5,OK,1.16,1.0,5.0,WOL,2.6,1.92
 Jörgensen,Chelsea,GKP,4.4,1,OK,0.23,1.0,1.0,CHE,2.0,0.5
 Gabriel,Arsenal,DEF,6.6,80,OK,12.12,1.0,80.0,ARS,2.4,33.33
-J.Timber,Arsenal,DEF,6.1,66,OK,10.82,1.0,66.0,ARS,2.4,27.5
-Guehi,Crystal Palace,DEF,5.1,64,OK,12.55,1.0,64.0,CRY,1.8,35.56
-Calafiori,Arsenal,DEF,5.8,60,OK,10.34,1.2,72.0,ARS,2.4,30.0
+J.Timber,Arsenal,DEF,5.8,66,OK,11.38,1.0,66.0,ARS,2.4,27.5
+Guehi,Crystal Palace,DEF,4.8,64,OK,13.33,1.0,64.0,CRY,1.8,35.56
+Calafiori,Arsenal,DEF,5.7,60,OK,10.53,1.2,72.0,ARS,2.4,30.0
 Van de Ven,Spurs,DEF,4.8,57,OK,11.88,1.0,57.0,TOT,3.0,19.0
-Senesi,Bournemouth,DEF,5.0,56,OK,11.2,1.0,56.0,BOU,1.8,31.11
+Senesi,Bournemouth,DEF,4.8,56,OK,11.67,1.0,56.0,BOU,1.8,31.11
 Muñoz,Crystal Palace,DEF,5.7,54,OK,9.47,1.0,54.0,CRY,1.8,30.0
 Lacroix,Crystal Palace,DEF,5.0,50,OK,10.0,1.0,50.0,CRY,1.8,27.78
 Chalobah,Chelsea,DEF,5.1,49,OK,9.61,1.2,58.8,CHE,2.0,29.4
@@ -83,7 +83,7 @@ Gudmundsson,Leeds,DEF,4.0,26,OK,6.5,1.0,26.0,LEE,3.0,8.67
 Estève,Burnley,DEF,4.0,25,OK,6.25,1.0,25.0,BUR,2.4,10.42
 Schär,Newcastle,DEF,5.4,25,OK,4.63,1.0,25.0,NEW,2.2,11.36
 Mings,Aston Villa,DEF,4.4,24,DOUBT,5.45,1.0,24.0,AVL,2.4,10.0
-Semenyo,Bournemouth,MID,8.1,75,OK,9.26,1.0,75.0,BOU,1.8,41.67
+Semenyo,Bournemouth,MID,7.7,75,OK,9.74,1.0,75.0,BOU,1.8,41.67
 Rice,Arsenal,MID,6.8,63,OK,9.26,1.0,63.0,ARS,2.4,26.25
 Caicedo,Chelsea,MID,6.0,58,OK,9.67,1.0,58.0,CHE,2.0,29.0
 Mbeumo,Man Utd,MID,8.4,53,OK,6.31,1.0,53.0,MUN,2.0,26.5
@@ -96,7 +96,7 @@ Anthony,Burnley,MID,5.7,47,OK,8.25,1.0,47.0,BUR,2.4,19.58
 Minteh,Brighton,MID,6.0,47,OK,7.83,1.0,47.0,BHA,2.2,21.36
 Bruno G.,Newcastle,MID,6.6,46,OK,6.97,1.0,46.0,NEW,2.2,20.91
 Tavernier,Bournemouth,MID,5.5,45,OK,8.18,1.0,45.0,BOU,1.8,25.0
-Enzo,Chelsea,MID,6.7,45,OK,6.72,1.2,54.0,CHE,2.0,27.0
+Enzo,Chelsea,MID,6.6,45,OK,6.82,1.2,54.0,CHE,2.0,27.0
 Gakpo,Liverpool,MID,7.6,45,OK,5.92,1.0,45.0,LIV,2.0,22.5
 B.Fernandes,Man Utd,MID,8.9,45,OK,5.06,1.0,45.0,MUN,2.0,22.5
 Kudus,Spurs,MID,6.6,45,DOUBT,6.82,1.0,45.0,TOT,3.0,15.0
@@ -139,7 +139,7 @@ Kamada,Crystal Palace,MID,5.0,29,OK,5.8,1.0,29.0,CRY,1.8,16.11
 Amad,Man Utd,MID,6.3,29,OK,4.6,1.0,29.0,MUN,2.0,14.5
 Buendia,Aston Villa,MID,5.3,28,OK,5.28,1.0,28.0,AVL,2.4,11.67
 Georginio,Brighton,MID,5.7,28,OK,4.91,1.0,28.0,BHA,2.2,12.73
-Haaland,Man City,FWD,14.8,98,OK,6.62,1.5,147.0,MCI,2.4,61.25
+Haaland,Man City,FWD,14.4,98,OK,6.81,1.5,147.0,MCI,2.4,61.25
 João Pedro,Chelsea,FWD,7.4,52,OK,7.03,1.2,62.4,CHE,2.0,31.2
 Mateta,Crystal Palace,FWD,8.0,48,OK,6.0,1.0,48.0,CRY,1.8,26.67
 Thiago,Brentford,FWD,6.2,47,OK,7.58,1.0,47.0,BRE,2.6,18.08

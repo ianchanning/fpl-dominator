@@ -28,11 +28,11 @@ M.Bizot,Aston Villa,GKP,4.3,7,OK,1.63
 José Sá,Wolves,GKP,4.3,5,OK,1.16
 Jörgensen,Chelsea,GKP,4.4,1,OK,0.23
 Gabriel,Arsenal,DEF,6.6,80,OK,12.12
-J.Timber,Arsenal,DEF,6.1,66,OK,10.82
-Guehi,Crystal Palace,DEF,5.1,64,OK,12.55
-Calafiori,Arsenal,DEF,5.8,60,OK,10.34
+J.Timber,Arsenal,DEF,5.8,66,OK,11.38
+Guehi,Crystal Palace,DEF,4.8,64,OK,13.33
+Calafiori,Arsenal,DEF,5.7,60,OK,10.53
 Van de Ven,Spurs,DEF,4.8,57,OK,11.88
-Senesi,Bournemouth,DEF,5.0,56,OK,11.2
+Senesi,Bournemouth,DEF,4.8,56,OK,11.67
 Muñoz,Crystal Palace,DEF,5.7,54,OK,9.47
 Lacroix,Crystal Palace,DEF,5.0,50,OK,10.0
 Chalobah,Chelsea,DEF,5.1,49,OK,9.61
@@ -83,7 +83,7 @@ Gudmundsson,Leeds,DEF,4.0,26,OK,6.5
 Estève,Burnley,DEF,4.0,25,OK,6.25
 Schär,Newcastle,DEF,5.4,25,OK,4.63
 Mings,Aston Villa,DEF,4.4,24,DOUBT,5.45
-Semenyo,Bournemouth,MID,8.1,75,OK,9.26
+Semenyo,Bournemouth,MID,7.7,75,OK,9.74
 Rice,Arsenal,MID,6.8,63,OK,9.26
 Caicedo,Chelsea,MID,6.0,58,OK,9.67
 Mbeumo,Man Utd,MID,8.4,53,OK,6.31
@@ -96,7 +96,7 @@ Anthony,Burnley,MID,5.7,47,OK,8.25
 Minteh,Brighton,MID,6.0,47,OK,7.83
 Bruno G.,Newcastle,MID,6.6,46,OK,6.97
 Tavernier,Bournemouth,MID,5.5,45,OK,8.18
-Enzo,Chelsea,MID,6.7,45,OK,6.72
+Enzo,Chelsea,MID,6.6,45,OK,6.82
 Gakpo,Liverpool,MID,7.6,45,OK,5.92
 B.Fernandes,Man Utd,MID,8.9,45,OK,5.06
 Kudus,Spurs,MID,6.6,45,DOUBT,6.82
@@ -139,7 +139,7 @@ Kamada,Crystal Palace,MID,5.0,29,OK,5.8
 Amad,Man Utd,MID,6.3,29,OK,4.6
 Buendia,Aston Villa,MID,5.3,28,OK,5.28
 Georginio,Brighton,MID,5.7,28,OK,4.91
-Haaland,Man City,FWD,14.8,98,OK,6.62
+Haaland,Man City,FWD,14.4,98,OK,6.81
 João Pedro,Chelsea,FWD,7.4,52,OK,7.03
 Mateta,Crystal Palace,FWD,8.0,48,OK,6.0
 Thiago,Brentford,FWD,6.2,47,OK,7.58
