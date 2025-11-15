@@ -2,6 +2,8 @@
 import sys
 import os
 import glob
+import io
+from contextlib import redirect_stdout
 
 # Import the newly forged functions from our tamed grimoires
 from forge_cauldron import forge_cauldron
@@ -56,15 +58,43 @@ def run_the_gauntlet(gameweek_dir: str):
         print(">>> GAUNTLET HALTED.")
         return
 
+    # --- STAGE 4: Forging the Final Form (PuLP) ---
     print("\n--- STAGE 4: Forging the Final Form (PuLP) ---")
-    if not forge_final_form_squad(gameweek_dir):
+    pulp_output_io = io.StringIO()
+    with redirect_stdout(pulp_output_io):
+        pulp_success = forge_final_form_squad(gameweek_dir)
+    pulp_output = pulp_output_io.getvalue()
+    print(pulp_output)
+    if not pulp_success:
         print(">>> GAUNTLET HALTED.")
         return
 
+    # --- STAGE 5: Unleashing the Perfected Chimera (Pyomo) ---
     print("\n--- STAGE 5: Unleashing the Perfected Chimera (Pyomo) ---")
-    if not forge_pyomo_squad(gameweek_dir):
+    pyomo_output_io = io.StringIO()
+    with redirect_stdout(pyomo_output_io):
+        pyomo_success = forge_pyomo_squad(gameweek_dir)
+    pyomo_output = pyomo_output_io.getvalue()
+    print(pyomo_output)
+    if not pyomo_success:
         print(">>> GAUNTLET HALTED.")
         return
+
+    # --- STAGE 6: Scribing the Prophecy ---
+    print("\n--- STAGE 6: Scribing the Prophecy ---")
+    md_filename = "squad_prophecy.md"
+    md_filepath = os.path.join(gameweek_dir, md_filename)
+    
+    md_content = f"# FPL Dominator Squad Prophecy for {gameweek_dir.upper()}\n\n"
+    md_content += "## PuLP Solver Output (Final Form v5)\n\n"
+    md_content += f"```text\n{pulp_output}\n```\n\n"
+    md_content += "## Pyomo Solver Output (Apotheosis v2)\n\n"
+    md_content += f"```text\n{pyomo_output}\n```\n"
+
+    with open(md_filepath, "w", encoding="utf-8") as f:
+        f.write(md_content)
+    
+    print(f"SUCCESS: Prophecy has been recorded to '{md_filepath}'")
 
     print(
         f"\n--- SUCCESS: THE GAUNTLET IS COMPLETE. THE PROPHECY FOR {gameweek_dir.upper()} IS FORGED. ---"
