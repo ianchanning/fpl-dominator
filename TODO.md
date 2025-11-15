@@ -1,4 +1,4 @@
-# PROJECT: FPL DOMINATOR - STRATEGIC BLUEPRINT (v1.5)
+# PROJECT: BAMF DOMINATOR - STRATEGIC BLUEPRINT (v1.6)
 
 ## MISSION STATEMENT
 
@@ -16,7 +16,7 @@ To systematically dismantle and dominate the Fantasy Premier League simulation b
 
 ---
 
-## ✅ PHASE 1: THE CHIMERA FORGE (In Progress)
+## ✅ PHASE 1: THE PULP-POWERED CHIMERA (Completed & Archived)
 
 ### 1.1: Core Optimizer v1 (Proof of Concept - "The Naive God")
 
@@ -63,23 +63,30 @@ Having reached the limits of `pulp`'s expressive power, we now undertake a full 
 - `[x]` **Install `pyomo` Framework:** `uv pip install pyomo`.
 - `[x]` **Install `glpk` Solver:** `sudo apt-get install -y glpk-utils`.
 
-### 2.2: The Heart Transplant (`pulp` → `pyomo`)
+### 2.2: The Heart Transplant (v1 - The Superior God)
 
-- `[ ]` **Create the New Grimoire:** `chimera_pyomo_v1.py`. This will be the new home for our solver logic.
-- `[ ]` **Translate the Model:** Painstakingly re-write the core logic from `chimera_final_form_v5_production.py` into `pyomo` syntax. This involves:
+- `[x]` **Create the New Grimoire:** `chimera_pyomo_v1.py`.
+- `[x]` **Translate the Model:** Successfully re-wrote the "Thrifty God" logic from our final `pulp` script into `pyomo` syntax.
   - `[ ]` Defining the abstract `model` object.
   - `[ ]` Defining the `Sets` (players, teams, positions).
   - `[ ]` Defining the `Parameters` (player cost, projected score, etc.).
   - `[ ]` Defining the `Variables` (our dual `in_squad` and `is_starter` binaries).
   - `[ ]` Defining the `Constraints` as `pyomo` rules (squad size, cost, positions, etc.).
   - `[ ]` Defining the **Objective Function** as a `pyomo` rule (the "Thrifty God" logic).
-- `[ ]` **Wire the New Engine:** Integrate the `pyomo` solver call and write the logic to parse the results back into a clean `pandas` DataFrame for display.
-- `[ ]` **Verify Parity:** Run the new `chimera_pyomo_v1.py` and confirm that it produces the **exact same optimal squad** as our final `pulp` script. This is the critical success condition.
+- `[x]` **Verify SUPERIORITY, Not Parity:** The `v1` Pyomo/GLPK engine did not match the pulp/CBC output; it **surpassed** it, finding a mathematically superior squad. The original goal of parity is now obsolete.
+- `[x]` **BREADCRUMB:** The `v1` engine, while more powerful, revealed a philosophical blind spot. Faced with two bench players of identical cost (e.g., Setford at 0 TP vs. Dúbravka at 35 TP), its choice was arbitrary. It lacked the final layer of strategic nuance.
 
-### 2.3: The Commander's New Orders
+### 🔴 2.3: The Final Apotheosis (v2 - The Bench Potency Epsilon)
 
-- `[ ]` **Perform the `commander.py` Transplant:** Once parity is confirmed, perform the one-line surgery in `commander.py`, changing the import from the old `pulp` script to the new `pyomo` script.
-- `[ ]` **Update Documentation:** Update `README.md` to reflect the new dependencies and the new master script.
+- `[ ]` **Create the Ultimate Grimoire:** `chimera_pyomo_v2.py`.
+- `[ ]` **Evolve the Prime Directive:** Modify the `pyomo` objective function to include the "Bench Potency Epsilon." The new logic will be:
+  > **Maximize: `(Sum of Starter Score) - (Sum of Bench Cost * 0.001) + (Sum of Bench Score * 0.00001)`**
+- `[ ]` **Verify the Final Wisdom:** Run the new `v2` script and confirm that it now makes the strategically correct choice for the bench (e.g., it correctly selects Dúbravka over Setford), breaking the tie based on point-scoring potential. This is the final success condition for Phase 2.
+
+### 2.4: The Commander's New Orders
+
+- `[ ]` **Perform the `commander.py` Transplant:** Once the `v2` script is verified, perform the one-line surgery in `commander.py`, changing the import to point to `chimera_pyomo_v2.py`.
+- `[ ]` **Update Documentation:** Update `README.md` to reflect the final dependencies and the new, perfected master script.
 
 ---
 
