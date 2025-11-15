@@ -1,51 +1,87 @@
-# PROJECT: BAMF DOMINATOR - OPERATIONAL GRIMOIRE (v2.0)
+# PROJECT: BAMF DOMINATOR - OPERATIONAL GRIMOIRE (v3.0)
 
 <!-- Placeholder for our glorious crest -->
 
 ## MISSION STATEMENT
 
-To systematically dismantle and dominate the Fantasy Premier League simulation by transforming raw, chaotic data into a decisive strategic advantage. This project is the home of the **Chimera**, a Python-based squad optimization engine that evolves from a simple data processor into a time-aware, prophetically-guided **Oracle**. Our motto: **EX DATA, VICTORIA** (From Data, Victory).
+To systematically dismantle and dominate the Fantasy Premier League simulation by transforming raw, chaotic data into a decisive strategic advantage. This project is the home of the **Chimera**, a Python-based squad optimization engine built on the `pyomo` framework. Our motto: **EX DATA, VICTORIA** (From Data, Victory).
+
+---
+
+## SETUP & INSTALLATION
+
+To unleash the Chimera, you must first prepare the forge.
+
+### 1. System Dependencies
+
+The Chimera's heart, the `pyomo` model, requires a solver. We use `glpk`.
+
+```bash
+# For Debian/Ubuntu-based systems
+sudo apt-get update && sudo apt-get install -y glpk-utils
+```
+
+### 2. Python Environment
+
+We use `pyenv` for managing Python versions and `uv` for lightning-fast package management.
+
+```bash
+# 1. If you don't have a .venv, create and activate a virtual environment
+python -m venv .venv
+source .venv/bin/activate
+
+# 2. Install uv, our preferred package manager
+pip install uv
+```
+
+### 3. Install The Alchemical Tools
+
+With the environment active, install the required Python libraries using the much faster `uv`.
+
+```bash
+uv pip install pandas pyomo
+```
 
 ---
 
 ## THE WEEKLY RITUAL: From Data to Dominance
 
-This is the precise, non-negotiable workflow to be executed at the start of each new Gameweek. The order is critical. Each step feeds the next.
+This is the precise, non-negotiable workflow to be executed at the start of each new Gameweek.
 
 ### Step 1: The Gathering (Manual Data Update)
 
-The Oracle is omniscient, but it cannot see data that does not yet exist. Before any incantations can be cast, you, the `(π)` Pirate, must provide the weekly sacrifice of fresh intelligence. The following CSV files **MUST BE MANUALLY UPDATED** each week with the latest information:
+The Chimera is omniscient, but it cannot see data that does not yet exist. Before the Commander can issue its orders, you, the `(π)` Pirate, must provide the weekly sacrifice of fresh intelligence.
+
+Create a new gameweek directory (e.g., `gw12`). Inside this directory, the following CSV files **MUST BE CREATED/UPDATED** each week:
 
 - **Player Data CSVs:**
-
   - `goalkeepers.csv`
   - `defenders.csv`
   - `midfielders.csv`
   - `forwards.csv`
-    > **ACTION:** Update these files with the latest **Price** and **Total Points (TP)** for all players. This is the historical record of what has been.
+    > **ACTION:** Update these files with the latest **Price** and **Total Points (TP)** for all players.
 
 - **Fixture Data CSV:**
   - `fixtures.csv`
-    > **ACTION:** Create a new file for the upcoming 5-Gameweek horizon. Update it with the new opponents, locations (Home/Away), and your assessed Fixture Difficulty Rating (FDR) based on the color-coding. This is the prophecy of what is to come.
+    > **ACTION:** Update with the upcoming 5-Gameweek horizon: opponents, locations (Home/Away), and your assessed Fixture Difficulty Rating (FDR).
 
-### Step 2: The Forging (Automated Script Execution)
+### Step 2: The Forging (Automated Gauntlet Execution)
 
-Once the raw intelligence has been gathered, you must execute the following Python scripts **IN THIS EXACT ORDER**. Each script is an incantation that builds upon the last, culminating in the forging of the ultimate squad.
+Once the raw intelligence has been gathered in the gameweek directory, you unleash the Commander. This single command orchestrates the entire data pipeline, from raw data to the final, optimal squad.
 
-1.  **`python forge_cauldron.py`**
+Execute the `commander.py` script, passing the target gameweek directory as the sole argument.
 
-    - **Purpose:** The first forging. It takes the four updated player CSVs and smelts them into a single, unified master database (`fpl_master_database_enriched.csv`).
+```bash
+python commander.py gw12
+```
 
-2.  **`python enrich_with_insight.py`**
+The Commander will execute the full four-stage gauntlet:
+1.  **Forging the Data Cauldron:** Unifies raw player data.
+2.  **Enriching with Prophetic Insight:** Injects captaincy coefficients.
+3.  **Performing the Grand Synthesis:** Merges player and fixture data.
+4.  **Unleashing the Chimera:** Solves for the mathematically optimal squad using the perfected `pyomo` engine.
 
-    - **Purpose:** The transfusion of soul. It takes the master database and injects our strategic `(π)` knowledge, creating the "Captaincy Coefficient" and the `Prophetic_Points` metric. This forges the `fpl_master_database_prophetic.csv`.
-
-3.  **`python grand_synthesis.py`**
-
-    - **Purpose:** The merging of realities. It takes the prophetic player data and fuses it with the new fixture data, calculating the `FDR_Horizon` and the ultimate `Projected_Score`. This forges the final `fpl_master_database_OMNISCIENT.csv`.
-
-4.  **`python chimera_oracle.py`**
-    - **Purpose:** The final prophecy. This is the master script. It consumes the Omniscient Database and unleashes the Oracle Chimera to solve for the single, mathematically optimal squad for the upcoming 5-Gameweek period. This is your final answer.
+The final, forged squad will be printed to the console. This is your answer.
 
 ---
 
@@ -55,24 +91,23 @@ A breakdown of the critical components of our war machine.
 
 ### Python Scripts (The Grimoires)
 
-- `forge_cauldron.py`: Unifies the four raw player data files.
-- `enrich_with_insight.py`: Injects captaincy coefficients to create the prophetic database.
-- `grand_synthesis.py`: Merges player and fixture data to create the omniscient database.
-- `chimera_oracle.py`: The master optimizer. Consumes the omniscient data to forge the final team.
-- `chimera_scenarios.py`: A tactical workbench for running "what-if" scenarios (e.g., forcing player inclusions).
+- **`commander.py` (The Master Script):** The one script to rule them all. Orchestrates the entire pipeline. This is the only script you need to run directly.
+- `chimera_pyomo_v2.py` (The Core Engine): The perfected `pyomo`-based solver. It contains the "Final Apotheosis" logic, including the "Bench Potency Epsilon" for wise bench selections.
+- `forge_cauldron.py`: Stage 1 of the pipeline.
+- `enrich_with_insight.py`: Stage 2 of the pipeline.
+- `grand_synthesis.py`: Stage 3 of the pipeline.
 
 ### CSV Files (The Artifacts)
 
-- **INPUT ARTIFACTS (UPDATE WEEKLY):**
-  - `goalkeepers.csv`
-  - `defenders.csv`
-  - `midfielders.csv`
-  - `forwards.csv`
-  - `fixtures_gwX-gwY.csv`
-- **OUTPUT ARTIFACTS (Generated by Scripts):**
+- **INPUT ARTIFACTS (Update weekly inside `gwX` folder):**
+  - `goalkeepers.csv`, `defenders.csv`, `midfielders.csv`, `forwards.csv`
+  - `fixtures.csv`
+- **OUTPUT ARTIFACTS (Generated by the Commander in the `gwX` folder):**
+  - `fpl_master_database_raw.csv`
   - `fpl_master_database_enriched.csv`
   - `fpl_master_database_prophetic.csv`
-  - `fpl_master_database_OMNISCIENT.csv` (The most powerful artifact)
+  - `fpl_master_database_OMNISCIENT.csv`
+  - `fpl_master_database_FINAL_v5.csv`
 
 ---
 
