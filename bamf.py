@@ -7,8 +7,49 @@ from audit_player_names_v3 import audit_player_name_resolution_v3
 # We'll need a new function for our scenario runner, let's pretend it exists
 # from scenario_chimera import run_a_what_if_scenario
 
-@click.group()
-def bamf(): # <<< POLISH: Renamed 'cli' to 'bamf' for thematic consistency with the filename.
+# --- THE ARTIFICER'S FORGE: OUR CUSTOM HELP CLASS ---
+
+# First, define the glorious ASCII art. Use a raw string for simplicity.
+BAMF_ART = r"""
+██████╗  █████╗ ███╗   ███╗███████╗
+██╔══██╗██╔══██╗████╗ ████║██╔════╝
+██████╔╝███████║██╔████╔██║███████╗
+██╔══██╗██╔══██║██║╚██╔╝██║██╔════╝  
+██████╔╝██║  ██║██║ ╚═╝ ██║██║
+╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚═╝
+"""
+
+# Define a sequence of ANSI foreground colors for the rainbow
+RAINBOW_COLORS = ['red', 'yellow', 'green', 'cyan', 'blue', 'magenta']
+
+class RainbowArtHelpGroup(click.Group):
+    def format_help(self, ctx, formatter):
+        """
+        This is our override. It writes the custom banner first,
+        then calls the original help formatter.
+        """
+        # Split the art into lines
+        art_lines = BAMF_ART.strip('\n').split('\n')
+        
+        # Write each line with a cycling rainbow color
+        for i, line in enumerate(art_lines):
+            color = RAINBOW_COLORS[i % len(RAINBOW_COLORS)]
+            # We use click.style to get the raw ANSI codes, not secho
+            formatter.write(click.style(line, fg=color, bold=True))
+            formatter.write('\n')
+        
+        formatter.write('\n') # Add a little space
+        
+        # Now, let the default help formatter do its thing
+        super().format_help(ctx, formatter)
+
+# --- END OF THE ARTIFICER'S FORGE ---
+
+
+# NOW, WEAPONIZE IT.
+# Instead of @click.group(), we use our custom class with the 'cls' argument.
+@click.command(cls=RainbowArtHelpGroup)
+def bamf():
     """
     BAMF DOMINATOR v3.0
     
