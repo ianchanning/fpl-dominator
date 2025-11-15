@@ -1,3 +1,4 @@
+#!/home/ian/Projects/fpl-dominator/.venv/bin/python3
 import click
 import sys
 import os
