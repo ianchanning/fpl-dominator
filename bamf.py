@@ -2,6 +2,8 @@ import click
 import sys
 import os
 from commander import run_the_gauntlet
+from audit_realities import audit_team_name_realities
+from audit_player_names_v3 import audit_player_name_resolution_v3
 
 @click.group()
 def cli():
@@ -54,6 +56,36 @@ def init(gameweek_dir):
         click.echo(f" - Created {filepath}")
 
     click.secho(f"Success! New vault '{gameweek_dir}' created and ready for data.", fg='green')
+
+# --- Audit Command Group ---
+@cli.group()
+def audit():
+    """Audits the integrity and consistency of the data."""
+    pass
+
+@audit.command()
+@click.argument('gameweek_dir')
+def teams(gameweek_dir):
+    """
+    Audits team name consistency between the player and set-piece databases.
+    
+    GAMEWEEK_DIR: The gameweek directory to use for the player database.
+    """
+    click.secho(f"--- Auditing Team Name Realities for {gameweek_dir.upper()} ---", fg='cyan')
+    audit_team_name_realities(gameweek_dir)
+    click.secho("--- Team Audit Complete ---", fg='cyan')
+
+@audit.command()
+@click.argument('gameweek_dir')
+def players(gameweek_dir):
+    """
+    Audits player name resolution between set-piece takers and the main database.
+    
+    GAMEWEEK_DIR: The gameweek directory to use for the player database.
+    """
+    click.secho(f"--- Auditing Player Name Resolution for {gameweek_dir.upper()} ---", fg='cyan')
+    audit_player_name_resolution_v3(gameweek_dir)
+    click.secho("--- Player Audit Complete ---", fg='cyan')
 
 
 if __name__ == '__main__':

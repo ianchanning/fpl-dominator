@@ -1,17 +1,8 @@
 import pandas as pd
 import os
 import re
-import sys
 
-if len(sys.argv) != 2:
-    print(">>> ERROR: A gameweek directory must be provided.")
-    print(">>> USAGE: python chimera_final_form_v5_rosetta.py gw4")
-    sys.exit(1)
-
-# --- Configuration (Unchanged) ---
-GAMEWEEK_DIR = sys.argv[1]
-OMNISCIENT_DB_PATH = f'{GAMEWEEK_DIR}/fpl_master_database_OMNISCIENT.csv'
-SET_PIECE_DB_PATH = 'set_pieces.csv'
+# This map is a core piece of knowledge, keep it at the module level.
 TEAM_SHORT_TO_FULL = {
     'Spurs': 'Tottenham Hotspur', 'Man City': 'Manchester City', 'Man Utd': 'Manchester United',
     'Newcastle': 'Newcastle United', 'Nott\'m Forest': 'Nottingham Forest', 'West Ham': 'West Ham United',
@@ -22,11 +13,25 @@ TEAM_SHORT_TO_FULL = {
 }
 
 def sanitize_name(name: str) -> str:
-    """The heart of the Sanitization Bridge (Unchanged from v4 script)."""
+    """The heart of the Sanitization Bridge."""
     return re.sub(r'[\.\-\s\(\)]', '', name.lower())
 
-def audit_player_name_resolution_v3():
+def audit_player_name_resolution_v3(gameweek_dir: str):
+    """
+    Audits if player names from the set-piece database can be successfully
+    and uniquely matched to a player in the main player database.
+    """
+    OMNISCIENT_DB_PATH = f'{gameweek_dir}/fpl_master_database_OMNISCIENT.csv'
+    SET_PIECE_DB_PATH = 'set_pieces.csv'
+
     print("--- PLAYER NAME RESOLUTION AUDIT (V3 - BIDIRECTIONAL CONCORDANCE) ---")
+
+    if not all(os.path.exists(p) for p in [OMNISCIENT_DB_PATH, SET_PIECE_DB_PATH]):
+        print("!!! CRITICAL FAILURE: One or more source databases not found. Aborting.")
+        if not os.path.exists(OMNISCIENT_DB_PATH):
+            print(f"!!! NOTE: Player database not found at '{OMNISCIENT_DB_PATH}'.")
+            print(f"!!! Have you run the main gauntlet for '{gameweek_dir}' yet?")
+        return
     
     # --- Load Data ---
     players_df = pd.read_csv(OMNISCIENT_DB_PATH)
@@ -87,5 +92,4 @@ def audit_player_name_resolution_v3():
     else:
         print(">>> VERDICT: CRITICAL COLLISIONS DETECTED. The universe is unstable.")
 
-if __name__ == "__main__":
-    audit_player_name_resolution_v3()
+# This script is now intended to be used as a library.

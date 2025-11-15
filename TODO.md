@@ -87,7 +87,7 @@ The final phase: building the elegant, powerful, and interactive command center 
   - `[x]` `run-gauntlet`: The primary command is forged and functional.
   - `[x]` `init`: A helper command to create the new gameweek vault is complete.
   - `[ ]` `run-scenario`: An interactive command to run "what-if" simulations with flags for including/excluding players.
-  - `[ ]` `audit`: Sub-commands for auditing team names, player names, etc.
+  - `[x]` `audit`: Sub-commands for auditing team names (`teams`) and player names (`players`) are complete.
 
 ---
 
