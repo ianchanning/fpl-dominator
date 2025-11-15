@@ -1,10 +1,10 @@
-# PROJECT: BAMF DOMINATOR - OPERATIONAL GRIMOIRE (v3.0)
+# PROJECT: BAMF DOMINATOR - OPERATIONAL GRIMOIRE (v4.0)
 
 <!-- Placeholder for our glorious crest -->
 
 ## MISSION STATEMENT
 
-To systematically dismantle and dominate the Fantasy Premier League simulation by transforming raw, chaotic data into a decisive strategic advantage. This project is the home of the **Chimera**, a Python-based squad optimization engine built on the `pyomo` framework. Our motto: **EX DATA, VICTORIA** (From Data, Victory).
+To systematically dismantle and dominate the Fantasy Premier League simulation by transforming raw, chaotic data into a decisive strategic advantage. This project is the home of the **Chimera**, a Python-based squad optimization engine commanded via the `bamf` CLI. Our motto: **EX DATA, VICTORIA** (From Data, Victory).
 
 ---
 
@@ -23,184 +23,95 @@ sudo apt-get update && sudo apt-get install -y glpk-utils
 
 ### 2. Python Environment
 
-We use `pyenv` for managing Python versions and `uv` for lightning-fast package management.
+We use a standard Python virtual environment.
 
 ```bash
 # 1. If you don't have a .venv, create and activate a virtual environment
 python -m venv .venv
 source .venv/bin/activate
 
-# 2. Install uv, our preferred package manager
+# 2. Install our required package manager and libraries
 pip install uv
-```
-
-### 3. Install The Alchemical Tools
-
-With the environment active, install the required Python libraries using the much faster `uv`.
-
-```bash
 uv pip install pandas pyomo click
 ```
 
 ---
 
-## THE WEEKLY RITUAL: From Data to Dominance
+## THE COMMAND DECK (`bamf` CLI)
 
-This is the precise, non-negotiable workflow to be executed at the start of each new Gameweek.
+All operations are now channeled through our master command-line interface, `bamf.py`. This is the one and only entry point you need.
 
-### Step 1: The Gathering (Manual Data Update)
+**Available Commands:**
 
-The Chimera is omniscient, but it cannot see data that does not yet exist. Before the Commander can issue its orders, you, the `(π)` Pirate, must provide the weekly sacrifice of fresh intelligence.
+-   `init`: Creates a new, clean gameweek vault, ready for data.
+-   `audit`: A group of commands to inspect data integrity.
+    -   `audit teams`: Checks for team name consistency.
+    -   `audit players`: Checks for player name matching issues.
+-   `run-gauntlet`: Executes the entire data-processing and squad-optimizing pipeline.
 
-Create a new gameweek directory (e.g., `gw12`). Inside this directory, the following CSV files **MUST BE CREATED/UPDATED** each week:
+---
 
-- **Player Data CSVs:**
-  - `goalkeepers.csv`
-  - `defenders.csv`
-  - `midfielders.csv`
-  - `forwards.csv`
-    > **ACTION:** Update these files with the latest **Market Price** and **Total Points (TP)** for all players.
+## THE WEEKLY RITUAL
 
-- **Fixture Data CSV:**
-  - `fixtures.csv`
-    > **ACTION:** Update with the upcoming 5-Gameweek horizon: opponents, locations (Home/Away), and your assessed Fixture Difficulty Rating (FDR).
+This is the precise, non-negotiable workflow to be executed at the start of each new Gameweek, using the `bamf` CLI.
 
-- **Squad Data CSV:**
-  - `squad.csv`
-    > **ACTION:** Update this file with the players currently in your FPL squad. The most important column is `PP` (Purchase Price), as this will be used to reconcile your actual budget.
+### Step 1: Initialize the Vault
 
-### Step 2: Price Reconciliation (Scripted)
+Create the directory and all necessary template files for the new gameweek.
 
-Before forging the new squad, we must align the market's reality with our own. The prices you bought players at are what matters for your budget, not their current market value. This script bends reality to our will.
+```bash
+python bamf.py init gw12
+```
 
-Execute the `update_prices.py` script, passing the target gameweek directory:
+### Step 2: The Gathering (Manual Data Update)
+
+The Chimera is omniscient, but it cannot see data that does not yet exist. You, the `(π)` Pirate, must provide the weekly sacrifice of fresh intelligence by filling in the newly created files in the `gw12` directory.
+
+-   **Player Data (`goalkeepers.csv`, etc.):** Update with the latest **Market Price** and **Total Points (TP)**.
+-   **Fixture Data (`fixtures.csv`):** Update with the upcoming 5-Gameweek horizon (opponents, venue, FDR).
+-   **Squad Data (`squad.csv`):** Update with your current squad's **Purchase Price (PP)**.
+
+### Step 3: Price Reconciliation (Scripted)
+
+Align the market's reality with our own. This script uses your `squad.csv` to ensure the budget is calculated against your actual purchase prices.
 
 ```bash
 python update_prices.py gw12
 ```
-This reads your `squad.csv` and updates the prices in the main player data files (`goalkeepers.csv`, etc.) for the players you own, ensuring the solver uses your actual purchase price.
 
-### Step 3: The Forging (Automated Gauntlet Execution)
+### Step 4: Audit Reality
 
-Now, with a data set that reflects your personal reality, you unleash the Commander. This single command orchestrates the entire data pipeline, from the reconciled data to the final, optimal squad.
-
-Execute the `commander.py` script, passing the target gameweek directory as the sole argument:
+Before unleashing the Chimera, verify the integrity of your data.
 
 ```bash
-python commander.py gw12
+# Check for team name mismatches
+python bamf.py audit teams gw12
+
+# Check for player name matching issues
+python bamf.py audit players gw12
 ```
 
-The Commander will execute the full four-stage gauntlet:
-1.  **Forging the Data Cauldron:** Unifies raw player data.
-2.  **Enriching with Prophetic Insight:** Injects captaincy coefficients.
-3.  **Performing the Grand Synthesis:** Merges player and fixture data.
-4.  **Unleashing the Chimera:** Solves for the mathematically optimal squad using the perfected `pyomo` engine.
+### Step 5: Run the Gauntlet
 
-The final, forged squad will be printed to the console. This is your answer.
+With the data prepared and audited, unleash the Commander. This single command orchestrates the entire data pipeline, from the reconciled data to the final, optimal squad, saving the result to `gw12/squad_prophecy.md`.
+
+```bash
+python bamf.py run-gauntlet gw12
+```
 
 ---
 
 ## THE ARSENAL: FILE MANIFEST
 
-A breakdown of the critical components of our war machine.
-
-### Python Scripts (The Grimoires)
-
-- **`commander.py` (The Master Script):** The one script to rule them all. Orchestrates the final pipeline stages.
-- `update_prices.py`: A critical pre-processing script that reconciles market prices with your squad's actual purchase prices.
-- `chimera_pyomo_v2.py` (The Core Engine): The perfected `pyomo`-based solver. It contains the "Final Apotheosis" logic for wise bench selections.
-- `forge_cauldron.py`: Stage 1 of the pipeline.
-- `enrich_with_insight.py`: Stage 2 of the pipeline.
-- `grand_synthesis.py`: Stage 3 of the pipeline.
-
-### CSV Files (The Artifacts)
-
-- **INPUT ARTIFACTS (Update weekly inside `gwX` folder):**
-  - `goalkeepers.csv`, `defenders.csv`, `midfielders.csv`, `forwards.csv` (with market prices)
-  - `fixtures.csv`
-  - `squad.csv` (with your team's purchase prices)
-- **OUTPUT ARTIFACTS (Generated by the Commander in the `gwX` folder):**
-  - `fpl_master_database_raw.csv`
-  - `fpl_master_database_enriched.csv`
-  - `fpl_master_database_prophetic.csv`
-  - `fpl_master_database_OMNISCIENT.csv`
-  - `fpl_master_database_FINAL_v5.csv`
+-   **`bamf.py` (The Command Deck):** The master script and sole entry point for all operations.
+-   **`commander.py` (The Orchestrator):** Now a library, it contains the `run_the_gauntlet` logic that executes the pipeline stages.
+-   **`update_prices.py`:** A critical pre-processing script for budget reconciliation.
+-   **Solver Scripts (`chimera_*.py`):** The core PuLP and Pyomo solver logic.
+-   **Pipeline Scripts (`forge_*.py`, `enrich_*.py`, etc.):** The individual stages of the data pipeline, called by the Commander.
+-   **Audit Scripts (`audit_*.py`):** Library modules containing the logic for the `audit` commands.
 
 ---
 
 ## FUTURE CAMPAIGNS
 
 For the grand strategic vision and our ongoing `(⇌)` evolution, consult the sacred text: `TODO.md`.
-
-- [Ten KEY questions for the weekend's matches - Premier League](https://www.premierleague.com/en/news/4426121)
-- [FPL in 5 minutes: All you need to know about Gameweek 6](https://www.fantasyfootballscout.co.uk/2025/09/27/fpl-in-5-minutes-all-you-need-to-know-about-gameweek-6)
-
-- This needs to include the relevant manager's details (see below)
-- Then we can use this !BRAINLET
-
-### Brainlet: The Stereoscopic Lens
-
-`!BRAINLET The Stereoscopic Lens` (v1.1 Update)
-
-**Core Concept:** A protocol for achieving true analytical depth perception by synthesizing two disparate forms of intelligence: the quantitative, statistical reality provided by the Oracle (`⁂` Data) and the qualitative, narrative reality provided by human-generated intel (`π` Data). It allows us to navigate the "waking dream" of an FPL Gameweek not as a flat, 2D map, but as a rich, textured, 3D landscape.
-
-**Limitation/Blindness Addressed:** This Brainlet simultaneously corrects for two critical forms of cognitive blindness:
-
-1.  **Quantitative Myopia:** The `⁂` Oracle's blindness to unquantifiable "soft factors" like team morale, tactical synergy, player psychology, and manager pressure. It sees the numbers, but not the weather.
-2.  **Narrative Bias:** The `π` Pundit's blindness to the vast statistical landscape, making it susceptible to recency bias, emotional reasoning, and compelling storylines that lack a robust mathematical foundation.
-
-**Mechanism/Application & Perspective Change:**
-
-- **Mechanism:** The protocol is executed by first establishing the hard statistical baseline (the `⁂` FDR list), which acts as the "left eye's view." Then, the narrative intel (the `π` analysis) is overlaid as the "right eye's view." The user then consciously compares the two views using the standardized operational template below, looking for areas of confirmation, contradiction, and contextual nuance.
-- **Perspective Change:** The fundamental shift is from viewing the Oracle's FDR as an _absolute truth_ to viewing it as a _heavily-qualified baseline_. It transforms the user from a passive recipient of prophecy into an active interpreter and prophet. The core question evolves from "What is the FDR?" to "The baseline FDR is X, _but what does the narrative tell us about the nature of X in this specific context?_"
-
-### Operational Template (The Gauntlet v1.0)
-
-_(To be used weekly for key fixtures)_
-
-```markdown
-#### **Fixture: [Home Team] (H) vs. [Away Team] (A)**
-
-- **`⁂` Readout:** [Home Team] FDR: **[FDR]** | [Away Team] FDR: **[FDR]**
-- **`π` Dispatch:** [Key quotes or summary of the narrative intelligence regarding this specific fixture.]
-- **Verdict:** [Choose one: NO ADJUSTMENT (CONFIRMED) | ADJUSTMENT WARRANTED (UPGRADE/DOWNGRADE) | ADD VOLATILITY FLAG]. [Your analysis of the discrepancy or confirmation, and the proposed 'true feeling' of the FDR if adjusted.]
-```
-
-**Contribution to Architecture/Emergence:**
-
-- This Brainlet is the primary operational mechanism of the **`π-⁂` Bridge**, transforming a theoretical concept into a repeatable, weekly analytical ritual.
-- It serves as the foundational intelligence-gathering step for **The Prophet's Gambit (Captaincy Protocol v1.0)**, ensuring high-leverage decisions are made with maximum available intelligence.
-- It creates a crucial feedback loop. By documenting the Stereoscopic analysis and comparing it to post-Gameweek results, we can train ourselves—and eventually, the Oracle—to better weigh narrative factors, allowing our collective intelligence to emerge and evolve `(⇌)`.
-
-**Examples:**
-
-- **Confirmation:** The `⁂` FDR for Man City vs. Burnley was 1, and the `π` narrative confirmed it was the most dominant "1" imaginable, solidifying a captaincy choice.
-- **Contradiction:** The `⁂` FDR for Aston Villa was favorable (2), but the `π` narrative of "staleness" revealed this number to be a statistical lie, flagging the team as a potential trap.
-- **Nuance:** The `⁂` FDR for Liverpool vs. Crystal Palace was favorable (2), but the `π` narrative of two unbeaten, in-form teams corrected this, revealing the fixture to be far more challenging than the historical data suggested.
-
-**Related NDH/Protocols:** `(⊕)`, `(⇌)`, `⁂`, `π`, The Prophet's Gambit, `π-⁂` Bridge
-
-### FPL Managers
-
-| Manager          | Club           |
-| ---------------- | -------------- |
-| Mikel Arteta     | Arsenal        |
-| Unai Emery       | Aston Villa    |
-| Andoni Iraola    | Bournemouth    |
-| Keith Andrews    | Brentford      |
-| Fabian Hurzeler  | Brighton       |
-| Scott Parker     | Burnley        |
-| Enzo Maresca     | Chelsea        |
-| Oliver Glasner   | Crystal Palace |
-| David Moyes      | Everton        |
-| Marco Silva      | Fulham         |
-| Daniel Farke     | Leeds          |
-| Arne Slot        | Liverpool      |
-| Pep Guardiola    | Man City       |
-| Ruben Amorim     | Man Utd        |
-| Eddie Howe       | Newcastle      |
-| Ange Postecoglou | Nott’m Forest  |
-| Regis Le Bris    | Sunderland     |
-| Thomas Frank     | Spurs          |
-| Graham Potter    | West Ham       |
-| Vitor Pereira    | Wolves         |
