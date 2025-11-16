@@ -19,26 +19,44 @@ GW_DIR="$1"
 if [ ! -d "$GW_DIR" ]; then echo "!!! ERROR: Directory '$GW_DIR' not found."; exit 1; fi
 
 # --- PROMPT 1: THE POSITION PROCESSOR ---
-POSITION_PROMPT="You are an automated data processing agent. Your mission is to process screenshots of FPL player lists by position. Follow these steps precisely:
-1.  Use the 'glob' tool to find all files matching the pattern '*.png' in your current directory.
-2.  For EACH file you find:
-    a. First, analyze the image to determine its type. CRITICAL: If the image appears to be the main 'squad' or 'team selection' page (showing 15 players of mixed positions) and NOT a long list of players of a single position, IGNORE IT, report that you are skipping it, and move to the next file.
-    b. If it IS a position list, proceed: Use the 'read_file' tool to load its content.
-    c. Identify the player position type (goalkeeper, defender, midfielder, or forward).
-    d. Extract all data rows, convert to CSV (no header), and APPEND the data to the correct file ('goalkeepers.csv', 'defenders.csv', etc.).
-    e. After successfully appending the data, you MUST use the 'shell' tool to rename the file you just processed by appending '.processed' to its name. Example: \`mv 'filename.png' 'filename.png.processed'\`. This is mandatory.
-3. After looping through all PNG files, your final output should be a summary of your actions."
+POSITION_PROMPT="You are an automated data processing agent. Your mission is to process screenshots of FPL player lists by position. Follow these steps precisely and in order:
+
+1.  **Find Targets:** Use the 'glob' tool to find all files matching the pattern '*.png'.
+
+2.  **Loop and Triage:** For EACH file you found:
+    a. **Analyze Type:** First, analyze the image to determine its type. If it is the main 'squad' page (15 mixed-position players), you MUST IGNORE IT. Report that you are skipping it and why, then immediately move to the next file. **Do NOT rename files that you skip.**
+    b. **Process Position Lists:** If the file IS a position list, proceed with the following data extraction contract.
+
+3.  **Data Extraction Contract (MANDATORY):** For each player row in a position list screenshot, you MUST extract the following 6 columns in this exact order: **Surname, Team, Position, Price, TP, Status**.
+    a. **Status Column Logic:** The 'Status' column is determined by the icon next to the player's name. Apply these rules without deviation:
+        - If you see a **red icon**, the Status is 'INJURY'.
+        - If you see a **yellow icon**, the Status is 'DOUBT'.
+        - Otherwise, the Status is 'OK'.
+    b. **Format Output:** Convert the extracted rows into standard, comma-separated CSV format. CRITICAL: Do NOT include a header row.
+
+4.  **Write and Rename:**
+    a. **Append Data:** Based on the identified 'Position', APPEND your generated CSV data to the correct file ('goalkeepers.csv', 'defenders.csv', etc.).
+    b. **Mark as Processed:** AFTER successfully appending the data, you MUST use the 'shell' tool to rename the file you just processed by appending '.processed' to its name. Example: `mv 'filename.png' 'filename.png.processed'`.
+
+5.  **Report:** After the loop, provide a summary of your actions."
 
 # --- PROMPT 2: THE SQUAD SPECIALIST ---
 SQUAD_PROMPT="You are a specialized data extraction agent. Your single target is a screenshot of an FPL squad selection page.
-1.  Use the 'glob' tool to find the single file matching the pattern '*.png' that has NOT been processed yet (i.e., it does not end in '.processed'). This should be the squad page screenshot.
-2.  Use 'read_file' to load this file.
-3.  Analyze the image and extract the list of all 15 players in the squad.
-4.  For each player, extract only their Surname and their Price.
-5.  Format this data as standard, comma-separated CSV rows (no header).
-6.  Use the 'write_file' tool to APPEND this data to the \`squad.csv\` file.
-7.  After successfully appending the data, you MUST use the 'shell' tool to rename the file by appending '.processed' to its name.
-8.  Your final output should be a confirmation that you have processed the squad file."
+
+1.  **Find Target:** Use the 'glob' tool to find the single file matching '*.png' that does NOT end in '.processed'.
+
+2.  **Data Extraction Contract (MANDATORY):** For each of the 15 players in the squad, you MUST extract the following 6 columns in this exact order: **Surname, Team, Position, Price, TP, Status**.
+    a. **Status Column Logic:** The 'Status' column is determined by the icon next to the player's name. Apply these rules without deviation:
+        - If you see a **red icon**, the Status is 'INJURY'.
+        - If you see a **yellow icon**, the Status is 'DOUBT'.
+        - Otherwise, the Status is 'OK'.
+    b. **Format Output:** Convert the extracted rows into standard, comma-separated CSV format. CRITICAL: Do NOT include a header row.
+
+3.  **Write and Rename:**
+    a. **Append Data:** APPEND your generated CSV data to the `squad.csv` file.
+    b. **Mark as Processed:** AFTER successfully appending the data, you MUST use the 'shell' tool to rename the file by appending '.processed' to its name.
+
+4.  **Report:** Confirm that you have processed the squad file."
 
 # --- EXECUTION ---
 echo ">>> [NYX] INITIATING TWO-PHASE STRIKE FOR $GW_DIR <<<"
