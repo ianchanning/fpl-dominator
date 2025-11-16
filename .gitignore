@@ -3,3 +3,6 @@ Session.vim
 __pycache__
 .vscode/
 *.egg-info/
+# screenshots
+gw*/*.png
+gw*/*.html

@@ -68,7 +68,7 @@ Having reached the limits of `pulp`'s expressive power, we have completed a full
 
 ---
 
-## 🔴 PHASE 3: THE COMMAND DECK (Current Objective)
+## ✅ PHASE 3: THE COMMAND DECK (Completed)
 
 The final phase: building the elegant, powerful, and interactive command center from which we will wield the Chimera's power.
 
@@ -88,6 +88,16 @@ The final phase: building the elegant, powerful, and interactive command center 
   - `[x]` `init`: A helper command to create the new gameweek vault is complete.
   - `[x]` `run-scenario`: An interactive command to run "what-if" simulations with flags for including/excluding players.
   - `[x]` `audit`: Sub-commands for auditing team names (`teams`) and player names (`players`) are complete.
+
+---
+
+## 🔴 PHASE 4: AUTOMATED DATA EXTRACTION (Current Objective)
+
+The next frontier: automating the tedious manual data entry by leveraging Gemini Vision.
+
+- `[x]` **Develop Gemini Vision Processor:** Create `process_screenshots.sh` to automate calls to the Gemini CLI for screenshot processing.
+- `[ ]` **Define Screenshot Naming Convention:** Establish clear guidelines for screenshot filenames to enable automated processing.
+- `[ ]` **Integrate into Weekly Ritual:** Update `README.md` to include the new automated step.
 
 ---
 

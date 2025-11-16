@@ -75,6 +75,15 @@ The Chimera is omniscient, but it cannot see data that does not yet exist. You, 
 -   **Fixture Data (`fixtures.csv`):** Update with the upcoming 5-Gameweek horizon (opponents, venue, FDR).
 -   **Squad Data (`squad.csv`):** Update with your current squad's **Purchase Price (PP)**.
 
+### Step 2.5: Automated Data Extraction (Gemini Vision)
+
+Once screenshots are taken (with any filename), use the Gemini Vision script to automatically extract data into CSVs. The script will feed each screenshot to the Gemini agent (me!), and I will identify the content and provide the data in CSV format.
+
+**Run the extraction:**
+```bash
+src/fpl_dominator/process_screenshots.sh gw12
+```
+
 ### Step 3: Price Reconciliation (Scripted)
 
 Align the market's reality with our own. This script uses your `squad.csv` to ensure the budget is calculated against your actual purchase prices.
@@ -111,6 +120,7 @@ All Python source files are now located within the `src/fpl_dominator/` package.
 
 -   `src/fpl_dominator/bamf.py` (The Command Deck): The master script and sole entry point for all operations.
 -   `src/fpl_dominator/commander.py` (The Orchestrator): Contains the `run_the_gauntlet` logic that executes the pipeline stages.
+-   `src/fpl_dominator/process_screenshots.sh`: Bash script to automate data extraction from screenshots using Gemini Vision.
 -   `src/fpl_dominator/update_prices.py`: A critical pre-processing script for budget reconciliation.
 -   **Solver Scripts (`src/fpl_dominator/chimera_*.py`):** The core PuLP and Pyomo solver logic.
 -   **Pipeline Scripts (`src/fpl_dominator/forge_*.py`, `src/fpl_dominator/enrich_*.py`, etc.):** The individual stages of the data pipeline, called by the Commander.
