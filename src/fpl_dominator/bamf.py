@@ -1,12 +1,11 @@
-#!/home/ian/Projects/fpl-dominator/.venv/bin/python3
 import click
 import sys
 import os
-from commander import run_the_gauntlet
-from audit_realities import audit_team_name_realities
-from audit_player_names_v3 import audit_player_name_resolution_v3
+from .commander import run_the_gauntlet
+from .audit_realities import audit_team_name_realities
+from .audit_player_names_v3 import audit_player_name_resolution_v3
 # We'll need a new function for our scenario runner, let's pretend it exists
-# from scenario_chimera import run_a_what_if_scenario
+# from .scenario_chimera import run_a_what_if_scenario
 
 # --- THE ARTIFICER'S FORGE: OUR CUSTOM HELP CLASS ---
 

@@ -6,11 +6,11 @@ import io
 from contextlib import redirect_stdout
 
 # Import the newly forged functions from our tamed grimoires
-from forge_cauldron import forge_cauldron
-from enrich_with_insight import enrich_with_insight
-from grand_synthesis import perform_grand_synthesis
-from chimera_final_form_v5_production import forge_final_form_squad
-from chimera_pyomo_v2 import forge_pyomo_squad  # The perfected Pyomo engine
+from .forge_cauldron import forge_cauldron
+from .enrich_with_insight import enrich_with_insight
+from .grand_synthesis import perform_grand_synthesis
+from .chimera_final_form_v5_production import forge_final_form_squad
+from .chimera_pyomo_v2 import forge_pyomo_squad  # The perfected Pyomo engine
 
 
 def run_the_gauntlet(gameweek_dir: str):
