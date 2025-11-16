@@ -2,3 +2,4 @@
 Session.vim
 __pycache__
 .vscode/
+*.egg-info/

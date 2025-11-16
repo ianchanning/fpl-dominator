@@ -1,0 +1,21 @@
+[project]
+name = "fpl-dominator"
+version = "3.0.0"
+description = "The Chimera Command Deck for FPL Domination"
+requires-python = ">=3.10"
+dependencies = [
+    "click>=8.1",
+    "pandas",
+    "pyomo",
+]
+
+# THIS IS THE SACRED INCANTATION
+[project.scripts]
+bamf = "fpl_dominator.bamf:bamf"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
