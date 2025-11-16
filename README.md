@@ -30,16 +30,19 @@ We use a standard Python virtual environment.
 python -m venv .venv
 source .venv/bin/activate
 
-# 2. Install our required package manager and libraries
-pip install uv
-uv pip install pandas pyomo click
+# 2. Install the project in editable mode (this also installs dependencies)
+uv pip install -e .
+
+# 3. (Optional) For cleaner output, set PYTHON_GIL=0 in your shell config (e.g., ~/.bashrc)
+#    echo 'export PYTHON_GIL=0' >> ~/.bashrc
+#    source ~/.bashrc
 ```
 
 ---
 
 ## THE COMMAND DECK (`bamf` CLI)
 
-All operations are now channeled through our master command-line interface, `bamf.py`. This is the one and only entry point you need.
+All operations are now channeled through our master command-line interface, `bamf`. This is the one and only entry point you need.
 
 **Available Commands:**
 
@@ -48,6 +51,7 @@ All operations are now channeled through our master command-line interface, `bam
     -   `audit teams`: Checks for team name consistency.
     -   `audit players`: Checks for player name matching issues.
 -   `run-gauntlet`: Executes the entire data-processing and squad-optimizing pipeline.
+-   `run-scenario`: Runs a 'what-if' simulation with player constraints.
 
 ---
 
@@ -60,7 +64,7 @@ This is the precise, non-negotiable workflow to be executed at the start of each
 Create the directory and all necessary template files for the new gameweek.
 
 ```bash
-python bamf.py init gw12
+bamf init gw12
 ```
 
 ### Step 2: The Gathering (Manual Data Update)
@@ -85,10 +89,10 @@ Before unleashing the Chimera, verify the integrity of your data.
 
 ```bash
 # Check for team name mismatches
-python bamf.py audit teams gw12
+bamf audit teams gw12
 
 # Check for player name matching issues
-python bamf.py audit players gw12
+bamf audit players gw12
 ```
 
 ### Step 5: Run the Gauntlet
@@ -96,19 +100,21 @@ python bamf.py audit players gw12
 With the data prepared and audited, unleash the Commander. This single command orchestrates the entire data pipeline, from the reconciled data to the final, optimal squad, saving the result to `gw12/squad_prophecy.md`.
 
 ```bash
-python bamf.py run-gauntlet gw12
+bamf run-gauntlet gw12
 ```
 
 ---
 
 ## THE ARSENAL: FILE MANIFEST
 
--   **`bamf.py` (The Command Deck):** The master script and sole entry point for all operations.
--   **`commander.py` (The Orchestrator):** Now a library, it contains the `run_the_gauntlet` logic that executes the pipeline stages.
--   **`update_prices.py`:** A critical pre-processing script for budget reconciliation.
--   **Solver Scripts (`chimera_*.py`):** The core PuLP and Pyomo solver logic.
--   **Pipeline Scripts (`forge_*.py`, `enrich_*.py`, etc.):** The individual stages of the data pipeline, called by the Commander.
--   **Audit Scripts (`audit_*.py`):** Library modules containing the logic for the `audit` commands.
+All Python source files are now located within the `src/fpl_dominator/` package.
+
+-   `src/fpl_dominator/bamf.py` (The Command Deck): The master script and sole entry point for all operations.
+-   `src/fpl_dominator/commander.py` (The Orchestrator): Contains the `run_the_gauntlet` logic that executes the pipeline stages.
+-   `src/fpl_dominator/update_prices.py`: A critical pre-processing script for budget reconciliation.
+-   **Solver Scripts (`src/fpl_dominator/chimera_*.py`):** The core PuLP and Pyomo solver logic.
+-   **Pipeline Scripts (`src/fpl_dominator/forge_*.py`, `src/fpl_dominator/enrich_*.py`, etc.):** The individual stages of the data pipeline, called by the Commander.
+-   **Audit Scripts (`src/fpl_dominator/audit_*.py`):** Library modules containing the logic for the `audit` commands.
 
 ---
 

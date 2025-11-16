@@ -86,7 +86,7 @@ The final phase: building the elegant, powerful, and interactive command center 
 - `[x]` **Create the `bamf` CLI:** The `bamf.py` script is our new entry point.
   - `[x]` `run-gauntlet`: The primary command is forged and functional.
   - `[x]` `init`: A helper command to create the new gameweek vault is complete.
-  - `[ ]` `run-scenario`: An interactive command to run "what-if" simulations with flags for including/excluding players.
+  - `[x]` `run-scenario`: An interactive command to run "what-if" simulations with flags for including/excluding players.
   - `[x]` `audit`: Sub-commands for auditing team names (`teams`) and player names (`players`) are complete.
 
 ---
