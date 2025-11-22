@@ -46,12 +46,12 @@ All operations are now channeled through our master command-line interface, `bam
 
 **Available Commands:**
 
--   `init`: Creates a new, clean gameweek vault, ready for data.
--   `audit`: A group of commands to inspect data integrity.
-    -   `audit teams`: Checks for team name consistency.
-    -   `audit players`: Checks for player name matching issues.
--   `run-gauntlet`: Executes the entire data-processing and squad-optimizing pipeline.
--   `run-scenario`: Runs a 'what-if' simulation with player constraints.
+- `init`: Creates a new, clean gameweek vault, ready for data.
+- `audit`: A group of commands to inspect data integrity.
+  - `audit teams`: Checks for team name consistency.
+  - `audit players`: Checks for player name matching issues.
+- `run-gauntlet`: Executes the entire data-processing and squad-optimizing pipeline.
+- `run-scenario`: Runs a 'what-if' simulation with player constraints.
 
 ---
 
@@ -71,15 +71,21 @@ bamf init gw12
 
 The Chimera is omniscient, but it cannot see data that does not yet exist. You, the `(π)` Pirate, must provide the weekly sacrifice of fresh intelligence by filling in the newly created files in the `gw12` directory.
 
--   **Player Data (`goalkeepers.csv`, etc.):** Update with the latest **Market Price** and **Total Points (TP)**.
--   **Fixture Data (`fixtures.csv`):** Update with the upcoming 5-Gameweek horizon (opponents, venue, FDR).
--   **Squad Data (`squad.csv`):** Update with your current squad's **Purchase Price (PP)**.
+- **Player Data (`goalkeepers.csv`, etc.):** Update with the latest **Market Price** and **Total Points (TP)**.
+- **Squad Data (`squad.csv`):** Update with your current squad's **Purchase Price (PP)**.
+- **Fixture Data (`fixtures.csv`) - THE TRINITY PROTOCOL:**
+  The Chimera now demands nuance. You must consult the **Greyscale Ticker** and extract data for **three separate views**:
+  1.  **Overall** -> Maps to `FDR`
+  2.  **Attack** -> Maps to `FDR_A`
+  3.  **Defence** -> Maps to `FDR_D`
+      > **ACTION:** Extract the HTML tables for all three views and synthesize them into the master `fixtures.csv`. Ensure values are mapped to our custom scale: **1000 (Light/Target) to 1400 (Void/Avoid)**.
 
 ### Step 2.5: Automated Data Extraction (Gemini Vision)
 
-Once screenshots are taken (with any filename), use the Gemini Vision script to automatically extract data into CSVs. The script will feed each screenshot to the Gemini agent (me!), and I will identify the content and provide the data in CSV format.
+Once screenshots are taken (with any filename), use the Gemini Vision script to automatically extract data into CSVs. The script will feed each screenshot to the Gemini agent, and we will identify the content and provide the data in CSV format.
 
 **Run the extraction:**
+
 ```bash
 src/fpl_dominator/process_screenshots.sh gw12
 ```
@@ -118,13 +124,13 @@ bamf run-gauntlet gw12
 
 All Python source files are now located within the `src/fpl_dominator/` package.
 
--   `src/fpl_dominator/bamf.py` (The Command Deck): The master script and sole entry point for all operations.
--   `src/fpl_dominator/commander.py` (The Orchestrator): Contains the `run_the_gauntlet` logic that executes the pipeline stages.
--   `src/fpl_dominator/process_screenshots.sh`: Bash script to automate data extraction from screenshots using Gemini Vision.
--   `src/fpl_dominator/update_prices.py`: A critical pre-processing script for budget reconciliation.
--   **Solver Scripts (`src/fpl_dominator/chimera_*.py`):** The core PuLP and Pyomo solver logic.
--   **Pipeline Scripts (`src/fpl_dominator/forge_*.py`, `src/fpl_dominator/enrich_*.py`, etc.):** The individual stages of the data pipeline, called by the Commander.
--   **Audit Scripts (`src/fpl_dominator/audit_*.py`):** Library modules containing the logic for the `audit` commands.
+- `src/fpl_dominator/bamf.py` (The Command Deck): The master script and sole entry point for all operations.
+- `src/fpl_dominator/commander.py` (The Orchestrator): Contains the `run_the_gauntlet` logic that executes the pipeline stages.
+- `src/fpl_dominator/process_screenshots.sh`: Bash script to automate data extraction from screenshots using Gemini Vision.
+- `src/fpl_dominator/update_prices.py`: A critical pre-processing script for budget reconciliation.
+- **Solver Scripts (`src/fpl_dominator/chimera_*.py`):** The core PuLP and Pyomo solver logic.
+- **Pipeline Scripts (`src/fpl_dominator/forge_*.py`, `src/fpl_dominator/enrich_*.py`, etc.):** The individual stages of the data pipeline, called by the Commander.
+- **Audit Scripts (`src/fpl_dominator/audit_*.py`):** Library modules containing the logic for the `audit` commands.
 
 ---
 
