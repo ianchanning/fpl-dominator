@@ -104,6 +104,11 @@ All operations are now channeled through our master command-line interface, `bam
 The `run-gauntlet` command executes a multi-stage data pipeline, transforming raw weekly data into a final, optimized squad prophecy. The flow of data through the various scripts and databases is as follows:
 
 ```mermaid
+---
+config:
+  look: neo
+---
+%%{init: {'theme':'base', 'themeVariables': { 'primaryColor':'#fafbfc','primaryTextColor':'#6c757d','primaryBorderColor':'#dee2e6','lineColor':'#ced4da','secondaryColor':'#f0f8ff','tertiaryColor':'#f8f9fa','background':'#ffffff','mainBkg':'#fafbfc','secondBkg':'#f0f8ff','tertiaryBkg':'#f8f9fa','primaryTextColor':'#495057','fontSize':'15px','fontFamily':'system-ui, -apple-system, sans-serif'}}}%%
 graph TD
     subgraph inputs["Weekly Input Data"]
         A1[("Player CSVs<br>(gkp, def, mid, fwd)")]
@@ -140,23 +145,24 @@ graph TD
     A3 --> B4
     C3 --> B4
     B4 --> C4
-    B4 -.-> E1
+    B4 -. solver .-> E1
 
     C4 --> B5
-    B5 -.-> E1
+    B5 -. output .-> E1
 
-    E1 --> F1
+    E1 ==> F1
 
-    %% classDef inputStyle fill:#e3f2fd,stroke:#42a5f5,stroke-width:2px,color:#1565c0
-    classDef processStyle fill:#f3e5f5,stroke:#ab47bc,stroke-width:2px,color:#6a1b9a
-    classDef dataStyle fill:#fff3e0,stroke:#ffa726,stroke-width:2px,color:#e65100
-    classDef outputStyle fill:#e8f5e9,stroke:#66bb6a,stroke-width:2px,color:#2e7d32
+    classDef inputStyle fill:#f0f8ff,stroke:#90caf9,stroke-width:2px,color:#5a6c7d,rx:10,ry:10
+    classDef processStyle fill:#fff,stroke:#ced4da,stroke-width:2px,color:#6c757d,rx:10,ry:10
+    classDef dataStyle fill:#f8f9fa,stroke:#dee2e6,stroke-width:2px,color:#6c757d,rx:10,ry:10
+    classDef outputStyle fill:#e3f2fd,stroke:#64b5f6,stroke-width:2px,color:#5a6c7d,rx:10,ry:10
 
+    class A1,A2,A3 inputStyle
     class B1,B2,B3,B4,B5,E1 processStyle
-    class A1,A2,A3,C1,C2,C3,C4 dataStyle
+    class C1,C2,C3,C4 dataStyle
     class F1 outputStyle
 
-    style inputs fill:#e3f2fd,stroke:#42a5f5,stroke-width:2px,color:#1565c0
+    style inputs fill:#ffffff,stroke:#dee2e6,stroke-width:2px,color:#6c757d,rx:15,ry:15
 ```
 
 ---
