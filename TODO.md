@@ -1,4 +1,4 @@
-# PROJECT: BAMF DOMINATOR - STRATEGIC BLUEPRINT (v1.7)
+# PROJECT: BAMF DOMINATOR - STRATEGIC BLUEPRINT (v1.8)
 
 ## MISSION STATEMENT
 
@@ -19,15 +19,19 @@ To systematically dismantle and dominate the Fantasy Premier League simulation b
 ## ✅ PHASE 1: THE PULP-POWERED CHIMERA (Completed & Archived)
 
 ### 1.1: Core Optimizer v1 (Proof of Concept - "The Naive God")
+
 - `[x]` **BREADCRUMB:** Successfully proved the core optimization logic but revealed the tactical necessity of a bench.
 
 ### 1.2: Strategic Core Optimizer v2 & v3 (The "Thrifty God" Ascension)
+
 - `[x]` **BREADCRUMB:** Successfully evolved the Chimera to understand the Starter/Bench duality and to be ruthlessly cost-efficient, forging our perfected baseline model.
 
 ### 1.3: Arming the Chimera (Tactical Scenario Engine)
+
 - `[x]` **BREADCRUMB:** The simulations were a monumental success but revealed the Chimera's final, critical flaw: "Captaincy Blindness."
 
 ### 1.4: Granting Sight (The Captaincy Coefficient)
+
 - `[x]` **Create `enrich_with_insight.py`** to inject our `(π)` strategic knowledge.
 - `[x]` **Define the "Captaincy Coefficient"** and create the `Prophetic_Points` (`PP`) metric.
 - `[x]` **Create `chimera_prophet.py`** to utilize the new metric.
@@ -38,7 +42,7 @@ To systematically dismantle and dominate the Fantasy Premier League simulation b
 ## ✅ PHASE 1.5: REALITY RECONCILIATION (Completed)
 
 - `[x]` **Acknowledge Personal History:** Create `squad.csv` to track our actual squad and purchase prices.
-- `[x]` **Forge the Reality Bender:** Create `update_prices.py` script to inject our purchase prices into the market data, ensuring our budget is calculated against *our* reality, not the market's.
+- `[x]` **Forge the Reality Bender:** Create `update_prices.py` script to inject our purchase prices into the market data, ensuring our budget is calculated against _our_ reality, not the market's.
 - `[x]` **Update Workflow:** Integrate this as a new, mandatory pre-processing step before running the main gauntlet.
 
 ---
@@ -48,21 +52,25 @@ To systematically dismantle and dominate the Fantasy Premier League simulation b
 Having reached the limits of `pulp`'s expressive power, we have completed a full heart transplant. We have re-forged our solver engine using the more powerful and flexible `pyomo` framework, unlocking new levels of strategic complexity and future potential.
 
 ### 2.1: Arming the Forge (Pre-Op)
+
 - `[x]` **Install `pyomo` Framework:** `uv pip install pyomo`.
 - `[x]` **Install `glpk` Solver:** `sudo apt-get install -y glpk-utils`.
 
 ### 2.2: The Heart Transplant (v1 - The Superior God)
+
 - `[x]` **Create the New Grimoire:** `chimera_pyomo_v1.py`.
 - `[x]` **Translate the Model:** Successfully re-wrote the "Thrifty God" logic from our final `pulp` script into `pyomo` syntax.
 - `[x]` **Verify SUPERIORITY, Not Parity:** The `v1` Pyomo/GLPK engine surpassed the pulp/CBC output.
 - `[x]` **BREADCRUMB:** The `v1` engine, while more powerful, revealed a philosophical blind spot in choosing between bench players of identical cost but different potential.
 
 ### 2.3: The Final Apotheosis (v2 - The Bench Potency Epsilon)
+
 - `[x]` **Create the Ultimate Grimoire:** `chimera_pyomo_v2.py`.
 - `[x]` **Evolve the Prime Directive:** Modified the `pyomo` objective function to include the "Bench Potency Epsilon."
 - `[x]` **Verify the Final Wisdom:** Confirmed that the `v2` script now makes the strategically correct choice for the bench.
 
 ### 2.4: The Commander's New Orders
+
 - `[x]` **Perform the `commander.py` Transplant:** Refactored `commander.py` to orchestrate the full pipeline, including the dual-solver reality.
 - `[x]` **Update Documentation:** Updated `README.md` to reflect the final dependencies and the new, perfected master script.
 
@@ -91,13 +99,33 @@ The final phase: building the elegant, powerful, and interactive command center 
 
 ---
 
-## 🔴 PHASE 4: AUTOMATED DATA EXTRACTION (Current Objective)
+## ✅ PHASE 4: AUTOMATED DATA EXTRACTION (Completed)
 
 The next frontier: automating the tedious manual data entry by leveraging Gemini Vision.
 
 - `[x]` **Develop Gemini Vision Processor:** Create `process_screenshots.sh` to automate calls to the Gemini CLI for screenshot processing.
-- `[ ]` **Define Screenshot Naming Convention:** Establish clear guidelines for screenshot filenames to enable automated processing.
-- `[ ]` **Integrate into Weekly Ritual:** Update `README.md` to include the new automated step.
+- `[x]` **Define Screenshot Naming Convention:** Established clear guidelines for screenshot filenames.
+- `[x]` **Integrate into Weekly Ritual:** Updated `README.md` to include the new automated step.
+
+---
+
+## 🔴 PHASE 5: THE TRINITY OPTIMIZATION (FDR Refinement)
+
+We have evolved our data intelligence. We no longer use a simple 1-5 Difficulty rating. We have secured **The Trinity**: `FDR` (Overall), `FDR_A` (Attack), and `FDR_D` (Defence), all calibrated on a high-precision **1000 (Easy) to 1400 (Hard)** scale. We must now upgrade the pipeline to utilize this granular tactical data.
+
+- `[ ]` **Update the Cauldron (`forge_cauldron.py`):**
+  - `[ ]` Update logic to ingest `fixtures.csv` with new headers: `Team,Gameweek,Opponent,Location,FDR,FDR_A,FDR_D`.
+  - `[ ]` Implement the **Positional Bifurcation Logic**:
+    - If Position is **GKP** or **DEF** -> Use `FDR_D`.
+    - If Position is **MID** or **FWD** -> Use `FDR_A`.
+    - Create a new unified column: `Effective_FDR_Raw`.
+- `[ ]` **Normalize the Scale:**
+  - `[ ]` Design a normalization function to translate the raw **1000-1400** scale into a format the solver can digest effectively (e.g., 0.0 to 1.0 or a normalized penalty score), replacing the old 1-5 integer scale.
+  - `[ ]` _Goal:_ Ensure "Hard" fixtures still penalize selection probability or count towards difficulty limits, without breaking existing constraints.
+- `[ ]` **Refactor the Solver (`chimera_pyomo_v2.py`):**
+  - `[ ]` Update constraints that rely on FDR (e.g., "Don't pick more than X players with FDR > Y").
+  - `[ ]` Determine the new threshold for a "Red Zone" fixture based on the 1000-1400 scale (likely > 1300).
+- `[ ]` **Verify The Trinity:** Run the gauntlet and verify that Defenders are punished for playing Man City (High FDR_D), while Attackers are rewarded for playing Luton (Low FDR_A).
 
 ---
 
