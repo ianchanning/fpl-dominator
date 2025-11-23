@@ -110,9 +110,9 @@ config:
 ---
 %%{init: {'theme':'base', 'themeVariables': { 'primaryColor':'#fafbfc','primaryTextColor':'#6c757d','primaryBorderColor':'#dee2e6','lineColor':'#ced4da','secondaryColor':'#f0f8ff','tertiaryColor':'#f8f9fa','background':'#ffffff','mainBkg':'#fafbfc','secondBkg':'#f0f8ff','tertiaryBkg':'#f8f9fa','primaryTextColor':'#495057','fontSize':'15px','fontFamily':'system-ui, -apple-system, sans-serif'}}}%%
 graph TD
-    subgraph inputs["Weekly Input Data"]
-        A1[("Player CSVs<br>(gkp, def, mid, fwd)")]
-        A2[("fixtures.csv<br>(with FDR_A/D)")]
+    subgraph inputs["Gameweek Input Data"]
+        A1[("Player CSVs")]
+        A2[("fixtures.csv")]
         A3[("set_pieces.csv")]
     end
 
@@ -152,17 +152,17 @@ graph TD
 
     E1 ==> F1
 
-    classDef inputStyle fill:#f0f8ff,stroke:#90caf9,stroke-width:2px,color:#5a6c7d,rx:10,ry:10
-    classDef processStyle fill:#fff,stroke:#ced4da,stroke-width:2px,color:#6c757d,rx:10,ry:10
-    classDef dataStyle fill:#f8f9fa,stroke:#dee2e6,stroke-width:2px,color:#6c757d,rx:10,ry:10
-    classDef outputStyle fill:#e3f2fd,stroke:#64b5f6,stroke-width:2px,color:#5a6c7d,rx:10,ry:10
+    classDef inputStyle fill:#e3f2fd,stroke:#42a5f5,stroke-width:3px,color:#1565c0,rx:10,ry:10
+    classDef processStyle fill:#f8f9fa,stroke:#6c757d,stroke-width:3px,color:#495057,rx:10,ry:10
+    classDef dataStyle fill:#e9ecef,stroke:#adb5bd,stroke-width:3px,color:#495057,rx:10,ry:10
+    classDef outputStyle fill:#b3e5fc,stroke:#29b6f6,stroke-width:3px,color:#01579b,rx:10,ry:10
 
     class A1,A2,A3 inputStyle
     class B1,B2,B3,B4,B5,E1 processStyle
     class C1,C2,C3,C4 dataStyle
     class F1 outputStyle
 
-    style inputs fill:#ffffff,stroke:#dee2e6,stroke-width:2px,color:#6c757d,rx:15,ry:15
+    style inputs fill:#ffffff,stroke:#6c757d,stroke-width:3px,color:#495057,rx:15,ry:15
 ```
 
 ---
