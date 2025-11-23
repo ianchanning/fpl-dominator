@@ -106,27 +106,27 @@ The `run-gauntlet` command executes a multi-stage data pipeline, transforming ra
 ```mermaid
 graph TD
     subgraph inputs["Weekly Input Data"]
-        A1["Player CSVs<br>(gkp, def, mid, fwd)"]
-        A2["fixtures.csv<br>(with FDR_A/D)"]
-        A3["set_pieces.csv"]
+        A1("Player CSVs<br>(gkp, def, mid, fwd)")
+        A2("fixtures.csv<br>(with FDR_A/D)")
+        A3("set_pieces.csv")
     end
 
-    B1["forge_cauldron.py"]
+    B1("forge_cauldron.py")
     C1[("enriched.csv")]
 
-    B2["enrich_with_insight.py"]
+    B2("enrich_with_insight.py")
     C2[("prophetic.csv")]
 
-    B3["grand_synthesis.py"]
+    B3("grand_synthesis.py")
     C3[("OMNISCIENT.csv")]
 
-    B4["chimera_final_form_v5"]
+    B4("chimera_final_form_v5")
     C4[("FINAL_v5.csv")]
 
-    B5["chimera_pyomo_v2"]
+    B5("chimera_pyomo_v2")
 
-    E1["commander.py"]
-    F1["squad_prophecy.md"]
+    E1("commander.py")
+    F1("squad_prophecy.md")
 
     A1 --> B1
     B1 --> C1
@@ -156,6 +156,8 @@ graph TD
     class B1,B2,B3,B4,B5,E1 processStyle
     class C1,C2,C3,C4 dataStyle
     class F1 outputStyle
+
+    style inputs fill:#e3f2fd,stroke:#42a5f5,stroke-width:2px,color:#1565c0
 ```
 
 ---
