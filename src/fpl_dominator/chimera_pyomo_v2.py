@@ -8,15 +8,18 @@ import sys
 # This breaks ties between players of the same cost, adding a final layer of strategic wisdom.
 THRIFT_FACTOR = 0.001
 BENCH_POTENCY_EPSILON = 0.00001
+RED_ZONE_THRESHOLD = 1250 
+RED_ZONE_LIMIT = 3
 
 
 def forge_pyomo_squad(gameweek_dir: str):
     """
-    The New Heart, Perfected. Forges the optimal squad using the Pyomo framework
-    and the "Bench Potency Epsilon" to make strategically wise bench selections.
+    The New Heart, Perfected. Forges the optimal squad using the Pyomo framework,
+    the "Bench Potency Epsilon" to make strategically wise bench selections, and the
+    new "Trinity" constraint to avoid difficult fixtures.
     """
     FINAL_FORM_DB_PATH = f"{gameweek_dir}/fpl_master_database_FINAL_v5.csv"
-    print("--- CHIMERA PYOMO ENGINE (V2 - FINAL APOTHEOSIS) ONLINE ---")
+    print("--- CHIMERA PYOMO ENGINE (V3 - TRINITY) ONLINE ---")
     if not os.path.exists(FINAL_FORM_DB_PATH):
         print(
             f"!!! CRITICAL FAILURE: Final Form Database not found at '{FINAL_FORM_DB_PATH}'. Aborting."
@@ -27,7 +30,7 @@ def forge_pyomo_squad(gameweek_dir: str):
     print(f"[+] Intelligence loaded. Analyzing {len(players_df)} players.")
 
     # --- 1. Model Initialization ---
-    model = pyo.ConcreteModel(name="FPL_Pyomo_Chimera_V2")
+    model = pyo.ConcreteModel(name="FPL_Pyomo_Chimera_V3_Trinity")
     print("[+] Pyomo ConcreteModel initialized.")
 
     # --- 2. Data Preparation & Set Definition (The Pyomo Way) ---
@@ -38,8 +41,9 @@ def forge_pyomo_squad(gameweek_dir: str):
     prices = players_df["Price"].to_dict()
     positions = players_df["Position"].to_dict()
     teams = players_df["Team_TLA"].to_dict()
+    fdr_values = players_df["Effective_FDR_Horizon_5GW"].to_dict()
 
-    print("[+] Sets (players) and Parameters (scores, prices, etc.) defined.")
+    print("[+] Sets (players) and Parameters (scores, prices, fdr, etc.) defined.")
 
     # --- 3. Define the Decision Variables ---
     model.in_squad = pyo.Var(
@@ -126,6 +130,17 @@ def forge_pyomo_squad(gameweek_dir: str):
 
     model.bridge = pyo.Constraint(model.players, rule=bridge_rule)
 
+    # --- NEW: The Trinity Constraint (Red Zone Fixture Limit) ---
+    def red_zone_rule(m):
+        red_zone_players = [i for i in m.players if fdr_values.get(i, 0) > RED_ZONE_THRESHOLD]
+        if not red_zone_players:
+            return pyo.Constraint.Feasible
+        return sum(m.is_starter[i] for i in red_zone_players) <= RED_ZONE_LIMIT
+    
+    model.red_zone_limit = pyo.Constraint(rule=red_zone_rule)
+    print(f"[+] STRATEGIC CONSTRAINT: Red Zone limit active (Max {RED_ZONE_LIMIT} starters with FDR > {RED_ZONE_THRESHOLD}).")
+
+
     print("[+] All constraints are locked in.")
 
     # --- 6. Unleash the New Beast (Solve the Problem) ---
@@ -151,16 +166,16 @@ def forge_pyomo_squad(gameweek_dir: str):
         starters['Position'] = pd.Categorical(starters['Position'], categories=position_order, ordered=True)
         bench['Position'] = pd.Categorical(bench['Position'], categories=position_order, ordered=True)
 
-        print("\n" + "=" * 20 + " PYOMO SQUAD FORGED (V2 - APOTHEOSIS) " + "=" * 20)
+        print("\n" + "=" * 20 + " PYOMO SQUAD FORGED (V3 - TRINITY) " + "=" * 20)
         print("\n--- STARTING XI (Final Score Maximized) ---")
         print(
-            starters[["Surname", "Team", "Position", "Price", "Final_Score"]]
+            starters[["Surname", "Team", "Position", "Price", "Final_Score", "Effective_FDR_Horizon_5GW"]]
             .sort_values(by=["Position", "Final_Score"], ascending=[True, False])
             .to_string(index=False)
         )
         print("\n--- BENCH (Potency & Cost Optimized) ---")
         print(
-            bench[["Surname", "Team", "Position", "Price", "Final_Score"]]
+            bench[["Surname", "Team", "Position", "Price", "Final_Score", "Effective_FDR_Horizon_5GW"]]
             .sort_values(by=["Position", "Final_Score"], ascending=[True, False])
             .to_string(index=False)
         )

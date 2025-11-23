@@ -84,7 +84,7 @@ def forge_final_form_squad(gameweek_dir: str):
     players = pd.read_csv(OMNISCIENT_DB_PATH)
     players = enrich_with_set_pieces(players, SET_PIECE_DB_PATH, SPP_SCORES)
     
-    players['Final_Score'] = ((players['PP'] + players['SPP']) / players['FDR_Horizon_5GW']).round(2)
+    players['Final_Score'] = ((players['PP'] + players['SPP']) / players['Effective_FDR_Horizon_5GW']).round(2)
     players.to_csv(FINAL_FORM_DB_PATH, index=False)
     print(f"[+] Final Form database (v5) forged at '{FINAL_FORM_DB_PATH}'.")
 

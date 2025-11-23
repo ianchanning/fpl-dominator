@@ -1,6 +1,7 @@
 import pandas as pd
 import os
 import sys
+import numpy as np
 
 
 # --- The Heart of the Oracle ---
@@ -44,28 +45,39 @@ def perform_grand_synthesis(gameweek_dir: str):
         print("!!! WARNING: Some team names could not be mapped to an acronym. Check Rosetta Stone.")
     print("[+] Player data prepared with team acronyms for temporal merging.")
 
-    # 3. Calculate the FDR Horizon
-    # We group the fixtures by team and calculate the average FDR for the next 5 GWs.
-    fdr_horizon = fixtures_df.groupby('Team')['FDR'].mean().reset_index()
-    fdr_horizon.rename(columns={'Team': 'Team_TLA', 'FDR': 'FDR_Horizon_5GW'}, inplace=True)
-    print("[+] 'FDR_Horizon_5GW' calculated for every team.")
+    # 3. Calculate the FDR Horizon (Trinity Protocol)
+    # We group fixtures by team and calculate the mean FDR for Attack and Defence separately.
+    fdr_horizon = fixtures_df.groupby('Team').agg(
+        FDR_A_Horizon_5GW=('FDR_A', 'mean'),
+        FDR_D_Horizon_5GW=('FDR_D', 'mean')
+    ).reset_index()
+    fdr_horizon.rename(columns={'Team': 'Team_TLA'}, inplace=True)
+    print("[+] Trinity FDR Horizons (Attack/Defence) calculated for every team.")
 
     # 4. The Grand Synthesis (The Merge)
     omniscient_df = pd.merge(players_df, fdr_horizon, on='Team_TLA', how='left')
     print("[+] Prophetic and Temporal realities have been merged.")
 
-    # 5. Forge the Ultimate Metric: Projected Score
-    # We divide a player's intrinsic power (PP) by their upcoming difficulty.
-    # A lower FDR is better, so this rewards players with easy fixtures.
-    omniscient_df['Projected_Score'] = (omniscient_df['PP'] / omniscient_df['FDR_Horizon_5GW']).round(2)
-    print("[+] Ultimate metric 'Projected_Score' has been forged.")
+    # 5. Positional Bifurcation: Forge the Effective FDR
+    # Apply the correct FDR based on player position.
+    omniscient_df['Effective_FDR_Horizon_5GW'] = np.where(
+        omniscient_df['Position'].isin(['GKP', 'DEF']),
+        omniscient_df['FDR_D_Horizon_5GW'],
+        omniscient_df['FDR_A_Horizon_5GW']
+    )
+    print("[+] 'Effective_FDR_Horizon_5GW' forged using positional bifurcation logic.")
 
-    # 6. Verification: Display the most promising assets for the upcoming period
+    # 6. Forge the Ultimate Metric: Projected Score
+    # We divide a player's intrinsic power (PP) by their upcoming effective difficulty.
+    omniscient_df['Projected_Score'] = (omniscient_df['PP'] / omniscient_df['Effective_FDR_Horizon_5GW']).round(2)
+    print("[+] Ultimate metric 'Projected_Score' has been forged using effective FDR.")
+
+    # 7. Verification: Display the most promising assets for the upcoming period
     print("\n--- TOP 15 PROSPECTS (BY PROJECTED SCORE OVER NEXT 5GW) ---")
     print(omniscient_df.sort_values(by='Projected_Score', ascending=False).head(15)
-          [['Surname', 'Team', 'PP', 'FDR_Horizon_5GW', 'Projected_Score']].to_string(index=False))
+          [['Surname', 'Team', 'PP', 'Effective_FDR_Horizon_5GW', 'Projected_Score']].to_string(index=False))
 
-    # 7. Save the Omniscient Database
+    # 8. Save the Omniscient Database
     try:
         omniscient_df.to_csv(OMNISCIENT_DB_PATH, index=False)
         print(f"\n--- SUCCESS: The OMNISCIENT Database has been forged at '{OMNISCIENT_DB_PATH}' ---")
