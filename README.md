@@ -105,56 +105,57 @@ The `run-gauntlet` command executes a multi-stage data pipeline, transforming ra
 
 ```mermaid
 graph TD
-    subgraph "Weekly Input Data"
-        direction LR
+    subgraph inputs["Weekly Input Data"]
         A1["Player CSVs<br>(gkp, def, mid, fwd)"]
         A2["fixtures.csv<br>(with FDR_A/D)"]
         A3["set_pieces.csv"]
     end
 
-    subgraph "BAMF Gauntlet Pipeline"
-        direction TB
+    B1["forge_cauldron.py"]
+    C1[("enriched.csv")]
 
-        %% Stage 1
-        A1 --> B1("forge_cauldron.py")
-        B1 --> C1("enriched.csv")
+    B2["enrich_with_insight.py"]
+    C2[("prophetic.csv")]
 
-        %% Stage 2
-        C1 --> B2("enrich_with_insight.py")
-        B2 --> C2("prophetic.csv")
+    B3["grand_synthesis.py"]
+    C3[("OMNISCIENT.csv")]
 
-        %% Stage 3
-        A2 --> B3("grand_synthesis.py")
-        C2 --> B3
-        B3 --> C3("OMNISCIENT.csv")
+    B4["chimera_final_form_v5"]
+    C4[("FINAL_v5.csv")]
 
-        %% Stage 4
-        A3 --> B4("chimera_final_form_v5_production.py<br>[PuLP Solver Runs Here]")
-        C3 --> B4
-        B4 --> C4("FINAL_v5.csv")
-        B4 -- PuLP Output --> E1("commander.py Scribe")
+    B5["chimera_pyomo_v2"]
 
-        %% Stage 5
-        C4 --> B5("chimera_pyomo_v2.py")
-        B5 -- Pyomo Output --> E1
+    E1["commander.py"]
+    F1["squad_prophecy.md"]
 
-    end
+    A1 --> B1
+    B1 --> C1
+    C1 --> B2
+    B2 --> C2
 
-    subgraph "Final Output"
-        direction LR
-        E1 --> F1["squad_prophecy.md"]
-    end
+    A2 --> B3
+    C2 --> B3
+    B3 --> C3
 
-    %% Styling
-    classDef process fill:#8E7CC3,stroke:#fff,stroke-width:2px,color:#fff;
-    classDef data fill:#58A4B0,stroke:#fff,stroke-width:2px,color:#fff,shape:cylinder;
-    classDef input fill:#ECA400,stroke:#fff,stroke-width:1px,color:#fff,shape:parallelogram;
-    classDef output fill:#33A532,stroke:#fff,stroke-width:2px,color:#fff,shape:parallelogram;
+    A3 --> B4
+    C3 --> B4
+    B4 --> C4
+    B4 -.-> E1
 
-    class A1,A2,A3 input;
-    class C1,C2,C3,C4 data;
-    class B1,B2,B3,B4,B5,E1 process;
-    class F1 output;
+    C4 --> B5
+    B5 -.-> E1
+
+    E1 --> F1
+
+    classDef inputStyle fill:#e3f2fd,stroke:#42a5f5,stroke-width:2px,color:#1565c0
+    classDef processStyle fill:#f3e5f5,stroke:#ab47bc,stroke-width:2px,color:#6a1b9a
+    classDef dataStyle fill:#fff3e0,stroke:#ffa726,stroke-width:2px,color:#e65100
+    classDef outputStyle fill:#e8f5e9,stroke:#66bb6a,stroke-width:2px,color:#2e7d32
+
+    class A1,A2,A3 inputStyle
+    class B1,B2,B3,B4,B5,E1 processStyle
+    class C1,C2,C3,C4 dataStyle
+    class F1 outputStyle
 ```
 
 ---
