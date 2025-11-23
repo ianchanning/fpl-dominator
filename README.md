@@ -1,10 +1,17 @@
-# PROJECT: BAMF DOMINATOR - OPERATIONAL GRIMOIRE (v4.0)
+# PROJECT: BAMF DOMINATOR - OPERATIONAL GRIMOIRE (v4.1)
 
-<!-- Placeholder for our glorious crest -->
+```text
+██████╗  █████╗ ███╗   ███╗███████╗
+██╔══██╗██╔══██╗████╗ ████║██╔════╝
+██████╔╝███████║██╔████╔██║███████╗
+██╔══██╗██╔══██║██║╚██╔╝██║██╔════╝
+██████╔╝██║  ██║██║ ╚═╝ ██║██║
+╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚═╝
+```
 
 ## MISSION STATEMENT
 
-To systematically dismantle and dominate the Fantasy Premier League simulation by transforming raw, chaotic data into a decisive strategic advantage. This project is the home of the **Chimera**, a Python-based squad optimization engine commanded via the `bamf` CLI. Our motto: **EX DATA, VICTORIA** (From Data, Victory).
+To systematically dismantle and dominate the Fantasy Premier League simulation by transforming raw, chaotic data into a decisive strategic advantage. This project is the home of the **Chimera**, a Python-based squad optimisation engine commanded via the `bamf` CLI. Our motto: **EX DATA, VICTORIA** (From Data, Victory).
 
 ---
 
@@ -21,28 +28,63 @@ The Chimera's heart, the `pyomo` model, requires a solver. We use `glpk`.
 sudo apt-get update && sudo apt-get install -y glpk-utils
 ```
 
-### 2. Python Environment
+### 2. Python Environment & Package Installation
 
-We use a standard Python virtual environment.
+We use `uv` for lightning-fast package management and install the project in "editable" mode. This transforms our scripts into a system-recognised executable.
 
 ```bash
-# 1. If you don't have a .venv, create and activate a virtual environment
+# 1. Create and activate a virtual environment
 uv venv
 source .venv/bin/activate
 
-# 2. Install the project in editable mode (this also installs dependencies)
+# 2. Install the project (and dependencies) in editable mode
 uv pip install -e .
-
-# 3. (Optional) For cleaner output, set PYTHON_GIL=0 in your shell config (e.g., ~/.bashrc)
-#    echo 'export PYTHON_GIL=0' >> ~/.bashrc
-#    source ~/.bashrc
 ```
+
+### 3. Advanced Shell Integration (Optimised Auto-Complete & Performance)
+
+To achieve true symbiosis with the Command Deck, we configure the shell for **zero-latency** auto-completion and optimised execution.
+
+**Step 1: Forge the Completion Artefact**
+Instead of generating the completion logic dynamically every time the shell starts (slow), we generate it once and save it to a hidden file.
+
+_Run this command in your terminal:_
+
+```bash
+_BAMF_COMPLETE=bash_source bamf > ~/.bamf-complete.bash
+```
+
+**Step 2: Update Shell Configuration**
+Add the following lines to your shell's config file (e.g., `~/.bashrc`) to source the static file and disable the Global Interpreter Lock for maximum Pandas velocity.
+
+```bash
+# --- BAMF DOMINATOR CONFIG ---
+
+# 1. Load optimised auto-completion (Static File)
+# Reference: https://click.palletsprojects.com/en/stable/shell-completion/
+if [ -f ~/.bamf-complete.bash ]; then
+    . ~/.bamf-complete.bash
+fi
+
+# 2. Disable GIL for Pandas/Numpy performance
+# This suppresses the RuntimeWarning and unlocks raw speed.
+export PYTHON_GIL=0
+```
+
+**Step 3: Activate**
+Reload your shell to apply the changes.
+
+```bash
+source ~/.bashrc
+```
+
+> **(π) Pirate Note:** If you update the `bamf` CLI commands significantly in the future, remember to re-run **Step 1** to regenerate the completion artifact!
 
 ---
 
 ## THE COMMAND DECK (`bamf` CLI)
 
-All operations are now channeled through our master command-line interface, `bamf`. This is the one and only entry point you need.
+All operations are now channeled through our master command-line interface, `bamf`.
 
 **Available Commands:**
 
@@ -50,7 +92,7 @@ All operations are now channeled through our master command-line interface, `bam
 - `audit`: A group of commands to inspect data integrity.
   - `audit teams`: Checks for team name consistency.
   - `audit players`: Checks for player name matching issues.
-- `run-gauntlet`: Executes the entire data-processing and squad-optimizing pipeline.
+- `run-gauntlet`: Executes the entire data-processing and squad-optimising pipeline.
 - `run-scenario`: Runs a 'what-if' simulation with player constraints.
 
 ---
@@ -59,7 +101,7 @@ All operations are now channeled through our master command-line interface, `bam
 
 This is the precise, non-negotiable workflow to be executed at the start of each new Gameweek, using the `bamf` CLI.
 
-### Step 1: Initialize the Vault
+### Step 1: Initialise the Vault
 
 Create the directory and all necessary template files for the new gameweek.
 
@@ -74,15 +116,15 @@ The Chimera is omniscient, but it cannot see data that does not yet exist. You, 
 - **Player Data (`goalkeepers.csv`, etc.):** Update with the latest **Market Price** and **Total Points (TP)**.
 - **Squad Data (`squad.csv`):** Update with your current squad's **Purchase Price (PP)**.
 - **Fixture Data (`fixtures.csv`) - THE TRINITY PROTOCOL:**
-  The Chimera now demands nuance. You must consult the **Greyscale Ticker** and extract data for **three separate views**:
+  The Chimera now demands nuance. You must consult the **Grey-scale Ticker** and extract data for **three separate views**:
   1.  **Overall** -> Maps to `FDR`
   2.  **Attack** -> Maps to `FDR_A`
   3.  **Defence** -> Maps to `FDR_D`
-      > **ACTION:** Extract the HTML tables for all three views and synthesize them into the master `fixtures.csv`. Ensure values are mapped to our custom scale: **1000 (Light/Target) to 1400 (Void/Avoid)**.
+      > **ACTION:** Extract the HTML tables for all three views and synthesise them into the master `fixtures.csv`. Ensure values are mapped to our custom scale: **1000 (Light/Target) to 1400 (Void/Avoid)**.
 
 ### Step 2.5: Automated Data Extraction (Gemini Vision)
 
-Once screenshots are taken (with any filename), use the Gemini Vision script to automatically extract data into CSVs. The script will feed each screenshot to the Gemini agent, and we will identify the content and provide the data in CSV format.
+Once screenshots are taken (with any filename), use the Gemini Vision script to automatically extract data into CSVs.
 
 **Run the extraction:**
 
@@ -124,16 +166,18 @@ bamf run-gauntlet gw12
 
 All Python source files are now located within the `src/fpl_dominator/` package.
 
-- `src/fpl_dominator/bamf.py` (The Command Deck): The master script and sole entry point for all operations.
-- `src/fpl_dominator/commander.py` (The Orchestrator): Contains the `run_the_gauntlet` logic that executes the pipeline stages.
-- `src/fpl_dominator/process_screenshots.sh`: Bash script to automate data extraction from screenshots using Gemini Vision.
-- `src/fpl_dominator/update_prices.py`: A critical pre-processing script for budget reconciliation.
+- `src/fpl_dominator/bamf.py` (The Command Deck): The master script and sole entry point.
+- `src/fpl_dominator/commander.py` (The Orchestrator): Contains the `run_the_gauntlet` logic.
+- `src/fpl_dominator/process_screenshots.sh`: Bash script for Gemini Vision automation.
+- `src/fpl_dominator/update_prices.py`: Budget reconciliation script.
 - **Solver Scripts (`src/fpl_dominator/chimera_*.py`):** The core PuLP and Pyomo solver logic.
-- **Pipeline Scripts (`src/fpl_dominator/forge_*.py`, `src/fpl_dominator/enrich_*.py`, etc.):** The individual stages of the data pipeline, called by the Commander.
-- **Audit Scripts (`src/fpl_dominator/audit_*.py`):** Library modules containing the logic for the `audit` commands.
+- **Pipeline Scripts (`src/fpl_dominator/forge_*.py`, etc.):** The data pipeline stages.
+- **Audit Scripts (`src/fpl_dominator/audit_*.py`):** Logic for the `audit` commands.
 
 ---
 
 ## FUTURE CAMPAIGNS
 
 For the grand strategic vision and our ongoing `(⇌)` evolution, consult the sacred text: `TODO.md`.
+
+---
