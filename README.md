@@ -27,7 +27,7 @@ We use a standard Python virtual environment.
 
 ```bash
 # 1. If you don't have a .venv, create and activate a virtual environment
-python -m venv .venv
+uv venv
 source .venv/bin/activate
 
 # 2. Install the project in editable mode (this also installs dependencies)
