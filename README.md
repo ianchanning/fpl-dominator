@@ -106,9 +106,9 @@ The `run-gauntlet` command executes a multi-stage data pipeline, transforming ra
 ```mermaid
 graph TD
     subgraph inputs["Weekly Input Data"]
-        A1("Player CSVs<br>(gkp, def, mid, fwd)")
-        A2("fixtures.csv<br>(with FDR_A/D)")
-        A3("set_pieces.csv")
+        A1[("Player CSVs<br>(gkp, def, mid, fwd)")]
+        A2[("fixtures.csv<br>(with FDR_A/D)")]
+        A3[("set_pieces.csv")]
     end
 
     B1("forge_cauldron.py")
@@ -147,14 +147,13 @@ graph TD
 
     E1 --> F1
 
-    classDef inputStyle fill:#e3f2fd,stroke:#42a5f5,stroke-width:2px,color:#1565c0
+    %% classDef inputStyle fill:#e3f2fd,stroke:#42a5f5,stroke-width:2px,color:#1565c0
     classDef processStyle fill:#f3e5f5,stroke:#ab47bc,stroke-width:2px,color:#6a1b9a
     classDef dataStyle fill:#fff3e0,stroke:#ffa726,stroke-width:2px,color:#e65100
     classDef outputStyle fill:#e8f5e9,stroke:#66bb6a,stroke-width:2px,color:#2e7d32
 
-    class A1,A2,A3 inputStyle
     class B1,B2,B3,B4,B5,E1 processStyle
-    class C1,C2,C3,C4 dataStyle
+    class A1,A2,A3,C1,C2,C3,C4 dataStyle
     class F1 outputStyle
 
     style inputs fill:#e3f2fd,stroke:#42a5f5,stroke-width:2px,color:#1565c0
