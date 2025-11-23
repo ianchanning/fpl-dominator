@@ -19,36 +19,61 @@ BAMF_ART = r"""
 ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚═╝
 """
 
-# Define a sequence of ANSI foreground colors for the rainbow
-RAINBOW_COLORS = ['red', 'yellow', 'green', 'cyan', 'blue', 'magenta']
+# Refined rainbow - muted, sophisticated pastel spectrum
+REFINED_RAINBOW = [
+    (228, 160, 160),  # Dusty rose
+    (235, 195, 148),  # Soft peach
+    (215, 218, 160),  # Sage yellow
+    (168, 208, 180),  # Muted mint
+    (158, 188, 218),  # Soft sky blue
+    (188, 170, 210),  # Gentle lavender
+]
 
-class RainbowArtHelpGroup(click.Group):
+class RefinedRainbowHelpGroup(click.Group):
     def format_help(self, ctx, formatter):
         """
-        This is our override. It writes the custom banner first,
-        then calls the original help formatter.
+        Sophisticated muted rainbow gradient - elegant pastel spectrum.
         """
-        # Split the art into lines
         art_lines = BAMF_ART.strip('\n').split('\n')
         
-        # Write each line with a cycling rainbow color
         for i, line in enumerate(art_lines):
-            color = RAINBOW_COLORS[i % len(RAINBOW_COLORS)]
-            # We use click.style to get the raw ANSI codes, not secho
-            formatter.write(click.style(line, fg=color, bold=True))
+            r, g, b = REFINED_RAINBOW[i % len(REFINED_RAINBOW)]
+            formatter.write(f'\033[38;2;{r};{g};{b}m{line}\033[0m')
             formatter.write('\n')
         
-        formatter.write('\n') # Add a little space
-        
-        # Now, let the default help formatter do its thing
+        formatter.write('\n')
         super().format_help(ctx, formatter)
 
+# Elegant grey-blue sophisticated version
+GREY_BLUE_ELEGANCE = [
+    (176, 196, 222),  # Light steel blue
+    (158, 188, 218),  # Muted sky
+    (140, 180, 214),  # Soft denim
+    (122, 172, 210),  # Steel wash
+    (104, 164, 206),  # Cool grey-blue
+    (95, 158, 200),   # Refined slate-blue
+]
+
+class ElegantArtHelpGroup(click.Group):
+    def format_help(self, ctx, formatter):
+        """
+        Sophisticated grey-blue gradient with refined elegance.
+        """
+        art_lines = BAMF_ART.strip('\n').split('\n')
+        
+        for i, line in enumerate(art_lines):
+            r, g, b = GREY_BLUE_ELEGANCE[i % len(GREY_BLUE_ELEGANCE)]
+            formatter.write(f'\033[38;2;{r};{g};{b}m{line}\033[0m')
+            formatter.write('\n')
+        
+        formatter.write('\n')
+        super().format_help(ctx, formatter)
 # --- END OF THE ARTIFICER'S FORGE ---
 
 
 # NOW, WEAPONIZE IT.
 # Instead of @click.group(), we use our custom class with the 'cls' argument.
-@click.command(cls=RainbowArtHelpGroup)
+@click.command(cls=RefinedRainbowHelpGroup)
 def bamf():
     """
     BAMF DOMINATOR v3.0
