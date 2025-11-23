@@ -99,6 +99,66 @@ All operations are now channeled through our master command-line interface, `bam
 
 ---
 
+## SYSTEM ARCHITECTURE
+
+The `run-gauntlet` command executes a multi-stage data pipeline, transforming raw weekly data into a final, optimized squad prophecy. The flow of data through the various scripts and databases is as follows:
+
+```mermaid
+graph TD
+    subgraph "Weekly Input Data"
+        direction LR
+        A1["Player CSVs<br>(gkp, def, mid, fwd)"]
+        A2["fixtures.csv<br>(with FDR_A/D)"]
+        A3["set_pieces.csv"]
+    end
+
+    subgraph "BAMF Gauntlet Pipeline"
+        direction TB
+
+        %% Stage 1
+        A1 --> B1("forge_cauldron.py")
+        B1 --> C1("enriched.csv")
+
+        %% Stage 2
+        C1 --> B2("enrich_with_insight.py")
+        B2 --> C2("prophetic.csv")
+
+        %% Stage 3
+        A2 --> B3("grand_synthesis.py")
+        C2 --> B3
+        B3 --> C3("OMNISCIENT.csv")
+
+        %% Stage 4
+        A3 --> B4("chimera_final_form_v5_production.py<br>[PuLP Solver Runs Here]")
+        C3 --> B4
+        B4 --> C4("FINAL_v5.csv")
+        B4 -- PuLP Output --> E1("commander.py Scribe")
+
+        %% Stage 5
+        C4 --> B5("chimera_pyomo_v2.py")
+        B5 -- Pyomo Output --> E1
+
+    end
+
+    subgraph "Final Output"
+        direction LR
+        E1 --> F1["squad_prophecy.md"]
+    end
+
+    %% Styling
+    classDef process fill:#8E7CC3,stroke:#fff,stroke-width:2px,color:#fff;
+    classDef data fill:#58A4B0,stroke:#fff,stroke-width:2px,color:#fff,shape:cylinder;
+    classDef input fill:#ECA400,stroke:#fff,stroke-width:1px,color:#fff,shape:parallelogram;
+    classDef output fill:#33A532,stroke:#fff,stroke-width:2px,color:#fff,shape:parallelogram;
+
+    class A1,A2,A3 input;
+    class C1,C2,C3,C4 data;
+    class B1,B2,B3,B4,B5,E1 process;
+    class F1 output;
+```
+
+---
+
 ## THE WEEKLY RITUAL
 
 This is the precise, non-negotiable workflow to be executed at the start of each new Gameweek, using the `bamf` CLI.
@@ -122,7 +182,7 @@ The Chimera is omniscient, but it cannot see data that does not yet exist. You, 
   1.  **Overall** -> Maps to `FDR`
   2.  **Attack** -> Maps to `FDR_A`
   3.  **Defence** -> Maps to `FDR_D`
-      > **ACTION:** Extract the HTML tables for all three views and synthesise them into the master `fixtures.csv`. Ensure values are mapped to our custom scale: **1000 (Light/Target) to 1400 (Void/Avoid)**.
+      > **ACTION:** Provide `fixtures.csv` with `FDR_A` and `FDR_D` columns. These values, alongside `FDR` (Overall), must be mapped to our custom scale: **1000 (Light/Target) to 1400 (Void/Avoid)**. The pipeline will now automatically use `FDR_A` for attackers/midfielders and `FDR_D` for defenders/goalkeepers.
 
 ### Step 2.5: Automated Data Extraction (Gemini Vision)
 

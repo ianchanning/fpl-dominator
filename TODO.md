@@ -109,23 +109,13 @@ The next frontier: automating the tedious manual data entry by leveraging Gemini
 
 ---
 
-## 🔴 PHASE 5: THE TRINITY OPTIMIZATION (FDR Refinement)
+## ✅ PHASE 5: THE TRINITY OPTIMIZATION (FDR Refinement) (Completed)
 
-We have evolved our data intelligence. We no longer use a simple 1-5 Difficulty rating. We have secured **The Trinity**: `FDR` (Overall), `FDR_A` (Attack), and `FDR_D` (Defence), all calibrated on a high-precision **1000 (Easy) to 1400 (Hard)** scale. We must now upgrade the pipeline to utilize this granular tactical data.
+We have evolved our data intelligence. We no longer use a simple 1-5 Difficulty rating. We have secured **The Trinity**: `FDR` (Overall), `FDR_A` (Attack), and `FDR_D` (Defence), all calibrated on a high-precision **1000 (Easy) to 1400 (Hard)** scale. The pipeline has been successfully upgraded to utilize this granular tactical data.
 
-- `[ ]` **Update the Cauldron (`forge_cauldron.py`):**
-  - `[ ]` Update logic to ingest `fixtures.csv` with new headers: `Team,Gameweek,Opponent,Location,FDR,FDR_A,FDR_D`.
-  - `[ ]` Implement the **Positional Bifurcation Logic**:
-    - If Position is **GKP** or **DEF** -> Use `FDR_D`.
-    - If Position is **MID** or **FWD** -> Use `FDR_A`.
-    - Create a new unified column: `Effective_FDR_Raw`.
-- `[ ]` **Normalize the Scale:**
-  - `[ ]` Design a normalization function to translate the raw **1000-1400** scale into a format the solver can digest effectively (e.g., 0.0 to 1.0 or a normalized penalty score), replacing the old 1-5 integer scale.
-  - `[ ]` _Goal:_ Ensure "Hard" fixtures still penalize selection probability or count towards difficulty limits, without breaking existing constraints.
-- `[ ]` **Refactor the Solver (`chimera_pyomo_v2.py`):**
-  - `[ ]` Update constraints that rely on FDR (e.g., "Don't pick more than X players with FDR > Y").
-  - `[ ]` Determine the new threshold for a "Red Zone" fixture based on the 1000-1400 scale (likely > 1300).
-- `[ ]` **Verify The Trinity:** Run the gauntlet and verify that Defenders are punished for playing Man City (High FDR_D), while Attackers are rewarded for playing Luton (Low FDR_A).
+- `[x]` **Ingest & Bifurcate Fixture Data:** The `grand_synthesis.py` script now ingests `fixtures.csv` with `FDR_A` and `FDR_D` headers. It implements **Positional Bifurcation Logic** to create `Effective_FDR_Horizon_5GW` (GKP/DEF use `FDR_D_Horizon_5GW`, MID/FWD use `FDR_A_Horizon_5GW`). The `chimera_final_form_v5_production.py` now uses this effective FDR in `Final_Score` calculation.
+- `[x]` **Integrate & Constrain Solver:** The `chimera_pyomo_v2.py` solver has been refactored to consume the `Effective_FDR_Horizon_5GW`. A new "Red Zone" constraint has been added, limiting the number of starters with a high `Effective_FDR_Horizon_5GW` (e.g., >1250) to a configurable threshold (e.g., 3).
+- `[x]` **Verify The Trinity:** The full gauntlet has been run with realistic data, confirming that the new pipeline correctly processes and applies the Trinity optimization, influencing squad selection based on position-specific fixture difficulty.
 
 ---
 
