@@ -4,5 +4,5 @@ __pycache__
 .vscode/
 *.egg-info/
 # screenshots
-gw*/*.png
+#gw*/*.png
 gw*/*.html

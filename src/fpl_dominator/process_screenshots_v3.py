@@ -4,15 +4,17 @@ import os
 import sys
 import glob
 import subprocess
+import shlex
 
 def main():
     if len(sys.argv) < 2:
         print("!!! ERROR: Missing argument.")
-        print("!!! Usage: python3 process_screenshots_v3.py <gameweek_directory_name>")
+        print("!!! Usage: python3 process_screenshots_v3.py <gameweek_directory_name> [--debug]")
         print("!!! Example: python3 process_screenshots_v3.py gw12")
         sys.exit(1)
 
     gw_dir = sys.argv[1]
+    debug_mode = "--debug" in sys.argv
 
     if not os.path.isdir(gw_dir):
         print(f"!!! ERROR: Directory '{gw_dir}' not found.")
@@ -20,17 +22,20 @@ def main():
         sys.exit(1)
 
     print(f">>> [NYX] INITIATING FPL SCREENSHOT INGESTION FOR {gw_dir} <<<")
+    if debug_mode:
+        print(">>> DEBUG MODE ENGAGED. Will process one file and print raw output.")
     print(">>> Mycelial network active... unleashing the flash model... (⁂)")
 
     processed_count = 0
     skipped_count = 0
     errors_count = 0
 
-    # Find all PNG files in the target directory
-    png_files = glob.glob(os.path.join(gw_dir, "*.png"))
+    # Find all PNG files in the target directory that haven't been processed
+    png_files = [f for f in glob.glob(os.path.join(gw_dir, "*.png")) if not f.endswith('.processed')]
+
 
     if not png_files:
-        print(f"No PNG files found in '{gw_dir}'. Exiting.")
+        print(f"No unprocessed PNG files found in '{gw_dir}'. Exiting.")
         sys.exit(0)
 
     for screenshot_path in png_files:
@@ -38,75 +43,86 @@ def main():
         print(f">>> Processing Target: {screenshot_path}")
 
         # Construct the prompt for the gemini CLI
-        master_prompt = f"""Analyze the provided Fantasy Premier League screenshot.
-FIRST, determine if this is a 'squad' page (showing 15 players of mixed positions) or a 'position list' page (showing players of a single position type like goalkeepers, defenders, midfielders, or forwards).
-If it is a 'squad' page, output ONLY the string 'SKIP_SQUAD_PAGE' and nothing else.
-If it is a 'position list' page, proceed with data extraction.
-For each player row in a position list, extract the following 6 columns: Surname, Team, Position, Price, TP, Status.
-The 'Status' column is determined by the icon next to the player's name:
+        master_prompt = f"""From the provided FPL screenshot of a position list, extract player data into CSV format.
+The CSV must have these 6 columns: Surname, Team, Position, Price, TP, Status.
+The 'Status' column is based on the icon next to the player's name:
 - A red icon means 'INJURY'.
 - A yellow icon means 'DOUBT'.
 - A blue 'i' icon or no icon means 'OK'.
-Convert the extracted rows into standard, comma-separated CSV format. CRITICAL: Do NOT include a header row in your output.
-Example output for a position list (no header):
-Salah,Liverpool,Midfielder,12.5,200,OK
-Haaland,Man City,Forward,14.0,250,OK
-Rashford,Man Utd,Forward,9.0,150,DOUBT
+CRITICAL: Your entire output must be ONLY the raw CSV data. Do NOT include a header row or any other explanatory text.
 """
         
-        # UNLEASH GEMINI CLI
-        try:
-            command = [
-                "gemini",
-                "--file", screenshot_path,
-                "--prompt", master_prompt,
-                "--model", "gemini-2.5-flash-latest",
-                "--yolo"
-            ]
+        command = [
+            "gemini",
+            screenshot_path,
+            master_prompt,
+            "--model", "gemini-2.5-pro",
+            "--yolo"
+        ]
+
+        if debug_mode:
+            # Construct a shell-safe command string for easy copy-pasting
+            debug_command_str = " ".join(shlex.quote(arg) for arg in command)
+            print("\n>>> DEBUG COMMAND:\n")
+            print(debug_command_str)
+            print("\n>>> EXECUTING DEBUG COMMAND...\n")
             
+            try:
+                result = subprocess.run(command, capture_output=True, text=True, check=True)
+                print(">>> RAW STDOUT FROM GEMINI CLI:\n")
+                print(result.stdout)
+                print("\n>>> END OF RAW STDOUT <<<\n")
+            except subprocess.CalledProcessError as e:
+                print("!!! DEBUG: Gemini CLI failed.")
+                print(">>> RAW STDERR:\n")
+                print(e.stderr)
+                print("\n>>> END OF RAW STDERR <<<\n")
+            
+            # In debug mode, only process the first file and then exit.
+            print(">>> DEBUG MODE FINISHED. Exiting.")
+            sys.exit(0)
+
+        # UNLEASH GEMINI CLI (Normal Mode)
+        try:
             result = subprocess.run(command, capture_output=True, text=True, check=True)
             model_output = result.stdout.strip()
 
-            if model_output == "SKIP_SQUAD_PAGE":
-                print(f">>> Skipping squad page: {screenshot_path}")
-                skipped_count += 1
-            else:
-                # Assuming the model output is CSV data
-                # Determine target CSV file based on position (first row's position)
-                first_line = model_output.splitlines()[0]
-                if first_line:
-                    try:
-                        position = first_line.split(',')[2].strip().lower()
-                        target_csv_file = ""
-                        if "goalkeeper" in position:
-                            target_csv_file = os.path.join(gw_dir, "goalkeepers.csv")
-                        elif "defender" in position:
-                            target_csv_file = os.path.join(gw_dir, "defenders.csv")
-                        elif "midfielder" in position:
-                            target_csv_file = os.path.join(gw_dir, "midfielders.csv")
-                        elif "forward" in position:
-                            target_csv_file = os.path.join(gw_dir, "forwards.csv")
-                        else:
-                            raise ValueError(f"Unknown position in model output: {position}")
+            # Assuming the model output is CSV data
+            # Determine target CSV file based on position (first row's position)
+            first_line = model_output.splitlines()[0]
+            if first_line:
+                try:
+                    position = first_line.split(',')[2].strip().lower()
+                    target_csv_file = ""
+                    if "gkp" in position:
+                        target_csv_file = os.path.join(gw_dir, "goalkeepers.csv")
+                    elif "def" in position:
+                        target_csv_file = os.path.join(gw_dir, "defenders.csv")
+                    elif "mid" in position:
+                        target_csv_file = os.path.join(gw_dir, "midfielders.csv")
+                    elif "fwd" in position:
+                        target_csv_file = os.path.join(gw_dir, "forwards.csv")
+                    else:
+                        raise ValueError(f"Unknown position in model output: {position}")
 
-                        with open(target_csv_file, 'a') as f:
-                            f.write(model_output + "\n")
-                        print(f">>> Appended data to {target_csv_file}")
-                        
-                        # Rename the processed file
-                        os.rename(screenshot_path, screenshot_path + ".processed")
-                        print(f">>> Renamed {screenshot_path} to {screenshot_path}.processed")
-                        processed_count += 1
+                    with open(target_csv_file, 'a') as f:
+                        f.write(model_output + "\n")
+                    print(f">>> Appended data to {target_csv_file}")
+                    
+                    # Rename the processed file
+                    os.rename(screenshot_path, screenshot_path + ".processed")
+                    print(f">>> Renamed {screenshot_path} to {screenshot_path}.processed")
+                    processed_count += 1
 
-                    except IndexError:
-                        print(f"!!! ERROR: Could not parse position from model output for {screenshot_path}. Output: {model_output[:100]}...")
-                        errors_count += 1
-                    except ValueError as ve:
-                        print(f"!!! ERROR: {ve} for {screenshot_path}. Output: {model_output[:100]}...")
-                        errors_count += 1
-                else:
-                    print(f"!!! ERROR: Model returned empty output for {screenshot_path}.")
+                except IndexError:
+                    print(f"!!! ERROR: Could not parse position from model output for {screenshot_path}. Output: {model_output[:100]}...")
                     errors_count += 1
+                except ValueError as ve:
+                    print(f"!!! ERROR: {ve} for {screenshot_path}. Output: {model_output[:100]}...")
+                    errors_count += 1
+            else:
+                print(f"!!! ERROR: Model returned empty output for {screenshot_path}.")
+                errors_count += 1
 
         except subprocess.CalledProcessError as e:
             print(f"!!! ERROR: Gemini CLI failed for {screenshot_path}. Stderr: {e.stderr}")
