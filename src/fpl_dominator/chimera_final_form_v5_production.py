@@ -94,6 +94,7 @@ def forge_final_form_squad(gameweek_dir: str):
     SET_PIECE_DB_PATH = "set_pieces.csv"
     FINAL_FORM_DB_PATH = f"{gameweek_dir}/fpl_master_database_FINAL_v5.csv"
     THRIFT_FACTOR = 0.001
+    FORM_FACTOR_WEIGHT = 0.5  # <-- PHASE 6: CALIBRATION FACTOR FOR FORM
     SPP_SCORES = {
         "Penalties": {"primary": 5.0, "secondary": 2.5},
         "Direct Free Kicks": {"primary": 2.5, "secondary": 1.25},
@@ -110,7 +111,12 @@ def forge_final_form_squad(gameweek_dir: str):
     players = enrich_with_set_pieces(players, SET_PIECE_DB_PATH, SPP_SCORES)
 
     players["Final_Score"] = (
-        (players["PP"] + players["SPP"]) / players["Effective_FDR_Horizon_5GW"]
+        (
+            players["PP"]
+            + players["SPP"]
+            + (players["Form_Factor"] * FORM_FACTOR_WEIGHT)
+        )
+        / players["Effective_FDR_Horizon_5GW"]
     ).round(2)
     players.to_csv(FINAL_FORM_DB_PATH, index=False)
     print(f"[+] Final Form database (v5) forged at '{FINAL_FORM_DB_PATH}'.")

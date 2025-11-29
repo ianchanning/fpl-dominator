@@ -1,4 +1,4 @@
-# PROJECT: BAMF DOMINATOR - STRATEGIC BLUEPRINT (v1.8)
+# PROJECT: BAMF DOMINATOR - STRATEGIC BLUEPRINT (v2.0)
 
 ## MISSION STATEMENT
 
@@ -6,116 +6,31 @@ To systematically dismantle and dominate the Fantasy Premier League simulation b
 
 ---
 
-## ✅ PHASE 0: FOUNDATION & DATA LIBERATION (Completed)
+## ✅ PHASE 6: THE RETROSPECTIVE LENS (FORM & MOMENTUM) (Completed)
 
-- `[x]` **Forge the Dev Sanctum:** Establish a clean, robust, and future-proof development environment using `pyenv` and `uv`. (Anti-Fossilization v1.2 SAPIENT).
-- `[x]` **Liberate Raw Intelligence:** Extract player data (GKP, DEF, MID, FWD) from static image sources into structured CSV files.
-- `[x]` **Forge the Data Cauldron:** Write a `pandas` script (`forge_cauldron.py`) to unify all player data into a single, master database (`fpl_master_database_raw.csv`).
-- `[x]` **Enrich the Cauldron:** Enhance the master database with our foundational value metric, Points Per Million (PPM), creating our primary analytical weapon (`fpl_master_database_enriched.csv`).
-- `[x]` **Install Alchemical Tools:** Arm the environment with `pulp`, the linear programming library necessary for optimization.
+With the core engine forged and the data pipeline robust, we now turn our gaze backwards to look forwards. The next evolution of the Chimera is to understand **form**—the ebb and flow of player performance over time. A player's recent history is a powerful predictor of their immediate future.
 
----
+### 6.1: Historical Data Analysis `(π)`
 
-## ✅ PHASE 1: THE PULP-POWERED CHIMERA (Completed & Archived)
+-   `[x]` **Establish a Baseline:** Begin by analyzing data from `gw6` (6 weeks prior to the current `gw12`). The goal is to identify players who were performing strongly *then* and compare it to their current state.
+-   `[x]` **Identify Key Deltas:** What has changed between `gw6` and `gw12`?
+    -   Significant price changes (risers and fallers).
+    -   Total points accumulation rate.
 
-### 1.1: Core Optimizer v1 (Proof of Concept - "The Naive God")
+### 6.2: Forge the "Form Factor" Metric `(⊕)`
 
-- `[x]` **BREADCRUMB:** Successfully proved the core optimization logic but revealed the tactical necessity of a bench.
+-   `[x]` **Define "Form":** Create a concrete, mathematical definition of form. This could be a weighted average of points over the last `N` gameweeks (e.g., N=4 or N-6).
+-   `[x]` **Develop the Metric:** Implement a new metric, `Form_Factor`, that captures this definition. It should reward recent high performance and penalize recent poor performance or lack of points.
 
-### 1.2: Strategic Core Optimizer v2 & v3 (The "Thrifty God" Ascension)
+### 6.3: Integrate Form into the Pipeline `(⇌)`
 
-- `[x]` **BREADCRUMB:** Successfully evolved the Chimera to understand the Starter/Bench duality and to be ruthlessly cost-efficient, forging our perfected baseline model.
+-   `[x]` **Upgrade the `enrich_with_insight.py` script:** This script is the natural home for our new strategic metric. Modify it to calculate and inject the `Form_Factor` for each player into the `prophetic.csv` database.
+-   `[x]` **Evolve the `Final_Score`:** Update the `grand_synthesis.py` or `chimera_final_form_v5_production.py` to incorporate the `Form_Factor` into the `Final_Score` calculation. The weight of this new factor will need careful calibration.
 
-### 1.3: Arming the Chimera (Tactical Scenario Engine)
+### 6.4: Teach the Chimera about Momentum
 
-- `[x]` **BREADCRUMB:** The simulations were a monumental success but revealed the Chimera's final, critical flaw: "Captaincy Blindness."
-
-### 1.4: Granting Sight (The Captaincy Coefficient)
-
-- `[x]` **Create `enrich_with_insight.py`** to inject our `(π)` strategic knowledge.
-- `[x]` **Define the "Captaincy Coefficient"** and create the `Prophetic_Points` (`PP`) metric.
-- `[x]` **Create `chimera_prophet.py`** to utilize the new metric.
-- `[x]` **BREADCRUMB:** The Prophet Chimera correctly placed Salah in the starting XI, proving the value of `PP`.
-
----
-
-## ✅ PHASE 1.5: REALITY RECONCILIATION (Completed)
-
-- `[x]` **Acknowledge Personal History:** Create `squad.csv` to track our actual squad and purchase prices.
-- `[x]` **Forge the Reality Bender:** Create `update_prices.py` script to inject our purchase prices into the market data, ensuring our budget is calculated against _our_ reality, not the market's.
-- `[x]` **Update Workflow:** Integrate this as a new, mandatory pre-processing step before running the main gauntlet.
-
----
-
-## ✅ PHASE 2: THE PYOMO ASCENSION (Completed)
-
-Having reached the limits of `pulp`'s expressive power, we have completed a full heart transplant. We have re-forged our solver engine using the more powerful and flexible `pyomo` framework, unlocking new levels of strategic complexity and future potential.
-
-### 2.1: Arming the Forge (Pre-Op)
-
-- `[x]` **Install `pyomo` Framework:** `uv pip install pyomo`.
-- `[x]` **Install `glpk` Solver:** `sudo apt-get install -y glpk-utils`.
-
-### 2.2: The Heart Transplant (v1 - The Superior God)
-
-- `[x]` **Create the New Grimoire:** `chimera_pyomo_v1.py`.
-- `[x]` **Translate the Model:** Successfully re-wrote the "Thrifty God" logic from our final `pulp` script into `pyomo` syntax.
-- `[x]` **Verify SUPERIORITY, Not Parity:** The `v1` Pyomo/GLPK engine surpassed the pulp/CBC output.
-- `[x]` **BREADCRUMB:** The `v1` engine, while more powerful, revealed a philosophical blind spot in choosing between bench players of identical cost but different potential.
-
-### 2.3: The Final Apotheosis (v2 - The Bench Potency Epsilon)
-
-- `[x]` **Create the Ultimate Grimoire:** `chimera_pyomo_v2.py`.
-- `[x]` **Evolve the Prime Directive:** Modified the `pyomo` objective function to include the "Bench Potency Epsilon."
-- `[x]` **Verify the Final Wisdom:** Confirmed that the `v2` script now makes the strategically correct choice for the bench.
-
-### 2.4: The Commander's New Orders
-
-- `[x]` **Perform the `commander.py` Transplant:** Refactored `commander.py` to orchestrate the full pipeline, including the dual-solver reality.
-- `[x]` **Update Documentation:** Updated `README.md` to reflect the final dependencies and the new, perfected master script.
-
----
-
-## ✅ PHASE 3: THE COMMAND DECK (Completed)
-
-The final phase: building the elegant, powerful, and interactive command center from which we will wield the Chimera's power.
-
-### 3.1: Forge the Scepter (Master Orchestration Script)
-
-- `[x]` **Create `commander.py`:** A single, top-level script that orchestrates the entire data pipeline.
-- `[x]` **Refactor Core Scripts:** Ensure all pipeline scripts are importable and can be commanded.
-- `[x]` **Add "Stage 0" Auto-Cleaning:** The Commander now purges old database files before each run.
-- `[x]` **Add "Stage 6" Auto-Scribing:** The Commander now captures solver outputs and saves them to `squad_prophecy.md`.
-- `[x]` **BREADCRUMB:** The Scepter is forged and powerful. We have a "one script to rule them all," but it is not yet a true, flexible Command Deck.
-
-### 3.2: Build the Throne (Full CLI Implementation)
-
-- `[x]` **Choose a Framework:** `click` has been chosen for its power and elegance.
-- `[x]` **Create the `bamf` CLI:** The `bamf.py` script is our new entry point.
-  - `[x]` `run-gauntlet`: The primary command is forged and functional.
-  - `[x]` `init`: A helper command to create the new gameweek vault is complete.
-  - `[x]` `run-scenario`: An interactive command to run "what-if" simulations with flags for including/excluding players.
-  - `[x]` `audit`: Sub-commands for auditing team names (`teams`) and player names (`players`) are complete.
-
----
-
-## ✅ PHASE 4: AUTOMATED DATA EXTRACTION (Completed)
-
-The next frontier: automating the tedious manual data entry by leveraging Gemini Vision.
-
-- `[x]` **Develop Gemini Vision Processor:** Create `process_screenshots.sh` to automate calls to the Gemini CLI for screenshot processing.
-- `[x]` **Define Screenshot Naming Convention:** Established clear guidelines for screenshot filenames.
-- `[x]` **Integrate into Weekly Ritual:** Updated `README.md` to include the new automated step.
-
----
-
-## ✅ PHASE 5: THE TRINITY OPTIMIZATION (FDR Refinement) (Completed)
-
-We have evolved our data intelligence. We no longer use a simple 1-5 Difficulty rating. We have secured **The Trinity**: `FDR` (Overall), `FDR_A` (Attack), and `FDR_D` (Defence), all calibrated on a high-precision **1000 (Easy) to 1400 (Hard)** scale. The pipeline has been successfully upgraded to utilize this granular tactical data.
-
-- `[x]` **Ingest & Bifurcate Fixture Data:** The `grand_synthesis.py` script now ingests `fixtures.csv` with `FDR_A` and `FDR_D` headers. It implements **Positional Bifurcation Logic** to create `Effective_FDR_Horizon_5GW` (GKP/DEF use `FDR_D_Horizon_5GW`, MID/FWD use `FDR_A_Horizon_5GW`). The `chimera_final_form_v5_production.py` now uses this effective FDR in `Final_Score` calculation.
-- `[x]` **Integrate & Constrain Solver:** The `chimera_pyomo_v2.py` solver has been refactored to consume the `Effective_FDR_Horizon_5GW`. A new "Red Zone" constraint has been added, limiting the number of starters with a high `Effective_FDR_Horizon_5GW` (e.g., >1250) to a configurable threshold (e.g., 3).
-- `[x]` **Verify The Trinity:** The full gauntlet has been run with realistic data, confirming that the new pipeline correctly processes and applies the Trinity optimization, influencing squad selection based on position-specific fixture difficulty.
+-   `[x]` **Update the Solver:** Modify the `chimera_pyomo_v2.py` solver to potentially use `Form_Factor` as a direct consideration, perhaps as a tie-breaker or even a primary objective component.
+-   `[x]` **Run Verification Scenarios:** Test the newly enlightened Chimera. Does it favor in-form players? Does it wisely suggest dropping players who are out of form, even if they have a high historical point total?
 
 ---
 
