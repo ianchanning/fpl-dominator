@@ -14,30 +14,30 @@
 ==================== FINAL FORM SQUAD (V5) FORGED ====================
 
 --- STARTING XI (Final Score Maximized) ---
-  Surname           Team Position  Price  Final_Score
-    Roefs     Sunderland      GKP    4.7         0.06
- Chalobah        Chelsea      DEF    5.1         0.09
-    Muñoz Crystal Palace      DEF    5.9         0.08
-Calafiori        Arsenal      DEF    5.8         0.08
-    Keane        Everton      DEF    4.5         0.07
-  M.Salah      Liverpool      MID   14.2         0.09
-  Semenyo    Bournemouth      MID    7.9         0.08
-     Rice        Arsenal      MID    6.9         0.08
- Bruno G.      Newcastle      MID    6.6         0.08
-  Haaland       Man City      FWD   14.9         0.16
-   Thiago      Brentford      FWD    6.5         0.08
+      Surname           Team Position  Price  Final_Score
+    Henderson Crystal Palace      GKP    5.0         0.05
+        Guéhi Crystal Palace      DEF    5.1         0.09
+        Muñoz Crystal Palace      DEF    5.9         0.07
+        Keane        Everton      DEF    4.5         0.07
+      Semenyo    Bournemouth      MID    7.9         0.07
+         Rice        Arsenal      MID    6.9         0.07
+      M.Salah      Liverpool      MID   14.2         0.06
+     Trossard        Arsenal      MID    6.9         0.06
+Dewsbury-Hall        Everton      MID    4.9         0.06
+      Haaland       Man City      FWD   14.9         0.11
+       Thiago      Brentford      FWD    6.5         0.07
 
 --- BENCH (RUTHLESSLY Cost-Optimized) ---
   Surname    Team Position  Price  Final_Score
-   Darlow   Leeds      GKP    4.0         0.01
+  Setford Arsenal      GKP    4.0         0.00
    Estève Burnley      DEF    3.9         0.03
- P.M.Sarr   Spurs      MID    4.8         0.04
+  Hartman Burnley      DEF    4.0         0.05
 Marc Guiu Chelsea      FWD    4.2         0.01
 
 -------------------------------------------
-Total Squad Cost:          £99.9m
-Projected Starting Score:    0.95
-Money in the Bank:         £0.1m
+Total Squad Cost:          £98.8m
+Projected Starting Score:    0.78
+Money in the Bank:         £1.2m
 -------------------------------------------
 
 ```
@@ -62,30 +62,30 @@ Money in the Bank:         £0.1m
 ==================== PYOMO SQUAD FORGED (V3 - TRINITY) ====================
 
 --- STARTING XI (Final Score Maximized) ---
-  Surname           Team Position  Price  Final_Score  Effective_FDR_Horizon_5GW
-    Roefs     Sunderland      GKP    4.7         0.06                     1252.8
- Chalobah        Chelsea      DEF    5.1         0.09                     1189.0
-    Muñoz Crystal Palace      DEF    5.9         0.08                     1184.6
-Calafiori        Arsenal      DEF    5.8         0.08                     1173.8
-    Keane        Everton      DEF    4.5         0.07                     1184.6
-  M.Salah      Liverpool      MID   14.2         0.09                     1117.2
-  Semenyo    Bournemouth      MID    7.9         0.08                     1126.8
-     Rice        Arsenal      MID    6.9         0.08                     1145.0
- Bruno G.      Newcastle      MID    6.6         0.08                     1126.2
-  Haaland       Man City      FWD   14.9         0.16                     1124.0
-   Thiago      Brentford      FWD    6.5         0.08                     1145.8
+      Surname           Team Position  Price  Final_Score  Effective_FDR_Horizon_5GW
+        Roefs     Sunderland      GKP    4.7         0.05                     1252.8
+        Guéhi Crystal Palace      DEF    5.1         0.09                     1184.6
+        Muñoz Crystal Palace      DEF    5.9         0.07                     1184.6
+        Keane        Everton      DEF    4.5         0.07                     1184.6
+      Semenyo    Bournemouth      MID    7.9         0.07                     1126.8
+         Rice        Arsenal      MID    6.9         0.07                     1145.0
+   J.Palhinha          Spurs      MID    5.5         0.06                     1150.2
+      M.Salah      Liverpool      MID   14.2         0.06                     1117.2
+Dewsbury-Hall        Everton      MID    4.9         0.06                     1208.2
+      Haaland       Man City      FWD   14.9         0.11                     1124.0
+       Thiago      Brentford      FWD    6.5         0.07                     1145.8
 
 --- BENCH (Potency & Cost Optimized) ---
   Surname    Team Position  Price  Final_Score  Effective_FDR_Horizon_5GW
- Dúbravka Burnley      GKP    4.0         0.04                     1188.2
+ Dúbravka Burnley      GKP    4.0         0.03                     1188.2
+  Hartman Burnley      DEF    4.0         0.05                     1188.2
    Estève Burnley      DEF    3.9         0.03                     1188.2
- P.M.Sarr   Spurs      MID    4.8         0.04                     1150.2
 Marc Guiu Chelsea      FWD    4.2         0.01                     1196.2
 
 -------------------------------------------
-Total Squad Cost:          £99.9m
-Projected Starting Score:    0.95
-Money in the Bank:         £0.1m
+Total Squad Cost:          £97.1m
+Projected Starting Score:    0.78
+Money in the Bank:         £2.9m
 -------------------------------------------
 
 ```

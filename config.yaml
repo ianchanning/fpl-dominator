@@ -2,13 +2,13 @@
 
 # --- enrich_with_insight.py ---
 enrich_insight:
-  form_lookback_weeks: 6
+  form_lookback_weeks: 2
   captaincy_tiers:
     Gods:
       players:
         - Haaland
         - M.Salah
-      coefficient: 1.5
+      coefficient: 1.1
     Demigods:
       players:
         - João Pedro
@@ -16,7 +16,7 @@ enrich_insight:
         - Enzo
         - Calafiori
         - Chalobah
-      coefficient: 1.2
+      coefficient: 1.0
 
 # --- chimera_final_form_v5_production.py ---
 pulp_solver:
