@@ -21,9 +21,9 @@
         Keane        Everton      DEF    4.5         0.07
       Semenyo    Bournemouth      MID    7.9         0.07
          Rice        Arsenal      MID    6.9         0.07
-      M.Salah      Liverpool      MID   14.2         0.06
      Trossard        Arsenal      MID    6.9         0.06
 Dewsbury-Hall        Everton      MID    4.9         0.06
+  Gibbs-White  Nott'm Forest      MID    7.3         0.06
       Haaland       Man City      FWD   14.9         0.11
        Thiago      Brentford      FWD    6.5         0.07
 
@@ -35,9 +35,9 @@ Dewsbury-Hall        Everton      MID    4.9         0.06
 Marc Guiu Chelsea      FWD    4.2         0.01
 
 -------------------------------------------
-Total Squad Cost:          £98.8m
+Total Squad Cost:          £91.9m
 Projected Starting Score:    0.78
-Money in the Bank:         £1.2m
+Money in the Bank:         £8.1m
 -------------------------------------------
 
 ```
@@ -63,24 +63,24 @@ Money in the Bank:         £1.2m
 
 --- STARTING XI (Final Score Maximized) ---
       Surname           Team Position  Price  Final_Score  Effective_FDR_Horizon_5GW
-        Roefs     Sunderland      GKP    4.7         0.05                     1252.8
-        Guéhi Crystal Palace      DEF    5.1         0.09                     1184.6
-        Muñoz Crystal Palace      DEF    5.9         0.07                     1184.6
-        Keane        Everton      DEF    4.5         0.07                     1184.6
-      Semenyo    Bournemouth      MID    7.9         0.07                     1126.8
-         Rice        Arsenal      MID    6.9         0.07                     1145.0
-   J.Palhinha          Spurs      MID    5.5         0.06                     1150.2
-      M.Salah      Liverpool      MID   14.2         0.06                     1117.2
-Dewsbury-Hall        Everton      MID    4.9         0.06                     1208.2
-      Haaland       Man City      FWD   14.9         0.11                     1124.0
-       Thiago      Brentford      FWD    6.5         0.07                     1145.8
+        Roefs     Sunderland      GKP    4.7         0.05                1260.266667
+        Guéhi Crystal Palace      DEF    5.1         0.09                1175.800000
+        Muñoz Crystal Palace      DEF    5.9         0.07                1175.800000
+        Keane        Everton      DEF    4.5         0.07                1180.066667
+      Semenyo    Bournemouth      MID    7.9         0.07                1143.133333
+         Rice        Arsenal      MID    6.9         0.07                1154.533333
+   J.Palhinha          Spurs      MID    5.5         0.06                1140.400000
+      M.Salah      Liverpool      MID   14.2         0.06                1100.533333
+Dewsbury-Hall        Everton      MID    4.9         0.06                1192.266667
+      Haaland       Man City      FWD   14.9         0.11                1128.733333
+       Thiago      Brentford      FWD    6.5         0.07                1159.266667
 
 --- BENCH (Potency & Cost Optimized) ---
   Surname    Team Position  Price  Final_Score  Effective_FDR_Horizon_5GW
- Dúbravka Burnley      GKP    4.0         0.03                     1188.2
-  Hartman Burnley      DEF    4.0         0.05                     1188.2
-   Estève Burnley      DEF    3.9         0.03                     1188.2
-Marc Guiu Chelsea      FWD    4.2         0.01                     1196.2
+ Dúbravka Burnley      GKP    4.0         0.03                1193.533333
+  Hartman Burnley      DEF    4.0         0.05                1193.533333
+   Estève Burnley      DEF    3.9         0.03                1193.533333
+Marc Guiu Chelsea      FWD    4.2         0.01                1211.733333
 
 -------------------------------------------
 Total Squad Cost:          £97.1m
