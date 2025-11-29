@@ -1,17 +1,8 @@
 import os
 import sys
-
+import yaml
 import pandas as pd
 import pyomo.environ as pyo
-
-# --- Configuration (The Final Apotheosis) ---
-# We introduce a tiny "epsilon" value to reward bench players with higher point potential.
-# This breaks ties between players of the same cost, adding a final layer of strategic wisdom.
-THRIFT_FACTOR = 0.001
-BENCH_POTENCY_EPSILON = 0.00001
-RED_ZONE_THRESHOLD = 1250
-RED_ZONE_LIMIT = 3
-
 
 def forge_pyomo_squad(gameweek_dir: str):
     """
@@ -19,8 +10,28 @@ def forge_pyomo_squad(gameweek_dir: str):
     the "Bench Potency Epsilon" to make strategically wise bench selections, and the
     new "Trinity" constraint to avoid difficult fixtures.
     """
-    FINAL_FORM_DB_PATH = f"{gameweek_dir}/fpl_master_database_FINAL_v5.csv"
     print("--- CHIMERA PYOMO ENGINE (V3 - TRINITY) ONLINE ---")
+    
+    # --- Load Master Configuration ---
+    try:
+        with open("config.yaml", "r") as f:
+            config = yaml.safe_load(f).get("pyomo_solver", {})
+        
+        THRIFT_FACTOR = config.get("thrift_factor", 0.001)
+        BENCH_POTENCY_EPSILON = config.get("bench_potency_epsilon", 0.00001)
+        RED_ZONE_THRESHOLD = config.get("red_zone_threshold", 1250)
+        RED_ZONE_LIMIT = config.get("red_zone_limit", 3)
+        print("[+] Master configuration for Pyomo solver loaded.")
+    except (FileNotFoundError, yaml.YAMLError) as e:
+        print(f"!!! WARNING: Could not load or parse config.yaml: {e}. Using default fallbacks.")
+        THRIFT_FACTOR = 0.001
+        BENCH_POTENCY_EPSILON = 0.00001
+        RED_ZONE_THRESHOLD = 1250
+        RED_ZONE_LIMIT = 3
+        
+    # --- File Paths ---
+    FINAL_FORM_DB_PATH = f"{gameweek_dir}/fpl_master_database_FINAL_v5.csv"
+
     if not os.path.exists(FINAL_FORM_DB_PATH):
         print(
             f"!!! CRITICAL FAILURE: Final Form Database not found at '{FINAL_FORM_DB_PATH}'. Aborting."

@@ -1,7 +1,7 @@
 import os
 import re
 import sys
-
+import yaml
 import pandas as pd
 import pulp
 
@@ -63,6 +63,7 @@ def enrich_with_set_pieces(players_df, set_piece_path, score_model):
         }
 
         for duty_type, takers in duties.items():
+            if duty_type not in score_model: continue
             for i, taker_name in enumerate(takers):
                 sanitized_taker = sanitize_name(taker_name.strip())
 
@@ -89,17 +90,29 @@ def enrich_with_set_pieces(players_df, set_piece_path, score_model):
 def forge_final_form_squad(gameweek_dir: str):
     print("--- [4/4] CHIMERA FINAL FORM ENGINE (V5 - PRODUCTION) ONLINE ---")
 
-    # --- Configuration ---
+    # --- Load Master Configuration ---
+    try:
+        with open("config.yaml", "r") as f:
+            config = yaml.safe_load(f).get("pulp_solver", {})
+        
+        THRIFT_FACTOR = config.get("thrift_factor", 0.001)
+        FORM_FACTOR_WEIGHT = config.get("form_factor_weight", 0.5)
+        SPP_SCORES = config.get("spp_scores", {})
+        print("[+] Master configuration for PuLP solver loaded.")
+    except (FileNotFoundError, yaml.YAMLError) as e:
+        print(f"!!! WARNING: Could not load or parse config.yaml: {e}. Using default fallbacks.")
+        THRIFT_FACTOR = 0.001
+        FORM_FACTOR_WEIGHT = 0.5
+        SPP_SCORES = {
+            "Penalties": {"primary": 5.0, "secondary": 2.5},
+            "Direct Free Kicks": {"primary": 2.5, "secondary": 1.25},
+            "Corners & Indirect Free Kicks": {"primary": 1.5, "secondary": 0.75},
+        }
+
+    # --- File Paths ---
     OMNISCIENT_DB_PATH = f"{gameweek_dir}/fpl_master_database_OMNISCIENT.csv"
     SET_PIECE_DB_PATH = "set_pieces.csv"
     FINAL_FORM_DB_PATH = f"{gameweek_dir}/fpl_master_database_FINAL_v5.csv"
-    THRIFT_FACTOR = 0.001
-    FORM_FACTOR_WEIGHT = 0.5  # <-- PHASE 6: CALIBRATION FACTOR FOR FORM
-    SPP_SCORES = {
-        "Penalties": {"primary": 5.0, "secondary": 2.5},
-        "Direct Free Kicks": {"primary": 2.5, "secondary": 1.25},
-        "Corners & Indirect Free Kicks": {"primary": 1.5, "secondary": 0.75},
-    }
 
     if not os.path.exists(OMNISCIENT_DB_PATH):
         print(
@@ -124,7 +137,6 @@ def forge_final_form_squad(gameweek_dir: str):
     print("\n>>> LAUNCHING FINAL FORM SIMULATION (V5)...")
     prob = pulp.LpProblem("FPL_Final_Form_v5", pulp.LpMaximize)
 
-    # ... (The entire PuLP section is identical to v4, as the logic is now perfect) ...
     squad_vars = pulp.LpVariable.dicts("in_squad", players.index, cat="Binary")
     starter_vars = pulp.LpVariable.dicts("is_starter", players.index, cat="Binary")
 
@@ -216,7 +228,6 @@ def forge_final_form_squad(gameweek_dir: str):
         starters = players.loc[starter_indices]
         bench = squad.drop(starter_indices)
 
-        # --- Enforce Positional Order for Printing ---
         position_order = ["GKP", "DEF", "MID", "FWD"]
         starters["Position"] = pd.Categorical(
             starters["Position"], categories=position_order, ordered=True

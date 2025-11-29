@@ -2,9 +2,9 @@ import os
 import sys
 import re
 import pandas as pd
+import yaml
 
 
-# --- The Heart of the Prophet ---
 def enrich_with_insight(gameweek_dir: str):
     """
     Loads the enriched database and injects our strategic insights, creating
@@ -12,23 +12,31 @@ def enrich_with_insight(gameweek_dir: str):
     """
     print("--- [2/4] PROPHETIC ENRICHMENT PROTOCOL ONLINE ---")
 
+    # --- Load Master Configuration ---
+    try:
+        with open("config.yaml", "r") as f:
+            config = yaml.safe_load(f)
+        
+        insight_config = config.get("enrich_insight", {})
+        CAPTAINCY_TIERS = insight_config.get("captaincy_tiers", {})
+        FORM_LOOKBACK = insight_config.get("form_lookback_weeks", 6)
+        print("[+] Master configuration loaded.")
+    except (FileNotFoundError, yaml.YAMLError) as e:
+        print(f"!!! WARNING: Could not load or parse config.yaml: {e}. Using default fallbacks.")
+        # Define hardcoded fallbacks in case config is missing/broken
+        CAPTAINCY_TIERS = {
+            "Gods": {"players": ["Haaland", "M.Salah"], "coefficient": 1.5},
+            "Demigods": {
+                "players": ["João Pedro", "Ekitiké", "Enzo", "Calafiori", "Chalobah"],
+                "coefficient": 1.2,
+            },
+        }
+        FORM_LOOKBACK = 6
+
     # --- Configuration ---
     SOURCE_DB_PATH = f"{gameweek_dir}/fpl_master_database_enriched.csv"
     PROPHETIC_DB_PATH = f"{gameweek_dir}/fpl_master_database_prophetic.csv"
 
-    # --- The Pirate's Insight (π) ---
-    # Here we codify our strategic assessment of player ceilings.
-    # This is where we inject our soul into the machine.
-    CAPTAINCY_TIERS = {
-        # Tier 1: The Gods of Chaos. Their true value is far beyond their base points.
-        "Gods": {"players": ["Haaland", "M.Salah"], "coefficient": 1.5},
-        # Tier 2: The Demigods. Reliable, high-ceiling assets who are strong captaincy shouts.
-        "Demigods": {
-            "players": ["João Pedro", "Ekitiké", "Enzo", "Calafiori", "Chalobah"],
-            "coefficient": 1.2,
-        },
-        # Tier 3 (Mortals) is everyone else, with a default coefficient of 1.0.
-    }
     if not os.path.exists(SOURCE_DB_PATH):
         print(
             f"!!! CRITICAL FAILURE: Enriched database not found at '{SOURCE_DB_PATH}'. Aborting."
@@ -55,10 +63,10 @@ def enrich_with_insight(gameweek_dir: str):
                 f"    - WARNING: Could not extract gameweek number from '{gameweek_dir}'. Defaulting to early gameweek logic."
             )
             current_gw = (
-                0  # Default to 0 to trigger the "not enough historical data" path
+                0
             )
 
-        past_gw = current_gw - 6
+        past_gw = current_gw - FORM_LOOKBACK
 
         if past_gw > 0:
             past_db_path = f"gw{past_gw}/fpl_master_database_enriched.csv"
@@ -86,14 +94,14 @@ def enrich_with_insight(gameweek_dir: str):
                 )
                 players["Form_Factor"] = players[
                     "TP"
-                ]  # Default to total points if no past data
+                ]
         else:
             print(
                 "    - INFO: Not enough historical data to calculate form. Assigning default form."
             )
             players["Form_Factor"] = players[
                 "TP"
-            ]  # Default to total points for early gameweeks
+            ]
 
     except Exception as e:
         print(
@@ -106,18 +114,22 @@ def enrich_with_insight(gameweek_dir: str):
     print("[+] All players initialized as Mortals (Coef 1.0).")
 
     # 2. Anoint the Gods and Demigods
-    for tier_name, tier_data in CAPTAINCY_TIERS.items():
-        player_list = tier_data["players"]
-        coef = tier_data["coefficient"]
+    if CAPTAINCY_TIERS:
+        for tier_name, tier_data in CAPTAINCY_TIERS.items():
+            player_list = tier_data.get("players", [])
+            coef = tier_data.get("coefficient", 1.0)
 
-        # Find the indices of players in this tier
-        tier_indices = players[players["Surname"].isin(player_list)].index
+            # Find the indices of players in this tier
+            tier_indices = players[players["Surname"].isin(player_list)].index
 
-        # Apply the coefficient
-        players.loc[tier_indices, "Captaincy_Coef"] = coef
-        print(
-            f"    - Anointing {len(tier_indices)} players as {tier_name} (Coef {coef})."
-        )
+            # Apply the coefficient
+            players.loc[tier_indices, "Captaincy_Coef"] = coef
+            print(
+                f"    - Anointing {len(tier_indices)} players as {tier_name} (Coef {coef})."
+            )
+    else:
+        print("    - WARNING: No Captaincy Tiers defined in config. Skipping anointment.")
+
 
     # 3. Forge the Prophetic Points (PP)
     players["PP"] = (players["TP"] * players["Captaincy_Coef"]).round(2)
@@ -125,15 +137,22 @@ def enrich_with_insight(gameweek_dir: str):
 
     # 4. Verification: Show the results for our anointed heroes
     print("\n--- VERIFICATION: THE CHOSEN ONES ---")
-    anointed_surnames = (
-        CAPTAINCY_TIERS["Gods"]["players"] + CAPTAINCY_TIERS["Demigods"]["players"]
-    )
-    # Also show form factor for verification
-    print(
-        players[players["Surname"].isin(anointed_surnames)][
-            ["Surname", "Team", "TP", "Form_Factor", "Captaincy_Coef", "PP"]
-        ].to_string(index=False)
-    )
+    if CAPTAINCY_TIERS:
+        anointed_surnames = [
+            p for t in CAPTAINCY_TIERS.values() for p in t.get("players", [])
+        ]
+        verification_df = players[players["Surname"].isin(anointed_surnames)]
+        if not verification_df.empty:
+            print(
+                verification_df[
+                    ["Surname", "Team", "TP", "Form_Factor", "Captaincy_Coef", "PP"]
+                ].to_string(index=False)
+            )
+        else:
+            print("No anointed players found to verify.")
+    else:
+        print("No Captaincy Tiers to verify.")
+
 
     # 5. Save the Prophetic Database
     try:

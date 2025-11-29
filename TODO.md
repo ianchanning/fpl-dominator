@@ -1,4 +1,4 @@
-# PROJECT: BAMF DOMINATOR - STRATEGIC BLUEPRINT (v2.0)
+# PROJECT: BAMF DOMINATOR - STRATEGIC BLUEPRINT (v3.0)
 
 ## MISSION STATEMENT
 
@@ -6,31 +6,27 @@ To systematically dismantle and dominate the Fantasy Premier League simulation b
 
 ---
 
-## ✅ PHASE 6: THE RETROSPECTIVE LENS (FORM & MOMENTUM) (Completed)
+## ✅ PHASE 7: THE CONTROL ROOM (HYPERPARAMETER EXTERNALIZATION) (Completed)
 
-With the core engine forged and the data pipeline robust, we now turn our gaze backwards to look forwards. The next evolution of the Chimera is to understand **form**—the ebb and flow of player performance over time. A player's recent history is a powerful predictor of their immediate future.
+The Chimera's core logic is now powerful and form-aware. The next evolution is to grant the `(π)` Pirate direct control over its "soul" – the core parameters that define its decision-making. We will move all hardcoded strategic values into a central configuration file, transforming the engine from a black box into a tunable instrument.
 
-### 6.1: Historical Data Analysis `(π)`
+### 7.1: Forge the Master Blueprint (`config.yaml`)
 
--   `[x]` **Establish a Baseline:** Begin by analyzing data from `gw6` (6 weeks prior to the current `gw12`). The goal is to identify players who were performing strongly *then* and compare it to their current state.
--   `[x]` **Identify Key Deltas:** What has changed between `gw6` and `gw12`?
-    -   Significant price changes (risers and fallers).
-    -   Total points accumulation rate.
+-   `[x]` **Identify Hyperparameters:** Systematically audit the codebase (`enrich_with_insight.py`, `chimera_final_form_v5_production.py`, `chimera_pyomo_v2.py`) to identify all hardcoded strategic values.
+-   `[x]` **Create `config.yaml`:** Create a new `config.yaml` file in the project root to serve as the single source of truth for all tunable parameters.
+-   `[x]` **Structure the Config:** Design a clean, human-readable YAML structure that logically groups parameters by the script they influence.
 
-### 6.2: Forge the "Form Factor" Metric `(⊕)`
+### 7.2: Integrate the New Brain
 
--   `[x]` **Define "Form":** Create a concrete, mathematical definition of form. This could be a weighted average of points over the last `N` gameweeks (e.g., N=4 or N-6).
--   `[x]` **Develop the Metric:** Implement a new metric, `Form_Factor`, that captures this definition. It should reward recent high performance and penalize recent poor performance or lack of points.
+-   `[x]` **Install YAML Dependency:** Add `PyYAML` to the project dependencies to enable YAML parsing.
+-   `[x]` **Refactor `enrich_with_insight.py`:** Modify the script to load `config.yaml` and use the `form_lookback_weeks` and `captaincy_tiers` values from it, removing the hardcoded constants.
+-   `[x]` **Refactor `chimera_final_form_v5_production.py`:** Modify the script to load `config.yaml` and use the `pulp_solver` parameters (`thrift_factor`, `form_factor_weight`, `spp_scores`).
+-   `[x]` **Refactor `chimera_pyomo_v2.py`:** Modify the script to load `config.yaml` and use the `pyomo_solver` parameters.
 
-### 6.3: Integrate Form into the Pipeline `(⇌)`
+### 7.3: Full System Verification
 
--   `[x]` **Upgrade the `enrich_with_insight.py` script:** This script is the natural home for our new strategic metric. Modify it to calculate and inject the `Form_Factor` for each player into the `prophetic.csv` database.
--   `[x]` **Evolve the `Final_Score`:** Update the `grand_synthesis.py` or `chimera_final_form_v5_production.py` to incorporate the `Form_Factor` into the `Final_Score` calculation. The weight of this new factor will need careful calibration.
-
-### 6.4: Teach the Chimera about Momentum
-
--   `[x]` **Update the Solver:** Modify the `chimera_pyomo_v2.py` solver to potentially use `Form_Factor` as a direct consideration, perhaps as a tie-breaker or even a primary objective component.
--   `[x]` **Run Verification Scenarios:** Test the newly enlightened Chimera. Does it favor in-form players? Does it wisely suggest dropping players who are out of form, even if they have a high historical point total?
+-   `[x]` **Run the Gauntlet:** Execute the full `bamf run-gauntlet gw12` command to ensure the entire pipeline runs successfully with the new configuration-driven approach.
+-   `[x]` **Verify Output:** Confirm that the generated squad is identical to the one produced before the refactoring, proving that the logic has been correctly externalized without altering the outcome.
 
 ---
 

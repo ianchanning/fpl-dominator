@@ -1,0 +1,41 @@
+# BAMF DOMINATOR: Master Configuration
+
+# --- enrich_with_insight.py ---
+enrich_insight:
+  form_lookback_weeks: 6
+  captaincy_tiers:
+    Gods:
+      players:
+        - Haaland
+        - M.Salah
+      coefficient: 1.5
+    Demigods:
+      players:
+        - João Pedro
+        - Ekitiké
+        - Enzo
+        - Calafiori
+        - Chalobah
+      coefficient: 1.2
+
+# --- chimera_final_form_v5_production.py ---
+pulp_solver:
+  thrift_factor: 0.001
+  form_factor_weight: 0.5
+  spp_scores:
+    Penalties:
+      primary: 5.0
+      secondary: 2.5
+    Direct Free Kicks:
+      primary: 2.5
+      secondary: 1.25
+    Corners & Indirect Free Kicks:
+      primary: 1.5
+      secondary: 0.75
+      
+# --- chimera_pyomo_v2.py ---
+pyomo_solver:
+  thrift_factor: 0.001 # Note: Redundant with pulp_solver, but keeping for clarity
+  bench_potency_epsilon: 0.00001
+  red_zone_threshold: 1250
+  red_zone_limit: 3

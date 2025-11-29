@@ -4,6 +4,7 @@
 
 ```text
 --- [4/4] CHIMERA FINAL FORM ENGINE (V5 - PRODUCTION) ONLINE ---
+[+] Master configuration for PuLP solver loaded.
 [+] Beginning Set-Piece Potency (SPP) enrichment (v5 - Rosetta Protocol)...
 [+] SPP enrichment complete. Realities have been aligned.
 [+] Final Form database (v5) forged at 'gw12/fpl_master_database_FINAL_v5.csv'.
@@ -45,6 +46,7 @@ Money in the Bank:         £0.1m
 
 ```text
 --- CHIMERA PYOMO ENGINE (V3 - TRINITY) ONLINE ---
+[+] Master configuration for Pyomo solver loaded.
 [+] Intelligence loaded. Analyzing 197 players.
 [+] Pyomo ConcreteModel initialized.
 [+] Sets (players) and Parameters (scores, prices, fdr, etc.) defined.
