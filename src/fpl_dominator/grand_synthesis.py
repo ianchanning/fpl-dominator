@@ -77,8 +77,15 @@ def perform_grand_synthesis(gameweek_dir: str):
     print("[+] Player data prepared for temporal merging.")
 
     # 3. Evolve the FDR Horizon Calculation (Temporal Lens)
+
+    # CRITICAL FIX: Ensure fixtures are sorted chronologically before applying weights.
+    fixtures_df["GW_Num"] = fixtures_df["Gameweek"].str.extract(r"(\d+)").astype(int)
+    fixtures_df.sort_values(by=["Team", "GW_Num"], inplace=True)
+    print(
+        "[+] Fixture data sorted chronologically to ensure correct temporal weighting."
+    )
+
     def weighted_fdr(series):
-        # Assuming the fixtures are already sorted chronologically per team in the CSV
         return np.average(series, weights=FIXTURE_WEIGHTS[: len(series)])
 
     print("[+] Calculating Temporally-Weighted FDR Horizons...")
