@@ -29,6 +29,14 @@ def forge_cauldron(gameweek_dir: str):
         df_list.append(pd.read_csv(path).assign(Position=pos))
         
     enriched_df = pd.concat(df_list, ignore_index=True)
+    
+    # Filter out any players with the 'INJURY' status
+    initial_player_count = len(enriched_df)
+    enriched_df = enriched_df[enriched_df['Status'] != 'INJURY'].copy()
+    final_player_count = len(enriched_df)
+    removed_count = initial_player_count - final_player_count
+    print(f"    - Purged {removed_count} injured players from consideration.")
+
     enriched_df['PPM'] = (enriched_df['TP'] / enriched_df['Price']).round(2)
     enriched_df.to_csv(ENRICHED_DB_PATH, index=False)
     print("    - SUCCESS: Enriched DB saved.")
