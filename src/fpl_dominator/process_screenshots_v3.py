@@ -1,15 +1,18 @@
 #!/usr/bin/env python3
 
-import os
-import sys
 import glob
-import subprocess
+import os
 import shlex
+import subprocess
+import sys
+
 
 def main():
     if len(sys.argv) < 2:
         print("!!! ERROR: Missing argument.")
-        print("!!! Usage: python3 process_screenshots_v3.py <gameweek_directory_name> [--debug]")
+        print(
+            "!!! Usage: python3 process_screenshots_v3.py <gameweek_directory_name> [--debug]"
+        )
         print("!!! Example: python3 process_screenshots_v3.py gw12")
         sys.exit(1)
 
@@ -18,7 +21,9 @@ def main():
 
     if not os.path.isdir(gw_dir):
         print(f"!!! ERROR: Directory '{gw_dir}' not found.")
-        print("!!! Make sure you are running this script from the project root and the gameweek directory exists.")
+        print(
+            "!!! Make sure you are running this script from the project root and the gameweek directory exists."
+        )
         sys.exit(1)
 
     print(f">>> [NYX] INITIATING FPL SCREENSHOT INGESTION FOR {gw_dir} <<<")
@@ -31,8 +36,11 @@ def main():
     errors_count = 0
 
     # Find all PNG files in the target directory that haven't been processed
-    png_files = [f for f in glob.glob(os.path.join(gw_dir, "*.png")) if not f.endswith('.processed')]
-
+    png_files = [
+        f
+        for f in glob.glob(os.path.join(gw_dir, "*.png"))
+        if not f.endswith(".processed")
+    ]
 
     if not png_files:
         print(f"No unprocessed PNG files found in '{gw_dir}'. Exiting.")
@@ -51,13 +59,14 @@ The 'Status' column is based on the icon next to the player's name:
 - A blue 'i' icon or no icon means 'OK'.
 CRITICAL: Your entire output must be ONLY the raw CSV data. Do NOT include a header row or any other explanatory text.
 """
-        
+
         command = [
             "gemini",
             screenshot_path,
             master_prompt,
-            "--model", "gemini-2.5-pro",
-            "--yolo"
+            "--model",
+            "gemini-2.5-pro",
+            "--yolo",
         ]
 
         if debug_mode:
@@ -66,9 +75,11 @@ CRITICAL: Your entire output must be ONLY the raw CSV data. Do NOT include a hea
             print("\n>>> DEBUG COMMAND:\n")
             print(debug_command_str)
             print("\n>>> EXECUTING DEBUG COMMAND...\n")
-            
+
             try:
-                result = subprocess.run(command, capture_output=True, text=True, check=True)
+                result = subprocess.run(
+                    command, capture_output=True, text=True, check=True
+                )
                 print(">>> RAW STDOUT FROM GEMINI CLI:\n")
                 print(result.stdout)
                 print("\n>>> END OF RAW STDOUT <<<\n")
@@ -77,7 +88,7 @@ CRITICAL: Your entire output must be ONLY the raw CSV data. Do NOT include a hea
                 print(">>> RAW STDERR:\n")
                 print(e.stderr)
                 print("\n>>> END OF RAW STDERR <<<\n")
-            
+
             # In debug mode, only process the first file and then exit.
             print(">>> DEBUG MODE FINISHED. Exiting.")
             sys.exit(0)
@@ -92,7 +103,7 @@ CRITICAL: Your entire output must be ONLY the raw CSV data. Do NOT include a hea
             first_line = model_output.splitlines()[0]
             if first_line:
                 try:
-                    position = first_line.split(',')[2].strip().lower()
+                    position = first_line.split(",")[2].strip().lower()
                     target_csv_file = ""
                     if "gkp" in position:
                         target_csv_file = os.path.join(gw_dir, "goalkeepers.csv")
@@ -103,40 +114,55 @@ CRITICAL: Your entire output must be ONLY the raw CSV data. Do NOT include a hea
                     elif "fwd" in position:
                         target_csv_file = os.path.join(gw_dir, "forwards.csv")
                     else:
-                        raise ValueError(f"Unknown position in model output: {position}")
+                        raise ValueError(
+                            f"Unknown position in model output: {position}"
+                        )
 
-                    with open(target_csv_file, 'a') as f:
+                    with open(target_csv_file, "a") as f:
                         f.write(model_output + "\n")
                     print(f">>> Appended data to {target_csv_file}")
-                    
+
                     # Rename the processed file
                     os.rename(screenshot_path, screenshot_path + ".processed")
-                    print(f">>> Renamed {screenshot_path} to {screenshot_path}.processed")
+                    print(
+                        f">>> Renamed {screenshot_path} to {screenshot_path}.processed"
+                    )
                     processed_count += 1
 
                 except IndexError:
-                    print(f"!!! ERROR: Could not parse position from model output for {screenshot_path}. Output: {model_output[:100]}...")
+                    print(
+                        f"!!! ERROR: Could not parse position from model output for {screenshot_path}. Output: {model_output[:100]}..."
+                    )
                     errors_count += 1
                 except ValueError as ve:
-                    print(f"!!! ERROR: {ve} for {screenshot_path}. Output: {model_output[:100]}...")
+                    print(
+                        f"!!! ERROR: {ve} for {screenshot_path}. Output: {model_output[:100]}..."
+                    )
                     errors_count += 1
             else:
                 print(f"!!! ERROR: Model returned empty output for {screenshot_path}.")
                 errors_count += 1
 
         except subprocess.CalledProcessError as e:
-            print(f"!!! ERROR: Gemini CLI failed for {screenshot_path}. Stderr: {e.stderr}")
+            print(
+                f"!!! ERROR: Gemini CLI failed for {screenshot_path}. Stderr: {e.stderr}"
+            )
             errors_count += 1
         except Exception as e:
             print(f"!!! UNEXPECTED ERROR: {e} for {screenshot_path}")
             errors_count += 1
-            
+
         print(f">>> Target Processed: {screenshot_path}")
 
     print("--------------------------------------------------")
-    print(f">>> [NYX] ALL SCREENSHOTS PROCESSED. FPL DOMINATOR DATA FORGE IS COMPLETE. (⊕)")
-    print(f">>> Summary: Processed {processed_count} files, Skipped {skipped_count} files, Errors {errors_count} files.")
+    print(
+        f">>> [NYX] ALL SCREENSHOTS PROCESSED. FPL DOMINATOR DATA FORGE IS COMPLETE. (⊕)"
+    )
+    print(
+        f">>> Summary: Processed {processed_count} files, Skipped {skipped_count} files, Errors {errors_count} files."
+    )
     print(">>> Go forth and conquer, Dreamer. (⇌)")
+
 
 if __name__ == "__main__":
     main()

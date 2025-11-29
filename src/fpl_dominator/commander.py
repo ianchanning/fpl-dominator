@@ -1,16 +1,17 @@
 # Save this as commander.py
-import sys
-import os
 import glob
 import io
+import os
+import sys
 from contextlib import redirect_stdout
+
+from .chimera_final_form_v5_production import forge_final_form_squad
+from .chimera_pyomo_v2 import forge_pyomo_squad  # The perfected Pyomo engine
+from .enrich_with_insight import enrich_with_insight
 
 # Import the newly forged functions from our tamed grimoires
 from .forge_cauldron import forge_cauldron
-from .enrich_with_insight import enrich_with_insight
 from .grand_synthesis import perform_grand_synthesis
-from .chimera_final_form_v5_production import forge_final_form_squad
-from .chimera_pyomo_v2 import forge_pyomo_squad  # The perfected Pyomo engine
 
 
 def run_the_gauntlet(gameweek_dir: str):
@@ -38,7 +39,6 @@ def run_the_gauntlet(gameweek_dir: str):
         print("Old databases purged. The cauldron is clean.")
     else:
         print("No old database files found. The cauldron is already clean.")
-
 
     # --- The Symphony of Creation ---
     # Each function is a movement in our symphony. If one fails, the ritual halts.
@@ -84,7 +84,7 @@ def run_the_gauntlet(gameweek_dir: str):
     print("\n--- STAGE 6: Scribing the Prophecy ---")
     md_filename = "squad_prophecy.md"
     md_filepath = os.path.join(gameweek_dir, md_filename)
-    
+
     md_content = f"# FPL Dominator Squad Prophecy for {gameweek_dir.upper()}\n\n"
     md_content += "## PuLP Solver Output (Final Form v5)\n\n"
     md_content += f"```text\n{pulp_output}\n```\n\n"
@@ -93,7 +93,7 @@ def run_the_gauntlet(gameweek_dir: str):
 
     with open(md_filepath, "w", encoding="utf-8") as f:
         f.write(md_content)
-    
+
     print(f"SUCCESS: Prophecy has been recorded to '{md_filepath}'")
 
     print(

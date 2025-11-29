@@ -1,14 +1,15 @@
-import pandas as pd
-import pyomo.environ as pyo
 import os
 import sys
+
+import pandas as pd
+import pyomo.environ as pyo
 
 # --- Configuration (The Final Apotheosis) ---
 # We introduce a tiny "epsilon" value to reward bench players with higher point potential.
 # This breaks ties between players of the same cost, adding a final layer of strategic wisdom.
 THRIFT_FACTOR = 0.001
 BENCH_POTENCY_EPSILON = 0.00001
-RED_ZONE_THRESHOLD = 1250 
+RED_ZONE_THRESHOLD = 1250
 RED_ZONE_LIMIT = 3
 
 
@@ -57,7 +58,7 @@ def forge_pyomo_squad(gameweek_dir: str):
     # --- 4. Define The Prime Directive (The Final Apotheosis Objective) ---
     def objective_rule(m):
         starter_score = sum(final_scores[i] * m.is_starter[i] for i in m.players)
-        
+
         bench_penalty = sum(
             (m.in_squad[i] - m.is_starter[i]) * prices[i] * THRIFT_FACTOR
             for i in m.players
@@ -67,7 +68,7 @@ def forge_pyomo_squad(gameweek_dir: str):
             (m.in_squad[i] - m.is_starter[i]) * final_scores[i] * BENCH_POTENCY_EPSILON
             for i in m.players
         )
-        
+
         return starter_score - bench_penalty + bench_bonus
 
     model.objective = pyo.Objective(
@@ -132,14 +133,17 @@ def forge_pyomo_squad(gameweek_dir: str):
 
     # --- NEW: The Trinity Constraint (Red Zone Fixture Limit) ---
     def red_zone_rule(m):
-        red_zone_players = [i for i in m.players if fdr_values.get(i, 0) > RED_ZONE_THRESHOLD]
+        red_zone_players = [
+            i for i in m.players if fdr_values.get(i, 0) > RED_ZONE_THRESHOLD
+        ]
         if not red_zone_players:
             return pyo.Constraint.Feasible
         return sum(m.is_starter[i] for i in red_zone_players) <= RED_ZONE_LIMIT
-    
-    model.red_zone_limit = pyo.Constraint(rule=red_zone_rule)
-    print(f"[+] STRATEGIC CONSTRAINT: Red Zone limit active (Max {RED_ZONE_LIMIT} starters with FDR > {RED_ZONE_THRESHOLD}).")
 
+    model.red_zone_limit = pyo.Constraint(rule=red_zone_rule)
+    print(
+        f"[+] STRATEGIC CONSTRAINT: Red Zone limit active (Max {RED_ZONE_LIMIT} starters with FDR > {RED_ZONE_THRESHOLD})."
+    )
 
     print("[+] All constraints are locked in.")
 
@@ -162,20 +166,42 @@ def forge_pyomo_squad(gameweek_dir: str):
         bench = squad.drop(starter_indices)
 
         # --- Enforce Positional Order for Printing ---
-        position_order = ['GKP', 'DEF', 'MID', 'FWD']
-        starters['Position'] = pd.Categorical(starters['Position'], categories=position_order, ordered=True)
-        bench['Position'] = pd.Categorical(bench['Position'], categories=position_order, ordered=True)
+        position_order = ["GKP", "DEF", "MID", "FWD"]
+        starters["Position"] = pd.Categorical(
+            starters["Position"], categories=position_order, ordered=True
+        )
+        bench["Position"] = pd.Categorical(
+            bench["Position"], categories=position_order, ordered=True
+        )
 
         print("\n" + "=" * 20 + " PYOMO SQUAD FORGED (V3 - TRINITY) " + "=" * 20)
         print("\n--- STARTING XI (Final Score Maximized) ---")
         print(
-            starters[["Surname", "Team", "Position", "Price", "Final_Score", "Effective_FDR_Horizon_5GW"]]
+            starters[
+                [
+                    "Surname",
+                    "Team",
+                    "Position",
+                    "Price",
+                    "Final_Score",
+                    "Effective_FDR_Horizon_5GW",
+                ]
+            ]
             .sort_values(by=["Position", "Final_Score"], ascending=[True, False])
             .to_string(index=False)
         )
         print("\n--- BENCH (Potency & Cost Optimized) ---")
         print(
-            bench[["Surname", "Team", "Position", "Price", "Final_Score", "Effective_FDR_Horizon_5GW"]]
+            bench[
+                [
+                    "Surname",
+                    "Team",
+                    "Position",
+                    "Price",
+                    "Final_Score",
+                    "Effective_FDR_Horizon_5GW",
+                ]
+            ]
             .sort_values(by=["Position", "Final_Score"], ascending=[True, False])
             .to_string(index=False)
         )
