@@ -63,24 +63,24 @@ Money in the Bank:         £8.1m
 
 --- STARTING XI (Final Score Maximized) ---
       Surname           Team Position  Price  Final_Score  Effective_FDR_Horizon_5GW
-        Roefs     Sunderland      GKP    4.7         0.05                1260.266667
-        Guéhi Crystal Palace      DEF    5.1         0.09                1175.800000
-        Muñoz Crystal Palace      DEF    5.9         0.07                1175.800000
-        Keane        Everton      DEF    4.5         0.07                1180.066667
-      Semenyo    Bournemouth      MID    7.9         0.07                1143.133333
-         Rice        Arsenal      MID    6.9         0.07                1154.533333
-   J.Palhinha          Spurs      MID    5.5         0.06                1140.400000
-      M.Salah      Liverpool      MID   14.2         0.06                1100.533333
-Dewsbury-Hall        Everton      MID    4.9         0.06                1192.266667
-      Haaland       Man City      FWD   14.9         0.11                1128.733333
-       Thiago      Brentford      FWD    6.5         0.07                1159.266667
+        Roefs     Sunderland      GKP    4.7         0.05                1263.081448
+        Guéhi Crystal Palace      DEF    5.1         0.09                1168.239819
+        Muñoz Crystal Palace      DEF    5.9         0.07                1168.239819
+        Keane        Everton      DEF    4.5         0.07                1178.447964
+      Semenyo    Bournemouth      MID    7.9         0.07                1148.009050
+         Rice        Arsenal      MID    6.9         0.07                1165.552036
+   J.Palhinha          Spurs      MID    5.5         0.06                1135.072398
+      M.Salah      Liverpool      MID   14.2         0.06                1089.515837
+Dewsbury-Hall        Everton      MID    4.9         0.06                1186.760181
+      Haaland       Man City      FWD   14.9         0.11                1126.796380
+       Thiago      Brentford      FWD    6.5         0.07                1164.307692
 
 --- BENCH (Potency & Cost Optimized) ---
   Surname    Team Position  Price  Final_Score  Effective_FDR_Horizon_5GW
- Dúbravka Burnley      GKP    4.0         0.03                1193.533333
-  Hartman Burnley      DEF    4.0         0.05                1193.533333
-   Estève Burnley      DEF    3.9         0.03                1193.533333
-Marc Guiu Chelsea      FWD    4.2         0.01                1211.733333
+ Dúbravka Burnley      GKP    4.0         0.03                1200.276018
+  Hartman Burnley      DEF    4.0         0.05                1200.276018
+   Estève Burnley      DEF    3.9         0.03                1200.276018
+Marc Guiu Chelsea      FWD    4.2         0.01                1228.285068
 
 -------------------------------------------
 Total Squad Cost:          £97.1m
