@@ -72,8 +72,14 @@ def perform_grand_synthesis(gameweek_dir: str):
 
     # 2. Prepare the Player Data
     players_df["Team_TLA"] = players_df["Team"].map(TEAM_NAME_TO_TLA)
-    if players_df["Team_TLA"].isnull().any():
-        print("!!! WARNING: Some team names could not be mapped to an acronym.")
+    unmapped_teams = players_df[players_df["Team_TLA"].isnull()]["Team"].unique()
+    if len(unmapped_teams) > 0:
+        print(
+            f"!!! CRITICAL FAILURE: Could not map the following team names to an acronym: {list(unmapped_teams)}."
+        )
+        print("!!! Please update the player CSVs and re-run.")
+        sys.exit(1)
+
     print("[+] Player data prepared for temporal merging.")
 
     # 3. Evolve the FDR Horizon Calculation (Temporal Lens)

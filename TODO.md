@@ -28,7 +28,7 @@ The Chimera currently views all upcoming fixtures with equal importance. We will
 
 ---
 
-## PHASE 9: THE SCRIBE'S AUTOMATION & TEMPORAL VERIFICATION
+## ✅ PHASE 9: THE SCRIBE'S AUTOMATION & TEMPORAL VERIFICATION (Completed)
 
 We have refined the Chimera's understanding of the future and equipped it with a new data ingestion tool. This phase focuses on automating data input and rigorously testing our temporal discounting logic.
 
@@ -39,9 +39,9 @@ We have refined the Chimera's understanding of the future and equipped it with a
 
 ### 9.2: Temporal Discounting Logic Verification `(⇌)`
 
--   `[ ]` **Create Synthetic Data Test:** Forge a new script (`src/fpl_dominator/verify_temporal_logic.py`) to create a synthetic `fixtures_df` with deliberately varied fixture difficulties (e.g., Team A: Hard-Easy-Easy, Team B: Easy-Easy-Hard).
--   `[ ]` **Apply Weighted Average:** Apply the `grand_synthesis.py`'s weighted average logic to this synthetic data.
--   `[ ]` **Verify Ranking Change:** Assert that the calculated `Effective_FDR_Horizon_5GW` values for the synthetic teams correctly reflect the temporal discounting, leading to a change in their relative rankings. This will definitively prove the integrity of our Temporal Lens.
+-   `[⌑]` **Create Synthetic Data Test:** Forge a new script (`src/fpl_dominator/verify_temporal_logic.py`) to create a synthetic `fixtures_df` with deliberately varied fixture difficulties (e.g., Team A: Hard-Easy-Easy, Team B: Easy-Easy-Hard).
+-   `[⌑]` **Apply Weighted Average:** Apply the `grand_synthesis.py`'s weighted average logic to this synthetic data.
+-   `[⌑]` **Verify Ranking Change:** Assert that the calculated `Effective_FDR_Horizon_5GW` values for the synthetic teams correctly reflect the temporal discounting, leading to a change in their relative rankings. This will definitively prove the integrity of our Temporal Lens.
 
 ---
 

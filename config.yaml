@@ -37,7 +37,7 @@ pulp_solver:
 pyomo_solver:
   thrift_factor: 0.001 # Note: Redundant with pulp_solver, but keeping for clarity
   bench_potency_epsilon: 0.00001
-  red_zone_threshold: 1150
+  red_zone_threshold: 1175
   red_zone_limit: 3
 
 # --- grand_synthesis.py ---
