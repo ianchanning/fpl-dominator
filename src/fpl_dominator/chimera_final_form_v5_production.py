@@ -130,7 +130,7 @@ def forge_final_form_squad(gameweek_dir: str):
             + (players["Form_Factor"] * FORM_FACTOR_WEIGHT)
         )
         / players["Effective_FDR_Horizon_5GW"]
-    ).round(2)
+    )
     players.to_csv(FINAL_FORM_DB_PATH, index=False)
     print(f"[+] Final Form database (v5) forged at '{FINAL_FORM_DB_PATH}'.")
 

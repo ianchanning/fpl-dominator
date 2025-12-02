@@ -15,29 +15,29 @@
 
 --- STARTING XI (Final Score Maximized) ---
       Surname           Team Position  Price  Final_Score
-    Henderson Crystal Palace      GKP    5.0         0.05
-        Guéhi Crystal Palace      DEF    5.1         0.09
-        Muñoz Crystal Palace      DEF    5.9         0.07
-        Keane        Everton      DEF    4.5         0.07
-      Semenyo    Bournemouth      MID    7.9         0.07
-         Rice        Arsenal      MID    6.9         0.07
-     Trossard        Arsenal      MID    6.9         0.06
-Dewsbury-Hall        Everton      MID    4.9         0.06
-  Gibbs-White  Nott'm Forest      MID    7.3         0.06
-      Haaland       Man City      FWD   14.9         0.11
-       Thiago      Brentford      FWD    6.5         0.07
+     Pickford        Everton      GKP    5.5     0.051268
+        Guéhi Crystal Palace      DEF    5.1     0.088025
+        Muñoz Crystal Palace      DEF    5.9     0.071441
+        Keane        Everton      DEF    4.5     0.065251
+      Lacroix Crystal Palace      DEF    5.0     0.064212
+         Rice        Arsenal      MID    6.9     0.068426
+      Semenyo    Bournemouth      MID    7.9     0.067796
+      M.Salah      Liverpool      MID   14.2     0.063469
+Dewsbury-Hall        Everton      MID    4.9     0.061647
+      Haaland       Man City      FWD   14.9     0.109548
+       Thiago      Brentford      FWD    6.5     0.066853
 
 --- BENCH (RUTHLESSLY Cost-Optimized) ---
   Surname    Team Position  Price  Final_Score
-  Setford Arsenal      GKP    4.0         0.00
-   Estève Burnley      DEF    3.9         0.03
-  Hartman Burnley      DEF    4.0         0.05
-Marc Guiu Chelsea      FWD    4.2         0.01
+  Setford Arsenal      GKP    4.0     0.000000
+   Estève Burnley      DEF    3.9     0.028487
+ P.M.Sarr   Spurs      MID    4.8     0.034637
+Marc Guiu Chelsea      FWD    4.2     0.013617
 
 -------------------------------------------
-Total Squad Cost:          £91.9m
+Total Squad Cost:          £98.2m
 Projected Starting Score:    0.78
-Money in the Bank:         £8.1m
+Money in the Bank:         £1.8m
 -------------------------------------------
 
 ```
@@ -53,7 +53,7 @@ Money in the Bank:         £8.1m
 [+] Dual-layer decision variables created.
 [+] Prime Directive (Final Apotheosis Objective) set.
 [+] Applying the Chains of Reality (Game Constraints)...
-[+] STRATEGIC CONSTRAINT: Red Zone limit active (Max 3 starters with FDR > 1250).
+[+] STRATEGIC CONSTRAINT: Red Zone limit active (Max 3 starters with FDR > 1150).
 [+] All constraints are locked in.
 
 >>> Summoning the GLPK Solver Demon...
@@ -62,30 +62,30 @@ Money in the Bank:         £8.1m
 ==================== PYOMO SQUAD FORGED (V3 - TRINITY) ====================
 
 --- STARTING XI (Final Score Maximized) ---
-      Surname           Team Position  Price  Final_Score  Effective_FDR_Horizon_5GW
-        Roefs     Sunderland      GKP    4.7         0.05                1263.081448
-        Guéhi Crystal Palace      DEF    5.1         0.09                1168.239819
-        Muñoz Crystal Palace      DEF    5.9         0.07                1168.239819
-        Keane        Everton      DEF    4.5         0.07                1178.447964
-      Semenyo    Bournemouth      MID    7.9         0.07                1148.009050
-         Rice        Arsenal      MID    6.9         0.07                1165.552036
-   J.Palhinha          Spurs      MID    5.5         0.06                1135.072398
-      M.Salah      Liverpool      MID   14.2         0.06                1089.515837
-Dewsbury-Hall        Everton      MID    4.9         0.06                1186.760181
-      Haaland       Man City      FWD   14.9         0.11                1126.796380
-       Thiago      Brentford      FWD    6.5         0.07                1164.307692
+   Surname           Team Position  Price  Final_Score  Effective_FDR_Horizon_5GW
+  Pickford        Everton      GKP    5.5     0.051268                1180.066667
+     Guéhi Crystal Palace      DEF    5.1     0.088025                1175.800000
+     Muñoz Crystal Palace      DEF    5.9     0.071441                1175.800000
+     Rúben       Man City      DEF    5.5     0.051089                1145.066667
+   Semenyo    Bournemouth      MID    7.9     0.067796                1143.133333
+   M.Salah      Liverpool      MID   14.2     0.063469                1100.533333
+    Minteh       Brighton      MID    6.2     0.059715                1138.733333
+  Bruno G.      Newcastle      MID    6.6     0.059548                1125.133333
+J.Palhinha          Spurs      MID    5.5     0.056559                1140.400000
+   Haaland       Man City      FWD   14.9     0.109548                1128.733333
+   Welbeck       Brighton      FWD    6.6     0.055325                1138.733333
 
 --- BENCH (Potency & Cost Optimized) ---
   Surname    Team Position  Price  Final_Score  Effective_FDR_Horizon_5GW
- Dúbravka Burnley      GKP    4.0         0.03                1200.276018
-  Hartman Burnley      DEF    4.0         0.05                1200.276018
-   Estève Burnley      DEF    3.9         0.03                1200.276018
-Marc Guiu Chelsea      FWD    4.2         0.01                1228.285068
+ Dúbravka Burnley      GKP    4.0     0.032676                1193.533333
+  Hartman Burnley      DEF    4.0     0.047757                1193.533333
+   Estève Burnley      DEF    3.9     0.028487                1193.533333
+Marc Guiu Chelsea      FWD    4.2     0.013617                1211.733333
 
 -------------------------------------------
-Total Squad Cost:          £97.1m
-Projected Starting Score:    0.78
-Money in the Bank:         £2.9m
+Total Squad Cost:          £100.0m
+Projected Starting Score:    0.73
+Money in the Bank:         £0.0m
 -------------------------------------------
 
 ```
