@@ -16,13 +16,13 @@
 --- STARTING XI (Final Score Maximized) ---
  Surname           Team Position  Price  Final_Score
     Raya        Arsenal      GKP    5.9     0.051408
- Gabriel        Arsenal      DEF    6.3     0.103240
    Muñoz Crystal Palace      DEF    6.0     0.070473
  Lacroix Crystal Palace      DEF    5.1     0.065774
 Chalobah        Chelsea      DEF    5.2     0.065530
     Rice        Arsenal      MID    7.0     0.074126
    Kudus          Spurs      MID    6.5     0.071439
  Semenyo    Bournemouth      MID    7.8     0.069563
+     Eze        Arsenal      MID    7.8     0.065302
    Foden       Man City      MID    8.1     0.064810
  Haaland       Man City      FWD   14.9     0.109345
   Thiago      Brentford      FWD    6.7     0.074424
@@ -31,13 +31,13 @@ Chalobah        Chelsea      DEF    5.2     0.065530
   Surname        Team Position  Price  Final_Score
  Dúbravka     Burnley      GKP    4.0     0.033380
    Estève     Burnley      DEF    3.9     0.031268
- P.M.Sarr       Spurs      MID    4.8     0.034325
+  Hartman     Burnley      DEF    4.0     0.036761
 Kroupi.Jr Bournemouth      FWD    4.6     0.030379
 
 -------------------------------------------
-Total Squad Cost:          £96.8m
-Projected Starting Score:    0.82
-Money in the Bank:         £3.2m
+Total Squad Cost:          £97.5m
+Projected Starting Score:    0.78
+Money in the Bank:         £2.5m
 -------------------------------------------
 
 ```
@@ -47,7 +47,7 @@ Money in the Bank:         £3.2m
 ```text
 --- CHIMERA PYOMO ENGINE (V3 - TRINITY) ONLINE ---
 [+] Master configuration for Pyomo solver loaded.
-[+] Intelligence loaded. Analyzing 162 players.
+[+] Intelligence loaded. Analyzing 161 players.
 [+] Pyomo ConcreteModel initialized.
 [+] Sets (players) and Parameters (scores, prices, fdr, etc.) defined.
 [+] Dual-layer decision variables created.
@@ -62,18 +62,18 @@ Money in the Bank:         £3.2m
 ==================== PYOMO SQUAD FORGED (V3 - TRINITY) ====================
 
 --- STARTING XI (Final Score Maximized) ---
-Surname           Team Position  Price  Final_Score  Effective_FDR_Horizon_5GW
-   Raya        Arsenal      GKP    5.9     0.051408                1176.866667
-Gabriel        Arsenal      DEF    6.3     0.103240                1176.866667
-  Muñoz Crystal Palace      DEF    6.0     0.070473                1170.666667
-Lacroix Crystal Palace      DEF    5.1     0.065774                1170.666667
-   Rice        Arsenal      MID    7.0     0.074126                1133.200000
-  Kudus          Spurs      MID    6.5     0.071439                1165.333333
-Semenyo    Bournemouth      MID    7.8     0.069563                1135.666667
-  Foden       Man City      MID    8.1     0.064810                1141.800000
-  Gakpo      Liverpool      MID    7.5     0.064563                1122.933333
-Haaland       Man City      FWD   14.9     0.109345                1141.800000
- Thiago      Brentford      FWD    6.7     0.074424                1216.000000
+ Surname           Team Position  Price  Final_Score  Effective_FDR_Horizon_5GW
+    Raya        Arsenal      GKP    5.9     0.051408                1176.866667
+   Muñoz Crystal Palace      DEF    6.0     0.070473                1170.666667
+ Lacroix Crystal Palace      DEF    5.1     0.065774                1170.666667
+Chalobah        Chelsea      DEF    5.2     0.065530                1182.666667
+    Rice        Arsenal      MID    7.0     0.074126                1133.200000
+   Kudus          Spurs      MID    6.5     0.071439                1165.333333
+ Semenyo    Bournemouth      MID    7.8     0.069563                1135.666667
+     Eze        Arsenal      MID    7.8     0.065302                1133.200000
+   Foden       Man City      MID    8.1     0.064810                1141.800000
+ Haaland       Man City      FWD   14.9     0.109345                1141.800000
+  Thiago      Brentford      FWD    6.7     0.074424                1216.000000
 
 --- BENCH (Potency & Cost Optimized) ---
   Surname        Team Position  Price  Final_Score  Effective_FDR_Horizon_5GW
@@ -83,9 +83,9 @@ Haaland       Man City      FWD   14.9     0.109345                1141.800000
 Kroupi.Jr Bournemouth      FWD    4.6     0.030379                1135.666667
 
 -------------------------------------------
-Total Squad Cost:          £98.3m
-Projected Starting Score:    0.82
-Money in the Bank:         £1.7m
+Total Squad Cost:          £97.5m
+Projected Starting Score:    0.78
+Money in the Bank:         £2.5m
 -------------------------------------------
 
 ```
