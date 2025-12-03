@@ -15,10 +15,10 @@
 
 --- STARTING XI (Final Score Maximized) ---
  Surname           Team Position  Price  Final_Score
-    Raya        Arsenal      GKP    5.9     0.051408
+Pickford        Everton      GKP    5.5     0.049711
    Muñoz Crystal Palace      DEF    6.0     0.070473
+J.Timber        Arsenal      DEF    6.4     0.065853
  Lacroix Crystal Palace      DEF    5.1     0.065774
-Chalobah        Chelsea      DEF    5.2     0.065530
     Rice        Arsenal      MID    7.0     0.074126
    Kudus          Spurs      MID    6.5     0.071439
  Semenyo    Bournemouth      MID    7.8     0.069563
@@ -29,15 +29,15 @@ Chalobah        Chelsea      DEF    5.2     0.065530
 
 --- BENCH (RUTHLESSLY Cost-Optimized) ---
   Surname        Team Position  Price  Final_Score
- Dúbravka     Burnley      GKP    4.0     0.033380
+   Darlow       Leeds      GKP    4.0     0.008231
    Estève     Burnley      DEF    3.9     0.031268
   Hartman     Burnley      DEF    4.0     0.036761
 Kroupi.Jr Bournemouth      FWD    4.6     0.030379
 
 -------------------------------------------
-Total Squad Cost:          £97.5m
+Total Squad Cost:          £98.3m
 Projected Starting Score:    0.78
-Money in the Bank:         £2.5m
+Money in the Bank:         £1.7m
 -------------------------------------------
 
 ```
@@ -47,7 +47,7 @@ Money in the Bank:         £2.5m
 ```text
 --- CHIMERA PYOMO ENGINE (V3 - TRINITY) ONLINE ---
 [+] Master configuration for Pyomo solver loaded.
-[+] Intelligence loaded. Analyzing 161 players.
+[+] Intelligence loaded. Analyzing 160 players.
 [+] Pyomo ConcreteModel initialized.
 [+] Sets (players) and Parameters (scores, prices, fdr, etc.) defined.
 [+] Dual-layer decision variables created.
@@ -63,10 +63,10 @@ Money in the Bank:         £2.5m
 
 --- STARTING XI (Final Score Maximized) ---
  Surname           Team Position  Price  Final_Score  Effective_FDR_Horizon_5GW
-    Raya        Arsenal      GKP    5.9     0.051408                1176.866667
+Pickford        Everton      GKP    5.5     0.049711                1176.800000
    Muñoz Crystal Palace      DEF    6.0     0.070473                1170.666667
+J.Timber        Arsenal      DEF    6.4     0.065853                1176.866667
  Lacroix Crystal Palace      DEF    5.1     0.065774                1170.666667
-Chalobah        Chelsea      DEF    5.2     0.065530                1182.666667
     Rice        Arsenal      MID    7.0     0.074126                1133.200000
    Kudus          Spurs      MID    6.5     0.071439                1165.333333
  Semenyo    Bournemouth      MID    7.8     0.069563                1135.666667
@@ -83,9 +83,9 @@ Chalobah        Chelsea      DEF    5.2     0.065530                1182.666667
 Kroupi.Jr Bournemouth      FWD    4.6     0.030379                1135.666667
 
 -------------------------------------------
-Total Squad Cost:          £97.5m
+Total Squad Cost:          £98.3m
 Projected Starting Score:    0.78
-Money in the Bank:         £2.5m
+Money in the Bank:         £1.7m
 -------------------------------------------
 
 ```

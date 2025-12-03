@@ -32,7 +32,7 @@ pulp_solver:
     Corners & Indirect Free Kicks:
       primary: 1.5
       secondary: 0.75
-      
+
 # --- chimera_pyomo_v2.py ---
 pyomo_solver:
   thrift_factor: 0.001 # Note: Redundant with pulp_solver, but keeping for clarity
