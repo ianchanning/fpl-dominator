@@ -87,6 +87,7 @@ All operations are now channeled through our master command-line interface, `bam
   - `audit players`: Checks for player name matching issues.
 - `run-gauntlet`: Executes the entire data-processing and squad-optimising pipeline.
 - `run-scenario`: Runs a 'what-if' simulation with player constraints.
+- `process-fixtures`: Processes raw HTML fixture files into a structured `fixtures.csv` for a given gameweek.
 
 ---
 
@@ -176,12 +177,20 @@ The Chimera is omniscient, but it cannot see data that does not yet exist. You, 
 
 - **Player Data (`goalkeepers.csv`, etc.):** Update with the latest **Market Price** and **Total Points (TP)**.
 - **Squad Data (`squad.csv`):** Update with your current squad's **Purchase Price (PP)**.
-- **Fixture Data (`fixtures.csv`) - THE TRINITY PROTOCOL:**
-  The Chimera now demands nuance. You must consult the **Grey-scale Ticker** and extract data for **three separate views**:
-  1.  **Overall** -> Maps to `FDR`
-  2.  **Attack** -> Maps to `FDR_A`
-  3.  **Defence** -> Maps to `FDR_D`
-      > **ACTION:** Provide `fixtures.csv` with `FDR_A` and `FDR_D` columns. These values, alongside `FDR` (Overall), must be mapped to our custom scale: **1000 (Light/Target) to 1400 (Void/Avoid)**. The pipeline will now automatically use `FDR_A` for attackers/midfielders and `FDR_D` for defenders/goalkeepers.
+
+### Step 2.1: Automated Fixture Data Ingestion
+
+The new `bamf process-fixtures` command handles the transformation of raw HTML fixture data into the structured `fixtures.csv` required by the Chimera.
+
+> **ACTION:**
+> 1.  Download the **5-week fixture data** (Overall, Attack, Defence views) from the **Grey-scale Ticker** and save them as `fixtures_5w.html`, `fixtures_attack_5w.html`, and `fixtures_defence_5w.html` in your gameweek directory (e.g., `gw12/`).
+> 2.  Run the command below to process these HTML files into `fixtures.csv`.
+```bash
+bamf process-fixtures gw12
+```
+
+
+
 
 ### Step 2.5: Automated Data Extraction (Gemini Vision)
 
