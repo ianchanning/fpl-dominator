@@ -21,7 +21,7 @@ enrich_insight:
 # --- chimera_final_form_v5_production.py ---
 pulp_solver:
   thrift_factor: 0.001
-  form_factor_weight: 0.5
+  form_factor_weight: 0.7
   spp_scores:
     Penalties:
       primary: 5.0
@@ -37,8 +37,8 @@ pulp_solver:
 pyomo_solver:
   thrift_factor: 0.001 # Note: Redundant with pulp_solver, but keeping for clarity
   bench_potency_epsilon: 0.00001
-  red_zone_threshold: 1175
-  red_zone_limit: 3
+  red_zone_threshold: 1160
+  red_zone_limit: 2
 
 # --- grand_synthesis.py ---
 temporal_discounting:
@@ -46,5 +46,6 @@ temporal_discounting:
   # The first weight applies to the next gameweek, the second to the one after, etc.
   # Must contain 5 values.
   # fixture_weights: [1.0, 1.0, 1.0, 1.0, 1.0]
-  fixture_weights: [1.0, 0.8, 0.6, 0.4, 0.2]
-  # fixture_weights: [1.0, 0.7, 0.4, 0.1, 0.01]
+  # fixture_weights: [1.0, 0.8, 0.6, 0.4, 0.2]
+  fixture_weights: [1.0, 0.7, 0.4, 0.1, 0.01]
+  # fixture_weights: [1.0, 0.5, 0.3, 0.2, 0.1]
