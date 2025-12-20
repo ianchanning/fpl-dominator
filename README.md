@@ -190,18 +190,6 @@ bamf process-fixtures gw12
 ```
 
 
-
-
-### Step 2.5: Automated Data Extraction (Gemini Vision)
-
-Once screenshots are taken (with any filename), use the Gemini Vision script to automatically extract data into CSVs.
-
-**Run the extraction:**
-
-```bash
-src/fpl_dominator/process_screenshots.sh gw12
-```
-
 ### Step 3: Price Reconciliation (Scripted)
 
 Align the market's reality with our own. This script uses your `squad.csv` to ensure the budget is calculated against your actual purchase prices.
