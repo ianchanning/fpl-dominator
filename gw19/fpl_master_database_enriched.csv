@@ -29,9 +29,9 @@ John,Nott'm Forest,GKP,4.0,10,OK,2.5
 M.Bizot,Aston Villa,GKP,4.2,9,OK,2.14
 Hermansen,West Ham,GKP,4.3,9,OK,2.09
 Jörgensen,Chelsea,GKP,4.3,1,OK,0.23
-Guéhi,Crystal Palace,DEF,5.3,97,OK,18.3
-J.Timber,Arsenal,DEF,6.4,95,OK,14.84
-Chalobah,Chelsea,DEF,5.6,94,OK,16.79
+Guéhi,Crystal Palace,DEF,4.6,97,OK,21.09
+J.Timber,Arsenal,DEF,5.6,95,OK,16.96
+Chalobah,Chelsea,DEF,5.3,94,OK,17.74
 Tarkowski,Everton,DEF,5.6,94,OK,16.79
 Keane,Everton,DEF,4.8,91,OK,18.96
 Matheus N.,Man City,DEF,5.4,91,OK,16.85
@@ -39,7 +39,7 @@ Rúben,Man City,DEF,5.7,90,OK,15.79
 Lacroix,Crystal Palace,DEF,5.2,87,OK,16.73
 Mukiele,Sunderland,DEF,4.3,85,OK,19.77
 Van de Ven,Spurs,DEF,4.5,82,OK,18.22
-Senesi,Bournemouth,DEF,4.8,81,OK,16.88
+Senesi,Bournemouth,DEF,4.6,81,OK,17.61
 James,Chelsea,DEF,5.7,81,OK,14.21
 Mitchell,Crystal Palace,DEF,5.0,77,OK,15.4
 Cash,Aston Villa,DEF,4.8,76,OK,15.83
@@ -79,11 +79,11 @@ Bogle,Leeds,DEF,4.4,45,OK,10.23
 Dorgu,Man Utd,DEF,4.2,45,OK,10.71
 Shaw,Man Utd,DEF,4.5,44,OK,9.78
 Diouf,West Ham,DEF,4.0,44,OK,11.0
-Semenyo,Bournemouth,MID,7.7,113,OK,14.68
+Semenyo,Bournemouth,MID,7.4,113,OK,15.27
 B.Fernandes,Man Utd,MID,9.1,102,OK,11.21
-Foden,Man City,MID,8.9,96,OK,10.79
+Foden,Man City,MID,8.2,96,OK,11.71
 Rogers,Aston Villa,MID,7.5,93,OK,12.4
-Bruno G.,Newcastle,MID,7.0,86,OK,12.29
+Bruno G.,Newcastle,MID,6.8,86,OK,12.65
 Saka,Arsenal,MID,10.3,91,DOUBT,8.83
 Gravenberch,Liverpool,MID,5.7,89,OK,15.61
 Wilson,Fulham,MID,5.8,87,OK,15.0
@@ -116,8 +116,8 @@ Henderson,Brentford,MID,5.0,56,OK,11.2
 Cunha,Man City,MID,8.2,55,OK,6.71
 Kamara,Aston Villa,MID,4.9,54,OK,11.02
 Yarmoliuk,Brentford,MID,5.0,54,OK,10.8
-Haaland,Man City,FWD,15.1,151,OK,10.0
-Thiago,Brentford,FWD,6.9,91,OK,13.19
+Haaland,Man City,FWD,14.1,151,OK,10.71
+Thiago,Brentford,FWD,6.5,91,OK,14.0
 Ekitiké,Liverpool,FWD,9.1,84,OK,9.23
 Bowen,West Ham,FWD,7.7,81,OK,10.52
 João Pedro,Chelsea,FWD,7.2,79,OK,10.97
@@ -143,7 +143,7 @@ Nketiah,Crystal Palace,FWD,5.4,23,OK,4.26
 Mayenda,Sunderland,FWD,5.2,20,OK,3.85
 Kolo Muani,Spurs,FWD,6.9,19,OK,2.75
 Kostoulas,Brighton,FWD,4.8,13,OK,2.71
-Marc Guiu,Chelsea,FWD,4.3,12,OK,2.79
+Marc Guiu,Chelsea,FWD,4.2,12,OK,2.86
 Füllkrug,West Ham,FWD,5.6,12,OK,2.14
 Enes Ünal,Bournemouth,FWD,5.4,11,OK,2.04
 Mané,Wolves,FWD,4.5,9,OK,2.0
