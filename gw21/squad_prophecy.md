@@ -14,30 +14,30 @@
 ==================== FINAL FORM SQUAD (V5) FORGED ====================
 
 --- STARTING XI (Final Score Maximized) ---
-  Surname        Team Position  Price  Final_Score
-    Roefs  Sunderland      GKP    4.9     0.088964
-  Gabriel     Arsenal      DEF    6.6     0.160747
-   Romero       Spurs      DEF    5.0     0.106530
- J.Timber     Arsenal      DEF    6.3     0.101987
-     Rice     Arsenal      MID    6.9     0.187611
-Tavernier Bournemouth      MID    5.5     0.130661
-    Stach       Leeds      MID    4.9     0.130096
-   Schade   Brentford      MID    7.1     0.123974
- Bruno G.   Newcastle      MID    6.8     0.122188
-  Haaland    Man City      FWD   14.1     0.169408
-   Thiago   Brentford      FWD    6.5     0.126673
+ Surname       Team Position  Price  Final_Score
+   Roefs Sunderland      GKP    4.9     0.083022
+ Gabriel    Arsenal      DEF    6.6     0.160688
+Alderete Sunderland      DEF    4.1     0.110331
+ O'Brien    Everton      DEF    4.9     0.096533
+    Rice    Arsenal      MID    6.9     0.187364
+   Stach      Leeds      MID    4.9     0.132103
+  Schade  Brentford      MID    7.1     0.124086
+Bruno G.  Newcastle      MID    6.8     0.124077
+Casemiro    Man Utd      MID    5.5     0.121045
+ Haaland   Man City      FWD   14.1     0.168715
+  Thiago  Brentford      FWD    6.5     0.122651
 
 --- BENCH (RUTHLESSLY Cost-Optimized) ---
     Surname          Team Position  Price  Final_Score
-       John Nott'm Forest      GKP    4.0     0.011498
-Gudmundsson         Leeds      DEF    3.8     0.072716
-      Rodon         Leeds      DEF    3.9     0.051390
-  Marc Guiu       Chelsea      FWD    4.2     0.010777
+       John Nott'm Forest      GKP    4.0     0.009716
+Gudmundsson         Leeds      DEF    3.8     0.044559
+      Rodon         Leeds      DEF    3.9     0.085896
+  Marc Guiu       Chelsea      FWD    4.2     0.010726
 
 -------------------------------------------
-Total Squad Cost:          £90.5m
-Projected Starting Score:    1.45
-Money in the Bank:         £9.5m
+Total Squad Cost:          £88.2m
+Projected Starting Score:    1.43
+Money in the Bank:         £11.8m
 -------------------------------------------
 
 ```
@@ -53,7 +53,7 @@ Money in the Bank:         £9.5m
 [+] Dual-layer decision variables created.
 [+] Prime Directive (Final Apotheosis Objective) set.
 [+] Applying the Chains of Reality (Game Constraints)...
-[+] STRATEGIC CONSTRAINT: Red Zone limit active (Max 3 starters with FDR > 1190).
+[+] STRATEGIC CONSTRAINT: Red Zone limit active (Max 5 starters with FDR > 1290).
 [+] All constraints are locked in.
 
 >>> Summoning the GLPK Solver Demon...
@@ -62,30 +62,30 @@ Money in the Bank:         £9.5m
 ==================== PYOMO SQUAD FORGED (V3 - TRINITY) ====================
 
 --- STARTING XI (Final Score Maximized) ---
-  Surname        Team Position  Price  Final_Score  Effective_FDR_Horizon_5GW
-    Roefs  Sunderland      GKP    4.9     0.088964                1185.866667
-  Gabriel     Arsenal      DEF    6.6     0.160747                1184.466667
-   Romero       Spurs      DEF    5.0     0.106530                1164.933333
- J.Timber     Arsenal      DEF    6.3     0.101987                1184.466667
-     Rice     Arsenal      MID    6.9     0.187611                1126.800000
-Tavernier Bournemouth      MID    5.5     0.130661                1143.800000
-    Stach       Leeds      MID    4.9     0.130096                1167.600000
-   Schade   Brentford      MID    7.1     0.123974                1185.733333
- Bruno G.   Newcastle      MID    6.8     0.122188                1135.133333
-  Haaland    Man City      FWD   14.1     0.169408                1144.866667
-   Thiago   Brentford      FWD    6.5     0.126673                1185.733333
+ Surname       Team Position  Price  Final_Score  Effective_FDR_Horizon_5GW
+   Roefs Sunderland      GKP    4.9     0.083022                1186.428571
+ Gabriel    Arsenal      DEF    6.6     0.160688                1184.904762
+Alderete Sunderland      DEF    4.1     0.110331                1186.428571
+ O'Brien    Everton      DEF    4.9     0.096533                1179.904762
+    Rice    Arsenal      MID    6.9     0.187364                1128.285714
+   Stach      Leeds      MID    4.9     0.132103                1149.857143
+  Schade  Brentford      MID    7.1     0.124086                1184.666667
+Bruno G.  Newcastle      MID    6.8     0.124077                1117.857143
+Casemiro    Man Utd      MID    5.5     0.121045                1221.857143
+ Haaland   Man City      FWD   14.1     0.168715                1149.571429
+  Thiago  Brentford      FWD    6.5     0.122651                1184.666667
 
 --- BENCH (Potency & Cost Optimized) ---
     Surname    Team Position  Price  Final_Score  Effective_FDR_Horizon_5GW
-   Dúbravka Burnley      GKP    4.0     0.061250                1222.866667
-Gudmundsson   Leeds      DEF    3.8     0.072716                1155.866667
-      Rodon   Leeds      DEF    3.9     0.051390                1155.866667
-  Marc Guiu Chelsea      FWD    4.2     0.010777                1113.466667
+   Dúbravka Burnley      GKP    4.0     0.053107                1239.000000
+      Rodon   Leeds      DEF    3.9     0.085896                1147.904762
+Gudmundsson   Leeds      DEF    3.8     0.044559                1147.904762
+  Marc Guiu Chelsea      FWD    4.2     0.010726                1118.809524
 
 -------------------------------------------
-Total Squad Cost:          £90.5m
-Projected Starting Score:    1.45
-Money in the Bank:         £9.5m
+Total Squad Cost:          £88.2m
+Projected Starting Score:    1.43
+Money in the Bank:         £11.8m
 -------------------------------------------
 
 ```
