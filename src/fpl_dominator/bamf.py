@@ -6,7 +6,7 @@ import click
 from .audit_player_names_v3 import audit_player_name_resolution_v3
 from .audit_realities import audit_team_name_realities
 from .commander import run_the_gauntlet
-from .process_fixtures_html import create_fixture_csv_from_html # NEW IMPORT
+from .process_fixtures_html import create_fixture_csv_from_html  # NEW IMPORT
 
 # We'll need a new function for our scenario runner, let's pretend it exists
 # from .scenario_chimera import run_a_what_if_scenario
@@ -130,10 +130,15 @@ def process_fixtures(gameweek_dir):
     Processes HTML fixture files for a gameweek and creates the fixtures.csv.
     """
     click.secho(
-        f"--- Processing HTML Fixtures for {gameweek_dir.upper()} ---", fg="green", bold=True
+        f"--- Processing HTML Fixtures for {gameweek_dir.upper()} ---",
+        fg="green",
+        bold=True,
     )
     create_fixture_csv_from_html(gameweek_dir)
-    click.secho(f"--- HTML Fixture Processing Complete for {gameweek_dir.upper()} ---", fg="green")
+    click.secho(
+        f"--- HTML Fixture Processing Complete for {gameweek_dir.upper()} ---",
+        fg="green",
+    )
 
 
 @bamf.command()
@@ -160,6 +165,9 @@ def init(gameweek_dir):
         "forwards.csv": "Surname,Team,Position,Price,TP,Status",
         "fixtures.csv": "Team,Opponent,Venue,FDR",
         "squad.csv": "Surname,Team,Position,CP,SP,PP,Status",
+        "fixtures_5w.html": "",
+        "fixtures_attack_5w.html": "",
+        "fixtures_defence_5w.html": "",
     }
     for filename, header in files_to_create.items():
         filepath = os.path.join(gameweek_dir, filename)
