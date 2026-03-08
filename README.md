@@ -1,4 +1,4 @@
-# PROJECT: BAMF DOMINATOR - OPERATIONAL GRIMOIRE (v4.1)
+# PROJECT: BAMF DOMINATOR - OPERATIONAL GRIMOIRE (v5.0)
 
 ![](bamf_rainbow.svg)
 
@@ -87,7 +87,8 @@ All operations are now channeled through our master command-line interface, `bam
   - `audit players`: Checks for player name matching issues.
 - `run-gauntlet`: Executes the entire data-processing and squad-optimising pipeline.
 - `run-scenario`: Runs a 'what-if' simulation with player constraints.
-- `process-fixtures`: Processes raw HTML fixture files into a structured `fixtures.csv` for a given gameweek.
+- `process-fixtures`: Processes raw HTML fixture files into a structured `fixtures.csv`.
+- `process-players`: Processes FPL player HTML files into position-based CSVs.
 
 ---
 
@@ -159,43 +160,43 @@ graph TD
 
 ---
 
-## THE WEEKLY RITUAL
+## THE WEEKLY RITUAL (RIP Protocol v1.1)
 
-This is the precise, non-negotiable workflow to be executed at the start of each new Gameweek, using the `bamf` CLI.
+This is the precise, non-negotiable workflow to be executed at the start of each new Gameweek, using the `bamf` CLI. For detailed steps, consult `protocols/BAMF-RFC-001_RIP.md`.
 
 ### Step 1: Initialise the Vault
 
 Create the directory and all necessary template files for the new gameweek.
 
 ```bash
-bamf init gw12
+bamf init gw29
 ```
 
-### Step 2: The Gathering (Manual Data Update)
+### Step 2: The Gathering (HTML Ingestion)
 
-The Chimera is omniscient, but it cannot see data that does not yet exist. You, the `(π)` Pirate, must provide the weekly sacrifice of fresh intelligence by filling in the newly created files in the `gw12` directory.
+We have abandoned the failed OCR/Screenshot dream. We now rip raw HTML directly from the sources of truth.
 
-- **Player Data (`goalkeepers.csv`, etc.):** Update with the latest **Market Price** and **Total Points (TP)**.
-- **Squad Data (`squad.csv`):** Update with your current squad's **Purchase Price (PP)**.
-
-### Step 2.1: Automated Fixture Data Ingestion
-
-The new `bamf process-fixtures` command handles the transformation of raw HTML fixture data into the structured `fixtures.csv` required by the Chimera.
-
-> **ACTION:**
-> 1.  Download the **5-week fixture data** (Overall, Attack, Defence views) from the **Grey-scale Ticker** and save them as `fixtures_5w.html`, `fixtures_attack_5w.html`, and `fixtures_defence_5w.html` in your gameweek directory (e.g., `gw12/`).
-> 2.  Run the command below to process these HTML files into `fixtures.csv`.
+**2.1: Fixture Data Ingestion**
+1.  Download the **5-week fixture data** (Overall, Attack, Defence views) from the [FFS Season Ticker](https://members.fantasyfootballscout.co.uk/season-ticker/) and save as `fixtures_5w.html`, `fixtures_attack_5w.html`, and `fixtures_defence_5w.html` in your gameweek directory.
+2.  Run the command below:
 ```bash
-bamf process-fixtures gw12
+bamf process-fixtures gw29
 ```
 
-
-### Step 3: Price Reconciliation (Scripted)
-
-Align the market's reality with our own. This script uses your `squad.csv` to ensure the budget is calculated against your actual purchase prices.
-
+**2.2: Player Data Ingestion**
+1.  Navigate to [FPL Transfers](https://fantasy.premierleague.com/transfers) in **List View**.
+2.  For each position, Copy OuterHTML of the player table and save as `goalkeepers.html`, `defenders.html` (and `defenders_2.html` for multiple pages), etc.
+3.  Run the command below:
 ```bash
-python update_prices.py gw12
+bamf process-players gw29
+```
+
+### Step 3: Reality Alignment
+
+1.  **Squad Update:** Update `gw29/squad.csv` with your current squad's **Purchase Price (PP)**.
+2.  **Price Reconciliation:** Run the script to align market prices with your treasury's reality.
+```bash
+python src/fpl_dominator/update_prices.py gw29
 ```
 
 ### Step 4: Audit Reality
@@ -204,18 +205,18 @@ Before unleashing the Chimera, verify the integrity of your data.
 
 ```bash
 # Check for team name mismatches
-bamf audit teams gw12
+bamf audit teams gw29
 
 # Check for player name matching issues
-bamf audit players gw12
+bamf audit players gw29
 ```
 
 ### Step 5: Run the Gauntlet
 
-With the data prepared and audited, unleash the Commander. This single command orchestrates the entire data pipeline, from the reconciled data to the final, optimal squad, saving the result to `gw12/squad_prophecy.md`.
+With the data prepared and audited, unleash the Commander.
 
 ```bash
-bamf run-gauntlet gw12
+bamf run-gauntlet gw29
 ```
 
 ---
@@ -226,8 +227,9 @@ All Python source files are now located within the `src/fpl_dominator/` package.
 
 - `src/fpl_dominator/bamf.py` (The Command Deck): The master script and sole entry point.
 - `src/fpl_dominator/commander.py` (The Orchestrator): Contains the `run_the_gauntlet` logic.
-- `src/fpl_dominator/process_screenshots.sh`: Bash script for Gemini Vision automation.
 - `src/fpl_dominator/update_prices.py`: Budget reconciliation script.
+- `src/fpl_dominator/process_fixtures_html.py`: Transmutes FFS HTML into fixture data.
+- `src/fpl_dominator/process_players_html.py`: Transmutes FPL HTML into player data.
 - **Solver Scripts (`src/fpl_dominator/chimera_*.py`):** The core PuLP and Pyomo solver logic.
 - **Pipeline Scripts (`src/fpl_dominator/forge_*.py`, etc.):** The data pipeline stages.
 - **Audit Scripts (`src/fpl_dominator/audit_*.py`):** Logic for the `audit` commands.
