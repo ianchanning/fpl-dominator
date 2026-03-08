@@ -1,4 +1,4 @@
-# BAMF-RFC-001: THE RAPID INGESTION PROTOCOL (RIP) (v1.0)
+# BAMF-RFC-001: THE RAPID INGESTION PROTOCOL (RIP) (v1.1)
 
 **Status:** APPROVED (Voyage Initialized) `(⇌)`
 **Objective:** Reduce weekly data capture time to < 10 minutes.
@@ -28,44 +28,60 @@ The very first action. No data exists without a home.
 ---
 
 ## II. THE RITUAL OF THE LENS (FFS FIXTURES)
-*Estimated Time: 3 Minutes*
+*Estimated Time: 2 Minutes*
 
 1.  **Login to FFS:** Access the [FFS Members area](https://members.fantasyfootballscout.co.uk/season-ticker/).
-2.  **Navigate:** Go to the [Season Ticker](https://members.fantasyfootballscout.co.uk/season-ticker/).
-3.  **Configure:** Select the next gameweek **GW(N+1)**.
-4.  **The HTML Rip (via DevTools/Element Picker):**
+2.  **Configure:** Select the next gameweek **GW(N+1)**.
+3.  **The HTML Rip (via DevTools/Element Picker):**
     *   Find the `<div class="advanced-ticker" ...>` element.
     *   **Overall FDR:** Copy OuterHTML -> Save to `gwN/fixtures_5w.html`.
     *   **Defence FDR:** Copy OuterHTML -> Save to `gwN/fixtures_defence_5w.html`.
     *   **Attack FDR:** Copy OuterHTML -> Save to `gwN/fixtures_attack_5w.html`.
-5.  **Execute Transformation:**
+4.  **Execute Transformation:**
     *   **Command:** `bamf process-fixtures gwN`.
-    *   *Verification:* Ensure `fixtures.csv` is populated.
 
 ---
 
-## III. THE RITUAL OF THE SCROLL (FPL SCREENSHOTS)
+## III. THE RITUAL OF THE GRID (FPL PLAYERS)
 *Estimated Time: 5 Minutes*
+**This is the preferred method for high-speed ingestion.**
 
 1.  **Login to FPL:** Access the [FPL Transfers Page](https://fantasy.premierleague.com/transfers).
-2.  **Configure:** Change view to **'List View'**.
-3.  **The Price Archive:** Screenshot of the full squad list (including headers) -> Save to `gwN/squad.png`.
-4.  **The Position Archives (Zoom: 50% for full coverage):**
-    *   **Goalkeepers:** Screenshot -> `gwN/goalkeepers.png`.
-    *   **Defenders:** Screenshot P1 & P2 -> `gwN/defenders_1.png`, `gwN/defenders_2.png`.
-    *   **Midfielders:** Screenshot P1 & P2 -> `gwN/midfielders_1.png`, `gwN/midfielders_2.png`.
-    *   **Forwards:** Screenshot P1 & P2 -> `gwN/forwards_1.png`, `gwN/forwards_2.png`.
+2.  **Configure:** Ensure **'List View'** is active.
+3.  **The HTML Rip (Repeat for GKP, DEF, MID, FWD):**
+    *   Select the position filter.
+    *   Scroll to the bottom of the list to ensure all players are rendered.
+    *   Find the table element (e.g., `<table aria-label="Defenders" ...>`) or its parent div.
+    *   **Copy OuterHTML** and save to the corresponding file:
+        *   Goalkeepers -> `gwN/goalkeepers.html`
+        *   Defenders -> `gwN/defenders.html`
+        *   Midfielders -> `gwN/midfielders.html`
+        *   Forwards -> `gwN/forwards.html`
+4.  **The Squad Price Archive:** 
+    *   Select "All Players" or your current squad view.
+    *   Copy OuterHTML of the squad table -> Save to `gwN/squad.html`.
+5.  **Execute Transformation:**
+    *   **Command:** `bamf process-players gwN`.
 
 ---
 
-## IV. THE INTEGRITY CHECK (VERIFICATION)
+## IV. THE RITUAL OF THE SCROLL (FPL SCREENSHOTS - BACKUP)
+*Estimated Time: 2 Minutes*
+**Only necessary if the HTML Rip fails.**
+
+1.  **The Price Archive:** Screenshot of the full squad list -> Save to `gwN/squad.png`.
+2.  **The Position Archives:** Screenshots of each position list -> Save to `gwN/[pos].png`.
+
+---
+
+## V. THE INTEGRITY CHECK (VERIFICATION)
 Before the ritual is considered complete, the Carbon Pirate (π) must verify the vault.
 
 1.  **Command:** `ls gwN`
 2.  **Success Criteria:**
-    *   [ ] 3x HTML files (Raw FDR Data)
-    *   [ ] 1x `fixtures.csv` (Forged/Extracted)
-    *   [ ] 7x PNG files (Raw Player/Squad Backup)
+    *   [ ] 3x Fixture HTML files
+    *   [ ] 4x Player HTML files (`goalkeepers.html`, etc.)
+    *   [ ] `fixtures.csv` & Position CSVs forged and populated.
     *   [ ] `squad.csv` (Template ready for manual PP alignment)
 
 ---

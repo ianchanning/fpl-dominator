@@ -6,7 +6,8 @@ import click
 from .audit_player_names_v3 import audit_player_name_resolution_v3
 from .audit_realities import audit_team_name_realities
 from .commander import run_the_gauntlet
-from .process_fixtures_html import create_fixture_csv_from_html  # NEW IMPORT
+from .process_fixtures_html import create_fixture_csv_from_html
+from .process_players_html import process_players_for_gameweek  # NEW IMPORT
 
 # We'll need a new function for our scenario runner, let's pretend it exists
 # from .scenario_chimera import run_a_what_if_scenario
@@ -137,6 +138,27 @@ def process_fixtures(gameweek_dir):
     create_fixture_csv_from_html(gameweek_dir)
     click.secho(
         f"--- HTML Fixture Processing Complete for {gameweek_dir.upper()} ---",
+        fg="green",
+    )
+
+
+@bamf.command()
+@click.argument(
+    "gameweek_dir",
+    type=click.Path(exists=True, file_okay=False, dir_okay=True, readable=True),
+)
+def process_players(gameweek_dir):
+    """
+    Processes FPL player HTML files for a gameweek and creates the position CSVs.
+    """
+    click.secho(
+        f"--- Processing FPL Player HTML for {gameweek_dir.upper()} ---",
+        fg="green",
+        bold=True,
+    )
+    process_players_for_gameweek(gameweek_dir)
+    click.secho(
+        f"--- FPL Player HTML Processing Complete for {gameweek_dir.upper()} ---",
         fg="green",
     )
 
