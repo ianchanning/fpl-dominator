@@ -8,6 +8,9 @@ import click
 from .audit_player_names_v3 import audit_player_name_resolution_v3
 from .audit_realities import audit_team_name_realities
 from .commander import run_the_gauntlet
+from .enrich_with_insight import enrich_with_insight
+from .forge_cauldron import forge_cauldron
+from .grand_synthesis import perform_grand_synthesis
 from .process_fixtures_html import create_fixture_csv_from_html
 from .process_players_html import process_players_for_gameweek  # NEW IMPORT
 from .update_prices import reconcile_timeline
@@ -247,20 +250,29 @@ def finalize(gameweek_dir):
     """
     click.secho(f"=== FINALIZING {gameweek_dir.upper()} RITUAL ===", fg="cyan", bold=True)
     
-    click.echo("\n[1/5] Processing Fixtures...")
+    click.echo("\n[1/8] Ingesting HTML Data...")
     create_fixture_csv_from_html(gameweek_dir)
-    
-    click.echo("\n[2/5] Processing Players...")
     process_players_for_gameweek(gameweek_dir)
     
-    click.echo("\n[3/5] Reconciling Price Reality...")
+    click.echo("\n[2/8] Aligning Price Reality...")
     reconcile_timeline(gameweek_dir)
     
-    click.echo("\n[4/5] Auditing Logic...")
+    click.echo("\n[3/8] Forging the Data Cauldron...")
+    forge_cauldron(gameweek_dir)
+    
+    click.echo("\n[4/8] Prophetic Enrichment...")
+    enrich_with_insight(gameweek_dir)
+    
+    click.echo("\n[5/8] Grand Synthesis...")
+    perform_grand_synthesis(gameweek_dir)
+    
+    click.echo("\n[6/8] Auditing Reality...")
     audit_team_name_realities(gameweek_dir)
+    
+    click.echo("\n[7/8] Auditing Player Resolution...")
     audit_player_name_resolution_v3(gameweek_dir)
     
-    click.echo("\n[5/5] Unleashing the Chimera...")
+    click.echo("\n[8/8] Unleashing the Chimera...")
     run_the_gauntlet(gameweek_dir)
     
     click.secho(f"\n=== {gameweek_dir.upper()} PROPHECY FORGED ===", fg="green", bold=True)
