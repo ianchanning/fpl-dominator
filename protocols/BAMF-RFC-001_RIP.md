@@ -1,8 +1,8 @@
-# BAMF-RFC-001: THE RAPID INGESTION PROTOCOL (RIP) (v1.3)
+# BAMF-RFC-001: THE RAPID INGESTION PROTOCOL (RIP) (v1.4)
 
 **Status:** APPROVED (Voyage Initialized) `(⇌)`
 **Objective:** Reduce weekly data capture time to < 5 minutes.
-**Core Philosophy:** Eliminate file-handling friction. **EX DATA, VICTORIA.**
+**Core Philosophy:** Eliminate file-handling and data-entry friction. **EX DATA, VICTORIA.**
 
 ---
 
@@ -23,7 +23,7 @@
 *Estimated Time: 3 Minutes*
 
 This ritual uses the `bamf rip` command to bridge the browser clipboard directly to the vault.
-**Note:** `bamf rip` automatically targets the most recently created `gwX` directory, as market data is ephemeral and tied to the live state.
+**Note:** `bamf rip` automatically targets the most recently created `gwX` directory.
 
 ### 2.1 Fixture Rips (FFS)
 1.  Navigate to [FFS Season Ticker](https://members.fantasyfootballscout.co.uk/season-ticker/).
@@ -44,18 +44,17 @@ This ritual uses the `bamf rip` command to bridge the browser clipboard directly
 5.  **Forwards:**
     *   Page 1: Copy OuterHTML -> `bamf rip fwd`
     *   Page 2: Copy OuterHTML -> `bamf rip fwd2`
-6.  **Squad (Prices):** Copy OuterHTML -> `bamf rip squad`
+6.  **Squad (Prices):** Copy OuterHTML of your current squad table -> `bamf rip squad`
 
 ---
 
 ## III. THE RITUAL OF FINALIZATION (THE SINGLE STRIKE)
 *Estimated Time: 1 Minute*
 
-With the raw HTML ripped into the vault, execute the end-to-end transformation.
+With the raw HTML ripped into the vault, execute the end-to-end transformation. **Zero manual CSV editing is required.**
 
-1.  **Manual Bridge:** Open `gwN/squad.csv` and ensure your **Purchase Prices (PP)** are accurate.
-2.  **Command:** `bamf finalize gwN`
-3.  **Outcome:** The prophecy is forged, audited, and recorded to `gwN/squad_prophecy.md`.
+1.  **Command:** `bamf finalize gwN`
+2.  **Outcome:** The prophecy is forged, audited, and recorded to `gwN/squad_prophecy.md`.
 
 ---
 
@@ -63,7 +62,7 @@ With the raw HTML ripped into the vault, execute the end-to-end transformation.
 1.  **Command:** `ls gwN`
 2.  **Success Criteria:**
     *   [ ] ~11 HTML files (The Ripped Evidence)
-    *   [ ] 5x Position CSVs (The Extracted Reality)
+    *   [ ] 5x Position CSVs (The Extracted Reality - including `squad.csv`)
     *   [ ] `fixtures.csv` (The Forged Schedule)
     *   [ ] `squad_prophecy.md` (The Final Vision)
 

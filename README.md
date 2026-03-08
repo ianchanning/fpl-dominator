@@ -1,4 +1,4 @@
-# PROJECT: BAMF DOMINATOR - OPERATIONAL GRIMOIRE (v5.1)
+# PROJECT: BAMF DOMINATOR - OPERATIONAL GRIMOIRE (v5.2)
 
 ![](bamf_rainbow.svg)
 
@@ -59,7 +59,7 @@ All operations are now channeled through our master command-line interface, `bam
 
 - `init`: Creates a new, clean gameweek vault.
 - `rip <target>`: Rips clipboard content directly into the **latest** vault (Targets: `fix`, `gkp`, `def`, `mid`, `fwd`, `squad`, etc.).
-- `finalize`: Executes the full processing ritual (Fixtures -> Players -> Audit -> Solver).
+- `finalize`: Executes the **full** end-to-end processing ritual (HTML -> CSV -> Audit -> Solver).
 - `run-gauntlet`: Executes the core data-to-squad pipeline.
 - `audit`: A group of commands to inspect data integrity (`teams`, `players`).
 
@@ -67,7 +67,7 @@ All operations are now channeled through our master command-line interface, `bam
 
 ## SYSTEM ARCHITECTURE
 
-The `finalize` command automates the multi-stage pipeline, transforming raw clipboard rips into a final, optimized squad prophecy.
+The `finalize` command automates the entire multi-stage pipeline, transforming raw clipboard rips into a final, optimized squad prophecy.
 
 ```mermaid
 ---
@@ -78,27 +78,31 @@ graph TD
     subgraph inputs["Gameweek Input Data (via bamf rip)"]
         A1[("Player HTMLs")]
         A2[("Fixture HTMLs")]
-        A3[("set_pieces.csv")]
+        A3[("Squad HTML")]
     end
 
     B1("process_players_html.py")
     C1[("Position CSVs")]
+    C2[("squad.csv")]
 
     B2("process_fixtures_html.py")
-    C2[("fixtures.csv")]
+    C3[("fixtures.csv")]
 
     B3("update_prices.py")
-    C3[("Reality Alignment")]
+    C4[("Reality Alignment")]
 
     B4("run_the_gauntlet (Commander)")
     F1("squad_prophecy.md")
 
     A1 --> B1
+    A3 --> B1
     B1 --> C1
+    B1 --> C2
     A2 --> B2
-    B2 --> C2
+    B2 --> C3
     C1 --> B3
-    C2 --> B4
+    C2 --> B3
+    C3 --> B4
     B3 --> B4
     B4 ==> F1
 
@@ -113,7 +117,7 @@ graph TD
 
 ---
 
-## THE WEEKLY RITUAL (RIP Protocol v1.3)
+## THE WEEKLY RITUAL (RIP Protocol v1.4)
 
 This is the high-velocity workflow for the modern Carbon Pirate (π). For detailed steps, consult `protocols/BAMF-RFC-001_RIP.md`.
 
@@ -133,8 +137,8 @@ Navigate to FPL/FFS, Copy OuterHTML of the relevant tables, and unleash the Rip.
 *   `bamf rip fwd` / `bamf rip fwd2` (Forwards)
 *   `bamf rip squad` (Current Squad Prices)
 
-### Step 3: The Single Strike
-Review your `squad.csv` for Purchase Price (PP) accuracy, then finalize:
+### Step 3: The Single Strike (Finalize)
+Execute the full end-to-end transformation. **Zero manual data entry is required.**
 ```bash
 bamf finalize gw29
 ```
@@ -147,7 +151,7 @@ All Python source files are now located within the `src/fpl_dominator/` package.
 
 - `src/fpl_dominator/bamf.py` (The Command Deck): The master script and sole entry point.
 - `src/fpl_dominator/commander.py` (The Orchestrator): Contains the `run_the_gauntlet` logic.
-- `src/fpl_dominator/process_players_html.py`: High-speed HTML table parser with deduplication.
+- `src/fpl_dominator/process_players_html.py`: High-speed HTML table parser for players and squad.
 - `src/fpl_dominator/process_fixtures_html.py`: Transmutes FFS HTML into structured fixture data.
 - `src/fpl_dominator/update_prices.py`: Aligns market reality with your treasury.
 
