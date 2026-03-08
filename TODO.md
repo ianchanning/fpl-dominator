@@ -37,11 +37,16 @@ We have refined the Chimera's understanding of the future and equipped it with a
 -   `[x]` **Generic HTML Parser:** We have already forged `src/fpl_dominator/process_fixtures_html.py` which can now process any gameweek's HTML fixture files into a CSV.
 -   `[x]` **Integrate into Workflow:** Integrate `process_fixtures_html.py` as a new command within `bamf.py` to streamline fixture data processing.
 
-### 9.2: Temporal Discounting Logic Verification `(⇌)`
+### 9.2: Temporal Discounting Logic Verification (Completed - Deprecated/Ignored)
 
--   `[⌑]` **Create Synthetic Data Test:** Forge a new script (`src/fpl_dominator/verify_temporal_logic.py`) to create a synthetic `fixtures_df` with deliberately varied fixture difficulties (e.g., Team A: Hard-Easy-Easy, Team B: Easy-Easy-Hard).
--   `[⌑]` **Apply Weighted Average:** Apply the `grand_synthesis.py`'s weighted average logic to this synthetic data.
--   `[⌑]` **Verify Ranking Change:** Assert that the calculated `Effective_FDR_Horizon_5GW` values for the synthetic teams correctly reflect the temporal discounting, leading to a change in their relative rankings. This will definitively prove the integrity of our Temporal Lens.
+-   `[x]` **Create Synthetic Data Test:** Forge a new script (`src/fpl_dominator/verify_temporal_logic.py`) to create a synthetic `fixtures_df` with deliberately varied fixture difficulties (e.g., Team A: Hard-Easy-Easy, Team B: Easy-Easy-Hard).
+-   `[x]` **Apply Weighted Average:** Apply the `grand_synthesis.py`'s weighted average logic to this synthetic data.
+-   `[x]` **Verify Ranking Change:** Assert that the calculated `Effective_FDR_Horizon_5GW` values for the synthetic teams correctly reflect the temporal discounting, leading to a change in their relative rankings. (Note: This verification path is preserved for historical context but deprecated in active workflow).
+
+### 9.3: Visual Extraction Ingestion (REJECTED/BLOCKED)
+
+-   `[x]` **Forge Gemini Vision Pipeline:** Attempted to automate data extraction from PNGs via `process_screenshots_v3.py`.
+-   `[-]` **Status: BLOCKED.** Extensive investigation failed to yield reliable, production-ready results. This node is rejected; we return to manual ingestion for player stats.
 
 ---
 
