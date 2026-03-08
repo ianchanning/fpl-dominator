@@ -59,7 +59,8 @@ def audit_player_name_resolution_v3(gameweek_dir: str):
 
     # --- Prepare for Join ---
     players_df["match_key"] = players_df["Surname"].apply(sanitize_name)
-    players_df["Team_Full_For_Join"] = players_df["Team"].map(TEAM_SHORT_TO_FULL)
+    # Using replace() with a dict is more type-checker friendly than map(dict)
+    players_df["Team_Full_For_Join"] = players_df["Team"].replace(TEAM_SHORT_TO_FULL)
 
     success_count, collision_count, no_match_count = 0, 0, 0
 
@@ -89,7 +90,7 @@ def audit_player_name_resolution_v3(gameweek_dir: str):
                             sanitized_taker, na=False
                         )  # Is the taker name a substring of our DB name?
                         | players_df["match_key"].apply(
-                            lambda db_name: sanitized_taker in db_name
+                            lambda db_name: sanitized_taker in str(db_name)
                         )  # Is our DB name a substring of the taker name?
                     )
                 ]

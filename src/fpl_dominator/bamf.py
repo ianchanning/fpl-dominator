@@ -1,7 +1,6 @@
 import os
 import re
 import subprocess
-import sys
 from glob import glob
 
 import click
@@ -25,7 +24,10 @@ def get_latest_gw():
         return None
     # Sort by numeric value if possible, else by modification time
     try:
-        dirs.sort(key=lambda d: int(re.search(r'\d+', d).group()), reverse=True)
+        def extract_gw_num(d):
+            match = re.search(r'\d+', d)
+            return int(match.group()) if match else 0
+        dirs.sort(key=extract_gw_num, reverse=True)
     except (AttributeError, ValueError, IndexError):
         dirs.sort(key=os.path.getmtime, reverse=True)
     return dirs[0]

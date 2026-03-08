@@ -1,6 +1,7 @@
 import os
 import sys
 import re
+from typing import List, Dict, Any, cast
 import pandas as pd
 import yaml
 
@@ -139,15 +140,14 @@ def enrich_with_insight(gameweek_dir: str):
     print("\n--- VERIFICATION: THE CHOSEN ONES ---")
     if CAPTAINCY_TIERS:
         anointed_surnames = [
-            p for t in CAPTAINCY_TIERS.values() for p in t.get("players", [])
+            p for t in CAPTAINCY_TIERS.values() for p in cast(Dict[str, Any], t).get("players", [])
         ]
         verification_df = players[players["Surname"].isin(anointed_surnames)]
         if not verification_df.empty:
-            print(
-                verification_df[
-                    ["Surname", "Team", "TP", "Form_Factor", "Captaincy_Coef", "PP"]
-                ].to_string(index=False)
-            )
+            cols_to_show = ["Surname", "Team", "TP", "Form_Factor", "Captaincy_Coef", "PP"]
+            # Cast to DataFrame to help type checkers resolve to_string
+            subset_df = cast(pd.DataFrame, verification_df[cols_to_show])
+            print(subset_df.to_string(index=False))
         else:
             print("No anointed players found to verify.")
     else:

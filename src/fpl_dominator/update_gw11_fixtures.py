@@ -25,7 +25,8 @@ print("--- Forging the new timeline for GW12-GW16 ---")
 new_gw11_fixtures_df = pd.concat([gw12_recreated_df, gws_13_16_df], ignore_index=True)
 
 # Sort the data for readability and consistency
-new_gw11_fixtures_df.sort_values(by=["Team", "Gameweek"], inplace=True)
+# Using assignment instead of inplace for type checker compatibility
+new_gw11_fixtures_df = new_gw11_fixtures_df.sort_values(by=["Team", "Gameweek"])
 
 # 5. Deploy the new fixture list
 new_gw11_fixtures_df.to_csv(gw11_fixtures_path, index=False)

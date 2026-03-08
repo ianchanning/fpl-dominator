@@ -1,5 +1,6 @@
 import os
 import sys
+from typing import List, Dict, Any, cast
 import yaml
 import numpy as np
 import pandas as pd
@@ -71,11 +72,14 @@ def perform_grand_synthesis(gameweek_dir: str):
     print("[+] Both Prophetic and Fixture databases have been loaded.")
 
     # 2. Prepare the Player Data
-    players_df["Team_TLA"] = players_df["Team"].map(TEAM_NAME_TO_TLA)
-    unmapped_teams = players_df[players_df["Team_TLA"].isnull()]["Team"].unique()
-    if len(unmapped_teams) > 0:
+    players_df["Team_TLA"] = players_df["Team"].replace(TEAM_NAME_TO_TLA)
+    
+    # Check for unmapped teams
+    mask = players_df["Team_TLA"].isnull()
+    if bool(mask.any()):
+        unmapped_teams = list(set(players_df[mask]["Team"].tolist()))
         print(
-            f"!!! CRITICAL FAILURE: Could not map the following team names to an acronym: {list(unmapped_teams)}."
+            f"!!! CRITICAL FAILURE: Could not map the following team names to an acronym: {unmapped_teams}."
         )
         print("!!! Please update the player CSVs and re-run.")
         sys.exit(1)
@@ -86,7 +90,8 @@ def perform_grand_synthesis(gameweek_dir: str):
 
     # CRITICAL FIX: Ensure fixtures are sorted chronologically before applying weights.
     fixtures_df["GW_Num"] = fixtures_df["Gameweek"].str.extract(r"(\d+)").astype(int)
-    fixtures_df.sort_values(by=["Team", "GW_Num"], inplace=True)
+    # Using assignment instead of inplace for type safety
+    fixtures_df = fixtures_df.sort_values(by=["Team", "GW_Num"])
     print(
         "[+] Fixture data sorted chronologically to ensure correct temporal weighting."
     )
@@ -103,7 +108,8 @@ def perform_grand_synthesis(gameweek_dir: str):
         )
         .reset_index()
     )
-    fdr_horizon.rename(columns={"Team": "Team_TLA"}, inplace=True)
+    # Avoid inplace=True for better type checking
+    fdr_horizon = fdr_horizon.rename(columns={"Team": "Team_TLA"})
     print("[+] Trinity FDR Horizons (Attack/Defence) calculated using Temporal Lens.")
 
     # 4. The Grand Synthesis (The Merge)
@@ -126,19 +132,17 @@ def perform_grand_synthesis(gameweek_dir: str):
 
     # 7. Verification
     print("\n--- TOP 15 PROSPECTS (BY PROJECTED SCORE OVER NEXT 5GW) ---")
-    print(
-        omniscient_df.sort_values(by="Projected_Score", ascending=False)
-        .head(15)[
-            ["Surname", "Team", "PP", "Effective_FDR_Horizon_5GW", "Projected_Score"]
-        ]
-        .to_string(index=False)
-    )
+    
+    top_prospects = omniscient_df.sort_values(by="Projected_Score", ascending=False).head(15)
+    cols_to_show = ["Surname", "Team", "PP", "Effective_FDR_Horizon_5GW", "Projected_Score"]
+    subset_df = cast(pd.DataFrame, top_prospects[cols_to_show])
+    print(subset_df.to_string(index=False))
 
     # 8. Save the Omniscient Database
     try:
         omniscient_df.to_csv(OMNISCIENT_DB_PATH, index=False)
         print(
-            f"\n--- SUCCESS: The OMNISCIENT Database has been forged at '{OMNISCIENT_DB_PATH}' ---"
+            f"\n--- SUCCESS: THE OMNISCIENT Database has been forged at '{OMNISCIENT_DB_PATH}' ---"
         )
         return True
     except Exception as e:

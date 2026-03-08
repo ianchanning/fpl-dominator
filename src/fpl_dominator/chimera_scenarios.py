@@ -173,7 +173,7 @@ def forge_squad(
         prob += starter_vars[i] <= squad_vars[i], f"Bridge_{i}"
 
     # --- Solve and Print ---
-    prob.solve(pulp.PULP_CBC_CMD(msg=0))  # msg=0 silences the verbose solver output
+    prob.solve(pulp.PULP_CBC_CMD(msg=False))  # msg=False silences the verbose solver output
     status = pulp.LpStatus[prob.status]
 
     squad_indices = [i for i in players_df.index if squad_vars[i].varValue == 1]

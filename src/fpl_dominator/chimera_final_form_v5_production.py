@@ -218,7 +218,7 @@ def forge_final_form_squad(gameweek_dir: str):
     for i in players.index:
         prob += starter_vars[i] <= squad_vars[i], f"Bridge_{i}"
 
-    prob.solve(pulp.PULP_CBC_CMD(msg=0))
+    prob.solve(pulp.PULP_CBC_CMD(msg=False))
     status = pulp.LpStatus[prob.status]
 
     if status == "Optimal":

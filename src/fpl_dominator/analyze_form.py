@@ -1,4 +1,5 @@
 import pandas as pd
+from typing import Any, cast
 
 def analyze_player_form(gw_past, gw_current):
     """
@@ -56,14 +57,17 @@ def analyze_player_form(gw_past, gw_current):
         f'Price_gw{gw_current}',
     ]].copy()
     
-    output_df.rename(columns={
+    # Use explicit columns parameter and avoid inplace for type safety
+    renames = {
         'TP_delta': 'Points_Gained',
         f'TP_gw{gw_past}': f'Points_GW{gw_past}',
         f'TP_gw{gw_current}': f'Points_GW{gw_current}',
         'Price_delta': 'Price_Change',
         f'Price_gw{gw_past}': f'Price_GW{gw_past}',
-        f'Price_gw{gw_current}': f'Price_GW{gw_current}',
-    }, inplace=True)
+        f'Price_gw{gw_current}': f'Points_GW{gw_current}',
+    }
+    # Cast to Any to satisfy picky type checkers regarding rename overloads
+    output_df = cast(pd.DataFrame, output_df.rename(columns=cast(Any, renames)))
     
     # Round the price change for cleaner display
     output_df['Price_Change'] = output_df['Price_Change'].round(2)

@@ -1,31 +1,34 @@
 import os
 import re
 import sys
+from typing import List, Dict, Any, Optional, Union
 import pandas as pd
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, Tag
 
 def rgb_to_fdr(rgb_string: str) -> int:
     """
     Converts an RGB color string to its corresponding FDR value based on the reverse-engineered formula.
     FDR = round(1429.6 - 1.8 * C)
     """
-    try:
-        # Extract the first number from rgb(147, 147, 147)
-        color_value = int(re.search(r'\d+', rgb_string).group())
-        fdr = round(1429.6 - 1.8 * color_value)
-        return int(fdr)
-    except (AttributeError, ValueError):
-        # Return a default/error value if parsing fails
-        return 0
+    # Extract the first number from rgb(147, 147, 147)
+    match = re.search(r'\d+', rgb_string)
+    if match:
+        try:
+            color_value = int(match.group())
+            fdr = round(1429.6 - 1.8 * color_value)
+            return int(fdr)
+        except ValueError:
+            return 0
+    return 0
 
 def parse_fixture_html(file_path: str, fdr_col_name: str) -> pd.DataFrame:
     """
     Parses an HTML fixture ticker file and returns a DataFrame with fixture data.
     """
-    with open(file_path, 'r') as f:
+    with open(file_path, 'r', encoding='utf-8') as f:
         soup = BeautifulSoup(f, 'lxml')
 
-    all_fixtures = []
+    all_fixtures: List[Dict[str, Any]] = []
     
     # Extract gameweek headers, skipping any that might be blank
     gw_headers = [h.text.strip() for h in soup.select('.gw-header-btn') if h.text.strip()]
@@ -35,24 +38,36 @@ def parse_fixture_html(file_path: str, fdr_col_name: str) -> pd.DataFrame:
 
     for row in team_rows:
         team_name_element = row.select_one('.team-name')
-        if not team_name_element: continue
+        if not team_name_element:
+            continue
         team_name = team_name_element.text.strip()
         
         fixtures = row.select('.fixture-cell')
         
         for i, fixture in enumerate(fixtures):
-            if i >= len(gw_headers): continue
+            if i >= len(gw_headers):
+                continue
 
             opponent = fixture.text.strip()
-            location = 'H' if 'home' in fixture.get('class', []) else 'A'
+            
+            # BS4 get('class') can return a string or list of strings or None
+            classes: Union[str, List[str], None] = fixture.get('class')
+            if isinstance(classes, list):
+                location = 'H' if 'home' in classes else 'A'
+            elif isinstance(classes, str):
+                location = 'H' if 'home' in classes.split() else 'A'
+            else:
+                location = 'A'
             
             # Extract FDR from style attribute
-            style = fixture.get('style', '')
+            style_attr = fixture.get('style', '')
+            # style_attr can be str or list[str] or None
+            style = " ".join(style_attr) if isinstance(style_attr, list) else str(style_attr or "")
+            
+            fdr_val = 0
             rgb_match = re.search(r'background-color: rgb\((.*?)\);', style)
             if rgb_match:
                 fdr_val = rgb_to_fdr(rgb_match.group(1))
-            else:
-                fdr_val = 0
 
             all_fixtures.append({
                 'Team': team_name,
