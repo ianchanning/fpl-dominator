@@ -1,5 +1,8 @@
 import os
+import re
+import subprocess
 import sys
+from glob import glob
 
 import click
 
@@ -8,9 +11,24 @@ from .audit_realities import audit_team_name_realities
 from .commander import run_the_gauntlet
 from .process_fixtures_html import create_fixture_csv_from_html
 from .process_players_html import process_players_for_gameweek  # NEW IMPORT
+from .update_prices import reconcile_timeline
 
 # We'll need a new function for our scenario runner, let's pretend it exists
 # from .scenario_chimera import run_a_what_if_scenario
+
+# --- UTILS ---
+
+def get_latest_gw():
+    """Returns the most recently modified gwX directory."""
+    dirs = [d for d in glob("gw*") if os.path.isdir(d)]
+    if not dirs:
+        return None
+    # Sort by numeric value if possible, else by modification time
+    try:
+        dirs.sort(key=lambda d: int(re.search(r'\d+', d).group()), reverse=True)
+    except (AttributeError, ValueError, IndexError):
+        dirs.sort(key=os.path.getmtime, reverse=True)
+    return dirs[0]
 
 # --- THE ARTIFICER'S FORGE: OUR CUSTOM HELP CLASS ---
 
@@ -161,6 +179,89 @@ def process_players(gameweek_dir):
         f"--- FPL Player HTML Processing Complete for {gameweek_dir.upper()} ---",
         fg="green",
     )
+
+
+@bamf.command()
+@click.argument("target", type=click.Choice(['fix', 'fix-a', 'fix-d', 'gkp', 'def', 'def2', 'mid', 'mid2', 'fwd', 'fwd2', 'squad']))
+def rip(target):
+    """
+    Rips clipboard content to a specific HTML file in the latest GW directory.
+    
+    Since FPL market data is ephemeral and only reflects the current live state, 
+    this command automatically targets the most recently initialized gameweek vault.
+    """
+    gw_dir = get_latest_gw()
+    if not gw_dir:
+        click.secho("Error: No gameweek directory found. Run 'bamf init' first.", fg="red", err=True)
+        return
+
+    mapping = {
+        "fix": "fixtures_5w.html",
+        "fix-a": "fixtures_attack_5w.html",
+        "fix-d": "fixtures_defence_5w.html",
+        "gkp": "goalkeepers.html",
+        "def": "defenders.html",
+        "def2": "defenders_2.html",
+        "mid": "midfielders.html",
+        "mid2": "midfielders_2.html",
+        "fwd": "forwards.html",
+        "fwd2": "forwards_2.html",
+        "squad": "squad.html",
+    }
+    
+    filename = mapping[target]
+    filepath = os.path.join(gw_dir, filename)
+    
+    click.echo(f"Ripping clipboard to {filepath}...")
+    
+    try:
+        # Try xclip first (Pop_OS/Ubuntu default)
+        result = subprocess.run(['xclip', '-selection', 'clipboard', '-o'], capture_output=True, text=True)
+        if result.returncode != 0:
+            # Fallback to wl-paste if xclip fails
+            result = subprocess.run(['wl-paste'], capture_output=True, text=True)
+            
+        content = result.stdout.strip()
+        if not content:
+            click.secho("Error: Clipboard is empty!", fg="yellow", err=True)
+            return
+            
+        with open(filepath, 'w', encoding='utf-8') as f:
+            f.write(content)
+            
+        click.secho(f"Successfully ripped {len(content)} characters to {filepath}", fg="green")
+    except Exception as e:
+        click.secho(f"Failed to rip: {e}", fg="red", err=True)
+
+
+@bamf.command()
+@click.argument(
+    "gameweek_dir",
+    type=click.Path(exists=True, file_okay=False, dir_okay=True, readable=True),
+)
+def finalize(gameweek_dir):
+    """
+    Executes the full ritual from ripped HTML to final prophecy.
+    """
+    click.secho(f"=== FINALIZING {gameweek_dir.upper()} RITUAL ===", fg="cyan", bold=True)
+    
+    click.echo("\n[1/5] Processing Fixtures...")
+    create_fixture_csv_from_html(gameweek_dir)
+    
+    click.echo("\n[2/5] Processing Players...")
+    process_players_for_gameweek(gameweek_dir)
+    
+    click.echo("\n[3/5] Reconciling Price Reality...")
+    reconcile_timeline(gameweek_dir)
+    
+    click.echo("\n[4/5] Auditing Logic...")
+    audit_team_name_realities(gameweek_dir)
+    audit_player_name_resolution_v3(gameweek_dir)
+    
+    click.echo("\n[5/5] Unleashing the Chimera...")
+    run_the_gauntlet(gameweek_dir)
+    
+    click.secho(f"\n=== {gameweek_dir.upper()} PROPHECY FORGED ===", fg="green", bold=True)
 
 
 @bamf.command()

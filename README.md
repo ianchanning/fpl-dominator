@@ -1,4 +1,4 @@
-# PROJECT: BAMF DOMINATOR - OPERATIONAL GRIMOIRE (v5.0)
+# PROJECT: BAMF DOMINATOR - OPERATIONAL GRIMOIRE (v5.1)
 
 ![](bamf_rainbow.svg)
 
@@ -14,16 +14,16 @@ To unleash the Chimera, you must first prepare the forge.
 
 ### 1. System Dependencies
 
-The Chimera's heart, the `pyomo` model, requires a solver. We use `glpk`.
+The Chimera's heart, the `pyomo` model, requires a solver. We use `glpk` and `xclip` for clipboard integration.
 
 ```bash
 # For Debian/Ubuntu-based systems
-sudo apt-get update && sudo apt-get install -y glpk-utils
+sudo apt-get update && sudo apt-get install -y glpk-utils xclip
 ```
 
 ### 2. Python Environment & Package Installation
 
-We use `uv` for lightning-fast package management and install the project in "editable" mode. This transforms our scripts into a system-recognised executable.
+We use `uv` for lightning-fast package management and install the project in "editable" mode.
 
 ```bash
 # 1. Create and activate a virtual environment
@@ -36,42 +36,18 @@ uv pip install -e .
 
 ### 3. Advanced Shell Integration (Optimised Auto-Complete & Performance)
 
-To achieve true symbiosis with the Command Deck, we configure the shell for **zero-latency** auto-completion and optimised execution.
-
-**Step 1: Forge the Completion Artefact**
-Instead of generating the completion logic dynamically every time the shell starts (slow), we generate it once and save it to a hidden file.
-
-_Run this command in your terminal:_
-
 ```bash
+# Forge the Completion Artefact
 _BAMF_COMPLETE=bash_source bamf > ~/.bamf-complete.bash
-```
 
-**Step 2: Update Shell Configuration**
-Add the following lines to your shell's config file (e.g., `~/.bashrc`) to source the static file and disable the Global Interpreter Lock for maximum Pandas velocity.
-
-```bash
-# --- BAMF DOMINATOR CONFIG ---
-
-# 1. Load optimised auto-completion (Static File)
-# Reference: https://click.palletsprojects.com/en/stable/shell-completion/
+# Update ~/.bashrc
+# 1. Load optimised auto-completion
 if [ -f ~/.bamf-complete.bash ]; then
     . ~/.bamf-complete.bash
 fi
-
 # 2. Disable GIL for Pandas/Numpy performance
-# This suppresses the RuntimeWarning and unlocks raw speed.
 export PYTHON_GIL=0
 ```
-
-**Step 3: Activate**
-Reload your shell to apply the changes.
-
-```bash
-source ~/.bashrc
-```
-
-> **(π) Pirate Note:** If you update the `bamf` CLI commands significantly in the future, remember to re-run **Step 1** to regenerate the completion artifact!
 
 ---
 
@@ -81,142 +57,86 @@ All operations are now channeled through our master command-line interface, `bam
 
 **Available Commands:**
 
-- `init`: Creates a new, clean gameweek vault, ready for data.
-- `audit`: A group of commands to inspect data integrity.
-  - `audit teams`: Checks for team name consistency.
-  - `audit players`: Checks for player name matching issues.
-- `run-gauntlet`: Executes the entire data-processing and squad-optimising pipeline.
-- `run-scenario`: Runs a 'what-if' simulation with player constraints.
-- `process-fixtures`: Processes raw HTML fixture files into a structured `fixtures.csv`.
-- `process-players`: Processes FPL player HTML files into position-based CSVs.
+- `init`: Creates a new, clean gameweek vault.
+- `rip <target>`: Rips clipboard content directly into the **latest** vault (Targets: `fix`, `gkp`, `def`, `mid`, `fwd`, `squad`, etc.).
+- `finalize`: Executes the full processing ritual (Fixtures -> Players -> Audit -> Solver).
+- `run-gauntlet`: Executes the core data-to-squad pipeline.
+- `audit`: A group of commands to inspect data integrity (`teams`, `players`).
 
 ---
 
 ## SYSTEM ARCHITECTURE
 
-The `run-gauntlet` command executes a multi-stage data pipeline, transforming raw weekly data into a final, optimized squad prophecy. The flow of data through the various scripts and databases is as follows:
+The `finalize` command automates the multi-stage pipeline, transforming raw clipboard rips into a final, optimized squad prophecy.
 
 ```mermaid
 ---
 config:
   look: neo
 ---
-%%{init: {'theme':'base', 'themeVariables': { 'primaryColor':'#fafbfc','primaryTextColor':'#6c757d','primaryBorderColor':'#dee2e6','lineColor':'#ced4da','secondaryColor':'#f0f8ff','tertiaryColor':'#f8f9fa','background':'#ffffff','mainBkg':'#fafbfc','secondBkg':'#f0f8ff','tertiaryBkg':'#f8f9fa','primaryTextColor':'#495057','fontSize':'15px','fontFamily':'system-ui, -apple-system, sans-serif'}}}%%
 graph TD
-    subgraph inputs["Gameweek Input Data"]
-        A1[("Player CSVs")]
-        A2[("fixtures.csv")]
+    subgraph inputs["Gameweek Input Data (via bamf rip)"]
+        A1[("Player HTMLs")]
+        A2[("Fixture HTMLs")]
         A3[("set_pieces.csv")]
     end
 
-    B1("forge_cauldron.py")
-    C1[("enriched.csv")]
+    B1("process_players_html.py")
+    C1[("Position CSVs")]
 
-    B2("enrich_with_insight.py")
-    C2[("prophetic.csv")]
+    B2("process_fixtures_html.py")
+    C2[("fixtures.csv")]
 
-    B3("grand_synthesis.py")
-    C3[("OMNISCIENT.csv")]
+    B3("update_prices.py")
+    C3[("Reality Alignment")]
 
-    B4("chimera_final_form_v5")
-    C4[("FINAL_v5.csv")]
-
-    B5("chimera_pyomo_v2")
-
-    E1("commander.py")
+    B4("run_the_gauntlet (Commander)")
     F1("squad_prophecy.md")
 
     A1 --> B1
     B1 --> C1
-    C1 --> B2
+    A2 --> B2
     B2 --> C2
-
-    A2 --> B3
-    C2 --> B3
-    B3 --> C3
-
-    A3 --> B4
-    C3 --> B4
-    B4 --> C4
-    B4 -. solver .-> E1
-
-    C4 --> B5
-    B5 -. output .-> E1
-
-    E1 ==> F1
+    C1 --> B3
+    C2 --> B4
+    B3 --> B4
+    B4 ==> F1
 
     classDef inputStyle fill:#e3f2fd,stroke:#42a5f5,stroke-width:3px,color:#1565c0,rx:10,ry:10
     classDef processStyle fill:#f8f9fa,stroke:#6c757d,stroke-width:3px,color:#495057,rx:10,ry:10
-    classDef dataStyle fill:#e9ecef,stroke:#adb5bd,stroke-width:3px,color:#495057,rx:10,ry:10
     classDef outputStyle fill:#b3e5fc,stroke:#29b6f6,stroke-width:3px,color:#01579b,rx:10,ry:10
 
     class A1,A2,A3 inputStyle
-    class B1,B2,B3,B4,B5,E1 processStyle
-    class C1,C2,C3,C4 dataStyle
+    class B1,B2,B3,B4 processStyle
     class F1 outputStyle
-
-    style inputs fill:#ffffff,stroke:#6c757d,stroke-width:3px,color:#495057,rx:15,ry:15
 ```
 
 ---
 
-## THE WEEKLY RITUAL (RIP Protocol v1.1)
+## THE WEEKLY RITUAL (RIP Protocol v1.3)
 
-This is the precise, non-negotiable workflow to be executed at the start of each new Gameweek, using the `bamf` CLI. For detailed steps, consult `protocols/BAMF-RFC-001_RIP.md`.
+This is the high-velocity workflow for the modern Carbon Pirate (π). For detailed steps, consult `protocols/BAMF-RFC-001_RIP.md`.
 
 ### Step 1: Initialise the Vault
-
-Create the directory and all necessary template files for the new gameweek.
-
 ```bash
 bamf init gw29
 ```
 
-### Step 2: The Gathering (HTML Ingestion)
+### Step 2: The Ritual of the Rip
+Navigate to FPL/FFS, Copy OuterHTML of the relevant tables, and unleash the Rip. **Note:** `rip` automatically targets the latest `gwX` directory.
+*   `bamf rip fix` (Overall FDR)
+*   `bamf rip fix-a` (Attack FDR)
+*   `bamf rip fix-d` (Defence FDR)
+*   `bamf rip gkp` (Goalkeepers)
+*   `bamf rip def` / `bamf rip def2` (Defenders)
+*   `bamf rip mid` / `bamf rip mid2` (Midfielders)
+*   `bamf rip fwd` / `bamf rip fwd2` (Forwards)
+*   `bamf rip squad` (Current Squad Prices)
 
-We have abandoned the failed OCR/Screenshot dream. We now rip raw HTML directly from the sources of truth.
-
-**2.1: Fixture Data Ingestion**
-1.  Download the **5-week fixture data** (Overall, Attack, Defence views) from the [FFS Season Ticker](https://members.fantasyfootballscout.co.uk/season-ticker/) and save as `fixtures_5w.html`, `fixtures_attack_5w.html`, and `fixtures_defence_5w.html` in your gameweek directory.
-2.  Run the command below:
+### Step 3: The Single Strike
+Review your `squad.csv` for Purchase Price (PP) accuracy, then finalize:
 ```bash
-bamf process-fixtures gw29
-```
-
-**2.2: Player Data Ingestion**
-1.  Navigate to [FPL Transfers](https://fantasy.premierleague.com/transfers) in **List View**.
-2.  For each position, Copy OuterHTML of the player table and save as `goalkeepers.html`, `defenders.html` (and `defenders_2.html` for multiple pages), etc.
-3.  Run the command below:
-```bash
-bamf process-players gw29
-```
-
-### Step 3: Reality Alignment
-
-1.  **Squad Update:** Update `gw29/squad.csv` with your current squad's **Purchase Price (PP)**.
-2.  **Price Reconciliation:** Run the script to align market prices with your treasury's reality.
-```bash
-python src/fpl_dominator/update_prices.py gw29
-```
-
-### Step 4: Audit Reality
-
-Before unleashing the Chimera, verify the integrity of your data.
-
-```bash
-# Check for team name mismatches
-bamf audit teams gw29
-
-# Check for player name matching issues
-bamf audit players gw29
-```
-
-### Step 5: Run the Gauntlet
-
-With the data prepared and audited, unleash the Commander.
-
-```bash
-bamf run-gauntlet gw29
+bamf finalize gw29
 ```
 
 ---
@@ -227,12 +147,9 @@ All Python source files are now located within the `src/fpl_dominator/` package.
 
 - `src/fpl_dominator/bamf.py` (The Command Deck): The master script and sole entry point.
 - `src/fpl_dominator/commander.py` (The Orchestrator): Contains the `run_the_gauntlet` logic.
-- `src/fpl_dominator/update_prices.py`: Budget reconciliation script.
-- `src/fpl_dominator/process_fixtures_html.py`: Transmutes FFS HTML into fixture data.
-- `src/fpl_dominator/process_players_html.py`: Transmutes FPL HTML into player data.
-- **Solver Scripts (`src/fpl_dominator/chimera_*.py`):** The core PuLP and Pyomo solver logic.
-- **Pipeline Scripts (`src/fpl_dominator/forge_*.py`, etc.):** The data pipeline stages.
-- **Audit Scripts (`src/fpl_dominator/audit_*.py`):** Logic for the `audit` commands.
+- `src/fpl_dominator/process_players_html.py`: High-speed HTML table parser with deduplication.
+- `src/fpl_dominator/process_fixtures_html.py`: Transmutes FFS HTML into structured fixture data.
+- `src/fpl_dominator/update_prices.py`: Aligns market reality with your treasury.
 
 ---
 
