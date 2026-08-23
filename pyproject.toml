@@ -7,7 +7,6 @@ dependencies = [
     "click>=8.1",
     "pandas",
     "pyomo",
-    "pulp",
     "PyYAML",
     "beautifulsoup4",
     "lxml",
