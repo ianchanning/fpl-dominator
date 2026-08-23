@@ -18,10 +18,13 @@ enrich_insight:
         - Chalobah
       coefficient: 1.0
 
-# --- chimera_final_form_v5_production.py ---
-pulp_solver:
+# --- chimera_pyomo_v2.py ---
+pyomo_solver:
   thrift_factor: 0.001
+  bench_potency_epsilon: 0.00001
   form_factor_weight: 0.7
+  red_zone_threshold: 1290
+  red_zone_limit: 5
   spp_scores:
     Penalties:
       primary: 5.0
@@ -32,13 +35,6 @@ pulp_solver:
     Corners & Indirect Free Kicks:
       primary: 1.5
       secondary: 0.75
-
-# --- chimera_pyomo_v2.py ---
-pyomo_solver:
-  thrift_factor: 0.001 # Note: Redundant with pulp_solver, but keeping for clarity
-  bench_potency_epsilon: 0.00001
-  red_zone_threshold: 1290
-  red_zone_limit: 5
 
 # --- grand_synthesis.py ---
 temporal_discounting:

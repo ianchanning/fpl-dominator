@@ -1,16 +1,90 @@
 import os
+import re
 import sys
 import yaml
 import pandas as pd
 import pyomo.environ as pyo
 
+# --- The Rosetta Stone (π): Team Aliasing Bridge ---
+TEAM_SHORT_TO_FULL = {
+    "Spurs": "Tottenham Hotspur",
+    "Man City": "Manchester City",
+    "Man Utd": "Manchester United",
+    "Newcastle": "Newcastle United",
+    "Nott'm Forest": "Nottingham Forest",
+    "West Ham": "West Ham United",
+    "Wolves": "Wolverhampton Wanderers",
+    "Leeds": "Leeds United",
+    "Brighton": "Brighton and Hove Albion",
+    "Arsenal": "Arsenal",
+    "Chelsea": "Chelsea",
+    "Bournemouth": "Bournemouth",
+    "Everton": "Everton",
+    "Liverpool": "Liverpool",
+    "Burnley": "Burnley",
+    "Sunderland": "Sunderland",
+    "Fulham": "Fulham",
+    "Crystal Palace": "Crystal Palace",
+    "Brentford": "Brentford",
+    "Aston Villa": "Aston Villa",
+}
+
+
+def sanitize_name(name: str) -> str:
+    """Sanitizes player names for fuzzy set-piece matching."""
+    return re.sub(r"[\.\-\s\(\)]", "", name.lower())
+
+
+def enrich_with_set_pieces(players_df: pd.DataFrame, set_piece_path: str, score_model: dict) -> pd.DataFrame:
+    """Enriches players with Set-Piece Potency (SPP) scores."""
+    print("[+] Beginning Set-Piece Potency (SPP) enrichment...")
+    if not os.path.exists(set_piece_path):
+        print(f"!!! WARNING: Set-piece database not found at '{set_piece_path}'. Setting SPP to 0.0.")
+        players_df["SPP"] = 0.0
+        return players_df
+
+    set_pieces_df = pd.read_csv(set_piece_path)
+    players_df["SPP"] = 0.0
+    players_df["match_key"] = players_df["Surname"].apply(sanitize_name)
+    players_df["Team_Full_For_Join"] = players_df["Team"].map(TEAM_SHORT_TO_FULL).fillna(players_df["Team"])
+
+    for _, row in set_pieces_df.iterrows():
+        club_full_name = row["Club"]
+        duties = {
+            "Penalties": str(row["Penalties"]).split(","),
+            "Direct Free Kicks": str(row["Direct Free Kicks"]).split(","),
+            "Corners & Indirect Free Kicks": str(row["Corners & Indirect Free Kicks"]).split(","),
+        }
+
+        for duty_type, takers in duties.items():
+            if duty_type not in score_model:
+                continue
+            for i, taker_name in enumerate(takers):
+                sanitized_taker = sanitize_name(taker_name.strip())
+                target_indices = players_df[
+                    (players_df["Team_Full_For_Join"] == club_full_name)
+                    & (players_df["match_key"].str.contains(sanitized_taker, na=False))
+                ].index
+
+                if not target_indices.empty:
+                    score = (
+                        score_model[duty_type]["primary"]
+                        if i == 0
+                        else score_model[duty_type]["secondary"]
+                    )
+                    players_df.loc[target_indices, "SPP"] += score
+
+    players_df.drop(columns=["match_key", "Team_Full_For_Join"], inplace=True)
+    print("[+] SPP enrichment complete.")
+    return players_df
+
+
 def forge_pyomo_squad(gameweek_dir: str):
     """
-    The New Heart, Perfected. Forges the optimal squad using the Pyomo framework,
-    the "Bench Potency Epsilon" to make strategically wise bench selections, and the
-    new "Trinity" constraint to avoid difficult fixtures.
+    The Sovereign Pyomo Engine. Forges the optimal squad using the Pyomo framework,
+    Bench Potency Epsilon, and the Trinity constraint.
     """
-    print("--- CHIMERA PYOMO ENGINE (V3 - TRINITY) ONLINE ---")
+    print("--- CHIMERA PYOMO ENGINE (V3 - SOVEREIGN TRINITY) ONLINE ---")
     
     # --- Load Master Configuration ---
     try:
@@ -19,26 +93,54 @@ def forge_pyomo_squad(gameweek_dir: str):
         
         THRIFT_FACTOR = config.get("thrift_factor", 0.001)
         BENCH_POTENCY_EPSILON = config.get("bench_potency_epsilon", 0.00001)
+        FORM_FACTOR_WEIGHT = config.get("form_factor_weight", 0.7)
         RED_ZONE_THRESHOLD = config.get("red_zone_threshold", 1250)
-        RED_ZONE_LIMIT = config.get("red_zone_limit", 3)
+        RED_ZONE_LIMIT = config.get("red_zone_limit", 5)
+        SPP_SCORES = config.get("spp_scores", {
+            "Penalties": {"primary": 5.0, "secondary": 2.5},
+            "Direct Free Kicks": {"primary": 2.5, "secondary": 1.25},
+            "Corners & Indirect Free Kicks": {"primary": 1.5, "secondary": 0.75},
+        })
         print("[+] Master configuration for Pyomo solver loaded.")
     except (FileNotFoundError, yaml.YAMLError) as e:
         print(f"!!! WARNING: Could not load or parse config.yaml: {e}. Using default fallbacks.")
         THRIFT_FACTOR = 0.001
         BENCH_POTENCY_EPSILON = 0.00001
+        FORM_FACTOR_WEIGHT = 0.7
         RED_ZONE_THRESHOLD = 1250
-        RED_ZONE_LIMIT = 3
+        RED_ZONE_LIMIT = 5
+        SPP_SCORES = {
+            "Penalties": {"primary": 5.0, "secondary": 2.5},
+            "Direct Free Kicks": {"primary": 2.5, "secondary": 1.25},
+            "Corners & Indirect Free Kicks": {"primary": 1.5, "secondary": 0.75},
+        }
         
     # --- File Paths ---
     FINAL_FORM_DB_PATH = f"{gameweek_dir}/fpl_master_database_FINAL_v5.csv"
+    OMNISCIENT_DB_PATH = f"{gameweek_dir}/fpl_master_database_OMNISCIENT.csv"
+    SET_PIECE_DB_PATH = "set_pieces.csv"
 
     if not os.path.exists(FINAL_FORM_DB_PATH):
-        print(
-            f"!!! CRITICAL FAILURE: Final Form Database not found at '{FINAL_FORM_DB_PATH}'. Aborting."
+        if not os.path.exists(OMNISCIENT_DB_PATH):
+            print(f"!!! CRITICAL FAILURE: Neither '{FINAL_FORM_DB_PATH}' nor '{OMNISCIENT_DB_PATH}' found. Aborting.")
+            return False
+        
+        print(f"[+] Forging '{FINAL_FORM_DB_PATH}' from Omniscient database...")
+        players_df = pd.read_csv(OMNISCIENT_DB_PATH)
+        players_df = enrich_with_set_pieces(players_df, SET_PIECE_DB_PATH, SPP_SCORES)
+        players_df["Final_Score"] = (
+            (
+                players_df["PP"]
+                + players_df["SPP"]
+                + (players_df["Form_Factor"] * FORM_FACTOR_WEIGHT)
+            )
+            / players_df["Effective_FDR_Horizon_5GW"]
         )
-        return False
+        players_df.to_csv(FINAL_FORM_DB_PATH, index=False)
+        print(f"[+] Final Form database forged at '{FINAL_FORM_DB_PATH}'.")
+    else:
+        players_df = pd.read_csv(FINAL_FORM_DB_PATH)
 
-    players_df = pd.read_csv(FINAL_FORM_DB_PATH)
     print(f"[+] Intelligence loaded. Analyzing {len(players_df)} players.")
 
     # --- 1. Model Initialization ---
