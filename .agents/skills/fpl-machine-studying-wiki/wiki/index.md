@@ -10,6 +10,7 @@ graph TD
     subgraph "⚡ Data Pipeline & Features (cat:pipeline)"
         P1[Temporal-Discounting-and-FDR]
         P2[Price-Change-Reality-Alignment]
+        P3[The-Cold-Start-and-Season-Transition]
     end
 
     subgraph "🛠️ Operational Protocols (cat:operations)"
@@ -38,6 +39,7 @@ graph TD
 ## ⚡ Feature Engineering & Data Pipeline
 - [[Temporal-Discounting-and-FDR]] - Weighted decay horizon mathematics replacing naive arithmetic means for fixture difficulty.
 - [[concepts/Price-Change-Reality-Alignment]] - Harmonizing bank balances and selling values against market price shifts.
+- [[concepts/The-Cold-Start-and-Season-Transition]] - Bayesian prior decay schedule resolving GW1 zero-point singularity in player scoring.
 
 ## 🛠️ Operational Protocols & CLI Deck
 - [[The-BAMF-CLI-Ritual]] - End-to-end Gameweek workflow: init vault, rip clipboard HTML, finalize prophecy.

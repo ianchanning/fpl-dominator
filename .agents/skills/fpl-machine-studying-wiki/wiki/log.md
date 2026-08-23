@@ -20,3 +20,9 @@ This file is an append-only timeline of all knowledge base updates, source inges
 - Implemented `bamf archive-season <season_tag>` command in `src/fpl_dominator/bamf.py` for automated end-of-season archiving.
 - Updated `.gitignore`, `README.md`, and `wiki/The-BAMF-CLI-Ritual.md` to establish the Season Rollover Protocol.
 
+## [2026-08-23] synthesis | Codify Cold Start & Season Transition Protocol (P4)
+- Synthesized `wiki/concepts/The-Cold-Start-and-Season-Transition.md` under 4-Part Mental Model.
+- Formalized mathematical resolution of GW1 Total Points ($TP=0$) zero-singularity via decaying Bayesian prior baseline $\alpha_t \in [0, 1]$ over GW1–GW5.
+- Documented data ingestion heterogeneity for prior season full-year HTML tables and unconstrained greenfield GW1 treasury state.
+- Linked new node to `wiki/index.md` knowledge graph.
+
