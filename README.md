@@ -58,6 +58,7 @@ All operations are now channeled through our master command-line interface, `bam
 **Available Commands:**
 
 - `init`: Creates a new, clean gameweek vault.
+- `archive-season <tag>`: Archives completed season vaults into `archive/<tag>/`.
 - `rip <target>`: Rips clipboard content directly into the **latest** vault (Targets: `fix`, `gkp`, `def`, `mid`, `fwd`, `squad`, etc.).
 - `finalize`: Executes the **full** end-to-end processing ritual (HTML -> CSV -> Audit -> Solver).
 - `run-gauntlet`: Executes the core data-to-squad pipeline.

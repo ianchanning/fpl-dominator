@@ -7,4 +7,6 @@ __pycache__
 .env
 # weekly screenshots, raw data
 gw*/*.html
+archive/**/gw*/*.html
 screenshots/
+archive/**/screenshots/

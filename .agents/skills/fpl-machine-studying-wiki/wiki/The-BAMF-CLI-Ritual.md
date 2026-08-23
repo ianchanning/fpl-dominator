@@ -78,3 +78,20 @@ bamf audit players gw30
 # Audit team name normalizations
 bamf audit teams gw30
 ```
+
+---
+
+## 6. Season Rollover Protocol
+
+When transitioning across seasons (e.g. from 2025/26 to 2026/27):
+```bash
+# 1. Tag repository state at season conclusion
+git tag -a season-2025-26-final -m "Final state of 2025/26 FPL Season"
+
+# 2. Archive active gameweek vaults
+bamf archive-season 2025-26
+
+# 3. Initialize fresh campaign vault
+bamf init gw1
+```
+

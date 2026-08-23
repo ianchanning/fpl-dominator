@@ -1,5 +1,6 @@
 import os
 import re
+import shutil
 import subprocess
 from glob import glob
 
@@ -313,6 +314,45 @@ def init(gameweek_dir):
         click.echo(f" - Created {filepath}")
     click.secho(
         f"Success! New vault '{gameweek_dir}' created and ready for data.", fg="green"
+    )
+
+
+@bamf.command(name="archive-season")
+@click.argument("season_tag")
+def archive_season(season_tag):
+    """
+    Archives all active gameweek vaults and season artifacts into archive/<season_tag>/.
+
+    Example:
+        bamf archive-season 2025-26
+    """
+    archive_dir = os.path.join("archive", season_tag)
+    os.makedirs(archive_dir, exist_ok=True)
+
+    gw_dirs = [d for d in glob("gw*") if os.path.isdir(d)]
+    if not gw_dirs:
+        click.secho("No active gameweek directories found to archive.", fg="yellow")
+        return
+
+    # Sort numerically before moving for deterministic execution
+    def extract_gw_num(d):
+        match = re.search(r'\d+', d)
+        return int(match.group()) if match else 0
+
+    gw_dirs.sort(key=extract_gw_num)
+
+    for d in gw_dirs:
+        dest = os.path.join(archive_dir, d)
+        if os.path.exists(dest):
+            click.secho(f"Warning: Destination '{dest}' already exists. Skipping.", fg="yellow")
+            continue
+        shutil.move(d, dest)
+        click.echo(f" - Archived {d} -> {dest}")
+
+    click.secho(
+        f"\nSuccess! Archived {len(gw_dirs)} gameweek vaults into '{archive_dir}'.",
+        fg="green",
+        bold=True,
     )
 
 
