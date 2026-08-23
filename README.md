@@ -8,29 +8,36 @@ To systematically dismantle and dominate the Fantasy Premier League simulation b
 
 ---
 
-## SETUP & INSTALLATION
+## SETUP & REQUIREMENTS
 
 To unleash the Chimera, you must first prepare the forge.
 
-### 1. System Dependencies
+### 1. System Requirements & External Binaries
 
-The Chimera's heart, the `pyomo` model, requires a solver. We use `glpk` and `xclip` for clipboard integration.
+The Chimera optimization core requires a branch-and-bound MILP solver (`glpsol`), and the RIP Protocol requires system clipboard utilities across X11 and Wayland sessions.
 
 ```bash
-# For Debian/Ubuntu-based systems
-sudo apt-get update && sudo apt-get install -y glpk-utils xclip
+# For Debian / Ubuntu (including 24.04 LTS / Pop!_OS)
+sudo apt update && sudo apt install -y glpk-utils xclip wl-clipboard
 ```
+
+- **`glpk-utils` (`glpsol`)**: The GNU Linear Programming Kit solver powering the Chimera MILP optimizations.
+- **`xclip`**: X11 clipboard extraction tool.
+- **`wl-clipboard` (`wl-paste`)**: Native Wayland clipboard extraction tool (standard on Ubuntu 24.04+ / GNOME Wayland).
 
 ### 2. Python Environment & Package Installation
 
-We use `uv` for lightning-fast package management and install the project in "editable" mode.
+We require **Python >= 3.10** (tested and optimized on Python 3.12 & 3.13) and use [`uv`](https://github.com/astral-sh/uv) for high-speed package management.
 
 ```bash
-# 1. Create and activate a virtual environment
+# 1. Install uv (if not already installed)
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# 2. Create and activate a virtual environment
 uv venv
 source .venv/bin/activate
 
-# 2. Install the project (and dependencies) in editable mode
+# 3. Install the project and all dependencies in editable mode
 uv pip install -e .
 ```
 
@@ -45,7 +52,7 @@ _BAMF_COMPLETE=bash_source bamf > ~/.bamf-complete.bash
 if [ -f ~/.bamf-complete.bash ]; then
     . ~/.bamf-complete.bash
 fi
-# 2. Disable GIL for Pandas/Numpy performance
+# 2. Disable GIL for Pandas/Numpy performance (Python 3.13 free-threaded builds)
 export PYTHON_GIL=0
 ```
 
