@@ -39,5 +39,12 @@ This file is an append-only timeline of all knowledge base updates, source inges
 - Removed `chimera_final_form_v5_production.py` and archived `chimera_scenarios.py`.
 - Unified solver configuration parameters in `config.yaml` under `pyomo_solver`.
 
+## [2026-08-23] feature | Ingest 2025/26 Empirical Set Piece Volume & Automate Matrix Synthesis
+- Ingested `archive/2025-26/set_pieces.html` (17,758 lines, 455 players with granular delivery metrics).
+- Created `src/fpl_dominator/process_set_pieces_html.py` calculating per-90 corner, free kick, and penalty delivery rates.
+- Generated `archive/2025-26/set_pieces_detailed_2025_26.csv` and derived empirical `set_pieces.csv` across all 20 Premier League clubs.
+- Added `bamf process-set-pieces` command to CLI deck.
+
+
 
 
