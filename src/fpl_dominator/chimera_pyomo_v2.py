@@ -5,15 +5,12 @@ import yaml
 import pandas as pd
 import pyomo.environ as pyo
 
-# --- The Rosetta Stone (π): Team Aliasing Bridge ---
 TEAM_SHORT_TO_FULL = {
     "Spurs": "Tottenham Hotspur",
     "Man City": "Manchester City",
     "Man Utd": "Manchester United",
     "Newcastle": "Newcastle United",
     "Nott'm Forest": "Nottingham Forest",
-    "West Ham": "West Ham United",
-    "Wolves": "Wolverhampton Wanderers",
     "Leeds": "Leeds United",
     "Brighton": "Brighton and Hove Albion",
     "Arsenal": "Arsenal",
@@ -21,12 +18,14 @@ TEAM_SHORT_TO_FULL = {
     "Bournemouth": "Bournemouth",
     "Everton": "Everton",
     "Liverpool": "Liverpool",
-    "Burnley": "Burnley",
     "Sunderland": "Sunderland",
     "Fulham": "Fulham",
     "Crystal Palace": "Crystal Palace",
     "Brentford": "Brentford",
     "Aston Villa": "Aston Villa",
+    "Coventry City": "Coventry City",
+    "Hull City": "Hull City",
+    "Ipswich Town": "Ipswich Town",
 }
 
 

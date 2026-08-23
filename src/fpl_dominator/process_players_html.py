@@ -101,14 +101,15 @@ def parse_players_html(file_path: str, position: str) -> pd.DataFrame:
 def parse_squad_html(file_path: str) -> pd.DataFrame:
     """
     Parses the FPL Current Squad HTML rip and returns a DataFrame.
+    Supports both pitch views and transfers table views.
     """
     with open(file_path, 'r', encoding='utf-8') as f:
         soup = BeautifulSoup(f, 'lxml')
 
     squad_data: List[Dict[str, Any]] = []
     
-    # Squad rows have class 'rweppyb'
-    rows = soup.select('tr.rweppyb')
+    # Squad rows can have class 'rweppyb', 'rweppyc', or other table row variations
+    rows = soup.select('tr.rweppyb, tr.rweppyc, tr._1trl5ao0')
 
     for row in rows:
         # 1. Name, Team, Position
@@ -125,19 +126,22 @@ def parse_squad_html(file_path: str) -> pd.DataFrame:
         team = spans[0].text.strip() if len(spans) > 0 else ""
         pos = spans[1].text.strip() if len(spans) > 1 else ""
 
-        # 2. Prices: CP, SP, PP are in td.rweppyf
-        # Headers: Player, CP, SP, PP, F, TP, Fix, Remove
-        tds = row.select('td.rweppyf')
-        if len(tds) < 3:
-            continue
-        
+        # 2. Prices: Extract CP, SP, PP if present
         def extract_price(text: str) -> float:
             match = re.search(r'£([\d.]+)', text)
             return float(match.group(1)) if match else 0.0
 
-        cp = extract_price(tds[0].text)
-        sp = extract_price(tds[1].text)
-        pp = extract_price(tds[2].text)
+        price_tds = [td for td in row.select('td') if '£' in td.text]
+        if len(price_tds) >= 3:
+            cp = extract_price(price_tds[0].text)
+            sp = extract_price(price_tds[1].text)
+            pp = extract_price(price_tds[2].text)
+        elif len(price_tds) == 1:
+            cp = extract_price(price_tds[0].text)
+            sp = cp
+            pp = cp
+        else:
+            cp, sp, pp = 0.0, 0.0, 0.0
 
         # 3. Status
         status = "OK"
@@ -154,7 +158,7 @@ def parse_squad_html(file_path: str) -> pd.DataFrame:
                     if chance == 0: status = "INJURY"
                 else:
                     status = "DOUBT"
-            elif 'injury' in aria_label or 'suspended' in aria_label:
+            elif 'injury' in aria_label or 'suspended' in aria_label or 'permanently' in aria_label:
                 status = "INJURY"
 
         squad_data.append({
