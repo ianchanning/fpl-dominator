@@ -216,6 +216,31 @@ def process_prior_season(html, output):
     )
 
 
+def get_clipboard_content() -> str:
+    """Defensively fetches clipboard content across X11 (xclip), Wayland (wl-paste), and fallback utilities."""
+    commands = [
+        ['xclip', '-selection', 'clipboard', '-o'],
+        ['wl-paste'],
+        ['xsel', '--clipboard', '--output'],
+        ['pbpaste'],
+    ]
+    for cmd in commands:
+        try:
+            res = subprocess.run(cmd, capture_output=True, text=True)
+            if res.returncode == 0 and res.stdout.strip():
+                return res.stdout.strip()
+        except (FileNotFoundError, PermissionError):
+            continue
+        except Exception:
+            continue
+
+    raise RuntimeError(
+        "No clipboard utility found or clipboard buffer is empty!\n"
+        "Please copy table HTML to clipboard and ensure xclip or wl-clipboard is installed:\n"
+        "  sudo apt update && sudo apt install -y xclip wl-clipboard"
+    )
+
+
 @bamf.command()
 @click.argument("target", type=click.Choice(['fix', 'fix-a', 'fix-d', 'gkp', 'def', 'def2', 'mid', 'mid2', 'fwd', 'fwd2', 'squad']))
 def rip(target):
@@ -250,17 +275,7 @@ def rip(target):
     click.echo(f"Ripping clipboard to {filepath}...")
     
     try:
-        # Try xclip first (Pop_OS/Ubuntu default)
-        result = subprocess.run(['xclip', '-selection', 'clipboard', '-o'], capture_output=True, text=True)
-        if result.returncode != 0:
-            # Fallback to wl-paste if xclip fails
-            result = subprocess.run(['wl-paste'], capture_output=True, text=True)
-            
-        content = result.stdout.strip()
-        if not content:
-            click.secho("Error: Clipboard is empty!", fg="yellow", err=True)
-            return
-            
+        content = get_clipboard_content()
         with open(filepath, 'w', encoding='utf-8') as f:
             f.write(content)
             
