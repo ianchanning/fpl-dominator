@@ -1,27 +1,24 @@
-# BAMF DOMINATOR: Master Configuration
-
-# --- enrich_with_insight.py ---
 enrich_insight:
   form_lookback_weeks: 2
   captaincy_tiers:
     Gods:
       players:
-        - Haaland
-        - M.Salah
-      coefficient: 1.1
+      - Haaland
+      - B.Fernandes
+      - Bruno Fernandes
+      coefficient: 1.2
     Demigods:
       players:
-        - João Pedro
-        - Ekitiké
-        - Enzo
-        - Calafiori
-        - Chalobah
-      coefficient: 1.0
-
-# --- chimera_pyomo_v2.py ---
+        - Semenyo
+        - "João Pedro"
+        - Gabriel
+        - Saka
+        - Palmer
+        - Thiago
+      coefficient: 1.08
 pyomo_solver:
   thrift_factor: 0.001
-  bench_potency_epsilon: 0.00001
+  bench_potency_epsilon: 1.0e-05
   form_factor_weight: 0.7
   red_zone_threshold: 1290
   red_zone_limit: 5
@@ -35,13 +32,10 @@ pyomo_solver:
     Corners & Indirect Free Kicks:
       primary: 1.5
       secondary: 0.75
-
-# --- grand_synthesis.py ---
 temporal_discounting:
-  # Weights for the 5-gameweek fixture difficulty horizon.
-  # The first weight applies to the next gameweek, the second to the one after, etc.
-  # Must contain 5 values.
-  # fixture_weights: [1.0, 1.0, 1.0, 1.0, 1.0]
-  # fixture_weights: [1.0, 0.8, 0.6, 0.4, 0.2]
-  # fixture_weights: [1.0, 0.7, 0.4, 0.1, 0.01]
-  fixture_weights: [1.0, 0.5, 0.3, 0.2, 0.1]
+  fixture_weights:
+  - 1.0
+  - 0.5
+  - 0.3
+  - 0.2
+  - 0.1

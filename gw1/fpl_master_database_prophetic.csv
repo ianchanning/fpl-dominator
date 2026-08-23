@@ -30,7 +30,7 @@ Tzolakis,Hull City,GKP,4.5,108.0,OK,24.0,5.7,1.0,108.0
 Austin,Spurs,GKP,4.0,96.0,OK,24.0,5.1,1.0,96.0
 Suzuki,Aston Villa,GKP,5.0,120.0,OK,24.0,6.3,1.0,120.0
 Calafiori,Arsenal,DEF,5.5,109.0,OK,19.82,5.7,1.0,109.0
-Gabriel,Arsenal,DEF,8.0,209.0,OK,26.12,11.0,1.0,209.0
+Gabriel,Arsenal,DEF,8.0,209.0,OK,26.12,11.0,1.08,225.72
 O'Reilly,Man City,DEF,6.5,160.0,OK,24.62,8.4,1.0,160.0
 Shaw,Man Utd,DEF,4.5,113.0,OK,25.11,5.9,1.0,113.0
 Virgil,Liverpool,DEF,6.5,175.0,OK,26.92,9.2,1.0,175.0
@@ -52,7 +52,7 @@ Senesi,Spurs,DEF,6.0,175.0,OK,29.17,9.2,1.0,175.0
 Thomas,Coventry City,DEF,4.0,88.0,OK,22.0,4.6,1.0,88.0
 Hume,Sunderland,DEF,4.5,110.0,OK,24.44,5.8,1.0,110.0
 Mitchell,Crystal Palace,DEF,4.5,135.0,OK,30.0,7.1,1.0,135.0
-Mosquera,Arsenal,DEF,5.5,61.0,OK,11.09,3.2,1.0,61.0
+Mosquera,Arsenal,DEF,5.5,40.0,OK,7.27,2.1,1.0,40.0
 Ballard,Sunderland,DEF,5.0,116.0,OK,23.2,6.1,1.0,116.0
 Davis,Ipswich Town,DEF,4.0,88.0,OK,22.0,4.6,1.0,88.0
 White,Arsenal,DEF,5.5,45.0,OK,8.18,2.4,1.0,45.0
@@ -88,10 +88,10 @@ Branthwaite,Everton,DEF,5.5,32.0,OK,5.82,1.7,1.0,32.0
 Robinson,Fulham,DEF,4.5,65.0,OK,14.44,3.4,1.0,65.0
 Colwill,Chelsea,DEF,5.0,8.0,OK,1.6,0.4,1.0,8.0
 Keane,Everton,DEF,5.0,131.0,OK,26.2,6.9,1.0,131.0
-B.Fernandes,Man Utd,MID,12.0,235.0,OK,19.58,12.4,1.0,235.0
+B.Fernandes,Man Utd,MID,12.0,235.0,OK,19.58,12.4,1.2,282.0
 Szoboszlai,Liverpool,MID,7.0,160.0,OK,22.86,8.4,1.0,160.0
 Mbeumo,Man Utd,MID,8.0,148.0,OK,18.5,7.8,1.0,148.0
-Semenyo,Man City,MID,8.5,202.0,OK,23.76,10.6,1.0,202.0
+Semenyo,Man City,MID,8.5,202.0,OK,23.76,10.6,1.08,218.16
 Tzolis,Arsenal,MID,6.5,136.0,OK,20.92,7.2,1.0,136.0
 Rogers,Chelsea,MID,7.5,169.0,OK,22.53,8.9,1.0,169.0
 Rice,Arsenal,MID,7.5,184.0,OK,24.53,9.7,1.0,184.0
@@ -100,10 +100,10 @@ Groß,Brighton,MID,5.5,78.0,OK,14.18,4.1,1.0,78.0
 Wirtz,Liverpool,MID,7.5,125.0,OK,16.67,6.6,1.0,125.0
 Hughes,Crystal Palace,MID,4.5,45.0,OK,10.0,2.4,1.0,45.0
 Gibbs-White,Nott'm Forest,MID,8.0,188.0,OK,23.5,9.9,1.0,188.0
-Palmer,Chelsea,MID,9.5,114.0,OK,12.0,6.0,1.0,114.0
+Palmer,Chelsea,MID,9.5,114.0,OK,12.0,6.0,1.08,123.12
 Cunha,Man Utd,MID,8.0,143.0,OK,17.88,7.5,1.0,143.0
 E.Le Fée,Sunderland,MID,6.0,147.0,OK,24.5,7.7,1.0,147.0
-Saka,Arsenal,MID,9.5,157.0,OK,16.53,8.3,1.0,157.0
+Saka,Arsenal,MID,9.5,157.0,OK,16.53,8.3,1.08,169.56
 Ødegaard,Arsenal,MID,6.5,74.0,OK,11.38,3.9,1.0,74.0
 Cherki,Man City,MID,7.5,135.0,OK,18.0,7.1,1.0,135.0
 Anderson,Man City,MID,6.5,180.0,OK,27.69,9.5,1.0,180.0
@@ -126,7 +126,7 @@ Rayan,Bournemouth,MID,6.5,67.0,OK,10.31,3.5,1.0,67.0
 Tielemans,Man Utd,MID,6.0,68.0,OK,11.33,3.6,1.0,68.0
 Eze,Arsenal,MID,6.5,113.0,OK,17.38,5.9,1.0,113.0
 Gravenberch,Liverpool,MID,6.0,144.0,OK,24.0,7.6,1.0,144.0
-Fernandes,Spurs,MID,6.0,235.0,OK,39.17,12.4,1.0,235.0
+Fernandes,Spurs,MID,6.0,135.0,OK,22.5,7.1,1.0,135.0
 Mac Allister,Liverpool,MID,5.5,108.0,OK,19.64,5.7,1.0,108.0
 Tavernier,Bournemouth,MID,6.0,137.0,OK,22.83,7.2,1.0,137.0
 Reed,Fulham,MID,4.5,15.0,OK,3.33,0.8,1.0,15.0
@@ -146,10 +146,10 @@ O.Dango,Brentford,MID,6.5,136.0,OK,20.92,7.2,1.0,136.0
 Ngumoha,Liverpool,MID,6.0,43.0,OK,7.17,2.3,1.0,43.0
 Zubimendi,Arsenal,MID,5.5,133.0,OK,24.18,7.0,1.0,133.0
 Stach,Leeds,MID,6.0,137.0,OK,22.83,7.2,1.0,137.0
-Haaland,Man City,FWD,15.5,239.0,OK,15.42,12.6,1.1,262.9
-João Pedro,Chelsea,FWD,7.5,177.0,OK,23.6,9.3,1.0,177.0
+Haaland,Man City,FWD,15.5,239.0,OK,15.42,12.6,1.2,286.8
+João Pedro,Chelsea,FWD,7.5,177.0,OK,23.6,9.3,1.08,191.16
 Calvert-Lewin,Leeds,FWD,6.0,142.0,OK,23.67,7.5,1.0,142.0
-Thiago,Brentford,FWD,8.0,181.0,OK,22.62,9.5,1.0,181.0
+Thiago,Brentford,FWD,8.0,181.0,OK,22.62,9.5,1.08,195.48
 Isak,Liverpool,FWD,9.0,41.0,OK,4.56,2.2,1.0,41.0
 Brobbey,Sunderland,FWD,6.0,92.0,OK,15.33,4.8,1.0,92.0
 Watkins,Aston Villa,FWD,8.0,167.0,OK,20.88,8.8,1.0,167.0

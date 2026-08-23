@@ -25,17 +25,17 @@
 
 --- STARTING XI (Final Score Maximized) ---
     Surname          Team Position  Price  Final_Score  Effective_FDR_Horizon_5GW
-       Raya       Arsenal      GKP    6.0     0.143279                1172.190476
-    Gabriel       Arsenal      DEF    8.0     0.184868                1172.190476
+   Kelleher     Brentford      GKP    5.0     0.127258                1164.952381
+    Gabriel       Arsenal      DEF    8.0     0.199131                1172.190476
+     Virgil     Liverpool      DEF    6.5     0.161807                1121.333333
       Guéhi      Man City      DEF    6.0     0.156388                1186.666667
-     Senesi         Spurs      DEF    6.0     0.153924                1178.761905
-B.Fernandes       Man Utd      MID   12.0     0.226719                1074.809524
-  Fernandes         Spurs      MID    6.0     0.222480                1117.761905
-    Semenyo      Man City      MID    8.5     0.183443                1155.238095
+B.Fernandes       Man Utd      MID   12.0     0.270448                1074.809524
+    Semenyo      Man City      MID    8.5     0.197431                1155.238095
        Rice       Arsenal      MID    7.5     0.174090                1118.904762
 Gibbs-White Nott'm Forest      MID    8.0     0.169745                1163.095238
-     Thiago     Brentford      FWD    8.0     0.172684                1115.619048
- João Pedro       Chelsea      FWD    7.5     0.161717                1134.761905
+   Anderson      Man City      MID    6.5     0.161568                1155.238095
+     Thiago     Brentford      FWD    8.0     0.185664                1115.619048
+ João Pedro       Chelsea      FWD    7.5     0.174195                1134.761905
 
 --- BENCH (Potency & Cost Optimized) ---
   Surname          Team Position  Price  Final_Score  Effective_FDR_Horizon_5GW
@@ -46,7 +46,7 @@ van Ewijk Coventry City      DEF    4.0     0.077277                1180.428571
 
 -------------------------------------------
 Total Squad Cost:          £100.0m
-Projected Starting Score:    1.95
+Projected Starting Score:    1.98
 Money in the Bank:         £0.0m
 -------------------------------------------
 

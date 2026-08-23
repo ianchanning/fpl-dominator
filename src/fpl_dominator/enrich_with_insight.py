@@ -73,10 +73,31 @@ def inject_bayesian_prior_baseline(
 
         # Search match by normalized surname + position
         match = prior_df[(prior_df["norm_surname"] == norm_s) & (prior_df["Position"] == pos)]
-        if match.empty:
-            match = prior_df[(prior_df["norm_fullname"].str.contains(norm_s, na=False)) & (prior_df["Position"] == pos)]
+        if match.empty or len(match) > 1:
+            fullname_match = prior_df[(prior_df["norm_fullname"].str.contains(norm_s, na=False)) & (prior_df["Position"] == pos)]
+            if not fullname_match.empty:
+                match = fullname_match
 
         if not match.empty:
+            if len(match) > 1:
+                # If initial prefix present in surname (e.g. B.Fernandes vs M.Fernandes)
+                if "." in surname:
+                    init = surname.split(".")[0].lower()
+                    init_match = match[match["FullName"].str.lower().str.startswith(init)]
+                    if not init_match.empty:
+                        match = init_match
+                # Check team match
+                team = str(row.get("Team", ""))
+                team_match = match[match["Team"] == team]
+                if not team_match.empty:
+                    match = team_match
+                # Price-tier tiebreaker
+                if len(match) > 1:
+                    if price >= 9.0:
+                        match = match.sort_values(by="TotalPoints", ascending=False)
+                    else:
+                        match = match.sort_values(by="TotalPoints", ascending=True)
+
             prior_tp = float(match.iloc[0]["TotalPoints"])
             matched_count += 1
         else:
@@ -125,10 +146,10 @@ def enrich_with_insight(gameweek_dir: str):
     except (FileNotFoundError, yaml.YAMLError) as e:
         print(f"!!! WARNING: Could not load or parse config.yaml: {e}. Using default fallbacks.")
         CAPTAINCY_TIERS = {
-            "Gods": {"players": ["Haaland", "M.Salah"], "coefficient": 1.1},
+            "Gods": {"players": ["Haaland", "B.Fernandes", "Bruno Fernandes"], "coefficient": 1.20},
             "Demigods": {
-                "players": ["João Pedro", "Ekitiké", "Enzo", "Calafiori", "Chalobah"],
-                "coefficient": 1.0,
+                "players": ["Semenyo", "João Pedro", "Gabriel", "Saka", "Palmer", "Thiago"],
+                "coefficient": 1.08,
             },
         }
         FORM_LOOKBACK = 2
@@ -192,10 +213,18 @@ def enrich_with_insight(gameweek_dir: str):
             player_list = tier_data.get("players", [])
             coef = tier_data.get("coefficient", 1.0)
 
-            # Find the indices of players in this tier
-            tier_indices = players[players["Surname"].isin(player_list)].index
+            tier_mask = pd.Series(False, index=players.index)
+            for p in player_list:
+                if p == "Palmer":
+                    # Disambiguate Cole Palmer (MID) from GKP Palmer
+                    tier_mask = tier_mask | ((players["Surname"] == "Palmer") & (players["Position"] == "MID"))
+                elif p in ["B.Fernandes", "Bruno Fernandes"]:
+                    tier_mask = tier_mask | (players["Surname"].isin(["B.Fernandes", "Bruno Fernandes"]))
+                    tier_mask = tier_mask | ((players["Surname"] == "Fernandes") & (players["Team"] == "Man Utd"))
+                else:
+                    tier_mask = tier_mask | (players["Surname"] == p) | (players["Surname"].str.contains(p, na=False))
 
-            # Apply the coefficient
+            tier_indices = players[tier_mask].index
             players.loc[tier_indices, "Captaincy_Coef"] = coef
             print(
                 f"    - Anointing {len(tier_indices)} players as {tier_name} (Coef {coef})."
