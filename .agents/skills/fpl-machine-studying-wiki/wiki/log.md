@@ -45,6 +45,13 @@ This file is an append-only timeline of all knowledge base updates, source inges
 - Generated `archive/2025-26/set_pieces_detailed_2025_26.csv` and derived empirical `set_pieces.csv` across all 20 Premier League clubs.
 - Added `bamf process-set-pieces` command to CLI deck.
 
+## [2026-08-23] feature | Bayesian Prior Cold Start Synthesis & GW1 Finalization
+- Implemented `inject_bayesian_prior_baseline()` in `src/fpl_dominator/enrich_with_insight.py` with dynamic decay $\alpha_t = \max(0, 1 - \frac{t-1}{5})$.
+- Matched 156 historical players directly to 2025/26 actuals via normalized surname & position joining; imputed 47 new/promoted assets via position PPM benchmarks.
+- Reconciled market prices defensively in `update_prices.py` and `process_players_html.py`.
+- Successfully executed `bamf finalize gw1`, forging `gw1/squad_prophecy.md` and complete intermediate databases.
+
+
 
 
 
