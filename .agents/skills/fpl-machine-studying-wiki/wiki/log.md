@@ -51,6 +51,12 @@ This file is an append-only timeline of all knowledge base updates, source inges
 - Reconciled market prices defensively in `update_prices.py` and `process_players_html.py`.
 - Successfully executed `bamf finalize gw1`, forging `gw1/squad_prophecy.md` and complete intermediate databases.
 
+## [2026-08-23] config | Recalibrate Pantheon Captaincy Tiers & Harden Namesake Disambiguation
+- Updated `config.yaml` with 2026/27 empirical hierarchy: Gods (`Haaland`, `B.Fernandes` @ `1.20x`), Demigods (`Semenyo`, `João Pedro`, `Gabriel`, `Saka`, `Palmer`, `Thiago` @ `1.08x`), purging Salah.
+- Hardened `enrich_with_insight.py` with collision-resistant matching respecting initials (`B.Fernandes` vs `M.Fernandes`), club membership, and positional roles (`Cole Palmer` MID vs `Palmer` GKP).
+- Finalized initial `gw2/` vault baseline with live GW2–GW6 fixture schedule.
+
+
 
 
 
