@@ -1,9 +1,109 @@
 import os
 import sys
 import re
-from typing import List, Dict, Any, cast
+import unicodedata
+from typing import List, Dict, Any, cast, Optional
 import pandas as pd
 import yaml
+
+POSITION_PPM_BENCHMARKS = {
+    "GKP": 24.0,  # e.g., £4.5m -> ~108 pts
+    "DEF": 22.0,  # e.g., £4.5m -> ~99 pts, £6.0m -> ~132 pts
+    "MID": 21.0,  # e.g., £5.5m -> ~115 pts, £10.0m -> ~210 pts
+    "FWD": 20.0,  # e.g., £6.0m -> ~120 pts, £14.0m -> ~280 pts
+}
+
+
+def normalize_name(name: str) -> str:
+    """Normalizes player names for robust cross-season joining."""
+    if not isinstance(name, str):
+        return ""
+    # Strip diacritics / accents
+    s = unicodedata.normalize("NFKD", name).encode("ASCII", "ignore").decode("utf-8")
+    # Strip leading initials (e.g., 'A.Becker' -> 'Becker', 'M.Salah' -> 'Salah')
+    s = re.sub(r"^[A-Z]\.\s*", "", s)
+    # Strip parentheticals (e.g., 'Aina (Ola)' -> 'Aina')
+    s = re.sub(r"\s*\(.*?\)", "", s)
+    # Lowercase alphabetic only
+    return re.sub(r"[^a-zA-Z]", "", s.lower())
+
+
+def inject_bayesian_prior_baseline(
+    players_df: pd.DataFrame,
+    current_gw: int,
+    prior_stats_path: str = "archive/2025-26/fpl_player_stats_2025_26.csv"
+) -> pd.DataFrame:
+    """
+    Applies the Bayesian Cold Start & Season Transition Protocol (P4).
+    Blends prior season performance truth with early season actuals via alpha_t decay.
+    """
+    # Compute decay parameter: alpha_t = max(0, 1 - (t - 1) / 5)
+    if current_gw <= 0:
+        alpha_t = 1.0
+    elif current_gw >= 6:
+        alpha_t = 0.0
+    else:
+        alpha_t = max(0.0, 1.0 - (current_gw - 1) / 5.0)
+
+    if alpha_t <= 0.0:
+        print(f"[+] Gameweek {current_gw} >= 6: Operating on 100% current season performance (alpha=0.0).")
+        return players_df
+
+    print(f"[+] Applying Bayesian Prior Cold Start (GW{current_gw}, alpha={alpha_t:.2f})...")
+    if not os.path.exists(prior_stats_path):
+        print(f"!!! WARNING: Prior season statistics not found at '{prior_stats_path}'. Skipping prior injection.")
+        return players_df
+
+    prior_df = pd.read_csv(prior_stats_path)
+    prior_df["norm_surname"] = prior_df["Surname"].apply(normalize_name)
+    prior_df["norm_fullname"] = prior_df["FullName"].apply(normalize_name)
+
+    matched_count = 0
+    imputed_count = 0
+
+    effective_tps = []
+    form_factors = []
+
+    for _, row in players_df.iterrows():
+        surname = str(row["Surname"])
+        norm_s = normalize_name(surname)
+        pos = str(row["Position"])
+        price = float(row.get("Price", 5.0))
+        raw_current_tp = float(row.get("TP", 0.0))
+
+        # Search match by normalized surname + position
+        match = prior_df[(prior_df["norm_surname"] == norm_s) & (prior_df["Position"] == pos)]
+        if match.empty:
+            match = prior_df[(prior_df["norm_fullname"].str.contains(norm_s, na=False)) & (prior_df["Position"] == pos)]
+
+        if not match.empty:
+            prior_tp = float(match.iloc[0]["TotalPoints"])
+            matched_count += 1
+        else:
+            # Impute based on Price * Position Benchmark
+            ppm_benchmark = POSITION_PPM_BENCHMARKS.get(pos, 21.0)
+            prior_tp = round(price * ppm_benchmark)
+            imputed_count += 1
+
+        # Synthesize Effective Total Points
+        if current_gw <= 1:
+            effective_tp = prior_tp
+            form_factor = round(prior_tp * (2.0 / 38.0), 1)
+        else:
+            # Scale current in-season points to 38-game equivalent
+            annualized_current_tp = raw_current_tp * (38.0 / (current_gw - 1))
+            effective_tp = round(alpha_t * prior_tp + (1.0 - alpha_t) * annualized_current_tp)
+            form_factor = raw_current_tp
+
+        effective_tps.append(effective_tp)
+        form_factors.append(form_factor)
+
+    players_df["TP"] = effective_tps
+    players_df["PPM"] = (players_df["TP"] / players_df["Price"]).round(2)
+    players_df["Form_Factor"] = form_factors
+
+    print(f"    - Prior baseline synthesized: {matched_count} historical matches, {imputed_count} imputed assets.")
+    return players_df
 
 
 def enrich_with_insight(gameweek_dir: str):
@@ -20,19 +120,18 @@ def enrich_with_insight(gameweek_dir: str):
         
         insight_config = config.get("enrich_insight", {})
         CAPTAINCY_TIERS = insight_config.get("captaincy_tiers", {})
-        FORM_LOOKBACK = insight_config.get("form_lookback_weeks", 6)
+        FORM_LOOKBACK = insight_config.get("form_lookback_weeks", 2)
         print("[+] Master configuration loaded.")
     except (FileNotFoundError, yaml.YAMLError) as e:
         print(f"!!! WARNING: Could not load or parse config.yaml: {e}. Using default fallbacks.")
-        # Define hardcoded fallbacks in case config is missing/broken
         CAPTAINCY_TIERS = {
-            "Gods": {"players": ["Haaland", "M.Salah"], "coefficient": 1.5},
+            "Gods": {"players": ["Haaland", "M.Salah"], "coefficient": 1.1},
             "Demigods": {
                 "players": ["João Pedro", "Ekitiké", "Enzo", "Calafiori", "Chalobah"],
-                "coefficient": 1.2,
+                "coefficient": 1.0,
             },
         }
-        FORM_LOOKBACK = 6
+        FORM_LOOKBACK = 2
 
     # --- Configuration ---
     SOURCE_DB_PATH = f"{gameweek_dir}/fpl_master_database_enriched.csv"
@@ -53,27 +152,20 @@ def enrich_with_insight(gameweek_dir: str):
         print(f"!!! CRITICAL FAILURE: Could not read the database. Error: {e}")
         return False
 
-    # === FORM FACTOR CALCULATION (Phase 6) ===
-    print("[+] Calculating Form Factor...")
-    try:
-        current_gw_match = re.search(r"\d+", gameweek_dir)
-        if current_gw_match:
-            current_gw = int(current_gw_match.group())
-        else:
-            print(
-                f"    - WARNING: Could not extract gameweek number from '{gameweek_dir}'. Defaulting to early gameweek logic."
-            )
-            current_gw = (
-                0
-            )
+    # Extract gameweek number
+    current_gw_match = re.search(r"\d+", gameweek_dir)
+    current_gw = int(current_gw_match.group()) if current_gw_match else 1
 
+    # === BAYESIAN PRIOR & FORM SYNTHESIS ===
+    players = inject_bayesian_prior_baseline(players, current_gw)
+
+    # If GW >= 6, calculate rolling Form Factor from past GWs
+    if current_gw >= 6:
         past_gw = current_gw - FORM_LOOKBACK
-
         if past_gw > 0:
             past_db_path = f"gw{past_gw}/fpl_master_database_enriched.csv"
             if os.path.exists(past_db_path):
                 df_past = pd.read_csv(past_db_path)
-
                 players = pd.merge(
                     players,
                     df_past[["Surname", "Team", "TP"]],
@@ -81,36 +173,16 @@ def enrich_with_insight(gameweek_dir: str):
                     how="left",
                     suffixes=("", "_past"),
                 )
-
                 players["TP_past"] = players["TP_past"].fillna(0)
                 players["Form_Factor"] = players["TP"] - players["TP_past"]
                 players.drop(columns=["TP_past"], inplace=True)
-                print(
-                    f"    - Form Factor calculated based on performance since GW{past_gw}."
-                )
-
+                print(f"    - Form Factor calculated based on performance since GW{past_gw}.")
             else:
-                print(
-                    f"    - WARNING: Past gameweek data not found at '{past_db_path}'. Assigning default form."
-                )
-                players["Form_Factor"] = players[
-                    "TP"
-                ]
+                players["Form_Factor"] = players["TP"]
         else:
-            print(
-                "    - INFO: Not enough historical data to calculate form. Assigning default form."
-            )
-            players["Form_Factor"] = players[
-                "TP"
-            ]
+            players["Form_Factor"] = players["TP"]
 
-    except Exception as e:
-        print(
-            f"    - WARNING: Could not calculate form factor. Error: {e}. Assigning default value 0."
-        )
-        players["Form_Factor"] = 0
-
-    # 1. Create the 'Captaincy_Coef' column, defaulting all players to "Mortal"
+    # 1. Initialize all players as Mortals (Coef 1.0)
     players["Captaincy_Coef"] = 1.0
     print("[+] All players initialized as Mortals (Coef 1.0).")
 

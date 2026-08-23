@@ -218,6 +218,26 @@ def process_players_for_gameweek(gameweek_dir: str):
         print(f"[+] Processing {squad_html}...")
         squad_df = parse_squad_html(squad_html)
         if not squad_df.empty:
+            # If squad prices are 0, match with market position files
+            market_dfs = []
+            for _, csv_file, _ in pos_mappings:
+                p_path = os.path.join(gameweek_dir, csv_file)
+                if os.path.exists(p_path):
+                    market_dfs.append(pd.read_csv(p_path))
+            
+            if market_dfs:
+                all_market = pd.concat(market_dfs, ignore_index=True)
+                price_map = all_market.set_index(["Surname", "Position"])["Price"].to_dict()
+                
+                for idx, row in squad_df.iterrows():
+                    if row.get("PP", 0.0) <= 0.0:
+                        key = (row["Surname"], row["Position"])
+                        m_price = price_map.get(key, 0.0)
+                        if m_price > 0.0:
+                            squad_df.loc[idx, "CP"] = m_price
+                            squad_df.loc[idx, "SP"] = m_price
+                            squad_df.loc[idx, "PP"] = m_price
+
             squad_df.to_csv(squad_csv, index=False)
             print(f"    - SUCCESS: {squad_csv} forged with {len(squad_df)} squad members.")
         else:

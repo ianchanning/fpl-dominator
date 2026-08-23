@@ -54,7 +54,18 @@ def reconcile_timeline(gameweek_dir):
 
         # March through our squad and rewrite history.
         for squad_row in reader:
-            surname, _, position, _, _, purchase_price, _ = squad_row
+            if len(squad_row) < 6:
+                continue
+            surname, _, position, _, _, purchase_price_str, *_ = squad_row
+
+            try:
+                purchase_price = float(purchase_price_str)
+            except (ValueError, TypeError):
+                purchase_price = 0.0
+
+            # Guard: Only reconcile if we have a valid, non-zero purchase price
+            if purchase_price <= 0.0:
+                continue
 
             # Determine the target market file's base name.
             target_filename = POSITION_MAP.get(position)
