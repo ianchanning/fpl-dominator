@@ -32,4 +32,12 @@ This file is an append-only timeline of all knowledge base updates, source inges
 - Extracted all 491 players to `archive/2025-26/fpl_player_stats_2025_26.csv` with calculated `Pts_per_90` and normalized canonical team TLAs.
 - Added `bamf process-prior-season` to master CLI deck.
 
+## [2026-08-23] refactor | Purge Legacy PuLP & Unify Sovereign Pyomo Engine
+- Purged `pulp` from `pyproject.toml` dependencies.
+- Consolidated `src/fpl_dominator/chimera_pyomo_v2.py` with standalone Set-Piece Potency enrichment and Final Score calculation.
+- Streamlined `src/fpl_dominator/commander.py` to execute exclusively via Pyomo and GLPK solver (`glpsol`).
+- Removed `chimera_final_form_v5_production.py` and archived `chimera_scenarios.py`.
+- Unified solver configuration parameters in `config.yaml` under `pyomo_solver`.
+
+
 
