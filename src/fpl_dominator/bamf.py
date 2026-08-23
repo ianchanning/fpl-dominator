@@ -14,6 +14,7 @@ from .forge_cauldron import forge_cauldron
 from .grand_synthesis import perform_grand_synthesis
 from .process_fixtures_html import create_fixture_csv_from_html
 from .process_players_html import process_players_for_gameweek  # NEW IMPORT
+from .process_prior_season_html import parse_prior_season_html
 from .update_prices import reconcile_timeline
 
 # We'll need a new function for our scenario runner, let's pretend it exists
@@ -184,6 +185,34 @@ def process_players(gameweek_dir):
     click.secho(
         f"--- FPL Player HTML Processing Complete for {gameweek_dir.upper()} ---",
         fg="green",
+    )
+
+
+@bamf.command(name="process-prior-season")
+@click.option(
+    "--html",
+    "-h",
+    default="archive/2025-26/fpl_player_stats.html",
+    show_default=True,
+    help="Path to prior season full statistics HTML file.",
+)
+@click.option(
+    "--output",
+    "-o",
+    default="archive/2025-26/fpl_player_stats_2025_26.csv",
+    show_default=True,
+    help="Target path for output CSV.",
+)
+def process_prior_season(html, output):
+    """
+    Parses prior season full aggregate HTML dump and builds historical baseline CSV.
+    """
+    click.secho(f"--- Processing Prior Season HTML: {html} ---", fg="cyan", bold=True)
+    df = parse_prior_season_html(html, output)
+    click.secho(
+        f"--- Successfully forged {len(df)} player prior season records at '{output}' ---",
+        fg="green",
+        bold=True,
     )
 
 

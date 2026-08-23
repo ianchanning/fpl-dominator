@@ -1,0 +1,492 @@
+Surname,FullName,Team_TLA,Team,Team_Full,Position,App,Starts,Mins,SubOn,SubOff,Goals,Assists,CleanSheets,GoalsConceded,OwnGoals,PenSaves,Saves,YellowCards,RedCards,Bonus,DoubleDigitHauls,TotalPoints,Mins_per_Pt,Pts_per_Start,Pts_per_90,Slug
+Haaland,Erling Haaland,MCI,Man City,Man City,FWD,35,34,2955,1,8,27,8,13,32,0,0,0,2,0,43,10,239,12.4,7.0,7.28,/player-profiles/erling-haaland/
+Bruno Fernandes,Bruno Miguel Borges Fernandes,MUN,Man Utd,Manchester United,MID,35,35,3062,0,6,9,24,7,46,0,0,0,5,0,41,12,235,13.0,6.7,6.91,/player-profiles/bruno-miguel-borges-fernandes/
+Gabriel Magalhães,Gabriel dos Santos Magalhães,ARS,Arsenal,Arsenal,DEF,32,30,2754,2,1,3,5,18,20,0,0,0,4,0,30,6,209,13.2,6.9,6.83,/player-profiles/gabriel-dos-santos-magalhaes/
+Semenyo,Antoine Semenyo,MCI,Man City,Man City,MID,37,37,3200,0,10,17,6,12,52,0,0,0,7,0,18,5,202,15.8,5.5,5.68,/player-profiles/antoine-semenyo/
+Gibbs-White,Morgan Gibbs-White,NFO,Nott'm Forest,Nottingham Forest,MID,37,35,3090,2,16,15,4,10,45,0,0,0,1,0,18,3,188,16.4,5.2,5.48,/player-profiles/morgan-gibbs-white/
+Bowen,Jarrod Bowen,WHU,West Ham,West Ham United,FWD,38,38,3402,0,6,9,13,8,63,0,0,0,5,0,28,4,187,18.2,4.9,4.95,/player-profiles/jarrod-bowen/
+Rice,Declan Rice,ARS,Arsenal,Arsenal,MID,36,35,3093,1,6,4,9,18,25,0,0,0,3,0,23,4,184,16.8,5.2,5.35,/player-profiles/declan-rice/
+Thiago,Igor Thiago Nascimento Rodrigues,BRE,Brentford,Brentford,FWD,38,37,3282,1,7,22,1,10,50,0,0,0,7,0,22,6,181,18.1,4.9,4.96,/player-profiles/igor-thiago-nascimento-rodrigues/
+Anderson (Elliot),Elliot Anderson,NFO,Nott'm Forest,Nottingham Forest,MID,38,37,3332,1,4,4,5,10,50,0,0,0,8,0,16,3,180,18.5,4.8,4.86,/player-profiles/elliot-anderson/
+Marc Guehi,Addji Keaninkin Marc-Israel Guehi,MCI,Man City,Man City,DEF,35,35,3150,0,0,3,5,14,35,0,0,0,6,0,14,4,179,17.6,5.1,5.11,/player-profiles/addji-keaninkin-marc-israel-guehi/
+João Pedro,João Pedro Junqueira de Jesus,CHE,Chelsea,Chelsea,FWD,35,31,2655,4,17,15,9,10,36,0,0,0,5,0,30,5,177,15.0,5.3,6.0,/player-profiles/joao-pedro-junqueira-de-jesus/
+Senesi,Marcos Senesi,BOU,Bournemouth,Bournemouth,DEF,37,37,3285,0,2,0,6,11,53,0,0,0,8,0,14,4,175,18.8,4.7,4.79,/player-profiles/marcos-senesi/
+van Dijk,Virgil van Dijk,LIV,Liverpool,Liverpool,DEF,38,38,3420,0,0,6,1,10,53,0,0,0,4,0,10,3,175,19.5,4.6,4.61,/player-profiles/virgil-van-dijk/
+Tarkowski,James Tarkowski,EVE,Everton,Everton,DEF,37,37,3330,0,0,2,3,11,48,0,0,0,8,0,12,3,170,19.6,4.6,4.59,/player-profiles/james-tarkowski/
+Rogers,Morgan Rogers,AVL,Aston Villa,Aston Villa,MID,37,37,3279,0,5,10,8,9,48,0,0,0,7,0,17,5,169,19.4,4.6,4.64,/player-profiles/morgan-rogers/
+Wilson (Harry),Harry Wilson,FUL,Fulham,Fulham,MID,36,32,2692,4,24,10,9,9,38,0,0,0,7,0,21,5,168,16.0,5.0,5.62,/player-profiles/harry-wilson/
+Watkins,Ollie Watkins,AVL,Aston Villa,Aston Villa,FWD,37,33,2848,4,20,16,4,9,38,0,0,0,4,0,26,5,167,17.1,4.6,5.28,/player-profiles/ollie-watkins/
+Casemiro,Carlos Henrique Jose Francisco Venancio,MUN,Man Utd,Manchester United,MID,34,33,2568,1,19,9,4,9,31,0,0,0,9,1,20,4,165,15.6,5.0,5.78,/player-profiles/carlos-henrique-jose-francisco-venancio/
+Truffert,Adrien Truffert,BOU,Bournemouth,Bournemouth,DEF,38,38,3379,0,2,1,6,11,51,0,0,0,5,0,19,3,165,20.5,4.3,4.39,/player-profiles/adrien-truffert/
+Raya Martin,David Raya Martin,ARS,Arsenal,Arsenal,GKP,37,37,3330,0,0,0,0,19,26,0,0,60,1,0,11,2,162,20.6,4.4,4.38,/player-profiles/david-raya-martin/
+O’Reilly,Nico O’Reilly,MCI,Man City,Manchester City,DEF,34,29,2665,5,7,5,4,14,25,0,0,0,5,0,10,5,160,16.7,5.4,5.4,/player-profiles/nico-oreilly/
+Szoboszlai,Dominik Szoboszlai,LIV,Liverpool,Liverpool,MID,36,36,3231,0,1,6,7,9,52,0,0,0,8,1,21,5,160,20.2,4.4,4.46,/player-profiles/dominik-szoboszlai/
+Garner,James Garner,EVE,Everton,Everton,MID,38,38,3413,0,1,2,7,11,50,0,0,0,12,0,13,3,159,21.5,4.2,4.19,/player-profiles/james-garner/
+Saka,Bukayo Saka,ARS,Arsenal,Arsenal,MID,31,25,2240,6,10,7,10,12,16,0,0,0,2,0,18,5,157,14.3,5.7,6.31,/player-profiles/bukayo-saka/
+Fernández (Enzo),Enzo Fernández,CHE,Chelsea,Chelsea,MID,36,35,3115,1,7,10,5,8,46,0,0,0,10,0,19,5,157,19.8,4.5,4.54,/player-profiles/enzo-fernandez/
+Bruno Guimarães,Bruno Guimarães Rodriguez Moura,NEW,Newcastle,Newcastle United,MID,29,27,2459,2,8,9,7,6,37,0,0,0,6,0,22,8,154,16.0,5.4,5.64,/player-profiles/bruno-guimaraes-rodriguez-moura/
+Matheus Nunes,Matheus Luiz Nunes,MCI,Man City,Manchester City,DEF,34,32,2866,2,4,1,8,12,28,0,0,0,5,0,16,5,154,18.6,4.8,4.84,/player-profiles/matheus-luiz-nunes/
+Lacroix,Maxence Lacroix,CRY,Crystal Palace,Crystal Palace,DEF,35,35,3085,0,1,1,2,11,45,0,0,0,4,1,11,4,154,20.0,4.4,4.49,/player-profiles/maxence-lacroix/
+Dewsbury-Hall,Kiernan Dewsbury-Hall,EVE,Everton,Everton,MID,31,30,2619,1,12,8,7,8,39,0,0,0,6,0,18,4,151,17.3,5.0,5.19,/player-profiles/kiernan-dewsbury-hall/
+Mukiele,Nordi Mukiele,SUN,Sunderland,Sunderland,DEF,32,32,2779,0,3,3,5,9,40,1,0,0,5,0,11,5,151,18.4,4.7,4.89,/player-profiles/nordi-mukiele/
+Jurriën Timber,Jurriën Timber,ARS,Arsenal,Arsenal,DEF,30,28,2460,2,5,3,6,13,20,0,0,0,5,0,9,3,149,16.5,5.3,5.45,/player-profiles/jurrien-timber/
+Mbeumo,Bryan Mbeumo,MUN,Man Utd,Manchester United,MID,33,31,2613,2,18,11,3,8,37,0,0,0,4,0,16,3,148,17.7,4.7,5.1,/player-profiles/bryan-mbeumo/
+van Hecke,Jan-Paul van Hecke,BHA,Brighton,Brighton and Hove Albion,DEF,36,36,3210,0,1,3,3,10,44,1,0,0,9,0,8,2,148,21.7,4.1,4.15,/player-profiles/jan-paul-van-hecke/
+Le Fée,Enzo Le Fée,SUN,Sunderland,Sunderland,MID,36,33,2951,3,8,5,6,10,43,0,0,0,5,0,16,4,147,20.1,4.4,4.48,/player-profiles/enzo-le-fee/
+Gravenberch,Ryan Gravenberch,LIV,Liverpool,Liverpool,MID,36,34,2997,2,6,5,5,9,42,0,0,0,5,0,17,4,144,20.8,4.2,4.32,/player-profiles/ryan-gravenberch/
+Matheus Cunha,Matheus Santos Carneiro Da Cunha,MUN,Man Utd,Manchester United,MID,33,29,2512,4,13,10,4,8,35,0,0,0,4,0,14,0,143,17.6,4.4,5.12,/player-profiles/matheus-santos-carneiro-da-cunha/
+Kelleher,Caoimhin Kelleher,BRE,Brentford,Brentford,GKP,37,37,3330,0,0,0,0,10,49,0,3,110,1,0,11,3,143,23.3,3.9,3.86,/player-profiles/caoimhin-kelleher/
+Calvert-Lewin,Dominic Calvert-Lewin,LEE,Leeds,Leeds United,FWD,35,30,2734,5,13,14,2,8,34,0,0,0,3,0,20,2,142,19.3,4.4,4.67,/player-profiles/dominic-calvert-lewin/
+Stach,Anton Stach,LEE,Leeds,Leeds United,MID,29,28,2350,1,9,5,6,7,36,0,0,0,3,0,14,4,137,17.2,4.9,5.25,/player-profiles/anton-stach/
+Saliba,William Saliba,ARS,Arsenal,Arsenal,DEF,31,30,2614,1,2,1,0,15,20,0,0,0,2,0,12,2,137,19.1,4.5,4.72,/player-profiles/william-saliba/
+Tavernier,Marcus Tavernier,BOU,Bournemouth,Bournemouth,MID,34,31,2742,3,16,7,4,11,44,0,0,0,6,0,14,4,137,20.0,4.3,4.5,/player-profiles/marcus-tavernier/
+Dango Ouattara,Dango Ouattara,BRE,Brentford,Brentford,MID,32,25,2312,7,13,7,8,6,35,0,0,0,5,0,16,5,136,17.0,5.2,5.29,/player-profiles/dango-ouattara/
+Muñoz,Daniel Muñoz,CRY,Crystal Palace,Crystal Palace,DEF,29,29,2393,0,7,4,4,10,33,0,0,0,7,0,9,3,136,17.6,4.7,5.11,/player-profiles/daniel-munoz/
+Chalobah,Trevoh Chalobah,CHE,Chelsea,Chelsea,DEF,34,31,2796,3,1,3,1,9,37,0,0,0,3,1,7,2,136,20.6,4.3,4.38,/player-profiles/trevoh-chalobah/
+Scott,Alex Scott,BOU,Bournemouth,Bournemouth,MID,37,34,2861,3,15,3,2,11,41,0,0,0,5,0,9,2,136,21.0,3.9,4.28,/player-profiles/alex-scott/
+Roefs,Robin Roefs,SUN,Sunderland,Sunderland,GKP,35,35,3150,0,0,0,0,10,46,0,1,109,4,0,12,3,136,23.2,3.9,3.89,/player-profiles/robin-roefs/
+Cherki,Rayan Cherki,MCI,Man City,Manchester City,MID,33,19,1866,14,14,4,13,8,18,0,0,0,1,0,16,5,135,13.8,5.8,6.51,/player-profiles/rayan-cherki/
+Mateus Fernandes,Mateus Gonçalo Espanha Fernandes,WHU,West Ham,West Ham United,MID,36,35,3020,1,12,3,4,8,50,0,0,0,7,0,7,0,135,22.4,3.7,4.02,/player-profiles/mateus-goncalo-espanha-fernandes/
+Donnarumma,Gianluigi Donnarumma,MCI,Man City,Manchester City,GKP,34,34,3060,0,0,0,0,15,29,0,1,78,8,0,5,0,135,22.7,4.0,3.97,/player-profiles/gianluigi-donnarumma/
+Mitchell,Tyrick Mitchell,CRY,Crystal Palace,Crystal Palace,DEF,38,36,3248,2,5,1,3,12,47,0,0,0,6,0,8,2,135,24.1,3.7,3.74,/player-profiles/tyrick-mitchell/
+Pickford,Jordan Pickford,EVE,Everton,Everton,GKP,38,38,3420,0,0,0,0,11,50,0,1,100,4,0,11,4,135,25.3,3.6,3.55,/player-profiles/jordan-pickford/
+Ampadu,Ethan Ampadu,LEE,Leeds,Leeds United,MID,35,35,3078,0,4,1,4,8,49,0,0,0,10,0,11,2,134,23.0,3.8,3.92,/player-profiles/ethan-ampadu/
+Zubimendi,Martín Zubimendi,ARS,Arsenal,Arsenal,MID,38,34,3005,4,13,5,1,16,25,0,0,0,4,0,9,3,133,22.6,3.7,3.98,/player-profiles/martin-zubimendi/
+Foden,Phil Foden,MCI,Man City,Manchester City,MID,33,23,2142,10,10,7,5,11,19,0,0,0,4,0,13,6,131,16.4,5.3,5.5,/player-profiles/phil-foden/
+Keane,Michael Keane,EVE,Everton,Everton,DEF,33,29,2611,4,1,3,1,7,42,0,0,0,1,1,8,3,131,19.9,4.4,4.52,/player-profiles/michael-keane/
+Gakpo,Cody Gakpo,LIV,Liverpool,Liverpool,MID,36,32,2742,4,16,7,5,10,39,0,0,0,3,0,5,2,131,20.9,4.0,4.3,/player-profiles/cody-gakpo/
+Henderson (Dean),Dean Henderson,CRY,Crystal Palace,Crystal Palace,GKP,37,37,3330,0,0,0,0,11,51,0,1,106,5,0,7,1,131,25.4,3.5,3.54,/player-profiles/dean-henderson/
+Verbruggen,Bart Verbruggen,BHA,Brighton,Brighton and Hove Albion,GKP,38,38,3420,0,0,0,0,10,46,1,1,106,3,0,6,1,130,26.3,3.4,3.42,/player-profiles/bart-verbruggen/
+Collins,Nathan Collins,BRE,Brentford,Brentford,DEF,35,32,2990,3,0,1,2,9,44,1,0,0,7,0,7,2,129,23.2,3.9,3.88,/player-profiles/nathan-collins/
+Konaté,Ibrahima Konaté,LIV,Liverpool,Liverpool,DEF,36,36,3088,0,10,1,0,10,45,0,0,0,7,0,8,1,129,23.9,3.6,3.76,/player-profiles/ibrahima-konate/
+Gyokeres,Viktor Gyokeres,ARS,Arsenal,Arsenal,FWD,36,26,2276,10,16,14,1,12,14,0,0,0,5,0,16,4,128,17.8,3.9,5.06,/player-profiles/viktor-gyokeres/
+Ndiaye (Iliman),Iliman Ndiaye,EVE,Everton,Everton,MID,32,32,2783,0,11,6,3,8,44,0,0,0,2,0,7,1,128,21.7,4.0,4.14,/player-profiles/iliman-ndiaye/
+Richards (Chris),Chris Richards,CRY,Crystal Palace,Crystal Palace,DEF,33,31,2839,2,1,1,0,11,42,0,0,0,4,0,5,1,128,22.2,4.1,4.06,/player-profiles/chris-richards/
+Williams (Neco),Neco Williams,NFO,Nott'm Forest,Nottingham Forest,DEF,37,36,3211,1,2,2,3,9,47,0,0,0,6,1,15,4,128,25.1,3.5,3.59,/player-profiles/neco-williams/
+Anthony,Jaidon Anthony,BUR,Burnley,Burnley,MID,37,32,2746,5,19,8,4,4,59,0,0,0,4,0,6,3,127,21.6,3.6,4.16,/player-profiles/jaidon-anthony/
+João Palhinha,João Maria Lobo Alves Palhinha Gonçalves,TOT,Spurs,Tottenham Hotspur,MID,33,23,2247,10,8,5,3,5,37,0,0,0,8,0,17,2,126,17.8,4.6,5.05,/player-profiles/joao-maria-lobo-alves-palhinha-goncalves/
+Welbeck,Danny Welbeck,BHA,Brighton,Brighton and Hove Albion,FWD,37,26,2307,11,19,13,1,10,28,0,0,0,5,0,18,3,126,18.3,3.8,4.92,/player-profiles/danny-welbeck/
+Aaronson,Brenden Aaronson,LEE,Leeds,Leeds United,MID,37,30,2477,7,28,4,8,9,32,0,0,0,3,0,5,2,126,19.7,3.9,4.58,/player-profiles/brenden-aaronson/
+Thiaw,Malick Thiaw,NEW,Newcastle,Newcastle United,DEF,35,33,2986,2,2,4,0,5,52,0,0,0,4,0,12,3,126,23.7,3.8,3.8,/player-profiles/malick-thiaw/
+Ekitiké,Hugo Ekitiké,LIV,Liverpool,Liverpool,FWD,28,21,1829,7,15,11,4,7,25,0,0,0,0,0,22,5,125,14.6,5.6,6.15,/player-profiles/hugo-ekitike/
+Wirtz,Florian Wirtz,LIV,Liverpool,Liverpool,MID,33,27,2393,6,18,5,4,10,32,0,0,0,1,0,17,4,125,19.1,4.4,4.7,/player-profiles/florian-wirtz/
+Neto,Pedro Neto,CHE,Chelsea,Chelsea,MID,34,30,2628,4,13,5,7,11,33,0,0,0,2,1,9,1,125,21.0,3.8,4.28,/player-profiles/pedro-lomba-neto/
+Schade,Kevin Schade,BRE,Brentford,Brentford,MID,35,32,2748,3,13,8,5,11,34,0,0,0,6,1,5,1,125,22.0,3.8,4.09,/player-profiles/kevin-schade/
+Alderete,Omar Alderete,SUN,Sunderland,Sunderland,DEF,33,32,2796,1,5,1,1,10,40,0,0,0,6,0,5,1,125,22.4,3.8,4.02,/player-profiles/omar-alderete/
+Xhaka,Granit Xhaka,SUN,Sunderland,Sunderland,MID,34,32,2922,2,2,1,6,9,39,0,0,0,8,0,8,1,124,23.6,3.8,3.82,/player-profiles/granit-xhaka/
+Petrovic,Dorde Petrovic,BOU,Bournemouth,Bournemouth,GKP,38,38,3420,0,0,0,0,11,54,1,0,109,3,0,5,1,124,27.6,3.3,3.26,/player-profiles/dorde-petrovic/
+Salah,Mohamed Salah,LIV,Liverpool,Liverpool,MID,27,23,2158,4,7,7,7,7,35,0,0,0,1,0,11,2,123,17.5,4.9,5.13,/player-profiles/mohamed-salah/
+Andersen,Joachim Andersen,FUL,Fulham,Fulham,DEF,33,33,2873,0,1,0,1,8,44,0,0,0,7,1,8,3,123,23.4,3.7,3.85,/player-profiles/joachim-andersen/
+Mavropanos,Konstantinos Mavropanos,WHU,West Ham,West Ham United,DEF,31,27,2544,4,0,3,0,6,43,2,0,0,2,0,5,2,122,20.9,4.4,4.32,/player-profiles/konstantinos-mavropanos/
+Leno,Bernd Leno,FUL,Fulham,Fulham,GKP,38,38,3420,0,0,0,0,9,51,1,0,98,3,0,8,1,122,28.0,3.2,3.21,/player-profiles/bernd-leno/
+Doku,Jéremy Doku,MCI,Man City,Manchester City,MID,30,19,1837,11,14,5,8,8,18,0,0,0,0,0,15,5,120,15.3,5.7,5.88,/player-profiles/jeremy-doku/
+Martinez,Emiliano Martinez,AVL,Aston Villa,Aston Villa,GKP,32,32,2835,0,1,0,1,7,39,0,1,95,2,0,11,2,120,23.6,3.8,3.81,/player-profiles/emiliano-martinez/
+Richarlison,Richarlison de Andrade,TOT,Spurs,Tottenham Hotspur,FWD,32,20,2029,12,8,11,4,7,27,0,0,0,5,0,17,1,119,17.1,4.8,5.28,/player-profiles/richarlison-de-andrade/
+Trossard,Leandro Trossard,ARS,Arsenal,Arsenal,MID,31,21,2030,10,18,6,6,11,15,0,0,0,2,0,11,3,119,17.1,4.8,5.28,/player-profiles/leandro-trossard/
+Milenkovic,Nikola Milenkovic,NFO,Nott'm Forest,Nottingham Forest,DEF,38,37,3375,1,0,0,1,9,51,1,0,0,6,0,2,0,119,28.4,3.2,3.17,/player-profiles/nikola-milenkovic/
+Kadioglu,Ferdi Kadioglu,BHA,Brighton,Brighton and Hove Albion,DEF,37,34,3149,3,4,1,2,10,41,0,0,0,6,0,7,1,118,26.7,3.4,3.37,/player-profiles/ferdi-kadioglu/
+Ismaila Sarr,Ismaila Sarr,CRY,Crystal Palace,Crystal Palace,MID,28,24,2184,4,6,9,2,9,29,0,0,0,2,0,9,2,117,18.7,4.7,4.82,/player-profiles/ismaila-sarr/
+Minteh,Yankuba Minteh,BHA,Brighton,Brighton and Hove Albion,MID,34,26,2414,8,15,3,8,11,33,0,0,0,3,0,9,1,117,20.6,4.2,4.36,/player-profiles/yankuba-minteh/
+Porro,Pedro Porro,TOT,Spurs,Tottenham Hotspur,DEF,34,32,2805,2,6,1,3,9,40,0,0,0,10,0,8,4,117,24.0,3.6,3.75,/player-profiles/pedro-porro/
+Cash,Matthew Cash,AVL,Aston Villa,Aston Villa,DEF,35,34,3008,1,8,3,3,8,38,0,0,0,9,0,7,2,117,25.7,3.4,3.5,/player-profiles/matthew-cash/
+Ballard,Danny Ballard,SUN,Sunderland,Sunderland,DEF,29,24,2164,5,3,2,2,6,34,0,0,0,4,1,9,3,116,18.7,4.6,4.82,/player-profiles/danny-ballard/
+van de Ven,Micky van de Ven,TOT,Spurs,Tottenham Hotspur,DEF,35,35,3037,0,2,4,1,9,47,0,0,0,9,1,10,3,116,26.2,3.3,3.44,/player-profiles/micky-van-de-ven/
+O'Brien,Jake O'Brien,EVE,Everton,Everton,DEF,37,35,3125,2,5,1,3,10,46,0,0,0,6,1,2,0,116,26.9,3.1,3.34,/player-profiles/jake-obrien/
+James (Reece),Reece James,CHE,Chelsea,Chelsea,DEF,29,20,2000,9,5,2,6,8,20,0,0,0,4,0,11,1,115,17.4,5.3,5.17,/player-profiles/reece-james/
+Lewis-Potter,Keane Lewis-Potter,BRE,Brentford,Brentford,DEF,36,22,2039,14,12,3,4,9,32,0,0,0,1,0,5,2,115,17.7,4.6,5.08,/player-profiles/keane-lewis-potter/
+Evanilson,Francisco Evanilson de Lima Barbosa,BOU,Bournemouth,Bournemouth,FWD,36,32,2744,4,24,6,7,11,40,0,0,0,2,0,6,0,115,23.9,3.3,3.77,/player-profiles/francisco-evanilson-de-lima-barbosa/
+Palmer,Cole Palmer,CHE,Chelsea,Chelsea,MID,26,24,1964,2,12,10,2,3,33,0,0,0,5,0,11,2,114,17.2,4.4,5.22,/player-profiles/cole-palmer/
+Mateta,Jean-Philippe Mateta,CRY,Crystal Palace,Crystal Palace,FWD,32,25,2244,7,13,12,0,8,29,0,0,0,2,0,13,2,114,19.7,3.5,4.57,/player-profiles/jean-philippe-mateta/
+Igor Jesus,Igor Jesus Maciel da Cruz,NFO,Nott'm Forest,Nottingham Forest,FWD,37,28,2324,9,23,6,6,9,37,0,0,0,2,0,13,1,114,20.4,3.5,4.41,/player-profiles/igor-jesus-maciel-da-cruz/
+Kroupi,Eli Kroupi,BOU,Bournemouth,Bournemouth,FWD,33,21,1742,12,21,13,0,10,21,0,0,0,5,0,13,1,113,15.4,4.0,5.84,/player-profiles/eli-kroupi/
+Eze,Eberechi Eze,ARS,Arsenal,Arsenal,MID,33,22,1933,11,17,7,3,11,14,0,0,0,1,0,8,3,113,17.1,4.5,5.26,/player-profiles/eberechi-eze/
+Damsgaard,Mikkel Damsgaard,BRE,Brentford,Brentford,MID,33,24,2088,9,15,4,4,5,32,0,0,0,0,0,9,2,113,18.5,4.1,4.87,/player-profiles/mikkel-damsgaard/
+Rúben Dias,Rúben Santos Gato Alves Dias,MCI,Man City,Manchester City,DEF,26,24,2159,2,2,2,0,12,22,0,0,0,3,0,4,1,113,19.1,4.6,4.71,/player-profiles/ruben-santos-gato-alves-dias/
+van den Berg,Sepp van den Berg,BRE,Brentford,Brentford,DEF,32,30,2779,2,0,0,3,8,41,0,0,0,2,0,3,0,113,24.6,3.6,3.66,/player-profiles/sepp-van-den-berg/
+Sanchez,Robert Sanchez,CHE,Chelsea,Chelsea,GKP,35,35,3035,0,1,0,1,9,47,0,0,98,3,1,7,2,113,26.9,3.2,3.35,/player-profiles/robert-sanchez/
+Shaw,Luke Shaw,MUN,Man Utd,Manchester United,DEF,38,38,3213,0,15,1,1,10,45,0,0,0,9,0,3,1,113,28.4,3.0,3.17,/player-profiles/luke-shaw/
+Kayode,Michael Kayode,BRE,Brentford,Brentford,DEF,37,37,3256,0,6,1,2,10,49,1,0,0,8,0,9,1,113,28.8,3.1,3.12,/player-profiles/michael-kayode/
+Raúl Jiménez,Raul Alonso Jimenez Rodriguez,FUL,Fulham,Fulham,FWD,36,27,2236,9,17,9,5,9,28,0,0,0,5,0,7,1,112,20.0,3.7,4.51,/player-profiles/raul-alonso-jimenez-rodriguez/
+Wharton,Adam Wharton,CRY,Crystal Palace,Crystal Palace,MID,34,29,2552,5,14,1,6,8,43,0,0,0,4,1,8,2,112,22.8,3.7,3.95,/player-profiles/adam-wharton/
+Sesko,Benjamin Sesko,MUN,Man Utd,Manchester United,FWD,30,17,1723,13,9,11,2,2,29,0,0,0,2,0,19,1,111,15.5,4.3,5.8,/player-profiles/benjamin-sesko/
+Dalot,José Diogo Dalot Teixeira,MUN,Man Utd,Manchester United,DEF,34,29,2640,5,7,1,6,7,40,0,0,0,5,0,9,3,111,23.8,3.7,3.78,/player-profiles/jose-diogo-dalot-teixeira/
+Hill (James),James Hill,BOU,Bournemouth,Bournemouth,DEF,29,22,2140,7,2,0,3,8,24,2,0,0,5,0,4,1,110,19.5,4.5,4.63,/player-profiles/james-hill/
+Summerville,Crysencio Summerville,WHU,West Ham,West Ham United,MID,31,29,2473,2,15,5,4,8,42,0,0,0,6,0,10,3,110,22.5,3.5,4.0,/player-profiles/crysencio-summerville/
+Moises Caicedo,Moises Caicedo,CHE,Chelsea,Chelsea,MID,33,32,2788,1,5,3,1,6,46,0,0,0,11,1,10,3,110,25.3,3.4,3.55,/player-profiles/moises-caicedo/
+Hume,Trai Hume,SUN,Sunderland,Sunderland,DEF,38,34,3062,4,8,2,1,9,42,1,0,0,9,0,6,2,110,27.8,3.0,3.23,/player-profiles/trai-hume/
+Okafor,Noah Okafor,LEE,Leeds,Leeds United,MID,28,19,1592,9,18,8,3,6,26,0,0,0,3,0,11,3,109,14.6,4.8,6.16,/player-profiles/noah-okafor/
+Calafiori,Riccardo Calafiori,ARS,Arsenal,Arsenal,DEF,26,22,1716,4,15,1,2,13,8,0,0,0,5,0,6,2,109,15.7,4.8,5.72,/player-profiles/riccardo-calafiori/
+Lammens,Senne Lammens,MUN,Man Utd,Manchester United,GKP,32,32,2880,0,0,0,0,8,39,0,0,79,0,0,11,1,109,26.4,3.4,3.41,/player-profiles/senne-lammens/
+Rodon,Joe Rodon,LEE,Leeds,Leeds United,DEF,35,33,2955,2,3,2,0,6,53,0,0,0,3,0,5,1,109,27.1,3.3,3.32,/player-profiles/joe-rodon/
+Woltemade,Nick Woltemade,NEW,Newcastle,Newcastle United,FWD,33,24,1931,9,21,8,4,8,29,1,0,0,0,0,12,1,108,17.9,4.1,5.03,/player-profiles/nick-woltemade/
+Mac Allister,Alexis Mac Allister,LIV,Liverpool,Liverpool,MID,37,31,2702,6,11,2,5,7,41,0,0,0,7,0,9,2,108,25.0,3.3,3.6,/player-profiles/alexis-mac-allister/
+Struijk,Pascal Struijk,LEE,Leeds,Leeds United,DEF,34,33,2936,1,2,0,1,7,48,0,0,0,5,0,4,0,108,27.2,3.2,3.31,/player-profiles/pascal-struijk/
+João Gomes,João Victor Gomes da Silva,WOL,Wolves,Wolverhampton Wanderers,MID,35,32,2836,3,9,1,2,4,56,0,0,0,10,0,6,1,107,26.5,3.3,3.4,/player-profiles/joao-victor-gomes-da-silva/
+Barnes (Harvey),Harvey Barnes,NEW,Newcastle,Newcastle United,MID,37,19,2056,18,12,7,1,5,31,0,0,0,1,0,9,2,106,19.4,4.1,4.64,/player-profiles/harvey-barnes/
+Sels,Matz Sels,NFO,Nott'm Forest,Nottingham Forest,GKP,31,30,2675,1,1,0,0,7,39,0,1,95,2,0,3,1,105,25.5,3.5,3.53,/player-profiles/matz-sels/
+Beto,Norberto Bercique Gomes Betuncal,EVE,Everton,Everton,FWD,37,17,1649,20,16,9,1,5,19,0,0,0,3,0,15,1,104,15.9,4.5,5.68,/player-profiles/norberto-bercique-gomes-betuncal/
+Yarmolyuk,Ehor Yarmolyuk,BRE,Brentford,Brentford,MID,37,30,2682,7,15,1,3,8,42,0,0,0,7,0,1,0,104,25.8,3.3,3.49,/player-profiles/ehor-yarmolyuk/
+Diouf,El Hadji Malick Diouf,WHU,West Ham,West Ham United,DEF,32,30,2709,2,6,0,6,9,47,0,0,0,6,0,3,1,104,26.0,3.4,3.46,/player-profiles/el-hadji-malick-diouf/
+Cucurella,Marc Cucurella,CHE,Chelsea,Chelsea,DEF,34,31,2711,3,4,1,4,9,37,0,0,0,8,1,5,0,104,26.1,3.1,3.45,/player-profiles/marc-cucurella/
+McGinn,John McGinn,AVL,Aston Villa,Aston Villa,MID,30,28,2145,2,22,5,4,8,28,0,0,0,5,0,6,2,103,20.8,3.6,4.32,/player-profiles/john-mcginn/
+Soucek,Tomas Soucek,WHU,West Ham,West Ham United,MID,35,24,2256,11,8,5,2,7,41,0,0,0,3,1,9,2,103,21.9,3.2,4.11,/player-profiles/tomas-soucek/
+Iwobi,Alex Iwobi,FUL,Fulham,Fulham,MID,29,29,2406,0,17,4,3,5,40,0,0,0,3,0,13,3,103,23.4,3.6,3.85,/player-profiles/alex-iwobi/
+Bassey,Calvin Bassey,FUL,Fulham,Fulham,DEF,30,28,2554,2,0,1,1,7,40,0,0,0,5,0,9,0,103,24.8,3.6,3.63,/player-profiles/calvin-ughelumba/
+Buendía,Emiliano Buendía,AVL,Aston Villa,Aston Villa,MID,36,21,1807,15,20,6,2,3,24,0,0,0,6,0,10,3,102,17.7,2.9,5.08,/player-profiles/emiliano-buendia/
+Bernardo Silva,Bernardo Mota Veiga de Carvalho e Silva,MCI,Man City,Manchester City,MID,38,34,2879,4,20,2,4,13,30,0,0,0,10,0,4,0,102,28.2,2.9,3.19,/player-profiles/bernardo-mota-veiga-de-carvalho-e-silva/
+Gordon (Anthony),Anthony Gordon,NEW,Newcastle,Newcastle United,MID,26,24,1796,2,19,6,4,8,28,0,0,0,3,1,10,4,101,17.8,3.9,5.06,/player-profiles/anthony-gordon/
+Dunk,Lewis Dunk,BHA,Brighton,Brighton and Hove Albion,DEF,33,31,2844,2,0,1,1,7,40,0,0,0,10,0,5,2,100,28.4,3.2,3.16,/player-profiles/lewis-dunk/
+Konsa Ngoyo,Ezri Konsa Ngoyo,AVL,Aston Villa,Aston Villa,DEF,34,34,3035,0,0,0,1,9,44,0,0,0,0,1,3,0,100,30.4,2.9,2.97,/player-profiles/ezri-konsa-ngoyo/
+Flemming,Zian Flemming,BUR,Burnley,Burnley,FWD,29,21,1805,8,15,11,0,3,35,0,0,0,5,0,11,1,99,18.2,4.1,4.94,/player-profiles/zian-flemming/
+Bijol,Jaka Bijol,LEE,Leeds,Leeds United,DEF,25,21,1890,4,5,1,3,5,26,0,0,0,4,0,6,2,99,19.1,4.6,4.71,/player-profiles/jaka-bijol/
+Ayari,Yasin Ayari,BHA,Brighton,Brighton and Hove Albion,MID,29,20,1983,9,5,3,4,6,24,0,0,0,1,0,7,2,98,20.2,4.5,4.45,/player-profiles/yasin-ayari/
+Jensen,Mathias Jensen,BRE,Brentford,Brentford,MID,36,26,2296,10,13,3,2,9,33,0,0,0,3,0,1,1,98,23.4,3.0,3.84,/player-profiles/mathias-jensen/
+Digne,Lucas Digne,AVL,Aston Villa,Aston Villa,DEF,31,21,1898,10,11,0,7,7,23,0,0,0,3,0,5,0,97,19.6,4.0,4.6,/player-profiles/lucas-digne/
+Gómez,Diego Gómez,BHA,Brighton,Brighton and Hove Albion,MID,32,26,2134,6,24,5,1,8,29,0,0,0,9,0,9,2,97,22.0,3.6,4.09,/player-profiles/diego-gomez/
+Ugochukwu,Lesley Ugochukwu,BUR,Burnley,Burnley,MID,35,27,2344,8,21,3,3,4,50,0,0,0,1,1,5,1,97,24.2,3.0,3.72,/player-profiles/lesley-ugochukwu/
+Gusto,Malo Gusto,CHE,Chelsea,Chelsea,DEF,34,26,2296,8,15,2,3,7,36,1,0,0,3,1,7,2,96,23.9,3.4,3.76,/player-profiles/malo-gusto/
+Pope,Nick Pope,NEW,Newcastle,Newcastle United,GKP,27,27,2414,0,1,0,1,7,38,0,0,89,2,0,3,0,96,25.1,3.6,3.58,/player-profiles/nick-pope/
+Bogle,Jayden Bogle,LEE,Leeds,Leeds United,DEF,34,32,2748,2,14,1,5,6,44,0,0,0,6,0,1,0,96,28.6,2.9,3.14,/player-profiles/jayden-bogle/
+André,André Trindade da Costa Neto,WOL,Wolves,Wolverhampton Wanderers,MID,35,30,2761,5,6,1,0,2,53,0,0,0,12,0,4,1,96,28.8,3.0,3.13,/player-profiles/andre-trindade-da-costa-neto/
+Dubravka,Martin Dubravka,BUR,Burnley,Burnley,GKP,35,35,3150,0,0,0,0,4,71,0,0,127,1,0,7,1,96,32.8,2.7,2.74,/player-profiles/martin-dubravka/
+Dorgu,Patrick Dorgu,MUN,Man Utd,Manchester United,DEF,26,15,1509,11,5,4,4,4,20,0,0,0,5,0,11,3,95,15.9,5.7,5.67,/player-profiles/patrick-dorgu/
+Sessegnon (Ryan),Kouassi Ryan Sessegnon,FUL,Fulham,Fulham,MID,27,20,1860,7,6,3,3,6,29,0,0,0,0,0,8,2,95,19.6,4.3,4.6,/player-profiles/kouassi-ryan-sessegnon/
+Barry,Thierno Barry,EVE,Everton,Everton,FWD,38,21,1999,17,18,8,0,7,34,0,0,0,3,0,9,1,95,21.0,3.0,4.28,/player-profiles/thierno-barry/
+Mykolenko,Vitaliy Mykolenko,EVE,Everton,Everton,DEF,33,33,2957,0,3,0,1,9,47,1,0,0,6,0,2,0,95,31.1,2.9,2.89,/player-profiles/vitaliy-mykolenko/
+Wieffer,Mats Wieffer,BHA,Brighton,Brighton and Hove Albion,MID,26,23,1911,3,9,2,4,6,26,0,0,0,8,0,6,2,94,20.3,3.9,4.43,/player-profiles/mats-wieffer/
+Justin,James Justin,LEE,Leeds,Leeds United,DEF,29,21,1949,8,4,2,1,6,26,0,0,0,4,0,9,1,94,20.7,4.1,4.34,/player-profiles/james-justin/
+Burn,Dan Burn,NEW,Newcastle,Newcastle United,DEF,29,25,2223,4,3,1,3,6,34,0,0,0,9,1,5,1,93,23.9,3.6,3.77,/player-profiles/dan-burn/
+Reijnders,Tijjani Reijnders,MCI,Man City,Manchester City,MID,28,19,1675,9,13,5,3,7,18,0,0,0,2,0,6,2,92,18.2,4.4,4.94,/player-profiles/tijjani-reijnders/
+Brobbey,Brian Brobbey,SUN,Sunderland,Sunderland,FWD,31,22,1975,9,16,7,2,6,30,0,0,0,6,0,12,0,92,21.5,3.2,4.19,/player-profiles/brian-brobbey/
+Bueno (Santiago),Santiago Bueno,WOL,Wolves,Wolverhampton Wanderers,DEF,29,28,2559,1,1,3,2,4,47,0,0,0,4,0,4,2,92,27.8,3.3,3.24,/player-profiles/santiago-bueno/
+Hinshelwood,Jack Hinshelwood,BHA,Brighton,Brighton and Hove Albion,MID,27,20,1758,7,16,4,5,7,23,1,0,0,0,0,2,0,91,19.3,3.6,4.66,/player-profiles/jack-hinshelwood/
+Romero,Cristian Romero,TOT,Spurs,Tottenham Hotspur,DEF,23,22,1863,1,5,4,1,5,31,0,0,0,9,2,10,3,91,20.5,4.1,4.4,/player-profiles/cristian-romero/
+Alisson,Alisson Ramses Becker,LIV,Liverpool,Liverpool,GKP,26,26,2340,0,0,0,0,8,31,0,0,57,1,0,8,1,91,25.7,3.5,3.5,/player-profiles/alisson-ramses-becker/
+Amad Diallo,Amad Diallo Traore,MUN,Man Utd,Manchester United,MID,32,27,2363,5,10,2,5,6,33,0,0,0,2,0,7,0,91,26.0,3.2,3.47,/player-profiles/amad-diallo-traore/
+Berge,Sander Berge,FUL,Fulham,Fulham,MID,35,34,2914,1,9,0,3,8,45,1,0,0,5,0,3,1,91,32.0,2.6,2.81,/player-profiles/sander-berge/
+Maguire,Harry Maguire,MUN,Man Utd,Manchester United,DEF,23,19,1669,4,5,1,2,7,19,0,0,0,3,1,5,3,90,18.5,4.5,4.85,/player-profiles/harry-maguire/
+Vicario,Guglielmo Vicario,TOT,Spurs,Tottenham Hotspur,GKP,31,31,2790,0,0,0,0,7,50,0,0,83,1,0,6,0,90,31.0,2.9,2.9,/player-profiles/guglielmo-vicario/
+Botman,Sven Botman,NEW,Newcastle,Newcastle United,DEF,25,21,1838,4,4,1,1,5,27,1,0,0,2,0,6,1,89,20.7,3.9,4.36,/player-profiles/sven-botman/
+Sangaré,Ibrahim Sangaré,NFO,Nott'm Forest,Nottingham Forest,MID,28,25,2083,3,9,2,2,8,26,0,0,0,5,0,2,1,89,23.4,3.4,3.85,/player-profiles/ibrahim-sangare/
+Hudson-Odoi,Callum Hudson-Odoi,NFO,Nott'm Forest,Nottingham Forest,MID,30,21,1875,9,17,3,4,6,26,0,0,0,0,0,8,2,88,21.3,3.6,4.22,/player-profiles/callum-hudson-odoi/
+Hincapie,Piero Hincapie,ARS,Arsenal,Arsenal,DEF,25,20,1823,5,5,1,2,5,19,1,0,0,2,0,7,1,87,21.0,4.0,4.3,/player-profiles/piero-hincapie/
+Rutter,Georginio Rutter,BHA,Brighton,Brighton and Hove Albion,MID,32,20,1837,12,16,3,5,7,20,1,0,0,2,0,2,0,87,21.1,3.5,4.26,/player-profiles/georginio-rutter/
+Bentancur,Rodrigo Bentancur,TOT,Spurs,Tottenham Hotspur,MID,26,23,1880,3,12,1,1,8,25,0,0,0,7,0,4,1,86,21.9,3.6,4.12,/player-profiles/rodrigo-bentancur/
+Kerkez,Milos Kerkez,LIV,Liverpool,Liverpool,DEF,34,27,2310,7,12,2,1,6,37,0,0,0,4,0,4,0,85,27.2,2.9,3.31,/player-profiles/milos-kerkez/
+Esteve,Maxime Esteve,BUR,Burnley,Burnley,DEF,34,34,2924,0,6,0,0,3,70,2,0,0,1,0,0,0,85,34.4,2.5,2.62,/player-profiles/maxime-esteve/
+De Cuyper,Maxim De Cuyper,BHA,Brighton,Brighton and Hove Albion,DEF,30,17,1469,13,12,2,3,5,23,0,0,0,2,0,9,2,84,17.5,3.6,5.15,/player-profiles/maxim-de-cuyper/
+Florentino,Florentino Ibrain Morris Luís,BUR,Burnley,Burnley,MID,31,25,2136,6,16,0,2,2,45,0,0,0,6,0,0,0,84,25.4,3.1,3.54,/player-profiles/florentino-ibrain-morris-luis/
+Talbi,Chemsdine Talbi,SUN,Sunderland,Sunderland,MID,28,16,1619,12,14,4,2,7,14,0,0,0,0,0,6,1,83,19.5,3.8,4.61,/player-profiles/chemsdine-talbi/
+Gueye,Idrissa Gueye,EVE,Everton,Everton,MID,25,25,2093,0,8,2,3,5,26,0,0,0,1,1,4,2,83,25.2,3.3,3.57,/player-profiles/idrissa-gueye/
+Murillo,Murillo Santiago Costa dos Santos,NFO,Nott'm Forest,Nottingham Forest,DEF,25,25,2125,0,3,1,0,6,29,2,0,0,5,0,3,1,83,25.6,3.3,3.52,/player-profiles/murillo-santiago-costa-dos-santos/
+Bueno (Hugo),Hugo Bueno,WOL,Wolves,Wolverhampton Wanderers,DEF,35,26,2408,9,9,1,3,4,44,0,0,0,3,0,4,1,83,29.0,2.9,3.1,/player-profiles/hugo-bueno/
+Murphy (Jacob),Jacob Murphy,NEW,Newcastle,Newcastle United,MID,33,19,1693,14,18,3,2,8,20,0,0,0,2,0,5,0,82,20.6,3.4,4.36,/player-profiles/jacob-murphy/
+Hutchinson,Omari Hutchinson,NFO,Nott'm Forest,Nottingham Forest,MID,31,17,1740,14,9,1,7,6,24,0,0,0,1,0,3,0,82,21.2,3.2,4.24,/player-profiles/omari-hutchinson/
+Tete,Kenny Tete,FUL,Fulham,Fulham,DEF,22,21,1795,1,6,1,0,6,25,0,0,0,2,0,5,1,81,22.2,3.8,4.06,/player-profiles/kenny-tete/
+Jones (Curtis),Curtis Jones,LIV,Liverpool,Liverpool,MID,34,18,2023,16,9,1,3,3,37,0,0,0,2,0,6,1,81,25.0,3.2,3.6,/player-profiles/curtis-jones/
+Tonali,Sandro Tonali,NEW,Newcastle,Newcastle United,MID,35,31,2546,4,15,0,2,7,38,0,0,0,4,0,2,0,81,31.4,2.5,2.86,/player-profiles/sandro-tonali/
+Wilson (Callum),Callum Wilson,WHU,West Ham,West Ham United,FWD,32,11,1365,21,9,7,2,1,24,0,0,0,1,0,7,1,80,17.1,3.4,5.27,/player-profiles/callum-wilson/
+Simons,Xavi Simons,TOT,Spurs,Tottenham Hotspur,MID,28,19,1788,9,9,2,5,4,34,0,0,0,5,1,7,2,80,22.4,3.6,4.03,/player-profiles/xavi-simons/
+Smith-Rowe,Emile Smith-Rowe,FUL,Fulham,Fulham,MID,37,22,1992,15,21,3,1,6,27,0,0,0,1,0,1,0,80,24.9,2.7,3.61,/player-profiles/emile-smith-rowe/
+Sadiki,Noah Sadiki,SUN,Sunderland,Sunderland,MID,33,33,2894,0,7,0,2,9,42,0,0,0,9,0,0,0,80,36.2,2.4,2.49,/player-profiles/noah-sadiki/
+Gvardiol,Joško Gvardiol,MCI,Man City,Manchester City,DEF,18,16,1385,2,4,2,2,6,13,0,0,0,2,0,5,2,79,17.5,4.8,5.13,/player-profiles/josko-gvardiol/
+Grealish,Jack Grealish,EVE,Everton,Everton,MID,20,18,1632,2,6,2,6,7,23,0,0,0,3,1,12,5,79,20.7,4.3,4.36,/player-profiles/jack-grealish/
+Lewis Hall,Lewis Hall,NEW,Newcastle,Newcastle United,DEF,30,24,2221,6,5,1,2,4,39,0,0,0,4,0,4,0,79,28.1,3.1,3.2,/player-profiles/lewis-hall/
+Tel,Mathys Tel,TOT,Spurs,Tottenham Hotspur,MID,31,13,1418,18,10,4,2,3,23,0,0,0,1,0,7,1,78,18.2,4.0,4.95,/player-profiles/mathys-tel/
+Groß,Pascal Groß,BHA,Brighton,Brighton and Hove Albion,MID,19,18,1641,1,2,1,6,6,17,0,0,0,2,0,10,1,78,21.0,4.3,4.28,/player-profiles/pascal-gross/
+Spence,Djed Spence,TOT,Spurs,Tottenham Hotspur,DEF,30,23,2100,7,7,0,0,9,31,0,0,0,4,0,3,0,78,26.9,3.1,3.34,/player-profiles/djed-spence/
+Adams,Tyler Adams,BOU,Bournemouth,Bournemouth,MID,25,21,1795,4,11,2,2,7,28,0,0,0,8,0,3,0,77,23.3,3.3,3.86,/player-profiles/tyler-adams/
+Pino,Yeremi Pino,CRY,Crystal Palace,Crystal Palace,MID,34,26,2121,8,22,2,2,7,28,0,0,0,4,0,3,0,77,27.5,2.5,3.27,/player-profiles/yeremi-pino/
+Osula,William Osula,NEW,Newcastle,Newcastle United,FWD,24,8,902,16,6,7,1,2,14,0,0,0,0,0,13,1,76,11.9,5.9,7.58,/player-profiles/william-osula/
+Hermansen,Mads Hermansen,WHU,West Ham,West Ham United,GKP,18,18,1620,0,0,0,1,7,28,0,0,55,0,0,8,2,76,21.3,4.2,4.22,/player-profiles/mads-hermansen/
+Mvom Onana,Amadou Mvom Onana,AVL,Aston Villa,Aston Villa,MID,25,21,1778,4,10,2,0,6,26,0,0,0,3,0,4,1,76,23.4,3.4,3.85,/player-profiles/amadou-mvom-onana/
+Ajer,Kristoffer Ajer,BRE,Brentford,Brentford,DEF,27,20,1839,7,7,0,2,5,32,0,0,0,4,0,1,0,76,24.2,3.1,3.72,/player-profiles/kristoffer-ajer/
+Henderson (Jordan),Jordan Henderson,BRE,Brentford,Brentford,MID,32,22,1972,10,12,1,3,6,28,0,0,0,6,0,5,0,76,25.9,3.0,3.47,/player-profiles/jordan-henderson/
+Kudus,Mohammed Kudus,TOT,Spurs,Tottenham Hotspur,MID,19,19,1529,0,11,2,6,7,20,0,0,0,3,0,7,2,75,20.4,3.9,4.41,/player-profiles/mohammed-kudus/
+Strand Larsen,Jørgen Strand Larsen,CRY,Crystal Palace,Crystal Palace,FWD,36,26,2345,10,16,4,1,5,41,0,0,0,4,0,3,1,75,31.3,2.4,2.88,/player-profiles/jorgen-strand-larsen/
+Isidor,Wilson Isidor,SUN,Sunderland,Sunderland,FWD,32,11,1280,21,11,6,1,4,17,0,0,0,1,0,7,0,74,17.3,2.9,5.2,/player-profiles/wilson-isidor/
+Odegaard,Martin Odegaard,ARS,Arsenal,Arsenal,MID,24,16,1399,8,9,1,7,6,13,0,0,0,0,0,5,1,74,18.9,3.4,4.76,/player-profiles/martin-odegaard/
+Janelt,Vitaly Janelt,BRE,Brentford,Brentford,MID,25,15,1500,10,4,1,4,5,21,0,0,0,8,0,6,1,74,20.3,4.1,4.44,/player-profiles/vitaly-janelt/
+Mané,Mateus Mané,WOL,Wolves,Wolverhampton Wanderers,FWD,27,19,1833,8,4,3,2,5,30,0,0,0,0,0,9,2,74,24.8,3.3,3.63,/player-profiles/mateus-mane/
+Reinildo,Reinildo Mandava,SUN,Sunderland,Sunderland,DEF,25,23,1974,2,3,0,2,6,26,0,0,0,7,1,6,2,74,26.7,3.2,3.37,/player-profiles/reinildo-mandava/
+Jiménez,Álex Jiménez,BOU,Bournemouth,Bournemouth,DEF,31,26,2337,5,15,1,2,6,39,0,0,0,10,0,2,0,74,31.6,2.8,2.85,/player-profiles/alex-jimenez/
+Nmecha,Lukas Nmecha,LEE,Leeds,Leeds United,FWD,31,10,1199,21,9,6,1,3,23,0,0,0,0,0,8,1,73,16.4,4.2,5.48,/player-profiles/lukas-nmecha/
+Mainoo,Kobbie Mainoo,MUN,Man Utd,Manchester United,MID,28,16,1728,12,2,1,2,6,22,0,0,0,2,0,2,0,73,23.7,3.8,3.8,/player-profiles/kobbie-mainoo/
+Joelinton,Joelinton Cássio Apolinário de Lira,NEW,Newcastle,Newcastle United,MID,27,23,1969,4,10,2,1,5,27,0,0,0,10,0,2,0,73,27.0,3.0,3.34,/player-profiles/joelinton-cassio-apolinario-de-lira/
+Madueke,Noni Madueke,ARS,Arsenal,Arsenal,MID,26,16,1252,10,16,3,1,8,9,0,0,0,0,0,9,3,72,17.4,3.9,5.18,/player-profiles/noni-madueke/
+Canvot,Jaydee Canvot,CRY,Crystal Palace,Crystal Palace,DEF,20,14,1362,6,2,0,0,5,23,0,0,0,3,0,9,4,72,18.9,4.6,4.76,/player-profiles/jaydee-canvot/
+Miley,Lewis Miley,NEW,Newcastle,Newcastle United,MID,23,15,1527,8,2,1,4,2,22,0,0,0,0,0,5,1,72,21.2,4.1,4.24,/player-profiles/lewis-miley/
+Sarr (Pape),Pape Sarr,TOT,Spurs,Tottenham Hotspur,MID,26,13,1465,13,2,2,4,3,23,0,0,0,3,0,2,0,71,20.6,3.7,4.36,/player-profiles/pape-sarr/
+Darlow,Karl Darlow,LEE,Leeds,Leeds United,GKP,22,22,1980,0,0,0,0,5,27,0,0,63,1,0,3,1,71,27.9,3.2,3.23,/player-profiles/karl-darlow/
+Cullen,Josh Cullen,BUR,Burnley,Burnley,MID,18,18,1510,0,6,2,2,3,29,1,0,0,2,0,8,2,70,21.6,3.9,4.17,/player-profiles/josh-cullen/
+Walker,Kyle Walker,BUR,Burnley,Burnley,DEF,36,35,3100,1,3,0,2,4,66,0,0,0,9,0,3,1,70,44.3,2.0,2.03,/player-profiles/kyle-walker/
+Lucas Paquetá,Lucas Tolentino Coelho de Lima,WHU,West Ham,West Ham United,MID,18,18,1508,0,9,4,2,3,32,0,0,0,5,1,8,2,69,21.9,3.8,4.12,/player-profiles/lucas-tolentino-coelho-de-lima/
+Rodri,Rodrigo Hernández Cascante,MCI,Man City,Manchester City,MID,21,17,1526,4,5,1,1,5,15,0,0,0,3,0,6,0,69,22.1,3.8,4.07,/player-profiles/rodrigo-hernandez-cascante/
+Lerma,Jefferson Lerma,CRY,Crystal Palace,Crystal Palace,MID,31,18,1805,13,3,0,5,7,25,2,0,0,7,0,3,1,69,26.2,3.3,3.44,/player-profiles/jefferson-lerma/
+Iroegbunam,Tim Iroegbunam,EVE,Everton,Everton,MID,29,17,1547,12,11,0,3,8,18,0,0,0,9,0,1,0,68,22.8,3.2,3.96,/player-profiles/tim-iroegbunam/
+Tielemans,Youri Tielemans,AVL,Aston Villa,Aston Villa,MID,25,21,1876,4,7,0,4,4,27,0,0,0,0,0,3,0,68,27.6,2.9,3.26,/player-profiles/youri-tielemans/
+José Sá,José Pedro Malheiro de Sá,WOL,Wolves,Wolverhampton Wanderers,GKP,23,23,2070,0,0,0,0,4,37,0,0,65,2,0,8,1,68,30.4,3.0,2.96,/player-profiles/jose-pedro-malheiro-de-sa/
+Ladislav Krejci II,Ladislav Krejci,WOL,Wolves,Wolverhampton Wanderers,DEF,28,27,2353,1,5,2,2,4,45,1,0,0,3,1,1,0,68,34.6,2.5,2.6,/player-profiles/ladislav-krejci/
+Gudmundsson,Gabriel Gudmundsson,LEE,Leeds,Leeds United,DEF,32,31,2625,1,9,0,0,5,45,1,0,0,4,1,8,0,68,38.6,2.2,2.33,/player-profiles/gabriel-gudmundsson/
+Merino,Mikel Merino,ARS,Arsenal,Arsenal,MID,22,10,1101,12,5,4,3,4,10,0,0,0,1,0,5,1,67,16.4,4.4,5.48,/player-profiles/mikel-merino/
+Rayan,Rayan Vitor Simplício Rocha,BOU,Bournemouth,Bournemouth,MID,15,13,1124,2,11,5,2,6,10,0,0,0,1,0,3,0,67,16.8,4.4,5.36,/player-profiles/rayan-vitor-simplicio-rocha/
+Adli,Amine Adli,BOU,Bournemouth,Bournemouth,MID,31,10,1213,21,8,3,2,3,17,0,0,0,2,0,4,2,67,18.1,4.7,4.97,/player-profiles/amine-adli/
+Tanaka,Ao Tanaka,LEE,Leeds,Leeds United,MID,28,14,1379,14,15,2,1,4,22,0,0,0,1,0,4,0,67,20.6,3.4,4.37,/player-profiles/ao-tanaka/
+Khusanov,Abduqodir Khusanov,MCI,Man City,Manchester City,DEF,21,15,1451,6,3,0,0,6,13,0,0,0,2,0,3,1,67,21.7,4.1,4.16,/player-profiles/abduqodir-khusanov/
+Aina,Ola Aina,NFO,Nott'm Forest,Nottingham Forest,DEF,18,18,1588,0,3,0,2,6,19,0,0,0,3,0,5,2,67,23.7,3.7,3.8,/player-profiles/ola-aina/
+Lukic,Sasa Lukic,FUL,Fulham,Fulham,MID,26,20,1754,6,8,1,4,6,22,0,0,0,9,0,4,0,67,26.2,3.1,3.44,/player-profiles/sasa-lukic/
+Kamada,Daichi Kamada,CRY,Crystal Palace,Crystal Palace,MID,28,22,1918,6,14,0,2,6,28,0,0,0,3,0,0,0,67,28.6,2.8,3.14,/player-profiles/daichi-kamada/
+Wan-Bissaka,Aaron Wan-Bissaka,WHU,West Ham,West Ham United,DEF,25,23,2080,2,4,0,3,3,43,0,0,0,4,0,0,0,67,31.0,2.8,2.9,/player-profiles/aaron-wan-bissaka/
+Arokodare,Tolu Arokodare,WOL,Wolves,Wolverhampton Wanderers,FWD,33,13,1528,20,6,3,2,3,28,0,0,0,1,0,4,0,66,23.2,2.5,3.89,/player-profiles/tolu-arokodare/
+Diarra,Habib Diarra,SUN,Sunderland,Sunderland,MID,20,15,1406,5,7,2,6,5,19,0,0,0,6,0,3,1,65,21.6,3.9,4.16,/player-profiles/habib-diarra/
+Robinson (Antonee),Antonee Robinson,FUL,Fulham,Fulham,DEF,22,17,1521,5,5,1,0,4,19,0,0,0,5,0,7,2,65,23.4,3.5,3.85,/player-profiles/antonee-robinson/
+Fofana (Wesley),Wesley Fofana,CHE,Chelsea,Chelsea,DEF,25,20,1746,5,8,0,2,5,24,0,0,0,5,2,3,0,65,26.9,2.9,3.35,/player-profiles/wesley-fofana/
+Johnson (Brennan),Brennan Johnson,CRY,Crystal Palace,Crystal Palace,MID,34,19,1793,15,14,2,1,6,24,0,0,0,6,0,2,0,65,27.6,2.6,3.26,/player-profiles/brennan-johnson/
+Torres,Pau Torres,AVL,Aston Villa,Aston Villa,DEF,21,18,1697,3,3,0,2,5,19,1,0,0,1,0,2,0,64,26.5,3.4,3.39,/player-profiles/pau-torres/
+Frimpong,Jeremie Frimpong,LIV,Liverpool,Liverpool,DEF,21,12,1103,9,9,0,5,5,13,0,0,0,1,0,1,0,63,17.5,3.5,5.14,/player-profiles/jeremie-frimpong/
+King (Joshua),Joshua King,FUL,Fulham,Fulham,MID,32,15,1383,17,15,1,3,5,18,0,0,0,4,0,3,1,63,22.0,3.0,4.1,/player-profiles/joshua-king/
+Danso,Kevin Danso,TOT,Spurs,Tottenham Hotspur,DEF,24,17,1538,7,3,0,0,4,25,0,0,0,8,0,1,0,63,24.4,3.4,3.69,/player-profiles/kevin-danso/
+González (Nico),Nico González,MCI,Man City,Manchester City,MID,25,17,1603,8,7,1,0,7,18,0,0,0,6,0,1,0,63,25.4,3.3,3.54,/player-profiles/nico-gonzalez/
+Hartman,Quilindschy Hartman,BUR,Burnley,Burnley,DEF,21,21,1821,0,5,0,6,3,40,0,0,0,1,0,0,0,63,28.9,3.0,3.11,/player-profiles/quilindschy-hartman/
+Chukwueze,Samuel Chukwueze,FUL,Fulham,Fulham,MID,23,10,1134,13,8,3,4,2,20,0,0,0,0,0,1,1,62,18.3,2.7,4.92,/player-profiles/samuel-chukwueze/
+Ramsey (Jacob),Jacob Ramsey,NEW,Newcastle,Newcastle United,MID,28,15,1526,13,7,2,3,1,30,0,0,0,3,1,3,0,62,24.6,3.1,3.66,/player-profiles/jacob-ramsey/
+Mitoma,Kaoru Mitoma,BHA,Brighton,Brighton and Hove Albion,MID,25,19,1746,6,10,3,1,5,20,0,0,0,5,0,2,0,62,28.2,2.7,3.2,/player-profiles/kaoru-mitoma/
+Taty Castellanos,Valentín Castellanos,WHU,West Ham,West Ham United,FWD,18,17,1380,1,14,6,1,9,16,0,0,0,6,0,5,1,61,22.6,3.2,3.98,/player-profiles/valentin-castellanos/
+Kamara,Boubacar Kamara,AVL,Aston Villa,Aston Villa,MID,18,17,1413,1,8,1,3,5,15,0,0,0,5,0,7,2,61,23.2,3.5,3.89,/player-profiles/boubacar-kamara/
+Gray (Archie),Archie Gray,TOT,Spurs,Tottenham Hotspur,MID,24,18,1517,6,9,2,2,5,28,0,0,0,5,0,6,2,61,24.9,3.1,3.62,/player-profiles/archie-gray/
+Castagne,Timothy Castagne,FUL,Fulham,Fulham,DEF,30,20,1887,10,4,0,2,3,31,0,0,0,4,0,3,0,61,30.9,2.5,2.91,/player-profiles/timothy-castagne/
+Mosquera (Yerson),Yerson Mosquera,WOL,Wolves,Wolverhampton Wanderers,DEF,27,24,2142,3,7,0,0,4,40,2,0,0,11,0,3,0,61,35.1,2.6,2.56,/player-profiles/yerson-mosquera/
+Ait Nouri,Rayan Ait Nouri,MCI,Man City,Manchester City,DEF,17,12,1003,5,5,0,2,5,8,0,0,0,2,0,9,1,60,16.7,4.6,5.38,/player-profiles/rayan-ait-nouri/
+Mejbri,Hannibal Mejbri,BUR,Burnley,Burnley,MID,27,15,1284,12,12,1,5,2,27,0,0,0,10,0,4,2,59,21.8,2.9,4.14,/player-profiles/hannibal-mejbri/
+Brooks (David),David Brooks,BOU,Bournemouth,Bournemouth,MID,31,13,1307,18,13,1,3,5,20,0,0,0,7,0,4,1,59,22.2,2.9,4.06,/player-profiles/david-brooks/
+Livramento,Valentino Livramento,NEW,Newcastle,Newcastle United,DEF,17,14,1339,3,2,0,1,6,14,0,0,0,1,0,3,0,59,22.7,4.0,3.97,/player-profiles/valentino-livramento/
+Tchaouna,Loum Tchaouna,BUR,Burnley,Burnley,MID,29,14,1364,15,12,2,2,2,24,0,0,0,2,0,0,0,59,23.1,2.6,3.89,/player-profiles/loum-tchaouna/
+Estêvão,Estêvão Willian Almeida de Oliveira Gonçalves,CHE,Chelsea,Chelsea,MID,22,12,885,10,12,2,5,4,11,0,0,0,4,0,4,1,58,15.3,3.1,5.9,/player-profiles/estevao-willian-almeida-de-oliveira-goncalves/
+Mount,Mason Mount,MUN,Man Utd,Manchester United,MID,23,12,1064,11,9,3,0,5,15,0,0,0,2,0,3,1,58,18.3,4.0,4.91,/player-profiles/mason-mount/
+Smith,Adam Smith,BOU,Bournemouth,Bournemouth,DEF,22,14,1109,8,9,0,2,6,16,0,0,0,3,0,4,1,58,19.1,3.7,4.71,/player-profiles/adam-smith/
+Foster,Lyle Foster,BUR,Burnley,Burnley,FWD,26,15,1415,11,12,3,2,4,30,0,0,0,4,0,4,0,58,24.4,2.6,3.69,/player-profiles/lyle-foster/
+Martinelli,Gabriel Teodoro Martinelli Silva,ARS,Arsenal,Arsenal,MID,30,11,1180,19,9,1,5,2,8,0,0,0,3,0,3,0,57,20.7,2.4,4.35,/player-profiles/gabriel-teodoro-martinelli-silva/
+Omar Marmoush,Omar Khaled Mohamed Marmoush,MCI,Man City,Manchester City,MID,21,8,773,13,8,3,3,4,5,0,0,0,3,0,5,1,56,13.8,4.9,6.52,/player-profiles/omar-khaled-mohamed-marmoush/
+Barkley,Ross Barkley,AVL,Aston Villa,Aston Villa,MID,21,7,903,14,8,3,2,1,15,0,0,0,1,0,5,1,56,16.1,4.9,5.58,/player-profiles/ross-barkley/
+Longstaff (Sean),Sean Longstaff,LEE,Leeds,Leeds United,MID,23,10,1077,13,3,2,2,1,20,0,0,0,2,0,5,1,56,19.2,3.8,4.68,/player-profiles/sean-longstaff/
+Garnacho,Alejandro Garnacho Ferreyra,CHE,Chelsea,Chelsea,MID,24,14,1296,10,10,1,4,4,20,0,0,0,2,0,3,1,56,23.1,3.3,3.89,/player-profiles/alejandro-garnacho-ferreyra/
+Gruev,Ilia Gruev,LEE,Leeds,Leeds United,MID,23,15,1357,8,9,0,4,5,23,0,0,0,3,0,3,1,56,24.2,3.1,3.71,/player-profiles/ilia-gruev/
+Baleba,Carlos Baleba,BHA,Brighton,Brighton and Hove Albion,MID,31,23,1677,8,20,0,0,7,19,0,0,0,5,0,0,0,56,29.9,2.1,3.01,/player-profiles/carlos-baleba/
+Yoro,Leny Yoro,MUN,Man Utd,Manchester United,DEF,32,18,1817,14,9,0,1,2,33,0,0,0,1,0,1,0,56,32.4,2.4,2.77,/player-profiles/leny-yoro/
+Laurent,Josh Laurent,BUR,Burnley,Burnley,MID,33,18,1851,15,8,1,0,2,40,0,0,0,7,1,1,1,56,33.1,2.5,2.72,/player-profiles/josh-laurent/
+Malen,Donyell Malen,AVL,Aston Villa,Aston Villa,MID,21,5,722,16,5,4,2,1,10,0,0,0,0,0,3,1,55,13.1,4.6,6.86,/player-profiles/donyell-malen/
+Robertson,Andrew Robertson,LIV,Liverpool,Liverpool,DEF,24,11,1226,13,7,1,0,4,16,0,0,0,0,0,4,0,55,22.3,4.0,4.04,/player-profiles/andrew-robertson/
+Geertruida,Lutsharel Geertruida,SUN,Sunderland,Sunderland,DEF,28,17,1742,11,3,0,0,3,23,0,0,0,2,0,0,0,55,31.7,2.6,2.84,/player-profiles/lutsharel-geertruida/
+Hwang Hee-Chan,Hee-Chan Hwang,WOL,Wolves,Wolverhampton Wanderers,MID,26,18,1479,8,17,2,2,2,29,0,0,0,5,0,0,1,54,27.4,2.6,3.29,/player-profiles/hee-chan-hwang/
+Trippier,Kieran Trippier,NEW,Newcastle,Newcastle United,DEF,21,18,1586,3,7,0,1,5,27,0,0,0,3,0,2,0,54,29.4,2.9,3.06,/player-profiles/kieran-trippier/
+Maatsen,Ian Maatsen,AVL,Aston Villa,Aston Villa,DEF,30,17,1654,13,9,0,1,2,27,0,0,0,2,0,1,0,54,30.6,2.5,2.94,/player-profiles/ian-maatsen/
+Mazraoui,Noussair Mazraoui,MUN,Man Utd,Manchester United,DEF,20,11,1029,9,8,0,0,5,10,0,0,0,3,0,6,1,53,19.4,3.6,4.64,/player-profiles/noussair-mazraoui/
+McNeil,Dwight McNeil,EVE,Everton,Everton,MID,22,14,1196,8,11,0,3,6,9,0,0,0,1,0,1,0,53,22.6,3.2,3.99,/player-profiles/dwight-mcneil/
+Morato,Felipe Rodrigues da Silva,NFO,Nott'm Forest,Nottingham Forest,DEF,21,14,1384,7,1,1,0,2,23,0,0,0,5,0,1,0,53,26.1,3.3,3.45,/player-profiles/felipe-rodrigues-da-silva/
+Walker-Peters,Kyle Walker-Peters,WHU,West Ham,West Ham United,DEF,23,15,1422,8,3,1,0,4,25,0,0,0,2,0,0,0,53,26.8,2.7,3.35,/player-profiles/kyle-walker-peters/
+Henry,Rico Henry,BRE,Brentford,Brentford,DEF,25,14,1390,11,8,0,2,4,22,0,0,0,2,0,0,0,52,26.7,2.9,3.37,/player-profiles/rico-henry/
+Ekdal,Hjalmar Ekdal,BUR,Burnley,Burnley,DEF,19,17,1550,2,2,0,0,2,34,0,0,0,0,0,2,0,52,29.8,2.9,3.02,/player-profiles/hjalmar-ekdal/
+Kolo Muani,Randal Kolo Muani,TOT,Spurs,Tottenham Hotspur,FWD,30,21,1694,9,17,1,1,4,31,0,0,0,3,0,1,0,52,32.6,1.9,2.76,/player-profiles/randal-kolo-muani/
+Tchatchoua,Jackson Tchatchoua,WOL,Wolves,Wolverhampton Wanderers,DEF,31,19,1902,12,5,0,1,3,37,0,0,0,3,0,0,0,52,36.6,2.3,2.46,/player-profiles/jackson-tchatchoua/
+Schär,Fabian Schär,NEW,Newcastle,Newcastle United,DEF,16,11,1103,5,2,0,0,4,13,0,0,0,1,0,0,0,51,21.6,4.2,4.16,/player-profiles/fabian-schar/
+Marcus Edwards,Marcus Edwards,BUR,Burnley,Burnley,MID,23,11,1118,12,9,1,3,1,18,0,0,0,0,0,2,0,51,21.9,3.3,4.11,/player-profiles/marcus-edwards/
+Martínez,Lisandro Martínez,MUN,Man Utd,Manchester United,DEF,18,13,1256,5,1,0,0,5,15,1,0,0,0,1,3,1,51,24.6,3.5,3.65,/player-profiles/lisandro-martinez/
+Areola,Alphonse Areola,WHU,West Ham,West Ham United,GKP,20,20,1800,0,0,0,1,0,37,0,0,77,0,0,2,0,51,35.3,2.6,2.55,/player-profiles/alphonse-areola/
+Ndoye,Dan Ndoye,NFO,Nott'm Forest,Nottingham Forest,MID,24,14,1219,10,11,1,2,2,17,0,0,0,1,0,4,0,50,24.4,2.9,3.69,/player-profiles/dan-ndoye/
+Mings,Tyrone Mings,AVL,Aston Villa,Aston Villa,DEF,17,15,1327,2,1,0,1,3,23,0,0,0,1,0,4,1,50,26.5,3.2,3.39,/player-profiles/tyrone-mings/
+Bergvall,Lucas Bergvall,TOT,Spurs,Tottenham Hotspur,MID,23,11,1026,12,11,1,3,3,18,0,0,0,2,0,0,1,49,20.9,3.2,4.3,/player-profiles/lucas-bergvall/
+Kevin,Kevin Santos Lopes de Macedo,FUL,Fulham,Fulham,MID,26,9,1124,17,9,1,3,4,15,0,0,0,1,0,0,0,49,22.9,2.8,3.92,/player-profiles/kevin-santos-lopes-de-macedo/
+Disasi,Axel Disasi,WHU,West Ham,West Ham United,DEF,14,14,1254,0,1,0,0,6,17,1,0,0,1,0,1,0,49,25.6,3.5,3.52,/player-profiles/axel-disasi/
+Rodrigo Gomes,Rodrigo Martins Gomes,WOL,Wolves,Wolverhampton Wanderers,DEF,22,9,1008,13,8,3,0,1,18,0,0,0,0,0,0,0,48,21.0,2.0,4.29,/player-profiles/rodrigo-martins-gomes/
+Nicolás Domínguez,Nicolás Domínguez,NFO,Nott'm Forest,Nottingham Forest,MID,27,17,1216,10,16,1,1,3,20,0,0,0,3,0,3,1,48,25.3,2.2,3.55,/player-profiles/nicolas-dominguez/
+Elanga,Anthony Elanga,NEW,Newcastle,Newcastle United,MID,32,14,1427,18,12,0,1,2,28,0,0,0,0,0,0,0,48,29.7,2.1,3.03,/player-profiles/anthony-elanga/
+Christie,Ryan Christie,BOU,Bournemouth,Bournemouth,MID,26,9,1085,17,8,2,1,3,14,0,0,0,3,1,2,0,47,23.1,3.0,3.9,/player-profiles/ryan-christie/
+Andrey Santos,Andrey Nascimento dos Santos,CHE,Chelsea,Chelsea,MID,27,13,1314,14,9,1,0,1,18,0,0,0,4,0,3,1,47,28.0,2.7,3.22,/player-profiles/andrey-nascimento-dos-santos/
+Humphreys,Bashir Humphreys,BUR,Burnley,Burnley,DEF,20,17,1592,3,4,0,2,2,33,0,0,0,6,0,1,0,47,33.9,2.6,2.66,/player-profiles/bashir-humphreys/
+Odobert,Wilson Odobert,TOT,Spurs,Tottenham Hotspur,MID,24,10,1054,14,9,0,2,2,13,0,0,0,0,0,6,0,46,22.9,2.6,3.93,/player-profiles/wilson-odobert/
+Veltman,Joël Veltman,BHA,Brighton,Brighton and Hove Albion,DEF,24,9,1121,15,3,1,0,2,13,0,0,0,5,0,1,1,46,24.4,3.6,3.69,/player-profiles/joel-veltman/
+Diakité,Bafodé Diakité,BOU,Bournemouth,Bournemouth,DEF,18,15,1295,3,2,0,0,4,27,0,0,0,1,0,2,1,46,28.2,2.9,3.2,/player-profiles/bafode-diakite/
+Todibo,Jean-Clair Todibo,WHU,West Ham,West Ham United,DEF,23,22,1820,1,5,0,1,1,37,0,0,0,5,1,1,0,46,39.6,2.0,2.27,/player-profiles/jean-clair-todibo/
+White (Ben),Ben White,ARS,Arsenal,Arsenal,DEF,12,9,719,3,5,0,1,5,6,0,0,0,0,0,3,1,45,16.0,4.7,5.63,/player-profiles/ben-white/
+Arias,Jhon Arias,WOL,Wolves,Wolverhampton Wanderers,MID,23,14,1165,9,12,1,0,2,21,0,0,0,1,0,2,0,45,25.9,2.6,3.48,/player-profiles/jhon-arias/
+Delap,Liam Delap,CHE,Chelsea,Chelsea,FWD,28,12,1196,16,9,1,2,2,18,0,0,0,4,0,1,0,45,26.6,2.4,3.39,/player-profiles/liam-delap/
+Hughes,Will Hughes,CRY,Crystal Palace,Crystal Palace,MID,31,19,1641,12,11,0,1,5,18,0,0,0,7,0,0,0,45,36.5,1.7,2.47,/player-profiles/will-hughes/
+Guessand,Evann Guessand,CRY,Crystal Palace,Crystal Palace,MID,21,9,975,12,8,1,3,2,15,0,0,0,0,0,0,0,44,22.2,2.6,4.06,/player-profiles/evann-guessand/
+Gallagher,Conor Gallagher,TOT,Spurs,Tottenham Hotspur,MID,16,14,1186,2,9,1,1,2,23,0,0,0,2,0,3,0,44,27.0,3.0,3.34,/player-profiles/conor-gallagher/
+Bellegarde,Jean-Ricner Bellegarde,WOL,Wolves,Wolverhampton Wanderers,MID,26,15,1294,11,14,1,1,3,30,0,0,0,5,0,0,0,44,29.4,2.3,3.06,/player-profiles/jean-ricner-bellegarde/
+Awoniyi,Taiwo Awoniyi,NFO,Nott'm Forest,Nottingham Forest,FWD,17,3,565,14,2,4,2,1,4,0,0,0,2,0,4,1,43,13.1,6.3,6.85,/player-profiles/taiwo-awoniyi/
+Ngumoha,Rio Ngumoha,LIV,Liverpool,Liverpool,MID,19,5,655,14,4,2,1,2,12,0,0,0,0,0,4,1,43,15.2,4.8,5.91,/player-profiles/rio-ngumoha/
+Savinho,Sávio Moreira de Oliveira,MCI,Man City,Manchester City,MID,24,7,931,17,4,1,2,3,7,0,0,0,2,0,1,0,43,21.7,3.4,4.16,/player-profiles/savio-moreira-de-oliveira/
+Broja,Armando Broja,BUR,Burnley,Burnley,FWD,24,8,948,16,6,1,1,1,27,0,0,0,0,0,2,0,43,22.0,2.6,4.08,/player-profiles/armando-broja/
+de Ligt,Matthijs de Ligt,MUN,Man Utd,Manchester United,DEF,13,13,1170,0,0,1,0,1,20,0,0,0,0,0,5,0,43,27.2,3.3,3.31,/player-profiles/matthijs-de-ligt/
+Lucas Perri,Lucas Estella Perri,LEE,Leeds,Leeds United,GKP,16,16,1440,0,0,0,0,3,29,0,0,38,2,0,3,1,43,33.5,2.7,2.69,/player-profiles/lucas-estella-perri/
+Zirkzee,Joshua Zirkzee,MUN,Man Utd,Manchester United,FWD,24,5,735,19,3,2,1,2,8,0,0,0,3,0,6,0,42,17.5,4.4,5.14,/player-profiles/joshua-zirkzee/
+Bradley,Conor Bradley,LIV,Liverpool,Liverpool,DEF,15,12,944,3,9,0,2,4,13,0,0,0,5,0,2,0,42,22.5,3.4,4.0,/player-profiles/conor-bradley/
+Heaven,Ayden Heaven,MUN,Man Utd,Manchester United,DEF,17,11,957,6,4,0,1,2,15,1,0,0,2,0,3,1,42,22.8,3.2,3.95,/player-profiles/ayden-heaven/
+Magassa,Soungoutou Magassa,WHU,West Ham,West Ham United,MID,22,11,1041,11,9,1,0,2,23,0,0,0,4,0,2,1,42,24.8,2.9,3.63,/player-profiles/soungoutou-magassa/
+Bobb,Oscar Bobb,FUL,Fulham,Fulham,MID,23,11,1097,12,9,0,2,4,13,0,0,0,1,0,0,0,42,26.1,2.8,3.45,/player-profiles/oscar-bobb/
+Isak,Alexander Isak,LIV,Liverpool,Liverpool,FWD,14,8,716,6,9,3,1,1,9,0,0,0,0,0,4,0,41,17.5,3.8,5.15,/player-profiles/alexander-isak/
+Cairney,Tom Cairney,FUL,Fulham,Fulham,MID,24,6,871,18,6,2,0,2,10,0,0,0,3,0,1,0,41,21.2,2.3,4.24,/player-profiles/tom-cairney/
+Wood,Chris Wood,NFO,Nott'm Forest,Nottingham Forest,FWD,15,11,910,4,11,3,0,2,14,0,0,0,0,0,4,1,41,22.2,3.4,4.05,/player-profiles/chris-wood/
+Kluivert,Justin Kluivert,BOU,Bournemouth,Bournemouth,MID,20,10,1001,10,10,2,0,4,19,0,0,0,5,0,3,0,41,24.4,2.8,3.69,/player-profiles/justin-kluivert/
+Bruun Larsen,Jacob Bruun Larsen,BUR,Burnley,Burnley,MID,28,10,1107,18,10,0,1,3,29,0,0,0,0,0,0,0,41,27.0,2.3,3.33,/player-profiles/jacob-bruun-larsen/
+Toti,Toti António Gomes,WOL,Wolves,Wolverhampton Wanderers,DEF,19,17,1430,2,4,0,0,1,33,0,0,0,2,1,0,0,41,34.9,2.3,2.58,/player-profiles/toti-antonio-gomes/
+Mayenda,Eliezer Mayenda,SUN,Sunderland,Sunderland,FWD,20,8,814,12,7,2,0,3,9,0,0,0,0,0,5,0,40,20.4,3.5,4.42,/player-profiles/eliezer-mayenda/
+Cook,Lewis Cook,BOU,Bournemouth,Bournemouth,MID,18,8,924,10,0,0,1,1,19,0,0,0,1,1,0,0,40,23.1,3.8,3.9,/player-profiles/lewis-cook/
+Solanke,Dominic Solanke,TOT,Spurs,Tottenham Hotspur,FWD,15,11,1016,4,4,3,0,0,21,0,0,0,1,0,4,1,40,25.4,3.3,3.54,/player-profiles/dominic-solanke/
+Mosquera (Cristhian),Cristhian Mosquera,ARS,Arsenal,Arsenal,DEF,20,9,1027,11,4,0,0,3,8,0,0,0,4,0,1,0,40,25.7,3.2,3.51,/player-profiles/cristhian-mosquera/
+Ward-Prowse,James Ward-Prowse,BUR,Burnley,Burnley,MID,18,12,1126,6,6,0,1,2,27,0,0,0,1,0,0,0,40,28.2,2.6,3.2,/player-profiles/james-ward-prowse/
+Bogarde,Lamar Bogarde,AVL,Aston Villa,Aston Villa,DEF,28,11,1139,17,7,0,0,2,17,0,0,0,5,0,4,0,40,28.5,2.5,3.16,/player-profiles/lamar-bogarde/
+Acheampong,Josh Acheampong,CHE,Chelsea,Chelsea,DEF,17,8,714,9,7,1,0,2,13,0,0,0,1,0,5,1,39,18.3,3.9,4.92,/player-profiles/josh-acheampong/
+Boscagli,Olivier Boscagli,BHA,Brighton,Brighton and Hove Albion,DEF,12,9,821,3,2,0,1,3,10,0,0,0,2,0,4,1,39,21.1,4.0,4.28,/player-profiles/olivier-boscagli/
+Cuenca,Jorge Cuenca,FUL,Fulham,Fulham,DEF,15,11,963,4,4,0,0,2,11,0,0,0,6,0,1,0,39,24.7,3.3,3.64,/player-profiles/jorge-cuenca/
+Savona,Nicolò Savona,NFO,Nott'm Forest,Nottingham Forest,DEF,14,11,1041,3,2,2,0,3,18,0,0,0,2,0,0,1,39,26.7,3.4,3.37,/player-profiles/nicolo-savona/
+Armstrong (Adam),Adam Armstrong,WOL,Wolves,Wolverhampton Wanderers,FWD,14,14,1140,0,7,2,2,3,20,0,0,0,3,0,1,0,39,29.2,2.8,3.08,/player-profiles/adam-armstrong/
+Munetsi,Marshall Munetsi,WOL,Wolves,Wolverhampton Wanderers,MID,13,9,884,4,3,1,2,0,19,0,0,0,2,0,1,0,38,23.3,4.0,3.87,/player-profiles/marshall-munetsi/
+Ugarte,Manuel Ugarte,MUN,Man Utd,Manchester United,MID,22,8,971,14,5,0,0,1,23,0,0,0,1,0,0,0,38,25.6,3.0,3.52,/player-profiles/manuel-ugarte/
+Willock,Joseph Willock,NEW,Newcastle,Newcastle United,MID,24,10,1057,14,9,0,2,3,18,0,0,0,3,0,0,0,38,27.8,2.3,3.24,/player-profiles/joseph-willock/
+Chiesa,Federico Chiesa,LIV,Liverpool,Liverpool,MID,26,1,513,25,1,2,1,0,9,0,0,0,3,0,0,0,37,13.9,2.0,6.49,/player-profiles/federico-chiesa/
+Hickey,Aaron Hickey,BRE,Brentford,Brentford,DEF,21,8,759,13,7,0,0,2,9,0,0,0,1,0,0,0,37,20.5,3.1,4.39,/player-profiles/aaron-hickey/
+Sancho,Jadon Sancho,MUN,Man Utd,Manchester United,MID,23,9,940,14,10,0,2,2,10,0,0,0,0,0,0,0,37,25.4,2.6,3.54,/player-profiles/jadon-sancho/
+Potts,Freddie Potts,WHU,West Ham,West Ham United,MID,22,12,1214,10,8,0,1,1,25,0,0,0,1,0,0,0,37,32.8,2.3,2.74,/player-profiles/freddie-potts/
+Havertz,Kai Havertz,ARS,Arsenal,Arsenal,FWD,12,7,608,5,6,2,3,4,4,0,0,0,1,0,3,0,36,16.9,4.0,5.33,/player-profiles/kai-havertz/
+Röhl,Merlin Röhl,EVE,Everton,Everton,MID,16,6,731,10,4,1,1,2,13,0,0,0,0,0,2,0,36,20.3,4.3,4.43,/player-profiles/merlin-rohl/
+Aké,Nathan Aké,MCI,Man City,Manchester City,DEF,18,6,751,12,2,0,0,3,9,0,0,0,1,0,1,0,36,20.9,4.0,4.31,/player-profiles/nathan-ake/
+Rigg,Chris Rigg,SUN,Sunderland,Sunderland,MID,18,11,790,7,9,1,1,3,11,0,0,0,1,0,1,0,36,21.9,2.4,4.1,/player-profiles/chris-rigg/
+Devenny,Justin Devenny,CRY,Crystal Palace,Crystal Palace,MID,21,7,863,14,4,1,0,1,15,0,0,0,0,0,0,0,36,24.0,2.4,3.75,/player-profiles/justin-devenny/
+Rodrigo Muniz,Rodrigo Muniz Carvalho,FUL,Fulham,Fulham,FWD,21,10,1040,11,10,1,1,3,13,1,0,0,2,0,3,0,36,28.9,1.9,3.12,/player-profiles/rodrigo-muniz-carvalho/
+Kilman,Max Kilman,WHU,West Ham,West Ham United,DEF,21,17,1578,4,0,0,0,1,37,0,0,0,4,0,0,0,36,43.8,1.9,2.05,/player-profiles/max-kilman/
+Kostoulas,Charalampos Kostoulas,BHA,Brighton,Brighton and Hove Albion,FWD,21,2,487,19,2,2,1,1,9,0,0,0,2,0,3,0,35,13.9,3.5,6.47,/player-profiles/charalampos-kostoulas/
+Gruda,Brajan Gruda,BHA,Brighton,Brighton and Hove Albion,MID,18,8,783,10,8,1,1,2,11,0,0,0,2,0,2,0,35,22.4,2.0,4.02,/player-profiles/brajan-gruda/
+Milner,James Milner,BHA,Brighton,Brighton and Hove Albion,MID,20,7,842,13,6,1,1,2,17,0,0,0,2,0,0,0,35,24.1,1.9,3.74,/player-profiles/james-milner/
+Douglas Luiz,Douglas Luiz Soares de Paulo,AVL,Aston Villa,Aston Villa,MID,21,12,955,9,11,1,1,1,15,0,0,0,3,0,0,0,35,27.3,2.3,3.3,/player-profiles/douglas-luiz-soares-de-paulo/
+Møller Wolfe,David Møller Wolfe,WOL,Wolves,Wolverhampton Wanderers,DEF,22,11,1087,11,7,0,2,1,23,0,0,0,1,0,0,0,35,31.1,1.9,2.9,/player-profiles/david-moller-wolfe/
+Adingra,Simon Adingra,SUN,Sunderland,Sunderland,MID,14,9,678,5,9,1,1,4,8,0,0,0,2,0,3,1,34,19.9,3.2,4.51,/player-profiles/simon-adingra/
+Tosin,Oluwatosin Adarabioyo,CHE,Chelsea,Chelsea,DEF,16,8,839,8,2,0,0,2,14,0,0,0,2,0,2,1,34,24.7,3.4,3.65,/player-profiles/oluwatosin-adarabioyo/
+Mamardashvili,Giorgi Mamardashvili,LIV,Liverpool,Liverpool,GKP,10,10,864,0,1,0,0,2,18,0,1,34,0,0,2,0,34,25.4,3.4,3.54,/player-profiles/giorgi-mamardashvili/
+Tuanzebe,Axel Tuanzebe,BUR,Burnley,Burnley,DEF,14,14,1199,0,2,1,0,1,26,1,0,0,1,0,0,0,34,35.3,2.4,2.55,/player-profiles/axel-tuanzebe/
+Gomez,Joseph Gomez,LIV,Liverpool,Liverpool,DEF,21,7,690,14,5,0,2,2,14,0,0,0,4,0,2,1,33,20.9,3.3,4.3,/player-profiles/joseph-gomez/
+Gnonto,Degnand Wilfried Gnonto,LEE,Leeds,Leeds United,MID,23,4,651,19,4,0,3,1,14,0,0,0,3,0,0,0,32,20.3,1.5,4.42,/player-profiles/degnand-wilfried-gnonto/
+Branthwaite,Jarrad Branthwaite,EVE,Everton,Everton,DEF,10,7,680,3,3,1,1,1,9,0,0,0,1,0,0,0,32,21.3,4.1,4.24,/player-profiles/jarrad-branthwaite/
+Diop,Issa Diop,FUL,Fulham,Fulham,DEF,13,8,830,5,2,1,0,1,13,0,0,0,2,0,3,1,31,26.8,3.3,3.36,/player-profiles/issa-diop/
+Traore (Bertrand),Bertrand Traore,SUN,Sunderland,Sunderland,MID,12,9,651,3,10,1,1,3,9,0,0,0,1,0,1,0,30,21.7,3.0,4.15,/player-profiles/bertrand-traore/
+Yates,Ryan Yates,NFO,Nott'm Forest,Nottingham Forest,MID,22,2,702,20,2,0,2,0,7,0,0,0,3,0,0,0,30,23.4,2.5,3.85,/player-profiles/ryan-yates/
+Alcaraz,Carlos Alcaraz,EVE,Everton,Everton,MID,20,6,749,14,6,0,1,3,10,0,0,0,4,0,0,0,29,25.8,2.7,3.48,/player-profiles/carlos-alcaraz/
+Lewis-Skelly,Myles Lewis-Skelly,ARS,Arsenal,Arsenal,DEF,20,5,786,15,1,0,0,2,8,0,0,0,3,0,0,0,29,27.1,3.2,3.32,/player-profiles/myles-lewis-skelly/
+Lindelof,Victor Nilsson-Lindelof,AVL,Aston Villa,Aston Villa,DEF,17,11,980,6,3,0,1,1,15,0,0,0,0,0,0,0,29,33.8,2.1,2.66,/player-profiles/victor-nilsson-lindelof/
+Destiny Udogie,Iyenoma Destiny Udogie,TOT,Spurs,Tottenham Hotspur,DEF,20,14,1350,6,7,0,1,1,25,0,0,0,4,0,1,0,29,46.6,1.6,1.93,/player-profiles/iyenoma-destiny-udogie/
+Unal,Enes Unal,BOU,Bournemouth,Bournemouth,FWD,23,0,365,23,0,1,0,0,3,0,0,0,1,0,1,0,27,13.5,0.0,6.66,/player-profiles/enes-unal/
+Wissa,Yoane Wissa,NEW,Newcastle,Newcastle United,FWD,19,4,626,15,4,1,1,1,11,0,0,0,3,0,0,0,27,23.2,3.0,3.88,/player-profiles/yoane-wissa/
+Bakwa,Dilane Bakwa,NFO,Nott'm Forest,Nottingham Forest,MID,14,6,587,8,7,0,2,2,10,0,0,0,1,0,1,0,26,22.6,3.0,3.99,/player-profiles/dilane-bakwa/
+O'Nien,Luke O'Nien,SUN,Sunderland,Sunderland,DEF,12,5,602,7,0,0,1,2,7,0,0,0,1,1,1,0,26,23.2,3.8,3.89,/player-profiles/luke-onien/
+Pablo,Pablo Felipe Pereira de Jesus,WHU,West Ham,West Ham United,FWD,14,10,851,4,8,0,1,3,12,0,0,0,0,0,0,0,26,32.7,2.2,2.75,/player-profiles/pablo-felipe-pereira-de-jesus/
+Bornauw,Sebastiaan Bornauw,LEE,Leeds,Leeds United,DEF,12,5,453,7,5,0,0,2,5,0,0,0,1,0,0,0,25,18.1,3.6,4.97,/player-profiles/sebastiaan-bornauw/
+Traoré (Adama),Adama Traoré,WHU,West Ham,West Ham United,MID,24,1,527,23,1,0,0,0,12,0,0,0,1,0,0,0,25,21.1,2.0,4.27,/player-profiles/adama-traore/
+Gittens,Jamie Gittens,CHE,Chelsea,Chelsea,MID,16,5,551,11,4,0,2,1,7,0,0,0,0,0,0,0,25,22.0,2.8,4.08,/player-profiles/jamie-gittens/
+Ramsdale,Aaron Ramsdale,NEW,Newcastle,Newcastle United,GKP,12,11,1015,1,0,0,0,1,17,0,0,25,2,0,1,0,25,40.6,2.3,2.22,/player-profiles/aaron-ramsdale/
+Lucas Pires,Lucas Pires Silva,BUR,Burnley,Burnley,DEF,20,15,1437,5,0,0,0,1,29,0,0,0,1,1,0,0,25,57.5,1.3,1.57,/player-profiles/lucas-pires-silva/
+Jesus,Gabriel Fernando de Jesus,ARS,Arsenal,Arsenal,FWD,14,3,478,11,3,3,0,1,6,0,0,0,3,0,0,0,24,19.9,2.3,4.52,/player-profiles/gabriel-fernando-de-jesus/
+Abraham,Tammy Abraham,AVL,Aston Villa,Aston Villa,FWD,12,2,338,10,1,2,0,0,8,0,0,0,0,0,2,0,23,14.7,1.5,6.12,/player-profiles/tammy-abraham/
+Eddie Nketiah,Edward Nketiah,CRY,Crystal Palace,Crystal Palace,FWD,12,2,483,10,2,2,0,0,12,0,0,0,2,0,3,0,23,21.0,5.5,4.29,/player-profiles/edward-nketiah/
+James (Daniel),Daniel James,LEE,Leeds,Leeds United,MID,19,6,618,13,7,0,0,1,16,0,0,0,0,0,0,0,23,26.9,1.7,3.35,/player-profiles/daniel-james/
+Agbadou,Emmanuel Agbadou,WOL,Wolves,Wolverhampton Wanderers,DEF,14,12,1103,2,0,0,0,0,27,0,0,0,1,1,0,0,23,48.0,1.8,1.88,/player-profiles/emmanuel-agbadou/
+Patterson (Nathan),Nathan Patterson,EVE,Everton,Everton,DEF,7,3,270,4,2,0,0,2,2,0,0,0,0,0,0,0,22,12.3,6.0,7.33,/player-profiles/nathan-patterson/
+Bailey (Leon),Leon Bailey,AVL,Aston Villa,Aston Villa,MID,13,3,499,10,2,0,2,0,9,0,0,0,1,0,0,0,21,23.8,4.0,3.79,/player-profiles/leon-bailey/
+Armstrong (Harrison),Harrison Armstrong,EVE,Everton,Everton,MID,13,6,554,7,5,0,0,1,11,0,0,0,0,0,0,0,21,26.4,2.3,3.41,/player-profiles/harrison-armstrong/
+Scarles,Oliver Scarles,WHU,West Ham,West Ham United,DEF,13,9,683,4,5,0,1,0,16,0,0,0,2,0,0,0,21,32.5,2.1,2.77,/player-profiles/oliver-scarles/
+Johnstone,Sam Johnstone,WOL,Wolves,Wolverhampton Wanderers,GKP,12,12,1080,0,0,0,0,0,24,1,0,39,0,0,0,0,21,51.4,1.8,1.75,/player-profiles/sam-johnstone/
+Worrall,Joe Worrall,BUR,Burnley,Burnley,DEF,11,5,533,6,1,0,0,0,11,0,0,0,0,0,0,0,20,26.7,2.8,3.38,/player-profiles/joe-worrall/
+Riad,Chadi Riad,CRY,Crystal Palace,Crystal Palace,DEF,9,6,568,3,4,0,1,1,8,0,0,0,2,0,0,0,20,28.4,2.3,3.17,/player-profiles/chadi-riad/
+Kinsky,Antonín Kinsky,TOT,Spurs,Tottenham Hotspur,GKP,7,7,630,0,0,0,0,2,7,0,0,10,1,0,0,0,20,31.5,2.9,2.86,/player-profiles/antonin-kinsky/
+Milosavljevic,Veljko Milosavljevic,BOU,Bournemouth,Bournemouth,DEF,7,4,377,3,0,0,0,1,6,0,0,0,0,0,0,0,19,19.8,4.0,4.54,/player-profiles/veljko-milosavljevic/
+Lewis,Rico Lewis,MCI,Man City,Manchester City,DEF,11,4,439,7,1,0,1,1,7,0,0,0,2,0,2,1,19,23.1,3.0,3.9,/player-profiles/rico-lewis/
+Hato,Jorrel Hato,CHE,Chelsea,Chelsea,DEF,22,12,1201,10,5,0,0,0,27,0,0,0,7,0,0,0,19,63.2,1.0,1.42,/player-profiles/jorrel-hato/
+Dibling,Tyler Dibling,EVE,Everton,Everton,MID,14,4,404,10,3,0,0,2,2,0,0,0,2,0,0,0,18,22.4,2.3,4.01,/player-profiles/tyler-dibling/
+Uche,Christantus Uche,CRY,Crystal Palace,Crystal Palace,FWD,14,0,260,14,0,0,1,0,4,0,0,0,0,0,0,0,17,15.3,0.0,5.88,/player-profiles/christantus-uche/
+Piroe,Joël Piroe,LEE,Leeds,Leeds United,FWD,16,2,349,14,2,0,0,1,9,0,0,0,0,0,0,0,17,20.5,1.5,4.38,/player-profiles/joel-piroe/
+Mcatee,James Mcatee,NFO,Nott'm Forest,Nottingham Forest,MID,14,2,363,12,1,0,1,0,9,0,0,0,1,0,0,0,17,21.4,1.5,4.21,/player-profiles/james-mcatee/
+Dragusin,Radu Dragusin,TOT,Spurs,Tottenham Hotspur,DEF,10,5,543,5,1,0,0,0,13,0,0,0,0,0,0,0,17,31.9,2.6,2.82,/player-profiles/radu-dragusin/
+Clyne,Nathaniel Clyne,CRY,Crystal Palace,Crystal Palace,DEF,10,7,616,3,6,0,1,0,12,0,0,0,1,0,2,0,17,36.2,2.0,2.48,/player-profiles/nathaniel-clyne/
+Bissouma,Yves Bissouma,TOT,Spurs,Tottenham Hotspur,MID,11,7,619,4,6,0,0,1,17,0,0,0,4,0,0,0,17,36.4,2.0,2.47,/player-profiles/yves-bissouma/
+Dowman,Max Dowman,ARS,Arsenal,Arsenal,MID,6,1,186,5,1,1,1,1,1,0,0,0,0,0,0,0,16,11.6,3.0,7.74,/player-profiles/max-dowman/
+Tzimas,Stefanos Tzimas,BHA,Brighton,Brighton and Hove Albion,FWD,9,1,188,8,1,1,1,0,2,0,0,0,0,0,0,0,16,11.8,1.0,7.66,/player-profiles/stefanos-tzimas/
+O’Riley,Matt O’Riley,BHA,Brighton,Brighton and Hove Albion,MID,6,2,222,4,1,1,0,1,3,0,0,0,0,0,2,1,16,13.9,6.0,6.49,/player-profiles/matt-oriley/
+Ellborg,Melker Ellborg,SUN,Sunderland,Sunderland,GKP,3,3,270,0,0,0,0,1,2,0,0,10,0,0,3,1,16,16.9,5.3,5.33,/player-profiles/melker-ellborg/
+George,Tyrique George,EVE,Everton,Everton,MID,15,1,441,14,2,0,0,1,9,0,0,0,2,0,0,0,16,27.6,2.0,3.27,/player-profiles/tyrique-george/
+Stones,John Stones,MCI,Man City,Manchester City,DEF,9,5,464,4,3,0,0,1,10,0,0,0,0,0,0,0,16,29.0,2.6,3.1,/player-profiles/john-stones/
+Angel Gomes,Angel Gomes,WOL,Wolves,Wolverhampton Wanderers,MID,12,7,481,5,7,0,0,1,8,0,0,0,1,0,0,0,16,30.1,1.7,2.99,/player-profiles/angel-gomes/
+Bizot,Marco Bizot,AVL,Aston Villa,Aston Villa,GKP,7,6,585,1,0,0,0,1,10,0,0,19,2,0,0,0,16,36.6,2.3,2.46,/player-profiles/marco-bizot/
+Reed,Harrison Reed,FUL,Fulham,Fulham,MID,7,1,127,6,1,1,0,0,4,0,0,0,0,0,2,0,15,8.5,2.0,10.63,/player-profiles/harrison-reed/
+Pinnock,Ethan Pinnock,BRE,Brentford,Brentford,DEF,4,4,317,0,3,0,0,1,5,1,0,0,1,0,2,1,14,22.6,3.5,3.97,/player-profiles/ethan-pinnock/
+Cirkin,Dennis Cirkin,SUN,Sunderland,Sunderland,DEF,8,3,343,5,1,0,0,1,2,0,0,0,2,0,0,0,14,24.5,3.3,3.67,/player-profiles/dennis-cirkin/
+Mundle,Romaine Mundle,SUN,Sunderland,Sunderland,MID,14,2,463,12,2,0,0,0,11,0,0,0,1,0,0,0,14,33.1,1.5,2.72,/player-profiles/romaine-mundle/
+Doherty,Matt Doherty,WOL,Wolves,Wolverhampton Wanderers,DEF,11,11,781,0,8,0,0,1,15,0,0,0,4,0,0,0,14,55.8,1.3,1.61,/player-profiles/matt-doherty/
+Carvalho,Fabio Carvalho,BRE,Brentford,Brentford,MID,6,1,130,5,0,1,0,0,4,0,0,0,0,0,1,0,13,10.0,2.0,9.0,/player-profiles/fabio-carvalho/
+Nelson,Reiss Nelson,BRE,Brentford,Brentford,MID,10,0,179,10,0,0,1,0,2,0,0,0,0,0,0,0,13,13.8,0.0,6.54,/player-profiles/reiss-nelson/
+Sonne,Oliver Sonne,BUR,Burnley,Burnley,DEF,7,1,202,6,1,1,0,0,4,0,0,0,0,0,0,0,13,15.5,1.0,5.79,/player-profiles/oliver-sonne/
+Guiu,Marc Guiu,CHE,Chelsea,Chelsea,FWD,10,1,315,9,1,0,1,0,3,0,0,0,1,0,0,0,13,24.2,2.0,3.71,/player-profiles/marc-guiu/
+Trafford,James Trafford,MCI,Man City,Manchester City,GKP,4,4,360,0,0,0,0,1,6,0,0,14,0,0,0,0,13,27.7,3.3,3.25,/player-profiles/james-trafford/
+Angulo,Nilson Angulo,SUN,Sunderland,Sunderland,MID,8,5,409,3,5,0,0,1,6,0,0,0,1,0,0,0,13,31.5,2.0,2.86,/player-profiles/nilson-angulo/
+Lavia,Romeo Lavia,CHE,Chelsea,Chelsea,MID,12,4,433,8,4,0,0,0,10,0,0,0,0,0,0,0,13,33.3,1.3,2.7,/player-profiles/romeo-lavia/
+Jair,Jair Paula da Cunha Filho,NFO,Nott'm Forest,Nottingham Forest,DEF,9,6,531,3,3,0,0,0,7,0,0,0,0,0,0,0,13,40.8,1.7,2.2,/player-profiles/jair-paula-da-cunha-filho/
+Onyeka,Frank Onyeka,BRE,Brentford,Brentford,MID,6,0,125,6,0,0,2,0,2,0,0,0,0,0,0,0,12,10.4,0.0,8.64,/player-profiles/frank-ogochukwu-onyeka/
+Endo,Wataru Endo,LIV,Liverpool,Liverpool,MID,8,1,210,7,1,0,1,1,5,0,0,0,1,0,0,0,12,17.5,3.0,5.14,/player-profiles/wataru-endo/
+Fernando López,Fernando López,WOL,Wolves,Wolverhampton Wanderers,MID,9,2,276,7,2,0,1,0,9,0,0,0,1,0,0,0,12,23.0,2.5,3.91,/player-profiles/fernando-lopez/
+Harrison (Jack),Jack Harrison,LEE,Leeds,Leeds United,MID,11,1,308,10,1,0,0,0,5,0,0,0,0,0,0,0,12,25.7,2.0,3.51,/player-profiles/jack-harrison/
+Füllkrug,Niclas Füllkrug,WHU,West Ham,West Ham United,FWD,8,5,422,3,4,0,0,1,11,0,0,0,0,0,0,0,12,35.2,1.8,2.56,/player-profiles/niclas-fullkrug/
+Doak,Ben Doak,BOU,Bournemouth,Bournemouth,MID,8,0,170,8,0,0,1,0,1,0,0,0,0,0,0,0,11,15.5,0.0,5.82,/player-profiles/ben-doak/
+Ortega Moreno,Stefan Ortega Moreno,NFO,Nott'm Forest,Nottingham Forest,GKP,3,3,270,0,0,0,0,1,4,0,0,8,0,0,0,0,11,24.5,3.7,3.67,/player-profiles/stefan-ortega-moreno/
+Netz,Luca Netz,NFO,Nott'm Forest,Nottingham Forest,DEF,7,3,379,4,2,0,0,0,5,0,0,0,0,0,0,0,11,34.5,2.3,2.61,/player-profiles/luca-netz/
+John,John Victor Maciel Furtado,NFO,Nott'm Forest,Nottingham Forest,GKP,5,5,433,0,1,0,0,1,8,0,0,6,1,0,0,0,11,39.4,2.2,2.29,/player-profiles/john-victor-maciel-furtado/
+Bayindir,Altay Bayindir,MUN,Man Utd,Manchester United,GKP,6,6,540,0,0,0,0,0,11,0,0,13,0,0,0,0,11,49.1,1.8,1.83,/player-profiles/altay-bayindir/
+Davies (Ben),Ben Davies,TOT,Spurs,Tottenham Hotspur,DEF,3,2,136,1,2,1,0,0,3,0,0,0,1,0,1,0,10,13.6,4.5,6.62,/player-profiles/ben-davies-welsh/
+Coppola,Diego Coppola,BHA,Brighton,Brighton and Hove Albion,DEF,5,2,206,3,1,0,0,1,3,0,0,0,2,0,0,0,10,20.6,3.5,4.37,/player-profiles/diego-coppola/
+Pedro Lima,Pedro Henrique Cardoso de Lima,WOL,Wolves,Wolverhampton Wanderers,DEF,9,3,280,6,3,0,0,0,6,0,0,0,0,0,0,0,10,28.0,1.3,3.21,/player-profiles/pedro-henrique-cardoso-de-lima/
+Hoever,Ki-Jana Hoever,WOL,Wolves,Wolverhampton Wanderers,DEF,8,6,427,2,6,0,0,0,13,0,0,0,0,0,0,0,10,42.7,1.3,2.11,/player-profiles/ki-jana-hoever/
+Kanté,Mohamadou Kanté,WHU,West Ham,West Ham United,MID,11,0,129,11,0,0,0,0,1,0,0,0,2,0,0,0,9,14.3,0.0,6.28,/player-profiles/mohamadou-kante/
+Kalimuendo,Arnaud Kalimuendo,NFO,Nott'm Forest,Nottingham Forest,FWD,9,0,142,9,0,0,0,0,3,0,0,0,0,0,0,0,9,15.8,0.0,5.7,/player-profiles/arnaud-kalimuendo/
+Lucca,Lorenzo Lucca,NFO,Nott'm Forest,Nottingham Forest,FWD,4,1,148,3,1,1,0,1,1,0,0,0,0,0,0,0,9,16.4,2.0,5.47,/player-profiles/lorenzo-lucca/
+Kovacic,Mateo Kovacic,MCI,Man City,Manchester City,MID,6,1,166,5,1,0,1,0,3,0,0,0,0,0,0,0,9,18.4,1.0,4.88,/player-profiles/mateo-kovacic/
+Irving,Andy Irving,WHU,West Ham,West Ham United,MID,7,2,185,5,2,0,0,0,4,0,0,0,0,0,0,0,9,20.6,2.0,4.38,/player-profiles/andy-irving/
+Jørgensen,Filip Jørgensen,CHE,Chelsea,Chelsea,GKP,5,3,391,2,0,0,0,0,5,0,0,8,0,0,0,0,9,43.4,2.3,2.07,/player-profiles/filip-jorgensen/
+Tóth,Alex Tóth,BOU,Bournemouth,Bournemouth,MID,9,2,188,7,2,0,0,0,3,0,0,0,1,0,0,0,8,23.5,1.0,3.83,/player-profiles/alex-toth/
+Rodríguez,Guido Rodríguez,WHU,West Ham,West Ham United,MID,6,2,198,4,2,0,0,1,2,0,0,0,1,0,0,0,8,24.8,2.0,3.64,/player-profiles/guido-rodriguez/
+Nwaneri,Ethan Nwaneri,ARS,Arsenal,Arsenal,MID,6,0,203,6,0,0,0,1,0,0,0,0,0,0,0,0,8,25.4,0.0,3.55,/player-profiles/ethan-nwaneri/
+Colwill,Levi Colwill,CHE,Chelsea,Chelsea,DEF,3,2,225,1,0,0,0,0,4,0,0,0,0,0,0,0,8,28.1,3.5,3.2,/player-profiles/levi-colwill/
+Edozie,Tom Edozie,WOL,Wolves,Wolverhampton Wanderers,MID,3,0,25,3,0,1,0,0,0,0,0,0,0,0,0,0,8,3.1,0.0,0.0,/player-profiles/tom-edozie/
+Norgaard,Christian Norgaard,ARS,Arsenal,Arsenal,MID,7,1,141,6,1,0,0,0,1,0,0,0,0,0,0,0,7,20.1,1.0,4.47,/player-profiles/christian-norgaard/
+Weiß,Max Weiß,BUR,Burnley,Burnley,GKP,3,3,270,0,0,0,0,0,4,0,0,10,0,0,0,0,7,38.6,2.3,2.33,/player-profiles/max-weiss/
+Zinchenko,Oleksandr Zinchenko,NFO,Nott'm Forest,Nottingham Forest,DEF,5,4,357,1,1,0,0,0,6,0,0,0,0,0,0,0,7,51.0,1.5,1.76,/player-profiles/oleksandr-zinchenko/
+Badiashile,Benoît Badiashile,CHE,Chelsea,Chelsea,DEF,8,6,480,2,3,0,0,0,10,0,0,0,2,0,0,0,7,68.6,1.3,1.31,/player-profiles/benoit-badiashile/
+Kusi-Asare,Jonah Kusi-Asare,FUL,Fulham,Fulham,FWD,7,0,98,7,0,0,0,0,2,0,0,0,1,0,0,0,6,16.3,0.0,5.51,/player-profiles/jonah-kusi-asare/
+Igor Julio,Igor Julio dos Santos de Paulo,BHA,Brighton,Brighton and Hove Albion,DEF,4,1,122,3,0,0,0,0,3,0,0,0,0,0,0,0,6,20.3,3.0,4.43,/player-profiles/igor-julio-dos-santos-de-paulo/
+Sosa (Borna),Borna Sosa,CRY,Crystal Palace,Crystal Palace,DEF,7,0,134,7,0,0,0,0,2,0,0,0,1,0,0,0,6,22.3,0.0,4.03,/player-profiles/borna-sosa/
+Mayers,Ezra Mayers,WHU,West Ham,West Ham United,DEF,6,0,145,6,0,0,0,0,3,0,0,0,0,0,0,0,6,24.2,0.0,3.72,/player-profiles/ezra-mayers/
+Woodman,Freddie Woodman,LIV,Liverpool,Liverpool,GKP,3,2,218,1,0,0,0,0,4,0,0,9,0,0,0,0,6,36.3,2.5,2.48,/player-profiles/freddie-woodman/
+Bentley,Daniel Bentley,WOL,Wolves,Wolverhampton Wanderers,GKP,3,3,270,0,0,0,0,0,7,0,0,7,0,0,0,0,6,45.0,2.0,2.0,/player-profiles/daniel-bentley/
+Nyoni,Treymaurice Nyoni,LIV,Liverpool,Liverpool,MID,6,0,54,6,0,0,0,0,1,0,0,0,0,0,0,0,6,9.0,0.0,0.0,/player-profiles/treymaurice-nyoni/
+Trésor,Mike Trésor,BUR,Burnley,Burnley,MID,6,0,73,6,0,0,0,0,2,0,0,0,0,0,0,0,6,12.2,0.0,0.0,/player-profiles/mike-tresor/
+Barnes (Ashley),Ashley Barnes,BUR,Burnley,Burnley,FWD,7,0,95,7,0,0,0,0,3,0,0,0,2,0,0,0,5,19.0,0.0,4.74,/player-profiles/ashley-barnes/
+García,Andrés García,AVL,Aston Villa,Aston Villa,DEF,6,1,114,5,1,0,0,0,3,0,0,0,0,0,0,0,5,22.8,1.0,3.95,/player-profiles/andres-garcia/
+Elliott,Harvey Elliott,AVL,Aston Villa,Aston Villa,MID,5,1,140,4,1,0,0,0,2,0,0,0,0,0,0,0,5,28.0,1.0,3.21,/player-profiles/harvey-elliott/
+Luis Guilherme,Luis Guilherme Lira dos Santos,WHU,West Ham,West Ham United,MID,5,1,145,4,1,0,0,0,2,0,0,0,0,0,0,0,5,29.0,1.0,3.1,/player-profiles/luis-guilherme-lira-dos-santos/
+Coleman,Seamus Coleman,EVE,Everton,Everton,DEF,5,1,38,4,1,0,0,0,1,0,0,0,0,0,0,0,5,7.6,1.0,0.0,/player-profiles/seamus-coleman/
+Watson,Tom Watson,BHA,Brighton,Brighton and Hove Albion,MID,6,0,89,6,0,0,0,0,2,0,0,0,1,0,0,0,5,17.8,0.0,0.0,/player-profiles/tom-watson/
+Amdouni,Zeki Amdouni,BUR,Burnley,Burnley,FWD,4,0,96,4,0,0,0,0,0,0,0,0,0,0,0,0,4,24.0,0.0,3.75,/player-profiles/zeki-amdouni/
+Howell,Harry Howell,BHA,Brighton,Brighton and Hove Albion,MID,3,1,106,2,1,0,0,0,2,0,0,0,0,0,0,0,4,26.5,2.0,3.4,/player-profiles/harry-howell/
+Donovan,Romelle Donovan,BRE,Brentford,Brentford,MID,4,0,68,4,0,0,0,0,0,0,0,0,0,0,0,0,4,17.0,0.0,0.0,/player-profiles/romelle-donovan/
+Esse,Romain Esse,CRY,Crystal Palace,Crystal Palace,MID,4,0,64,4,0,0,0,0,0,0,0,0,0,0,0,0,4,16.0,0.0,0.0,/player-profiles/romain-esse/
+March,Solomon March,BHA,Brighton,Brighton and Hove Albion,MID,4,0,63,4,0,0,0,0,1,0,0,0,0,0,0,0,4,15.8,0.0,0.0,/player-profiles/solomon-march/
+Buonanotte,Facundo Buonanotte,LEE,Leeds,Leeds United,MID,4,1,95,3,1,0,0,0,4,0,0,0,1,0,0,0,3,31.7,1.0,2.84,/player-profiles/facundo-buonanotte/
+Jack Fletcher,Jack Fletcher,MUN,Man Utd,Manchester United,MID,3,0,112,3,0,0,0,0,0,0,0,0,0,0,0,0,3,37.3,0.0,2.41,/player-profiles/jack-fletcher/
+Sarr (Mamadou),Mamadou Sarr,CHE,Chelsea,Chelsea,DEF,3,1,113,2,1,0,0,0,3,0,0,0,0,0,0,0,3,37.7,1.0,2.39,/player-profiles/mamadou-sarr/
+Souza,João Victor de Souza Menezes,TOT,Spurs,Tottenham Hotspur,DEF,4,2,153,2,2,0,0,0,3,0,0,0,1,0,0,0,3,51.0,0.5,1.76,/player-profiles/joao-victor-de-souza-menezes/
+Abbott (Zach),Zach Abbott,NFO,Nott'm Forest,Nottingham Forest,DEF,3,2,159,1,2,0,0,0,4,0,0,0,0,0,0,0,3,53.0,1.0,1.7,/player-profiles/zach-abbott/
+Alysson Edward,Alysson Edward Franco da Rocha dos Santos,AVL,Aston Villa,Aston Villa,MID,3,0,66,3,0,0,0,0,2,0,0,0,0,0,0,0,3,22.0,0.0,0.0,/player-profiles/alysson-edward-franco-da-rocha-dos-santos/
+Lacey,Shea Lacey,MUN,Man Utd,Manchester United,MID,3,0,54,3,0,0,0,0,0,0,0,0,0,0,0,0,3,18.0,0.0,0.0,/player-profiles/shea-lacey/
+Maddison,James Maddison,TOT,Spurs,Tottenham Hotspur,MID,3,0,67,3,0,0,0,0,0,0,0,0,0,0,0,0,3,22.3,0.0,0.0,/player-profiles/james-maddison/
+Malacia,Tyrell Malacia,MUN,Man Utd,Manchester United,DEF,3,0,37,3,0,0,0,0,1,0,0,0,0,0,0,0,3,12.3,0.0,0.0,/player-profiles/tyrell-malacia/
+Neil,Dan Neil,SUN,Sunderland,Sunderland,MID,3,0,25,3,0,0,0,0,0,0,0,0,0,0,0,0,3,8.3,0.0,0.0,/player-profiles/dan-neil/
+Soler,Julio Soler,BOU,Bournemouth,Bournemouth,DEF,3,0,46,3,0,0,0,0,2,0,0,0,0,0,0,0,3,15.3,0.0,0.0,/player-profiles/julio-soler/
+Masuaku,Arthur Masuaku,SUN,Sunderland,Sunderland,DEF,3,2,133,1,2,0,0,0,2,0,0,0,1,0,0,0,1,133.0,0.0,0.68,/player-profiles/arthur-masuaku/
+Dário Essugo,Dário Cassia Luís Essugo,CHE,Chelsea,Chelsea,MID,3,0,49,3,0,0,0,0,1,0,0,0,2,0,0,0,1,49.0,0.0,0.0,/player-profiles/dario-cassia-luis-essugo/

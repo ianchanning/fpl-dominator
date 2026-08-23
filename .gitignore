@@ -8,5 +8,6 @@ __pycache__
 # weekly screenshots, raw data
 gw*/*.html
 archive/**/gw*/*.html
+archive/**/*.html
 screenshots/
 archive/**/screenshots/
