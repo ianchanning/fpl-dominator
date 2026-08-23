@@ -26,3 +26,10 @@ This file is an append-only timeline of all knowledge base updates, source inges
 - Documented data ingestion heterogeneity for prior season full-year HTML tables and unconstrained greenfield GW1 treasury state.
 - Linked new node to `wiki/index.md` knowledge graph.
 
+## [2026-08-23] ingestion | Ingest 2025/26 Aggregate HTML Dump & Forge Baseline Dataset
+- Ingested `archive/2025-26/fpl_player_stats.html` (33,871 lines, dual-header schema).
+- Forged `src/fpl_dominator/process_prior_season_html.py` equipped with dual-header decoding, `profile-title` position/club parsing, and historical fallback resolution.
+- Extracted all 491 players to `archive/2025-26/fpl_player_stats_2025_26.csv` with calculated `Pts_per_90` and normalized canonical team TLAs.
+- Added `bamf process-prior-season` to master CLI deck.
+
+
