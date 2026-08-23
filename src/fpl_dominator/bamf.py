@@ -15,6 +15,7 @@ from .grand_synthesis import perform_grand_synthesis
 from .process_fixtures_html import create_fixture_csv_from_html
 from .process_players_html import process_players_for_gameweek  # NEW IMPORT
 from .process_prior_season_html import parse_prior_season_html
+from .process_set_pieces_html import generate_empirical_set_pieces_csv, parse_set_pieces_html
 from .update_prices import reconcile_timeline
 
 # We'll need a new function for our scenario runner, let's pretend it exists
@@ -211,6 +212,42 @@ def process_prior_season(html, output):
     df = parse_prior_season_html(html, output)
     click.secho(
         f"--- Successfully forged {len(df)} player prior season records at '{output}' ---",
+        fg="green",
+        bold=True,
+    )
+
+
+@bamf.command()
+@click.option(
+    "--html",
+    "-h",
+    default="archive/2025-26/set_pieces.html",
+    show_default=True,
+    help="Path to set pieces HTML dump.",
+)
+@click.option(
+    "--output",
+    "-o",
+    default="set_pieces.csv",
+    show_default=True,
+    help="Target path for ranked set pieces CSV.",
+)
+@click.option(
+    "--detailed-output",
+    "-d",
+    default="archive/2025-26/set_pieces_detailed_2025_26.csv",
+    show_default=True,
+    help="Target path for detailed player-level set pieces CSV.",
+)
+def process_set_pieces(html, output, detailed_output):
+    """
+    Parses full-season set pieces HTML dump and derives empirical taker rankings.
+    """
+    click.secho(f"--- Processing Set Pieces HTML: {html} ---", fg="cyan", bold=True)
+    df = parse_set_pieces_html(html)
+    result_df = generate_empirical_set_pieces_csv(df, output, detailed_output)
+    click.secho(
+        f"--- Successfully forged empirical set piece matrix for {len(result_df)} clubs at '{output}' ---",
         fg="green",
         bold=True,
     )
