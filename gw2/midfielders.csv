@@ -1,61 +1,61 @@
 Surname,Team,Position,Price,TP,Status
-B.Fernandes,Man Utd,MID,12.0,0,OK
-Szoboszlai,Liverpool,MID,7.0,0,OK
-Mbeumo,Man Utd,MID,8.0,0,OK
-Semenyo,Man City,MID,8.5,0,OK
-Tzolis,Arsenal,MID,6.5,0,OK
-Rogers,Chelsea,MID,7.5,0,OK
-Rice,Arsenal,MID,7.5,0,OK
-Ndiaye,Everton,MID,6.0,0,OK
-Groß,Brighton,MID,5.5,0,OK
-Wirtz,Liverpool,MID,7.5,0,OK
-Hughes,Crystal Palace,MID,4.5,0,OK
-Gibbs-White,Nott'm Forest,MID,8.0,0,OK
-Palmer,Chelsea,MID,9.5,0,OK
-Cunha,Man Utd,MID,8.0,0,OK
-E.Le Fée,Sunderland,MID,6.0,0,OK
-Saka,Arsenal,MID,9.5,0,OK
-Ødegaard,Arsenal,MID,6.5,0,OK
-Cherki,Man City,MID,7.5,0,OK
-Anderson,Man City,MID,6.5,0,OK
-Wilson,Leeds,MID,6.5,0,OK
-Enzo,Chelsea,MID,7.0,0,OK
-Foden,Man City,MID,7.0,0,OK
-Xhaka,Sunderland,MID,5.5,0,OK
-Sarr,Crystal Palace,MID,6.5,0,DOUBT
-Tonali,Spurs,MID,5.5,0,OK
-Caicedo,Chelsea,MID,5.5,0,OK
-M.Sangaré,Brentford,MID,5.5,0,OK
-Gomez,Brighton,MID,5.0,0,OK
-Bruno G.,Arsenal,MID,7.0,0,DOUBT
-Schade,Brentford,MID,6.0,0,OK
-Dewsbury-Hall,Everton,MID,6.5,0,OK
-Gakpo,Liverpool,MID,7.0,0,OK
-McGinn,Aston Villa,MID,5.5,0,OK
-Slater,Hull City,MID,4.5,0,OK
-Rayan,Bournemouth,MID,6.5,0,OK
-Tielemans,Man Utd,MID,6.0,0,OK
-Eze,Arsenal,MID,6.5,0,OK
-Gravenberch,Liverpool,MID,6.0,0,OK
-Doku,Man City,MID,7.5,0,INJURY
-Fernandes,Spurs,MID,6.0,0,OK
-Mac Allister,Liverpool,MID,5.5,0,OK
-Yates,Nott'm Forest,MID,4.5,0,INJURY
-Tavernier,Bournemouth,MID,6.0,0,OK
-Reed,Fulham,MID,4.5,0,OK
-Rashford,Man Utd,MID,7.0,0,OK
-Scott,Bournemouth,MID,6.0,0,OK
-McAteer,Ipswich Town,MID,4.5,0,OK
-Amad,Man Utd,MID,6.0,0,DOUBT
-Buendía,Aston Villa,MID,6.0,0,OK
-Neto,Chelsea,MID,6.5,0,OK
-Ampadu,Leeds,MID,5.5,0,OK
-Maddison,Spurs,MID,6.5,0,OK
-Yarmoliuk,Brentford,MID,5.0,0,OK
-Estêvão,Chelsea,MID,6.5,0,OK
-Dorgu,Man Utd,MID,6.0,0,OK
-Kluivert,Bournemouth,MID,6.0,0,OK
-O.Dango,Brentford,MID,6.5,0,OK
-Ngumoha,Liverpool,MID,6.0,0,OK
-Zubimendi,Arsenal,MID,5.5,0,OK
-Stach,Leeds,MID,6.0,0,OK
+Hinshelwood,Brighton,MID,6.0,16,DOUBT
+M.Sangaré,Brentford,MID,5.6,14,OK
+Palmer,Chelsea,MID,9.5,13,OK
+Stach,Leeds,MID,6.0,13,OK
+Gakpo,Liverpool,MID,7.0,12,OK
+Ødegaard,Arsenal,MID,6.6,11,OK
+Dewsbury-Hall,Everton,MID,6.5,11,OK
+Tavernier,Bournemouth,MID,6.0,10,OK
+Lewis-Potter,Brentford,MID,5.5,10,OK
+Saka,Arsenal,MID,9.5,9,OK
+Janelt,Brentford,MID,5.0,9,OK
+Ndiaye,Everton,MID,6.0,9,OK
+Elanga,Newcastle,MID,6.0,9,OK
+Xhaka,Sunderland,MID,5.5,9,OK
+Rogers,Chelsea,MID,7.5,8,OK
+Armstrong,Everton,MID,5.0,8,OK
+Szoboszlai,Liverpool,MID,7.0,8,OK
+Cherki,Man City,MID,7.5,8,OK
+King,Fulham,MID,5.5,7,OK
+Clarke,Ipswich Town,MID,5.5,7,OK
+Tzolis,Arsenal,MID,6.5,6,OK
+Jensen,Brentford,MID,5.5,6,OK
+Gomez,Brighton,MID,5.0,6,OK
+Slater,Hull City,MID,4.5,6,OK
+Willock,Newcastle,MID,5.0,6,OK
+Lukić,Ipswich Town,MID,5.0,5,OK
+Enciso,Ipswich Town,MID,5.5,5,OK
+Ampadu,Leeds,MID,5.5,5,OK
+Gravenberch,Liverpool,MID,6.0,5,OK
+Angulo,Sunderland,MID,5.0,5,OK
+Wharton,Crystal Palace,MID,5.5,4,OK
+Núñez,Ipswich Town,MID,5.0,4,OK
+Munoz,Liverpool,MID,6.5,4,OK
+Lewis-Skelly,Arsenal,MID,5.5,3,OK
+Rice,Arsenal,MID,7.5,3,OK
+Kluivert,Bournemouth,MID,6.0,3,OK
+Cook,Bournemouth,MID,5.0,3,OK
+Schade,Brentford,MID,6.0,3,OK
+O.Dango,Brentford,MID,6.5,3,OK
+Kamada,Crystal Palace,MID,5.0,3,OK
+George,Everton,MID,5.5,3,OK
+Röhl,Everton,MID,5.0,3,OK
+Hackney,Everton,MID,5.5,3,DOUBT
+Belloumi,Hull City,MID,5.0,3,OK
+Stroud,Hull City,MID,5.0,3,OK
+Wilson,Leeds,MID,6.5,3,OK
+Aaronson,Leeds,MID,5.5,3,OK
+L.Miley,Newcastle,MID,5.5,3,OK
+Ndoye,Nott'm Forest,MID,5.5,3,OK
+McAtee,Nott'm Forest,MID,5.5,3,OK
+Buendía,Aston Villa,MID,6.0,2,OK
+Barkley,Aston Villa,MID,5.0,2,OK
+Kamara,Aston Villa,MID,5.0,2,OK
+George Hemmings,Aston Villa,MID,4.5,2,OK
+Rayan,Bournemouth,MID,6.5,2,OK
+Scott,Bournemouth,MID,6.0,2,OK
+Groß,Brighton,MID,5.5,2,OK
+Ayari,Brighton,MID,5.5,2,OK
+Onyeka,Coventry City,MID,5.0,2,OK
+Grimes,Coventry City,MID,5.0,2,OK

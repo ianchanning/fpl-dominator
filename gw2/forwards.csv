@@ -1,61 +1,61 @@
 Surname,Team,Position,Price,TP,Status
-Haaland,Man City,FWD,15.5,0,OK
-João Pedro,Chelsea,FWD,7.5,0,OK
-Calvert-Lewin,Leeds,FWD,6.0,0,OK
-Thiago,Brentford,FWD,8.0,0,OK
-Isak,Liverpool,FWD,9.0,0,OK
-Brobbey,Sunderland,FWD,6.0,0,OK
-Watkins,Aston Villa,FWD,8.0,0,OK
-Gyökeres,Arsenal,FWD,7.5,0,OK
-Kusi-Asare,Fulham,FWD,4.5,0,OK
-Havertz,Arsenal,FWD,7.5,0,OK
-Mateta,Crystal Palace,FWD,6.5,0,OK
-Igor Jesus,Nott'm Forest,FWD,6.0,0,OK
-Richarlison,Spurs,FWD,6.0,0,OK
-Beto,Everton,FWD,5.5,0,OK
-Evanilson,Bournemouth,FWD,6.0,0,OK
-Walle Egeli,Ipswich Town,FWD,4.5,0,OK
-Gonzalo,Fulham,FWD,6.0,0,OK
-Woltemade,Newcastle,FWD,6.0,0,OK
-Wood,Nott'm Forest,FWD,6.0,0,OK
-Scarlett,Spurs,FWD,4.5,0,OK
-Wissa,Newcastle,FWD,6.0,0,OK
-Barry,Everton,FWD,5.5,0,OK
-Solanke,Spurs,FWD,6.0,0,OK
-McBurnie,Hull City,FWD,5.5,0,OK
-Šeško,Man Utd,FWD,7.0,0,OK
-Welbeck,Chelsea,FWD,6.0,0,DOUBT
-Obi,Man Utd,FWD,4.5,0,OK
-Marmoush,Man City,FWD,7.0,0,OK
-Osula,Newcastle,FWD,6.0,0,OK
-Isidor,Sunderland,FWD,5.5,0,OK
-Furo,Brentford,FWD,4.5,0,OK
-Georginio,Brighton,FWD,5.5,0,OK
-Simms,Coventry City,FWD,5.0,0,OK
-Thomas-Asante,Coventry City,FWD,5.0,0,OK
-Awoniyi,Coventry City,FWD,5.5,0,OK
-Neave,Newcastle,FWD,4.5,0,OK
-Strand Larsen,Crystal Palace,FWD,6.0,0,OK
-Muniz,Fulham,FWD,5.5,0,OK
-Emersonn,Ipswich Town,FWD,5.5,0,OK
-Akpom,Ipswich Town,FWD,5.0,0,OK
-Nmecha,Leeds,FWD,5.5,0,OK
-Zirkzee,Man Utd,FWD,5.5,0,OK
+João Pedro,Chelsea,FWD,7.6,11,OK
+Emersonn,Ipswich Town,FWD,5.5,9,OK
+Barry,Everton,FWD,5.5,8,OK
+Havertz,Arsenal,FWD,7.5,6,OK
+Gonzalo,Fulham,FWD,6.0,6,OK
+Georginio,Brighton,FWD,5.5,5,DOUBT
+McBurnie,Hull City,FWD,5.5,5,OK
+Evanilson,Bournemouth,FWD,6.0,4,OK
+Wissa,Newcastle,FWD,6.0,4,OK
+Osula,Newcastle,FWD,6.0,4,INJURY
+Thomas-Asante,Coventry City,FWD,5.0,2,OK
+Simms,Coventry City,FWD,5.0,2,OK
+Mateta,Crystal Palace,FWD,6.5,2,OK
+Isak,Liverpool,FWD,9.0,2,OK
+Haaland,Man City,FWD,15.5,2,OK
+Igor Jesus,Nott'm Forest,FWD,6.0,2,OK
+Richarlison,Spurs,FWD,6.0,2,OK
+Brobbey,Sunderland,FWD,6.0,2,OK
+Jebbison,Bournemouth,FWD,5.0,1,OK
+Wilson,Brentford,FWD,5.5,1,OK
+Kostoulas,Brighton,FWD,5.5,1,OK
+Awoniyi,Coventry City,FWD,5.5,1,OK
+Strand Larsen,Crystal Palace,FWD,6.0,1,OK
+Nketiah,Crystal Palace,FWD,5.5,1,OK
+Beto,Everton,FWD,5.5,1,OK
+Muniz,Fulham,FWD,5.5,1,OK
+Akpom,Ipswich Town,FWD,5.0,1,OK
+Walle Egeli,Ipswich Town,FWD,4.5,1,OK
+Calvert-Lewin,Leeds,FWD,6.0,1,OK
+Šeško,Man Utd,FWD,7.0,1,OK
+Wood,Nott'm Forest,FWD,6.0,1,OK
+Kalimuendo,Nott'm Forest,FWD,5.5,1,OK
+Solanke,Spurs,FWD,6.0,1,OK
+Isidor,Sunderland,FWD,5.5,1,OK
+Gyökeres,Arsenal,FWD,7.4,0,OK
+G.Jesus,Arsenal,FWD,6.0,0,OK
+Watkins,Aston Villa,FWD,7.9,0,OK
+Abraham,Aston Villa,FWD,5.5,0,DOUBT
 Madjo,Aston Villa,FWD,5.5,0,INJURY
+Rodríguez,Bournemouth,FWD,6.0,0,OK
+Thiago,Brentford,FWD,8.0,0,OK
+Furo,Brentford,FWD,4.5,0,OK
+Tzimas,Brighton,FWD,5.5,0,INJURY
+Ferguson,Brighton,FWD,5.0,0,INJURY
+David,Brighton,FWD,6.0,0,OK
+Welbeck,Chelsea,FWD,6.0,0,OK
+N.Jackson,Chelsea,FWD,6.5,0,OK
 Delap,Chelsea,FWD,5.5,0,OK
 Marc Guiu,Chelsea,FWD,5.0,0,OK
-Nketiah,Crystal Palace,FWD,5.5,0,OK
-G.Jesus,Arsenal,FWD,6.0,0,OK
-Wilson,Brentford,FWD,5.5,0,OK
-N.Jackson,Chelsea,FWD,6.5,0,OK
 Mheuka,Chelsea,FWD,4.5,0,OK
-David,Brighton,FWD,6.0,0,OK
-Kostoulas,Brighton,FWD,5.5,0,OK
 Emegha,Chelsea,FWD,5.0,0,OK
 Wright,Coventry City,FWD,5.5,0,INJURY
-Al-Hamadi,Ipswich Town,FWD,5.0,0,OK
-Ekitiké,Liverpool,FWD,7.5,0,INJURY
-Abraham,Aston Villa,FWD,5.5,0,DOUBT
-Rodríguez,Bournemouth,FWD,6.0,0,OK
 Cherif,Coventry City,FWD,5.0,0,OK
+Kusi-Asare,Fulham,FWD,4.5,0,OK
+Nmecha,Leeds,FWD,5.5,0,OK
 Mateo Joseph,Leeds,FWD,4.5,0,INJURY
+Ekitiké,Liverpool,FWD,7.5,0,INJURY
+Danns,Liverpool,FWD,4.5,0,INJURY
+Marmoush,Man City,FWD,7.0,0,OK
+Zirkzee,Man Utd,FWD,5.5,0,OK

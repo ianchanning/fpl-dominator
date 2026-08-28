@@ -1,61 +1,61 @@
 Surname,Team,Position,Price,TP,Status
-Calafiori,Arsenal,DEF,5.5,0,OK
-Gabriel,Arsenal,DEF,8.0,0,OK
-O'Reilly,Man City,DEF,6.5,0,OK
-Shaw,Man Utd,DEF,4.5,0,OK
-Virgil,Liverpool,DEF,6.5,0,OK
-Diop,Ipswich Town,DEF,4.0,0,OK
-Maguire,Man Utd,DEF,5.0,0,OK
-Guéhi,Man City,DEF,6.0,0,OK
-Pedro Porro,Spurs,DEF,5.5,0,OK
-van Ewijk,Coventry City,DEF,4.0,0,OK
-Konsa,Arsenal,DEF,4.5,0,OK
-Gvardiol,Man City,DEF,5.5,0,OK
-Van Hecke,Spurs,DEF,5.0,0,OK
-James,Chelsea,DEF,5.5,0,OK
-N.Williams,Nott'm Forest,DEF,5.0,0,OK
-Muñoz,Crystal Palace,DEF,5.5,0,OK
-Lacroix,Chelsea,DEF,6.0,0,OK
-Cash,Aston Villa,DEF,4.5,0,OK
-Tarkowski,Everton,DEF,6.0,0,OK
-Senesi,Spurs,DEF,6.0,0,OK
-Thomas,Coventry City,DEF,4.0,0,OK
-Hume,Sunderland,DEF,4.5,0,OK
-Mitchell,Crystal Palace,DEF,4.5,0,OK
-Mosquera,Arsenal,DEF,5.5,0,OK
-Ballard,Sunderland,DEF,5.0,0,OK
-Davis,Ipswich Town,DEF,4.0,0,OK
-Van de Ven,Spurs,DEF,5.0,0,INJURY
-White,Arsenal,DEF,5.5,0,OK
-Truffert,Bournemouth,DEF,5.5,0,OK
-Robertson,Spurs,DEF,4.5,0,OK
-Kayode,Brentford,DEF,4.5,0,OK
-Kerkez,Liverpool,DEF,5.5,0,OK
-O'Nien,Sunderland,DEF,4.0,0,OK
-Ajer,Brentford,DEF,4.5,0,OK
-Rodon,Leeds,DEF,4.5,0,OK
-Frimpong,Liverpool,DEF,5.5,0,OK
-Hall,Newcastle,DEF,5.0,0,OK
-Aina,Nott'm Forest,DEF,4.5,0,OK
-O'Shea,Ipswich Town,DEF,4.0,0,OK
-Muharemović,Leeds,DEF,5.0,0,OK
-Palestra,Chelsea,DEF,5.5,0,OK
-F.Kadıoğlu,Brighton,DEF,4.5,0,DOUBT
-Mukiele,Sunderland,DEF,5.5,0,OK
-Araujo,Liverpool,DEF,5.5,0,OK
-Dalot,Man Utd,DEF,5.0,0,OK
-Vuskovic,Brighton,DEF,5.0,0,OK
-Burn,Newcastle,DEF,5.0,0,OK
-Targett,Hull City,DEF,4.0,0,OK
-Jacquet,Liverpool,DEF,5.0,0,OK
-Milenković,Nott'm Forest,DEF,5.5,0,OK
-Collins,Brentford,DEF,5.5,0,OK
-De Cuyper,Brighton,DEF,4.5,0,OK
-A.García,Aston Villa,DEF,4.0,0,OK
-Rúben,Man City,DEF,5.5,0,OK
-Khusanov,Man City,DEF,5.5,0,OK
-Hincapie,Arsenal,DEF,5.5,0,OK
-Branthwaite,Everton,DEF,5.5,0,OK
-Robinson,Fulham,DEF,4.5,0,OK
-Colwill,Chelsea,DEF,5.0,0,OK
-Keane,Everton,DEF,5.0,0,OK
+De Cuyper,Brighton,DEF,4.6,17,OK
+Mendy,Hull City,DEF,4.0,15,OK
+Ajayi,Hull City,DEF,4.0,14,OK
+Kayode,Brentford,DEF,4.6,13,OK
+White,Arsenal,DEF,5.5,11,OK
+Bijol,Leeds,DEF,5.0,10,OK
+Justin,Leeds,DEF,4.5,10,OK
+Guéhi,Man City,DEF,6.0,10,OK
+Calafiori,Arsenal,DEF,5.6,9,OK
+Gvardiol,Man City,DEF,5.5,9,OK
+Ajer,Brentford,DEF,4.5,8,OK
+Egan,Hull City,DEF,4.0,8,OK
+Wieffer,Brighton,DEF,5.0,7,OK
+Mosquera,Arsenal,DEF,5.5,6,OK
+Collins,Brentford,DEF,5.5,6,OK
+Boscagli,Brighton,DEF,4.5,6,OK
+Dunk,Brighton,DEF,4.5,6,OK
+Vuskovic,Brighton,DEF,5.0,6,OK
+Lacroix,Chelsea,DEF,6.0,6,OK
+Tarkowski,Everton,DEF,6.0,6,OK
+Branthwaite,Everton,DEF,5.5,6,OK
+Mykolenko,Everton,DEF,4.5,6,OK
+Castagne,Fulham,DEF,4.5,6,OK
+Coyle,Hull City,DEF,4.0,6,OK
+Giles,Hull City,DEF,4.0,6,OK
+Rodon,Leeds,DEF,4.5,6,OK
+Bogle,Leeds,DEF,4.5,6,OK
+Muharemović,Leeds,DEF,5.0,6,OK
+Gabriel,Arsenal,DEF,8.0,5,OK
+Aina,Nott'm Forest,DEF,4.5,5,OK
+O'Shea,Ipswich Town,DEF,4.0,4,OK
+Murillo,Nott'm Forest,DEF,5.5,4,OK
+Acheampong,Chelsea,DEF,4.5,3,OK
+Thomas,Coventry City,DEF,4.0,3,OK
+Richards,Crystal Palace,DEF,5.0,3,OK
+J.Cuenca,Fulham,DEF,4.5,3,OK
+Thiaw,Newcastle,DEF,5.0,3,OK
+Botman,Newcastle,DEF,5.0,3,OK
+Hall,Newcastle,DEF,5.0,3,OK
+Senesi,Spurs,DEF,6.0,3,OK
+Robertson,Spurs,DEF,4.5,3,OK
+Silva,Bournemouth,DEF,5.0,2,OK
+Diop,Ipswich Town,DEF,4.0,2,OK
+Davis,Ipswich Town,DEF,4.0,2,OK
+Greaves,Ipswich Town,DEF,4.0,2,OK
+Virgil,Liverpool,DEF,6.5,2,OK
+O'Reilly,Man City,DEF,6.5,2,OK
+Rúben,Man City,DEF,5.5,2,OK
+Khusanov,Man City,DEF,5.5,2,OK
+N.Williams,Nott'm Forest,DEF,5.0,2,OK
+Milenković,Nott'm Forest,DEF,5.5,2,OK
+Hume,Sunderland,DEF,4.5,2,OK
+Hincapie,Arsenal,DEF,5.4,1,OK
+Mings,Aston Villa,DEF,4.5,1,OK
+Ruggeri,Aston Villa,DEF,4.5,1,OK
+Hill,Bournemouth,DEF,5.5,1,OK
+Truffert,Bournemouth,DEF,5.5,1,OK
+Smith,Bournemouth,DEF,4.5,1,OK
+Hickey,Brentford,DEF,4.5,1,OK
+Costinha,Brighton,DEF,4.5,1,OK
