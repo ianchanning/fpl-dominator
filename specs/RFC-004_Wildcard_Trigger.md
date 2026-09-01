@@ -1,5 +1,7 @@
 # RFC-004: Wildcard Trigger Protocol
 
+**STATUS: IMPLEMENTED / ACTIVE**
+
 ## 1. Objective
 Establish a mathematical trigger for the "Wildcard" (total squad reset) to avoid the "Sunk Cost Fallacy" and prevent the squad from getting trapped in a local minimum.
 
