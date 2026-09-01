@@ -17,6 +17,8 @@ from .process_players_html import process_players_for_gameweek  # NEW IMPORT
 from .process_prior_season_html import parse_prior_season_html
 from .process_set_pieces_html import generate_empirical_set_pieces_csv, parse_set_pieces_html
 from .update_prices import reconcile_timeline
+from .wildcard_evaluator import calculate_squad_divergence
+
 
 # We'll need a new function for our scenario runner, let's pretend it exists
 # from .scenario_chimera import run_a_what_if_scenario
@@ -482,6 +484,43 @@ def run_scenario(gameweek_dir, include, exclude):
     # Here you would call a modified solver function that accepts these lists
     # run_a_what_if_scenario(gameweek_dir, list(include), list(exclude))
     click.secho("--- Scenario complete. ---", fg="yellow", bold=True)
+
+
+# --- WILDCARD EVALUATION ENGINE (RFC-004) ---
+@bamf.command(name="evaluate-wildcard")
+@click.argument(
+    "gameweek_dir",
+    type=click.Path(exists=True, file_okay=False, dir_okay=True, readable=True),
+)
+def evaluate_wildcard(gameweek_dir):
+    """
+    Evaluates Wildcard trigger timing using 3-Path Gauntlet & American Option model (RFC-004).
+    """
+    click.secho(f"\n=== EVALUATING WILDCARD TRIGGER FOR {gameweek_dir.upper()} ===", fg="cyan", bold=True)
+    res = calculate_squad_divergence(gameweek_dir)
+
+    click.echo(f"\n--- SQUAD DIVERGENCE ANALYSIS (GW{res['gameweek']}) ---")
+    click.echo(f"Current Squad Projected Starting XI (5-GW):  {res['projected_pts_current_5gw']:.1f} pts (Score: {res['current_xi_score']:.3f})")
+    click.echo(f"Global Optimal Starting XI (5-GW):           {res['projected_pts_optimal_5gw']:.1f} pts (Score: {res['optimal_xi_score']:.3f})")
+    click.secho(f"Point Divergence Gap:                        +{res['pts_divergence']:.1f} pts", fg="yellow", bold=True)
+    click.echo(f"Squad Transfer Distance:                     {res['transfers_needed']} transfers needed to align with optimum")
+    click.echo(f"Core Retained Assets:                        {', '.join(res['players_to_keep']).upper()}")
+
+    click.echo("\n--- 3-PATH GAUNTLET TRAJECTORY (5-GW HORIZON) ---")
+    click.echo(f"  [Path A] Status Quo (Free Transfers only):     {res['path_a_pts']:.1f} pts")
+    click.echo(f"  [Path B] Manual Migration (Hits capped -12):  {res['path_b_pts']:.1f} pts")
+    click.secho(f"  [Path C] Wildcard Reset (Instant Optimum):     {res['path_c_pts']:.1f} pts", fg="magenta", bold=True)
+
+    click.echo("\n--- FINANCIAL OPTION EVALUATION (RFC-004) ---")
+    click.echo(f"Net Wildcard Advantage:                      +{res['wc_advantage']:.1f} pts")
+    click.echo(f"Time-Decay Exercise Threshold:               {res['threshold_pts']:.1f} pts")
+
+    if res["should_trigger"]:
+        click.secho("\n>>> RECOMMENDATION: [FIRE WILDCARD] - Divergence exceeds option time value threshold!", fg="green", bold=True)
+    else:
+        click.secho(f"\n>>> RECOMMENDATION: [HOLD WILDCARD] - Time value ({res['threshold_pts']:.1f} pts) > Advantage ({res['wc_advantage']:.1f} pts).", fg="yellow", bold=True)
+        click.secho("    Strategy: Bank early price equity (RFC-007) and await Bayesian prior stabilization (RFC-005).", fg="cyan")
+
 
 
 # --- Audit Command Group (Perfect as is, but let's add validation) ---
