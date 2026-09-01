@@ -1,0 +1,202 @@
+Surname,Team,Position,Price,TP,Status,PPM
+Tzolakis,Hull City,GKP,4.5,20,OK,4.44
+Raya,Arsenal,GKP,6.0,12,OK,2.0
+Trafford,Leeds,GKP,5.0,12,OK,2.4
+Pickford,Everton,GKP,5.5,10,OK,1.82
+Kelleher,Brentford,GKP,5.0,9,OK,1.8
+Horníček,Newcastle,GKP,5.0,8,OK,1.6
+Roefs,Sunderland,GKP,5.0,7,OK,1.4
+Verbruggen,Brighton,GKP,4.5,6,OK,1.33
+Petrović,Bournemouth,GKP,4.5,5,OK,1.11
+Leno,Fulham,GKP,4.5,5,OK,1.11
+Scherpen,Ipswich Town,GKP,4.5,4,OK,0.89
+Rushworth,Coventry City,GKP,4.5,3,OK,0.67
+Henderson,Crystal Palace,GKP,5.0,3,OK,0.6
+Donnarumma,Man City,GKP,5.5,3,OK,0.55
+Lammens,Man Utd,GKP,5.0,3,OK,0.6
+Sels,Nott'm Forest,GKP,5.0,3,OK,0.6
+Kinsky,Spurs,GKP,4.5,3,OK,0.67
+Suzuki,Aston Villa,GKP,5.0,2,OK,0.4
+Martinez,Chelsea,GKP,5.0,2,OK,0.4
+Sánchez,Chelsea,GKP,4.9,2,OK,0.41
+A.Becker,Liverpool,GKP,5.5,2,OK,0.36
+M.Bizot,Aston Villa,GKP,4.5,1,OK,0.22
+Arrizabalaga,Arsenal,GKP,5.0,0,OK,0.0
+Meslier,Arsenal,GKP,5.0,0,OK,0.0
+Forster,Bournemouth,GKP,4.0,0,OK,0.0
+Di Gregorio,Bournemouth,GKP,4.5,0,OK,0.0
+Valdimarsson,Brentford,GKP,4.5,0,OK,0.0
+Steele,Brighton,GKP,4.0,0,OK,0.0
+Penders,Chelsea,GKP,4.5,0,OK,0.0
+Dovin,Coventry City,GKP,4.0,0,OK,0.0
+Calafiori,Arsenal,DEF,5.6,20,OK,3.57
+Ajayi,Hull City,DEF,4.1,20,OK,4.88
+White,Arsenal,DEF,5.5,18,OK,3.27
+Tarkowski,Everton,DEF,6.0,18,OK,3.0
+De Cuyper,Brighton,DEF,4.7,17,OK,3.62
+Egan,Hull City,DEF,4.0,17,OK,4.25
+Mendy,Hull City,DEF,4.0,16,OK,4.0
+Kayode,Brentford,DEF,4.6,15,OK,3.26
+Gvardiol,Man City,DEF,5.6,14,OK,2.5
+Hall,Newcastle,DEF,5.0,14,OK,2.8
+Gabriel,Arsenal,DEF,8.0,13,OK,1.62
+Mosquera,Arsenal,DEF,5.5,12,OK,2.18
+Castagne,Fulham,DEF,4.5,12,OK,2.67
+Giles,Hull City,DEF,4.0,12,OK,3.0
+Justin,Leeds,DEF,4.5,12,OK,2.67
+Guéhi,Man City,DEF,6.0,12,OK,2.0
+Dedić,Newcastle,DEF,4.5,12,OK,2.67
+Ajer,Brentford,DEF,4.5,11,OK,2.44
+Thomas,Coventry City,DEF,4.0,11,OK,2.75
+Bijol,Leeds,DEF,5.0,11,OK,2.2
+Branthwaite,Everton,DEF,5.5,10,OK,1.82
+Mykolenko,Everton,DEF,4.5,10,OK,2.22
+Muharemović,Leeds,DEF,5.0,10,OK,2.0
+Collins,Brentford,DEF,5.5,9,OK,1.64
+Thiaw,Newcastle,DEF,5.0,9,OK,1.8
+Mukiele,Sunderland,DEF,5.5,9,OK,1.64
+Davis,Ipswich Town,DEF,4.0,8,OK,2.0
+Bogle,Leeds,DEF,4.5,8,OK,1.78
+Botman,Newcastle,DEF,5.0,8,OK,1.6
+N.Williams,Nott'm Forest,DEF,5.0,8,OK,1.6
+Ballard,Sunderland,DEF,5.0,8,OK,1.6
+Hume,Sunderland,DEF,4.5,8,OK,1.78
+Wieffer,Brighton,DEF,5.0,7,OK,1.4
+Lacroix,Chelsea,DEF,6.0,7,OK,1.17
+Rodon,Leeds,DEF,4.5,7,DOUBT,1.56
+Reinildo,Sunderland,DEF,4.5,7,OK,1.56
+Meunier,Sunderland,DEF,4.5,7,OK,1.56
+Silva,Bournemouth,DEF,5.0,6,OK,1.2
+Vuskovic,Brighton,DEF,5.0,6,OK,1.2
+Coyle,Hull City,DEF,4.0,6,DOUBT,1.5
+Hill,Bournemouth,DEF,5.5,5,OK,0.91
+Truffert,Bournemouth,DEF,5.5,5,OK,0.91
+Boscagli,Brighton,DEF,4.5,5,OK,1.11
+Dunk,Brighton,DEF,4.5,5,OK,1.11
+Hato,Chelsea,DEF,4.5,5,OK,1.11
+Maguire,Man Utd,DEF,5.0,5,OK,1.0
+Milenković,Nott'm Forest,DEF,5.5,5,OK,0.91
+Murillo,Nott'm Forest,DEF,5.5,5,OK,0.91
+Aina,Nott'm Forest,DEF,4.5,5,OK,1.11
+Robertson,Spurs,DEF,4.5,5,OK,1.11
+Acheampong,Chelsea,DEF,4.5,4,OK,0.89
+Diop,Ipswich Town,DEF,4.0,4,OK,1.0
+O'Shea,Ipswich Town,DEF,4.0,4,OK,1.0
+Jacquet,Liverpool,DEF,5.0,4,OK,0.8
+O'Reilly,Man City,DEF,6.5,4,OK,0.62
+Rúben,Man City,DEF,5.5,4,OK,0.73
+Khusanov,Man City,DEF,5.5,4,OK,0.73
+van Ewijk,Coventry City,DEF,4.0,3,OK,0.75
+Dasilva,Coventry City,DEF,4.0,3,OK,0.75
+Richards,Crystal Palace,DEF,5.0,3,OK,0.6
+B.Fernandes,Man Utd,MID,12.0,25,OK,2.08
+Cherki,Man City,MID,7.7,22,OK,2.86
+Saka,Arsenal,MID,9.5,20,OK,2.11
+Palmer,Chelsea,MID,9.6,20,OK,2.08
+M.Sangaré,Brentford,MID,5.6,18,OK,3.21
+Stach,Leeds,MID,6.0,17,OK,2.83
+Gakpo,Liverpool,MID,7.0,17,OK,2.43
+Elanga,Newcastle,MID,6.1,17,OK,2.79
+Lewis-Potter,Brentford,MID,5.5,16,OK,2.91
+Hinshelwood,Brighton,MID,6.0,16,DOUBT,2.67
+Groß,Brighton,MID,5.5,15,OK,2.73
+Gibbs-White,Nott'm Forest,MID,7.9,15,OK,1.9
+Xhaka,Sunderland,MID,5.5,15,OK,2.73
+Ødegaard,Arsenal,MID,6.6,14,OK,2.12
+Scott,Bournemouth,MID,6.0,14,OK,2.33
+Schade,Brentford,MID,6.0,13,OK,2.17
+Rogers,Chelsea,MID,7.5,13,OK,1.73
+Dewsbury-Hall,Everton,MID,6.5,13,OK,2.0
+Ndiaye,Everton,MID,6.0,13,OK,2.17
+Mbeumo,Man Utd,MID,8.0,13,OK,1.62
+Szoboszlai,Liverpool,MID,7.0,12,OK,1.71
+Ndoye,Nott'm Forest,MID,5.5,12,OK,2.18
+Tavernier,Bournemouth,MID,6.0,11,OK,1.83
+Gomez,Brighton,MID,5.0,11,OK,2.2
+Cunha,Man Utd,MID,8.0,11,OK,1.38
+Janelt,Brentford,MID,5.0,10,OK,2.0
+Armstrong,Everton,MID,5.0,10,OK,2.0
+Enciso,Ipswich Town,MID,5.5,10,OK,1.82
+Munoz,Liverpool,MID,6.5,10,OK,1.54
+Foden,Man City,MID,7.0,10,OK,1.43
+Yalcouyé,Brighton,MID,4.5,9,OK,2.0
+King,Fulham,MID,5.5,9,OK,1.64
+Belloumi,Hull City,MID,5.0,9,OK,1.8
+Willock,Newcastle,MID,5.0,9,OK,1.8
+Rice,Arsenal,MID,7.5,8,OK,1.07
+Neto,Chelsea,MID,6.5,8,OK,1.23
+Lavia,Chelsea,MID,5.0,8,OK,1.6
+Slater,Hull City,MID,4.5,8,OK,1.78
+Angulo,Sunderland,MID,5.0,8,OK,1.6
+Clarke,Ipswich Town,MID,5.5,7,OK,1.27
+Ampadu,Leeds,MID,5.5,7,OK,1.27
+Semenyo,Man City,MID,8.5,7,OK,0.82
+Lewis-Skelly,Arsenal,MID,5.5,6,OK,1.09
+Tzolis,Arsenal,MID,6.5,6,OK,0.92
+Kluivert,Bournemouth,MID,6.0,6,OK,1.0
+Cook,Bournemouth,MID,5.0,6,OK,1.2
+Jensen,Brentford,MID,5.5,6,DOUBT,1.09
+Wharton,Crystal Palace,MID,5.5,6,OK,1.09
+Yeremy,Crystal Palace,MID,5.5,6,OK,1.09
+Millar,Hull City,MID,5.0,6,OK,1.2
+Lukić,Ipswich Town,MID,5.0,6,OK,1.2
+Núñez,Ipswich Town,MID,5.0,6,OK,1.2
+Fatawu,Ipswich Town,MID,5.5,6,OK,1.09
+Wirtz,Liverpool,MID,7.5,6,OK,0.8
+Gravenberch,Liverpool,MID,6.0,6,OK,1.0
+Tielemans,Man Utd,MID,6.0,6,OK,1.0
+L.Miley,Newcastle,MID,5.5,6,OK,1.09
+Kamada,Crystal Palace,MID,5.0,5,OK,1.0
+George,Everton,MID,5.5,5,OK,0.91
+Röhl,Everton,MID,5.0,5,OK,1.0
+João Pedro,Chelsea,FWD,7.6,20,OK,2.63
+Haaland,Man City,FWD,15.5,15,OK,0.97
+Wissa,Newcastle,FWD,6.1,12,OK,1.97
+Barry,Everton,FWD,5.5,10,OK,1.82
+Emersonn,Ipswich Town,FWD,5.5,10,DOUBT,1.82
+Isak,Liverpool,FWD,9.0,10,OK,1.11
+Evanilson,Bournemouth,FWD,6.0,9,OK,1.5
+Calvert-Lewin,Leeds,FWD,6.0,9,OK,1.5
+Isidor,Sunderland,FWD,5.5,9,OK,1.64
+Havertz,Arsenal,FWD,7.5,8,OK,1.07
+Gonzalo,Fulham,FWD,6.0,8,OK,1.33
+Kostoulas,Brighton,FWD,5.5,6,OK,1.09
+McBurnie,Hull City,FWD,5.5,6,OK,1.09
+Akpom,Ipswich Town,FWD,5.0,6,OK,1.2
+Georginio,Brighton,FWD,5.5,5,DOUBT,0.91
+Nmecha,Leeds,FWD,5.5,4,OK,0.73
+Woltemade,Newcastle,FWD,5.9,4,OK,0.68
+Brobbey,Sunderland,FWD,6.0,4,OK,0.67
+Thomas-Asante,Coventry City,FWD,5.0,3,OK,0.6
+Awoniyi,Coventry City,FWD,5.5,3,OK,0.55
+Strand Larsen,Crystal Palace,FWD,6.0,3,OK,0.5
+Nketiah,Crystal Palace,FWD,5.5,3,OK,0.55
+Igor Jesus,Nott'm Forest,FWD,6.0,3,OK,0.5
+N.Jackson,Aston Villa,FWD,6.5,2,OK,0.31
+Thiago,Brentford,FWD,8.0,2,OK,0.25
+Wilson,Brentford,FWD,5.5,2,OK,0.36
+Simms,Coventry City,FWD,5.0,2,OK,0.4
+Beto,Everton,FWD,5.4,2,OK,0.37
+Šeško,Man Utd,FWD,7.0,2,OK,0.29
+Marmoush,Spurs,FWD,7.0,2,OK,0.29
+Solanke,Spurs,FWD,5.9,2,OK,0.34
+Richarlison,Spurs,FWD,5.9,2,OK,0.34
+Abraham,Aston Villa,FWD,5.5,1,OK,0.18
+Rodríguez,Bournemouth,FWD,6.0,1,OK,0.17
+Jebbison,Bournemouth,FWD,5.0,1,OK,0.2
+David,Brighton,FWD,6.0,1,OK,0.17
+Muniz,Fulham,FWD,5.5,1,OK,0.18
+Walle Egeli,Ipswich Town,FWD,4.5,1,OK,0.22
+Delap,Nott'm Forest,FWD,5.5,1,OK,0.18
+Wood,Nott'm Forest,FWD,5.9,1,OK,0.17
+Kalimuendo,Nott'm Forest,FWD,5.5,1,OK,0.18
+Gyökeres,Arsenal,FWD,7.4,0,OK,0.0
+G.Jesus,Arsenal,FWD,5.9,0,OK,0.0
+Furo,Brentford,FWD,4.5,0,OK,0.0
+Welbeck,Chelsea,FWD,5.9,0,OK,0.0
+Mheuka,Chelsea,FWD,4.5,0,OK,0.0
+Emegha,Chelsea,FWD,5.0,0,OK,0.0
+Cherif,Coventry City,FWD,5.0,0,OK,0.0
+Kusi-Asare,Fulham,FWD,4.5,0,OK,0.0
+Zirkzee,Man Utd,FWD,5.4,0,OK,0.0
+Obi,Man Utd,FWD,4.5,0,OK,0.0
