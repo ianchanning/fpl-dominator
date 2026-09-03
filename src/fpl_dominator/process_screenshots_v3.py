@@ -11,7 +11,8 @@ def main():
     if len(sys.argv) < 2:
         print("!!! ERROR: Missing argument.")
         print(
-            "!!! Usage: python3 process_screenshots_v3.py <gameweek_directory_name> [--debug]"
+            "!!! Usage: python3 process_screenshots_v3.py "
+            "<gameweek_directory_name> [--debug]"
         )
         print("!!! Example: python3 process_screenshots_v3.py gw12")
         sys.exit(1)
@@ -22,7 +23,8 @@ def main():
     if not os.path.isdir(gw_dir):
         print(f"!!! ERROR: Directory '{gw_dir}' not found.")
         print(
-            "!!! Make sure you are running this script from the project root and the gameweek directory exists."
+            "!!! Make sure you are running this script from the project root "
+            "and the gameweek directory exists."
         )
         sys.exit(1)
 
@@ -51,14 +53,17 @@ def main():
         print(f">>> Processing Target: {screenshot_path}")
 
         # Construct the prompt for the gemini CLI
-        master_prompt = """From the provided FPL screenshot of a position list, extract player data into CSV format.
-The CSV must have these 6 columns: Surname, Team, Position, Price, TP, Status.
-The 'Status' column is based on the icon next to the player's name:
-- A red icon means 'INJURY'.
-- A yellow icon means 'DOUBT'.
-- A blue 'i' icon or no icon means 'OK'.
-CRITICAL: Your entire output must be ONLY the raw CSV data. Do NOT include a header row or any other explanatory text.
-"""
+        master_prompt = (
+            "From the provided FPL screenshot of a position list, extract "
+            "player data into CSV format.\n"
+            "The CSV must have these 6 columns: Surname, Team, Position, Price, TP, Status.\n"
+            "The 'Status' column is based on the icon next to the player's name:\n"
+            "- A red icon means 'INJURY'.\n"
+            "- A yellow icon means 'DOUBT'.\n"
+            "- A blue 'i' icon or no icon means 'OK'.\n"
+            "CRITICAL: Your entire output must be ONLY the raw CSV data. "
+            "Do NOT include a header row or any other explanatory text."
+        )
 
         command = [
             "gemini",
@@ -159,7 +164,8 @@ CRITICAL: Your entire output must be ONLY the raw CSV data. Do NOT include a hea
         ">>> [NYX] ALL SCREENSHOTS PROCESSED. FPL DOMINATOR DATA FORGE IS COMPLETE. (⊕)"
     )
     print(
-        f">>> Summary: Processed {processed_count} files, Skipped {skipped_count} files, Errors {errors_count} files."
+        f">>> Summary: Processed {processed_count} files, Skipped "
+        f"{skipped_count} files, Errors {errors_count} files."
     )
     print(">>> Go forth and conquer, Dreamer. (⇌)")
 

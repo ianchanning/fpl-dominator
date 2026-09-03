@@ -32,5 +32,6 @@ new_gw11_fixtures_df = new_gw11_fixtures_df.sort_values(by=["Team", "Gameweek"])
 new_gw11_fixtures_df.to_csv(gw11_fixtures_path, index=False)
 
 print(
-    f"\n--- SUCCESS: {gw11_fixtures_path} has been updated with realistic data for GW12-GW16. ---"
+    f"\n--- SUCCESS: {gw11_fixtures_path} has been updated "
+    f"with realistic data for GW12-GW16. ---"
 )

@@ -43,7 +43,8 @@ def reconcile_timeline(gameweek_dir):
     squad_path = os.path.join(gameweek_dir, SQUAD_FILENAME)
     if not os.path.exists(squad_path):
         print(
-            f"ERROR: Squad file '{squad_path}' not found! The timeline is immutable without it."
+            f"ERROR: Squad file '{squad_path}' not found! "
+            f"The timeline is immutable without it."
         )
         return
 
@@ -79,7 +80,8 @@ def reconcile_timeline(gameweek_dir):
             target_file_path = os.path.join(gameweek_dir, target_filename)
             if not os.path.exists(target_file_path):
                 print(
-                    f"WARNING: Target file '{target_file_path}' for {surname} not found. Skipping."
+                    f"WARNING: Target file '{target_file_path}' for {surname} "
+                    f"not found. Skipping."
                 )
                 continue
 
@@ -107,7 +109,8 @@ def reconcile_timeline(gameweek_dir):
             else:
                 os.remove(temp_file_path)
                 print(
-                    f"  - NOTE: {surname} not found in '{target_file_path}'. No update performed."
+                    f"  - NOTE: {surname} not found in '{target_file_path}'. "
+                    f"No update performed."
                 )
 
 
@@ -121,5 +124,6 @@ if __name__ == "__main__":
     gameweek_directory = sys.argv[1]
     reconcile_timeline(gameweek_directory)
     print(
-        "\nPrice Reconciliation Complete! The specified timeline now reflects OUR reality!"
+        "\nPrice Reconciliation Complete! The specified timeline "
+        "now reflects OUR reality!"
     )
