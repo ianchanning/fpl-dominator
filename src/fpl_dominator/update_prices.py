@@ -51,7 +51,7 @@ def reconcile_timeline(gameweek_dir):
     # Open our personal ledger for the specified gameweek.
     with open(squad_path, mode="r", newline="", encoding="utf-8") as f_squad:
         reader = csv.reader(f_squad)
-        header = next(reader)  # Consume the header.
+        # header = next(reader)  # Consume the header.
 
         # March through our squad and rewrite history.
         for squad_row in reader:

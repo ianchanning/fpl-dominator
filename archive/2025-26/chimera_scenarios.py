@@ -45,7 +45,8 @@ def print_squad_details(squad, starters, bench, status, scenario_name):
         print("-------------------------------------------")
     else:
         print(
-            f"\n!!! FAILURE: An optimal solution could not be found for this scenario. Status: {status}"
+            f"\n!!! FAILURE: An optimal solution could not be found for this "
+            f"scenario. Status: {status}"
         )
     print(f"{'=' * (42 + len(scenario_name))}")
 
@@ -193,7 +194,8 @@ if __name__ == "__main__":
     print("--- CHIMERA SCENARIO ENGINE ONLINE ---")
     if not os.path.exists(ENRICHED_DB_PATH):
         print(
-            f"!!! CRITICAL FAILURE: Database not found at '{ENRICHED_DB_PATH}'. Aborting."
+            f"!!! CRITICAL FAILURE: Database not found at '{ENRICHED_DB_PATH}'. "
+            "Aborting."
         )
     else:
         players = pd.read_csv(ENRICHED_DB_PATH)
@@ -210,7 +212,8 @@ if __name__ == "__main__":
             forge_squad(players, "'Salah God-Tier'", include_players=["M.Salah"])
         else:
             print(
-                "\n>>> SKIPPING SCENARIO: 'Salah God-Tier' (M.Salah not in provided dataset)"
+                "\n>>> SKIPPING SCENARIO: 'Salah God-Tier' "
+                "(M.Salah not in provided dataset)"
             )
 
         # SCENARIO 4: The "Gods of Chaos"
@@ -220,7 +223,8 @@ if __name__ == "__main__":
             )
         else:
             print(
-                "\n>>> SKIPPING SCENARIO: 'Gods of Chaos' (M.Salah not in provided dataset)"
+                "\n>>> SKIPPING SCENARIO: 'Gods of Chaos' "
+                "(M.Salah not in provided dataset)"
             )
 
         # SCENARIO 5: The "Balanced Brigade"
