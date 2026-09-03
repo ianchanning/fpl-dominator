@@ -44,7 +44,8 @@ def enrich_with_set_pieces(
     print("[+] Beginning Set-Piece Potency (SPP) enrichment...")
     if not os.path.exists(set_piece_path):
         print(
-            f"!!! WARNING: Set-piece database not found at '{set_piece_path}'. Setting SPP to 0.0."
+            f"!!! WARNING: Set-piece database not found at '{set_piece_path}'. "
+            f"Setting SPP to 0.0."
         )
         players_df["SPP"] = 0.0
         return players_df
@@ -117,7 +118,8 @@ def forge_pyomo_squad(gameweek_dir: str):
         print("[+] Master configuration for Pyomo solver loaded.")
     except (FileNotFoundError, yaml.YAMLError) as e:
         print(
-            f"!!! WARNING: Could not load or parse config.yaml: {e}. Using default fallbacks."
+            f"!!! WARNING: Could not load or parse config.yaml: {e}. "
+            f"Using default fallbacks."
         )
         THRIFT_FACTOR = 0.001
         BENCH_POTENCY_EPSILON = 0.00001
@@ -138,7 +140,8 @@ def forge_pyomo_squad(gameweek_dir: str):
     if not os.path.exists(FINAL_FORM_DB_PATH):
         if not os.path.exists(OMNISCIENT_DB_PATH):
             print(
-                f"!!! CRITICAL FAILURE: Neither '{FINAL_FORM_DB_PATH}' nor '{OMNISCIENT_DB_PATH}' found. Aborting."
+                f"!!! CRITICAL FAILURE: Neither '{FINAL_FORM_DB_PATH}' nor "
+                f"'{OMNISCIENT_DB_PATH}' found. Aborting."
             )
             return False
 
@@ -269,7 +272,8 @@ def forge_pyomo_squad(gameweek_dir: str):
 
     model.red_zone_limit = pyo.Constraint(rule=red_zone_rule)
     print(
-        f"[+] STRATEGIC CONSTRAINT: Red Zone limit active (Max {RED_ZONE_LIMIT} starters with FDR > {RED_ZONE_THRESHOLD})."
+        f"[+] STRATEGIC CONSTRAINT: Red Zone limit active (Max {RED_ZONE_LIMIT} "
+        f"starters with FDR > {RED_ZONE_THRESHOLD})."
     )
 
     print("[+] All constraints are locked in.")

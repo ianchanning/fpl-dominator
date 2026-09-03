@@ -82,5 +82,6 @@ def run_the_gauntlet(gameweek_dir: str):
     print(f"SUCCESS: Prophecy has been recorded to '{md_filepath}'")
 
     print(
-        f"\n--- SUCCESS: THE GAUNTLET IS COMPLETE. THE PROPHECY FOR {gameweek_dir.upper()} IS FORGED. ---"
+        f"\n--- SUCCESS: THE GAUNTLET IS COMPLETE. "
+        f"THE PROPHECY FOR {gameweek_dir.upper()} IS FORGED. ---"
     )

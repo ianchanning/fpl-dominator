@@ -48,16 +48,19 @@ def inject_bayesian_prior_baseline(
 
     if alpha_t <= 0.0:
         print(
-            f"[+] Gameweek {current_gw} >= 6: Operating on 100% current season performance (alpha=0.0)."
+            f"[+] Gameweek {current_gw} >= 6: Operating on 100% current season "
+            f"performance (alpha=0.0)."
         )
         return players_df
 
     print(
-        f"[+] Applying Bayesian Prior Cold Start (GW{current_gw}, alpha={alpha_t:.2f})..."
+        f"[+] Applying Bayesian Prior Cold Start "
+        f"(GW{current_gw}, alpha={alpha_t:.2f})..."
     )
     if not os.path.exists(prior_stats_path):
         print(
-            f"!!! WARNING: Prior season statistics not found at '{prior_stats_path}'. Skipping prior injection."
+            f"!!! WARNING: Prior season statistics not found at '{prior_stats_path}'. "
+            f"Skipping prior injection."
         )
         return players_df
 
@@ -163,7 +166,8 @@ def enrich_with_insight(gameweek_dir: str):
         print("[+] Master configuration loaded.")
     except (FileNotFoundError, yaml.YAMLError) as e:
         print(
-            f"!!! WARNING: Could not load or parse config.yaml: {e}. Using default fallbacks."
+            f"!!! WARNING: Could not load or parse config.yaml: {e}. "
+            f"Using default fallbacks."
         )
         CAPTAINCY_TIERS = {
             "Gods": {
@@ -190,14 +194,16 @@ def enrich_with_insight(gameweek_dir: str):
 
     if not os.path.exists(SOURCE_DB_PATH):
         print(
-            f"!!! CRITICAL FAILURE: Enriched database not found at '{SOURCE_DB_PATH}'. Aborting."
+            f"!!! CRITICAL FAILURE: Enriched database not found at "
+            f"'{SOURCE_DB_PATH}'. Aborting."
         )
         return False
 
     try:
         players = pd.read_csv(SOURCE_DB_PATH)
         print(
-            f"[+] Intelligence loaded. Preparing to imbue {len(players)} players with strategic insight."
+            f"[+] Intelligence loaded. Preparing to imbue {len(players)} players "
+            f"with strategic insight."
         )
     except Exception as e:
         print(f"!!! CRITICAL FAILURE: Could not read the database. Error: {e}")
@@ -228,7 +234,8 @@ def enrich_with_insight(gameweek_dir: str):
                 players["Form_Factor"] = players["TP"] - players["TP_past"]
                 players.drop(columns=["TP_past"], inplace=True)
                 print(
-                    f"    - Form Factor calculated based on performance since GW{past_gw}."
+                    f"    - Form Factor calculated based on performance "
+                    f"since GW{past_gw}."
                 )
             else:
                 players["Form_Factor"] = players["TP"]
@@ -312,7 +319,8 @@ def enrich_with_insight(gameweek_dir: str):
     try:
         players.to_csv(PROPHETIC_DB_PATH, index=False)
         print(
-            f"\n--- SUCCESS: The Prophetic Database has been forged at '{PROPHETIC_DB_PATH}' ---"
+            f"\n--- SUCCESS: The Prophetic Database has been forged "
+            f"at '{PROPHETIC_DB_PATH}' ---"
         )
         return True
     except Exception as e:
