@@ -16,14 +16,13 @@ For every player $i$ and time step $t \in \{1 \dots H\}$, we define binary varia
 - $u_{i,t} \in \{0, 1\}$: Player $i$ is bought in GW $t$.
 - $v_{i,t} \in \{0, 1\}$: Player $i$ is sold in GW $t$.
 
-**Constraint:** 
-$$x_{i,t} = x_{i,t-1} + u_{i,t} - v_{i,t} \quad \forall i, \forall t$$
+**Constraint:** $x_{i,t} = x_{i,t-1} + u_{i,t} - v_{i,t} \quad \forall i, \forall t$
 
 ### 3.2 Temporal Budget Tracking
 Instead of a static budget constraint, we track the bank balance as a state variable:
-$$
-\text{Bank}_t = \text{Bank}_{t-1} + \sum_{i} (v_{i,t} \cdot \text{Price}_{i,t}) - \sum_{j} (u_{j,t} \cdot \text{Price}_{j,t})
-$$
+
+$$\text{Bank}_t = \text{Bank}_{t-1} + \sum_{i} (v_{i,t} \cdot \text{Price}_{i,t}) - \sum_{j} (u_{j,t} \cdot \text{Price}_{j,t})$$
+
 **Constraint:** $\text{Bank}_t \ge 0 \quad \forall t$
 
 This ensures that "Premium Pivots" (bringing in a more expensive player) are only possible if the solver sells enough value in the same window to keep the bank non-negative.
@@ -38,6 +37,7 @@ $$\text{Total Penalty} = \sum_{t=1}^{H} 4.0 \cdot H_t$$
 
 ### 3.4 Banked Free Transfer (FT) Dynamics
 Following the current ruleset (max 5 FTs), the transfer allowance evolves recursively:
+
 $$\text{FT}_{t+1} = \min(5, \max(1, \text{FT}_t - \sum_i u_{i,t} + 1))$$
 
 **Strategic Note:** The solver treats banked transfers as **Positive Option Value**, weighing the immediate point gain of a transfer against the utility of having more free transfers in future high-volatility windows or for complex budget pivots.
