@@ -3,30 +3,7 @@ import re
 
 import pandas as pd
 
-# This map is a core piece of knowledge, keep it at the module level.
-TEAM_SHORT_TO_FULL = {
-    "Spurs": "Tottenham Hotspur",
-    "Man City": "Manchester City",
-    "Man Utd": "Manchester United",
-    "Newcastle": "Newcastle United",
-    "Nott'm Forest": "Nottingham Forest",
-    "West Ham": "West Ham United",
-    "Wolves": "Wolverhampton Wanderers",
-    "Leeds": "Leeds United",
-    "Brighton": "Brighton and Hove Albion",
-    "Arsenal": "Arsenal",
-    "Chelsea": "Chelsea",
-    "Bournemouth": "Bournemouth",
-    "Everton": "Everton",
-    "Liverpool": "Liverpool",
-    "Burnley": "Burnley",
-    "Sunderland": "Sunderland",
-    "Fulham": "Fulham",
-    "Crystal Palace": "Crystal Palace",
-    "Brentford": "Brentford",
-    "Aston Villa": "Aston Villa",
-}
-
+from .chimera_pyomo_v2 import TEAM_SHORT_TO_FULL
 
 def sanitize_name(name: str) -> str:
     """The heart of the Sanitization Bridge."""
@@ -98,7 +75,7 @@ def audit_player_name_resolution_v3(gameweek_dir: str):
                 if len(matches) == 1:
                     matched_surname = matches.iloc[0]["Surname"]
                     print(
-                        f"[  OK  ] '{taker_name}' ({club_full_name}) -> '{matched_surname}'"
+                        f"[   OK    ] '{taker_name}' ({club_full_name}) -> '{matched_surname}'"
                     )
                     success_count += 1
                 elif len(matches) > 1:

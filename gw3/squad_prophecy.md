@@ -30,9 +30,9 @@
   Calafiori   Arsenal      DEF    5.6     0.194655                1186.714286
       Ajayi Hull City      DEF    4.1     0.184867                1190.047619
        Egan Hull City      DEF    4.0     0.162935                1190.047619
-B.Fernandes   Man Utd      MID   12.0     0.357207                1160.952381
-       Saka   Arsenal      MID    9.5     0.246322                1148.619048
-     Cherki  Man City      MID    7.7     0.233002                1139.047619
+B.Fernandes   Man Utd      MID   12.0     0.364959                1160.952381
+       Saka   Arsenal      MID    9.5     0.249587                1148.619048
+     Cherki  Man City      MID    7.7     0.234099                1139.047619
       Stach     Leeds      MID    6.0     0.196337                1155.666667
     Haaland  Man City      FWD   15.5     0.284360                1139.047619
  João Pedro   Chelsea      FWD    7.6     0.241870                1209.904762
@@ -46,7 +46,7 @@ Yalcouyé      Brighton      MID    4.5     0.112282                1169.380952
 
 -------------------------------------------
 Total Squad Cost:          £99.5m
-Projected Starting Score:    2.50
+Projected Starting Score:    2.52
 Money in the Bank:         £0.5m
 -------------------------------------------
 

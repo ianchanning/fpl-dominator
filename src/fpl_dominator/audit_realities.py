@@ -2,6 +2,7 @@ import os
 
 import pandas as pd
 
+from .chimera_pyomo_v2 import TEAM_SHORT_TO_FULL
 
 def audit_team_name_realities(gameweek_dir: str):
     """
@@ -21,7 +22,7 @@ def audit_team_name_realities(gameweek_dir: str):
         return
 
     # Load the unique team names from each universe
-    player_teams = set(pd.read_csv(PLAYER_DB_PATH)["Team"].unique())
+    player_teams = set(pd.read_csv(PLAYER_DB_PATH)["Team"].replace(TEAM_SHORT_TO_FULL).unique())
     set_piece_teams = set(pd.read_csv(SET_PIECE_DB_PATH)["Club"].unique())
 
     print(f"[+] Found {len(player_teams)} unique teams in the Player Database.")
