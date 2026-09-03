@@ -143,7 +143,8 @@ def inject_bayesian_prior_baseline(
     players_df["Form_Factor"] = form_factors
 
     print(
-        f"    - Prior baseline synthesized: {matched_count} historical matches, {imputed_count} imputed assets."
+        f"    - Prior baseline synthesized: {matched_count} historical matches, "
+        f"{imputed_count} imputed assets."
     )
     return players_df
 
@@ -278,7 +279,8 @@ def enrich_with_insight(gameweek_dir: str):
             tier_indices = players[tier_mask].index
             players.loc[tier_indices, "Captaincy_Coef"] = coef
             print(
-                f"    - Anointing {len(tier_indices)} players as {tier_name} (Coef {coef})."
+                f"    - Anointing {len(tier_indices)} players as {tier_name} "
+                f"(Coef {coef})."
             )
     else:
         print(

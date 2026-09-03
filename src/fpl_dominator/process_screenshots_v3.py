@@ -137,21 +137,24 @@ def main():
 
                 except IndexError:
                     print(
-                        f"!!! ERROR: Could not parse position from model output for {screenshot_path}. Output: {model_output[:100]}..."
+                        f"!!! ERROR: Could not parse position from model output "
+                        f"for {screenshot_path}. Output: {model_output[:100]}..."
                     )
                     errors_count += 1
                 except ValueError as ve:
                     print(
-                        f"!!! ERROR: {ve} for {screenshot_path}. Output: {model_output[:100]}..."
+                        f"!!! ERROR: {ve} for {screenshot_path}. "
+                        f"Output: {model_output[:100]}..."
                     )
                     errors_count += 1
             else:
                 print(f"!!! ERROR: Model returned empty output for {screenshot_path}.")
                 errors_count += 1
 
-        except subprocess.CalledProcessError as e:
+        except subprocess.CalledProcessError:
             print(
-                f"!!! ERROR: Gemini CLI failed for {screenshot_path}. Stderr: {e.stderr}"
+                f"!!! ERROR: Gemini CLI failed for {screenshot_path}. "
+                "Stderr: {e.stderr}"
             )
             errors_count += 1
         except Exception as e:

@@ -86,7 +86,8 @@ def reconcile_timeline(gameweek_dir):
                 continue
 
             print(
-                f"Processing {surname}... Updating price in '{target_file_path}' to {purchase_price}"
+                f"Processing {surname}... Updating price in "
+                f"'{target_file_path}' to {purchase_price}"
             )
 
             temp_file_path = f"{target_file_path}.tmp"

@@ -546,21 +546,28 @@ def evaluate_wildcard(gameweek_dir):
 
     click.echo(f"\n--- SQUAD DIVERGENCE ANALYSIS (GW{res['gameweek']}) ---")
     click.echo(
-        f"Current Squad Projected Starting XI (5-GW):  {res['projected_pts_current_5gw']:.1f} pts (Score: {res['current_xi_score']:.3f})"
+        f"Current Squad Projected Starting XI (5-GW):  "
+        f"{res['projected_pts_current_5gw']:.1f} pts "
+        f"(Score: {res['current_xi_score']:.3f})"
     )
     click.echo(
-        f"Global Optimal Starting XI (5-GW):           {res['projected_pts_optimal_5gw']:.1f} pts (Score: {res['optimal_xi_score']:.3f})"
+        f"Global Optimal Starting XI (5-GW):           "
+        f"{res['projected_pts_optimal_5gw']:.1f} pts "
+        f"(Score: {res['optimal_xi_score']:.3f})"
     )
     click.secho(
-        f"Point Divergence Gap:                        +{res['pts_divergence']:.1f} pts",
+        f"Point Divergence Gap:                        +{res['pts_divergence']:.1f} "
+        "pts",
         fg="yellow",
         bold=True,
     )
     click.echo(
-        f"Squad Transfer Distance:                     {res['transfers_needed']} transfers needed to align with optimum"
+        f"Squad Transfer Distance:                     {res['transfers_needed']} "
+        "transfers needed to align with optimum"
     )
     click.echo(
-        f"Core Retained Assets:                        {', '.join(res['players_to_keep']).upper()}"
+        f"Core Retained Assets:                        "
+        f"{', '.join(res['players_to_keep']).upper()}"
     )
 
     click.echo("\n--- 3-PATH GAUNTLET TRAJECTORY (5-GW HORIZON) ---")
@@ -593,7 +600,9 @@ def evaluate_wildcard(gameweek_dir):
         )
     else:
         click.secho(
-            f"\n>>> RECOMMENDATION: [HOLD WILDCARD] - Time value ({res['threshold_pts']:.1f} pts) > Advantage ({res['wc_advantage']:.1f} pts).",
+            f"\n>>> RECOMMENDATION: [HOLD WILDCARD] - Time value "
+            f"({res['threshold_pts']:.1f} pts) > Advantage "
+            f"({res['wc_advantage']:.1f} pts).",
             fg="yellow",
             bold=True,
         )

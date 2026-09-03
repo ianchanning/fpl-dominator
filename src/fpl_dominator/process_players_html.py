@@ -229,7 +229,8 @@ def process_players_for_gameweek(gameweek_dir: str):
             removed = initial_count - len(final_df)
             final_df.to_csv(csv_path, index=False)
             print(
-                f"    - SUCCESS: {csv_file} forged with {len(final_df)} unique players. (Purged {removed} duplicates)"
+                f"    - SUCCESS: {csv_file} forged with {len(final_df)} "
+                f"unique players. (Purged {removed} duplicates)"
             )
 
     # 2. Process Current Squad rip

@@ -26,7 +26,8 @@ def perform_grand_synthesis(gameweek_dir: str):
         print("[+] Master configuration for Temporal Discounting loaded.")
         if len(FIXTURE_WEIGHTS) != 5:
             print(
-                f"!!! WARNING: 'fixture_weights' in config should have 5 values. Found {len(FIXTURE_WEIGHTS)}. Using equal weights."
+                f"!!! WARNING: 'fixture_weights' in config should have 5 values. "
+                f"Found {len(FIXTURE_WEIGHTS)}. Using equal weights."
             )
             FIXTURE_WEIGHTS = [1.0, 1.0, 1.0, 1.0, 1.0]
 

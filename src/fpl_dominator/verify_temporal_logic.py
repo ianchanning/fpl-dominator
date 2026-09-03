@@ -92,13 +92,15 @@ def verify_temporal_logic():
     print("\n[1] Simple Mean FDR (Old Logic):")
     print(mean_fdr.to_string(index=False))
     print(
-        "\nObservation: The teams are ranked identically, as the average difficulty is the same."
+        "\nObservation: The teams are ranked identically, "
+        "as the average difficulty is the same."
     )
 
     print("\n[2] Temporally-Weighted FDR (New Logic):")
     print(weighted_fdr_horizon.to_string(index=False))
     print(
-        "\nObservation: Team A, with the hard fixture first, is now correctly rated as having a more difficult immediate horizon."
+        "\nObservation: Team A, with the hard fixture first, "
+        "is now correctly rated as having a more difficult immediate horizon."
     )
 
     print("\n--- VERDICT ---")

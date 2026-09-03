@@ -32,7 +32,8 @@ def audit_player_name_resolution_v3(gameweek_dir: str):
     players_df = pd.read_csv(OMNISCIENT_DB_PATH)
     set_pieces_df = pd.read_csv(SET_PIECE_DB_PATH)
     print(
-        f"[+] Loaded {len(players_df)} players and {len(set_pieces_df)} teams' set-piece data."
+        f"[+] Loaded {len(players_df)} players and "
+        f"{len(set_pieces_df)} teams' set-piece data."
     )
 
     # --- Prepare for Join ---
