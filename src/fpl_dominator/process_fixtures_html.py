@@ -9,7 +9,8 @@ from bs4 import BeautifulSoup
 
 def rgb_to_fdr(rgb_string: str) -> int:
     """
-    Converts an RGB color string to its corresponding FDR value based on the reverse-engineered formula.
+    Converts an RGB color string to its corresponding FDR value based on the 
+    reverse-engineered formula.
     FDR = round(1429.6 - 1.8 * C)
     """
     # Extract the first number from rgb(147, 147, 147)
@@ -93,7 +94,8 @@ def parse_fixture_html(file_path: str, fdr_col_name: str) -> pd.DataFrame:
 
 def create_fixture_csv_from_html(gameweek_dir: str):
     """
-    Parses the three HTML fixture files for a given gameweek and creates a combined fixtures.csv.
+    Parses the three HTML fixture files for a given gameweek and creates a 
+    combined fixtures.csv.
     """
     print(f"--- Forging {gameweek_dir} Fixtures from HTML sources ---")
 
@@ -106,7 +108,8 @@ def create_fixture_csv_from_html(gameweek_dir: str):
     # Check if source files exist
     if not all(os.path.exists(p) for p in [overall_path, attack_path, defence_path]):
         print(
-            f"!!! CRITICAL FAILURE: One or more source HTML files not found in '{gameweek_dir}/'. Aborting."
+            f"!!! CRITICAL FAILURE: One or more source HTML files not found "
+            f"in '{gameweek_dir}/'. Aborting."
         )
         return
 
@@ -127,7 +130,8 @@ def create_fixture_csv_from_html(gameweek_dir: str):
     # Check for empty dataframes before merging
     if df_overall.empty or df_attack.empty or df_defence.empty:
         print(
-            "!!! CRITICAL FAILURE: One or more of the parsed dataframes is empty. Cannot merge. Aborting."
+            "!!! CRITICAL FAILURE: One or more of the parsed dataframes is "
+            "empty. Cannot merge. Aborting."
         )
         return
 

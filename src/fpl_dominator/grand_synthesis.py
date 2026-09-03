@@ -32,7 +32,8 @@ def perform_grand_synthesis(gameweek_dir: str):
 
     except (FileNotFoundError, yaml.YAMLError) as e:
         print(
-            f"!!! WARNING: Could not load or parse config.yaml: {e}. Using default fallbacks (equal weights)."
+            f"!!! WARNING: Could not load or parse config.yaml: {e}. "
+            f"Using default fallbacks (equal weights)."
         )
         FIXTURE_WEIGHTS = [1.0, 1.0, 1.0, 1.0, 1.0]
 
@@ -80,7 +81,8 @@ def perform_grand_synthesis(gameweek_dir: str):
     if bool(mask.any()):
         unmapped_teams = list(set(players_df[mask]["Team"].tolist()))
         print(
-            f"!!! CRITICAL FAILURE: Could not map the following team names to an acronym: {unmapped_teams}."
+            f"!!! CRITICAL FAILURE: Could not map the following team names "
+            f"to an acronym: {unmapped_teams}."
         )
         print("!!! Please update the player CSVs and re-run.")
         sys.exit(1)
@@ -151,7 +153,8 @@ def perform_grand_synthesis(gameweek_dir: str):
     try:
         omniscient_df.to_csv(OMNISCIENT_DB_PATH, index=False)
         print(
-            f"\n--- SUCCESS: THE OMNISCIENT Database has been forged at '{OMNISCIENT_DB_PATH}' ---"
+            f"\n--- SUCCESS: THE OMNISCIENT Database has been forged "
+            f"at '{OMNISCIENT_DB_PATH}' ---"
         )
         return True
     except Exception as e:
