@@ -44,7 +44,7 @@ MANUAL_POSITION_FALLBACKS = {
 
 
 def build_historical_position_map() -> Dict[str, str]:
-    """Scans all historical gameweek CSVs in archive/ to build a 
+    """Scans all historical gameweek CSVs in archive/ to build a
     fallback surname->position map."""
     pos_map: Dict[str, str] = {}
     for gw in range(38, 0, -1):
@@ -73,7 +73,7 @@ def parse_prior_season_html(
 ) -> pd.DataFrame:
     """
     Parses the full-season aggregate player statistics HTML table from FPL/FFS.
-    Handles dual header rows, metadata extraction, position mapping, and 
+    Handles dual header rows, metadata extraction, position mapping, and
     metric normalization.
     """
     if not os.path.exists(html_path):

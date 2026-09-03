@@ -129,7 +129,7 @@ def bamf():
 
 
 @bamf.command()
-# <<< UPGRADE 1: Input validation. This command will now fail 
+# <<< UPGRADE 1: Input validation. This command will now fail
 # gracefully if the dir doesn't exist.
 @click.argument(
     "gameweek_dir",
@@ -265,7 +265,7 @@ def process_set_pieces(html, output, detailed_output):
 
 
 def get_clipboard_content() -> str:
-    """Defensively fetches clipboard content across X11 (xclip), Wayland 
+    """Defensively fetches clipboard content across X11 (xclip), Wayland
     (wl-paste), and fallback utilities."""
     commands = [
         ["xclip", "-selection", "clipboard", "-o"],
@@ -586,7 +586,8 @@ def evaluate_wildcard(gameweek_dir):
 
     if res["should_trigger"]:
         click.secho(
-            "\n>>> RECOMMENDATION: [FIRE WILDCARD] - Divergence exceeds option time value threshold!",
+            "\n>>> RECOMMENDATION: [FIRE WILDCARD] - "
+            "Divergence exceeds option time value threshold!",
             fg="green",
             bold=True,
         )
@@ -597,7 +598,8 @@ def evaluate_wildcard(gameweek_dir):
             bold=True,
         )
         click.secho(
-            "    Strategy: Bank early price equity (RFC-007) and await Bayesian prior stabilization (RFC-005).",
+            "    Strategy: Bank early price equity (RFC-007) and "
+            "await Bayesian prior stabilization (RFC-005).",
             fg="cyan",
         )
 

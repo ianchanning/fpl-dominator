@@ -1,6 +1,7 @@
 """
 Wildcard Evaluator - Brutal Minimal Implementation (RFC-004)
-Quantifies squad divergence, transition friction, and option value to determine whether to trigger the Wildcard.
+Quantifies squad divergence, transition friction, and option value to
+determine whether to trigger the Wildcard.
 """
 
 import os
@@ -28,7 +29,8 @@ def calculate_squad_divergence(gameweek_dir: str) -> Dict[str, Any]:
       - Optimal Squad Projected Score (Starting XI)
       - Point Gap (Divergence Delta)
       - Transfer Distance (number of transfers required to reach optimal)
-      - Path A (Status Quo - 0 hits), Path B (Manual Migration with hits), Path C (Wildcard Reset)
+      - Path A (Status Quo - 0 hits), Path B (Manual Migration with hits),
+        Path C (Wildcard Reset)
       - Recommendation based on RFC-004 dynamic option threshold
     """
     final_db_path = f"{gameweek_dir}/fpl_master_database_FINAL_v5.csv"
@@ -73,7 +75,8 @@ def calculate_squad_divergence(gameweek_dir: str) -> Dict[str, Any]:
 
     joined_current["Final_Score"] = joined_current["Final_Score"].fillna(0.0)
 
-    # Determine best starting XI for current squad (respecting FPL formation rules: 1 GKP, >=3 DEF, >=1 FWD, exactly 11 players)
+    # Determine best starting XI for current squad (respecting FPL
+    # formation rules: 1 GKP, >=3 DEF, >=1 FWD, exactly 11 players)
     gkps = joined_current[joined_current["Position"] == "GKP"].sort_values(
         by="Final_Score", ascending=False
     )
@@ -226,7 +229,8 @@ def calculate_squad_divergence(gameweek_dir: str) -> Dict[str, Any]:
     projected_pts_optimal_5gw = optimal_xi_score * 100.0
     pts_divergence = projected_pts_optimal_5gw - projected_pts_current_5gw
 
-    # Dynamic threshold: early season threshold is high (option value of holding is high)
+    # Dynamic threshold: early season threshold is high
+    # (option value of holding is high)
     threshold_pts = max(12.0, 32.0 - (current_gw - 2) * 1.3)
 
     # 3-Path Evaluation:

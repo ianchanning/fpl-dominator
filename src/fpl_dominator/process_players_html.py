@@ -193,7 +193,7 @@ def parse_squad_html(file_path: str) -> pd.DataFrame:
 
 def process_players_for_gameweek(gameweek_dir: str):
     """
-    Processes all player HTML files (including multi-page rips and squad) 
+    Processes all player HTML files (including multi-page rips and squad)
     and creates position CSVs.
     """
     print(f"--- [RITUAL OF THE GRID] Forging {gameweek_dir} Player Data from HTML ---")

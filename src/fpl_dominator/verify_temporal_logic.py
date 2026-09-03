@@ -107,7 +107,8 @@ def verify_temporal_logic():
         > weighted_fdr_horizon.iloc[1]["Weighted_FDR"]
     ):
         print(
-            "✅ SUCCESS: The Temporal Lens is working correctly. The logic properly discounts future fixtures."
+            "✅ SUCCESS: The Temporal Lens is working correctly. The logic "
+            "properly discounts future fixtures."
         )
     else:
         print("❌ FAILURE: The Temporal Lens is NOT working as expected.")

@@ -56,7 +56,8 @@ def main():
         master_prompt = (
             "From the provided FPL screenshot of a position list, extract "
             "player data into CSV format.\n"
-            "The CSV must have these 6 columns: Surname, Team, Position, Price, TP, Status.\n"
+            "The CSV must have these 6 columns: "
+            "Surname, Team, Position, Price, TP, Status.\n"
             "The 'Status' column is based on the icon next to the player's name:\n"
             "- A red icon means 'INJURY'.\n"
             "- A yellow icon means 'DOUBT'.\n"

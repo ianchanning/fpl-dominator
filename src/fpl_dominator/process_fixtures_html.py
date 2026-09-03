@@ -9,7 +9,7 @@ from bs4 import BeautifulSoup
 
 def rgb_to_fdr(rgb_string: str) -> int:
     """
-    Converts an RGB color string to its corresponding FDR value based on the 
+    Converts an RGB color string to its corresponding FDR value based on the
     reverse-engineered formula.
     FDR = round(1429.6 - 1.8 * C)
     """
@@ -94,7 +94,7 @@ def parse_fixture_html(file_path: str, fdr_col_name: str) -> pd.DataFrame:
 
 def create_fixture_csv_from_html(gameweek_dir: str):
     """
-    Parses the three HTML fixture files for a given gameweek and creates a 
+    Parses the three HTML fixture files for a given gameweek and creates a
     combined fixtures.csv.
     """
     print(f"--- Forging {gameweek_dir} Fixtures from HTML sources ---")
