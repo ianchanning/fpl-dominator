@@ -23,7 +23,7 @@ from .grand_synthesis import perform_grand_synthesis
 
 def calculate_squad_divergence(gameweek_dir: str) -> Dict[str, Any]:
     """
-    Performs a brutal minimal evaluation comparing the current squad to the global optimal squad.
+    Performs a evaluation comparing the current squad to the global optimal squad.
     Calculates:
       - Current Squad Projected Score (Starting XI)
       - Optimal Squad Projected Score (Starting XI)
