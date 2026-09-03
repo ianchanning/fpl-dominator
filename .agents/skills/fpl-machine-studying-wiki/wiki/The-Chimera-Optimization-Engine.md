@@ -69,6 +69,7 @@ $$\max \sum_{i \in P} \left( xP_i \cdot s_i + xP_i \cdot c_i + w_b \cdot xP_i \c
 ```python
 import pyomo.environ as pyo
 
+
 def build_chimera_model(df, budget=100.0, bench_weight=0.1):
     model = pyo.ConcreteModel(name="BAMF_Chimera")
     players = list(df.index)
@@ -86,27 +87,39 @@ def build_chimera_model(df, budget=100.0, bench_weight=0.1):
             + bench_weight * df.loc[i, "Expected_Points"] * (m.squad[i] - m.starter[i])
             for i in players
         )
+
     model.obj = pyo.Objective(rule=objective_rule, sense=pyo.maximize)
 
     # 3. Constraints
     model.c_squad_size = pyo.Constraint(expr=sum(model.squad[i] for i in players) == 15)
-    model.c_starter_size = pyo.Constraint(expr=sum(model.starter[i] for i in players) == 11)
-    model.c_captain_size = pyo.Constraint(expr=sum(model.captain[i] for i in players) == 1)
-    model.c_budget = pyo.Constraint(expr=sum(df.loc[i, "Price"] * model.squad[i] for i in players) <= budget)
+    model.c_starter_size = pyo.Constraint(
+        expr=sum(model.starter[i] for i in players) == 11
+    )
+    model.c_captain_size = pyo.Constraint(
+        expr=sum(model.captain[i] for i in players) == 1
+    )
+    model.c_budget = pyo.Constraint(
+        expr=sum(df.loc[i, "Price"] * model.squad[i] for i in players) <= budget
+    )
 
     # Linking starter to squad & captain to starter
     def starter_in_squad_rule(m, i):
         return m.starter[i] <= m.squad[i]
+
     model.c_starter_in_squad = pyo.Constraint(players, rule=starter_in_squad_rule)
 
     def captain_is_starter_rule(m, i):
         return m.captain[i] <= m.starter[i]
+
     model.c_captain_is_starter = pyo.Constraint(players, rule=captain_is_starter_rule)
 
     # Position Quotas & Team Quotas (Vectorized over subsets)
     for team in df["Team"].unique():
         team_players = df[df["Team"] == team].index
-        model.add_component(f"c_team_{team}", pyo.Constraint(expr=sum(model.squad[i] for i in team_players) <= 3))
+        model.add_component(
+            f"c_team_{team}",
+            pyo.Constraint(expr=sum(model.squad[i] for i in team_players) <= 3),
+        )
 
     return model
 ```

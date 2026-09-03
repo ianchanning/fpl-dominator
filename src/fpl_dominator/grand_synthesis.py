@@ -1,9 +1,10 @@
 import os
 import sys
-from typing import List, Dict, Any, cast
-import yaml
+from typing import cast
+
 import numpy as np
 import pandas as pd
+import yaml
 
 
 def perform_grand_synthesis(gameweek_dir: str):
@@ -73,7 +74,7 @@ def perform_grand_synthesis(gameweek_dir: str):
 
     # 2. Prepare the Player Data
     players_df["Team_TLA"] = players_df["Team"].replace(TEAM_NAME_TO_TLA)
-    
+
     # Check for unmapped teams
     mask = players_df["Team_TLA"].isnull()
     if bool(mask.any()):
@@ -132,9 +133,17 @@ def perform_grand_synthesis(gameweek_dir: str):
 
     # 7. Verification
     print("\n--- TOP 15 PROSPECTS (BY PROJECTED SCORE OVER NEXT 5GW) ---")
-    
-    top_prospects = omniscient_df.sort_values(by="Projected_Score", ascending=False).head(15)
-    cols_to_show = ["Surname", "Team", "PP", "Effective_FDR_Horizon_5GW", "Projected_Score"]
+
+    top_prospects = omniscient_df.sort_values(
+        by="Projected_Score", ascending=False
+    ).head(15)
+    cols_to_show = [
+        "Surname",
+        "Team",
+        "PP",
+        "Effective_FDR_Horizon_5GW",
+        "Projected_Score",
+    ]
     subset_df = cast(pd.DataFrame, top_prospects[cols_to_show])
     print(subset_df.to_string(index=False))
 

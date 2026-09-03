@@ -1,6 +1,6 @@
 import os
-import shutil
 import re
+import shutil
 
 # Mapping of date prefixes to gameweeks based on git history and user context
 mapping = {
@@ -27,21 +27,21 @@ files = os.listdir(base_dir)
 for filename in files:
     if not filename.endswith(".png"):
         continue
-    
+
     # Extract date part: Screenshot from YYYY-MM-DD HH-MM-SS.png
     match = re.search(r"(\d{4}-\d{2}-\d{2})", filename)
     if not match:
         continue
-    
+
     date_prefix = match.group(1)
     if date_prefix in mapping:
         gw_dir = os.path.join(base_dir, mapping[date_prefix])
         if not os.path.exists(gw_dir):
             os.makedirs(gw_dir)
-        
+
         src_path = os.path.join(base_dir, filename)
         dst_path = os.path.join(gw_dir, filename)
-        
+
         print(f"Moving {filename} to {gw_dir}")
         shutil.move(src_path, dst_path)
     else:

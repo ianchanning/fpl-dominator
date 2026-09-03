@@ -19,7 +19,7 @@ THRIFT_FACTOR = 0.001
 
 def print_squad_details(squad, starters, bench, status, scenario_name):
     """A standardized function to print the results of any optimization."""
-    print(f"\n{'='*20} {scenario_name.upper()} {'='*20}")
+    print(f"\n{'=' * 20} {scenario_name.upper()} {'=' * 20}")
 
     if status == "Optimal":
         print("\n*** OPTIMAL SQUAD FORGED ***\n")
@@ -47,7 +47,7 @@ def print_squad_details(squad, starters, bench, status, scenario_name):
         print(
             f"\n!!! FAILURE: An optimal solution could not be found for this scenario. Status: {status}"
         )
-    print(f"{'='* (42 + len(scenario_name))}")
+    print(f"{'=' * (42 + len(scenario_name))}")
 
 
 def forge_squad(
@@ -173,7 +173,9 @@ def forge_squad(
         prob += starter_vars[i] <= squad_vars[i], f"Bridge_{i}"
 
     # --- Solve and Print ---
-    prob.solve(pulp.PULP_CBC_CMD(msg=False))  # msg=False silences the verbose solver output
+    prob.solve(
+        pulp.PULP_CBC_CMD(msg=False)
+    )  # msg=False silences the verbose solver output
     status = pulp.LpStatus[prob.status]
 
     squad_indices = [i for i in players_df.index if squad_vars[i].varValue == 1]

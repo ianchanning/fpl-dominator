@@ -1,9 +1,9 @@
 import os
 import re
 from typing import Dict, List, Optional
-from bs4 import BeautifulSoup
-import pandas as pd
 
+import pandas as pd
+from bs4 import BeautifulSoup
 
 POSITION_LOOKUP = {
     "Goalkeeper": "GKP",
@@ -150,40 +150,44 @@ def parse_prior_season_html(
         pts_per_start = to_num(tds[27].text, is_float=True)
         mins_per_pt = to_num(tds[26].text, is_float=True)
 
-        records.append({
-            "Surname": display_name,
-            "FullName": full_name,
-            "Team_TLA": team_tla,
-            "Team": canonical_team,
-            "Team_Full": team_full,
-            "Position": pos_str,
-            "App": apps,
-            "Starts": starts,
-            "Mins": mins,
-            "SubOn": to_num(tds[6].text),
-            "SubOff": to_num(tds[7].text),
-            "Goals": to_num(tds[10].text),
-            "Assists": to_num(tds[11].text),
-            "CleanSheets": to_num(tds[12].text),
-            "GoalsConceded": to_num(tds[13].text),
-            "OwnGoals": to_num(tds[14].text),
-            "PenSaves": to_num(tds[15].text),
-            "Saves": to_num(tds[16].text),
-            "YellowCards": to_num(tds[17].text),
-            "RedCards": to_num(tds[18].text),
-            "Bonus": to_num(tds[23].text),
-            "DoubleDigitHauls": to_num(tds[24].text),
-            "TotalPoints": total_pts,
-            "Mins_per_Pt": mins_per_pt,
-            "Pts_per_Start": pts_per_start,
-            "Pts_per_90": pts_per_90,
-            "Slug": slug,
-        })
+        records.append(
+            {
+                "Surname": display_name,
+                "FullName": full_name,
+                "Team_TLA": team_tla,
+                "Team": canonical_team,
+                "Team_Full": team_full,
+                "Position": pos_str,
+                "App": apps,
+                "Starts": starts,
+                "Mins": mins,
+                "SubOn": to_num(tds[6].text),
+                "SubOff": to_num(tds[7].text),
+                "Goals": to_num(tds[10].text),
+                "Assists": to_num(tds[11].text),
+                "CleanSheets": to_num(tds[12].text),
+                "GoalsConceded": to_num(tds[13].text),
+                "OwnGoals": to_num(tds[14].text),
+                "PenSaves": to_num(tds[15].text),
+                "Saves": to_num(tds[16].text),
+                "YellowCards": to_num(tds[17].text),
+                "RedCards": to_num(tds[18].text),
+                "Bonus": to_num(tds[23].text),
+                "DoubleDigitHauls": to_num(tds[24].text),
+                "TotalPoints": total_pts,
+                "Mins_per_Pt": mins_per_pt,
+                "Pts_per_Start": pts_per_start,
+                "Pts_per_90": pts_per_90,
+                "Slug": slug,
+            }
+        )
 
     df = pd.DataFrame(records)
     # Sort by TotalPoints descending
-    df.sort_values(by=["TotalPoints", "Pts_per_90"], ascending=[False, False], inplace=True)
-    
+    df.sort_values(
+        by=["TotalPoints", "Pts_per_90"], ascending=[False, False], inplace=True
+    )
+
     os.makedirs(os.path.dirname(output_csv_path), exist_ok=True)
     df.to_csv(output_csv_path, index=False)
     print(f"[+] Successfully forged prior season master database at: {output_csv_path}")

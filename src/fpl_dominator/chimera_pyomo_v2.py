@@ -1,9 +1,9 @@
 import os
 import re
-import sys
-import yaml
+
 import pandas as pd
 import pyomo.environ as pyo
+import yaml
 
 TEAM_SHORT_TO_FULL = {
     "Arsenal": "Arsenal",
@@ -37,25 +37,33 @@ def sanitize_name(name: str) -> str:
     return re.sub(r"[\.\-\s\(\)]", "", name.lower())
 
 
-def enrich_with_set_pieces(players_df: pd.DataFrame, set_piece_path: str, score_model: dict) -> pd.DataFrame:
+def enrich_with_set_pieces(
+    players_df: pd.DataFrame, set_piece_path: str, score_model: dict
+) -> pd.DataFrame:
     """Enriches players with Set-Piece Potency (SPP) scores."""
     print("[+] Beginning Set-Piece Potency (SPP) enrichment...")
     if not os.path.exists(set_piece_path):
-        print(f"!!! WARNING: Set-piece database not found at '{set_piece_path}'. Setting SPP to 0.0.")
+        print(
+            f"!!! WARNING: Set-piece database not found at '{set_piece_path}'. Setting SPP to 0.0."
+        )
         players_df["SPP"] = 0.0
         return players_df
 
     set_pieces_df = pd.read_csv(set_piece_path)
     players_df["SPP"] = 0.0
     players_df["match_key"] = players_df["Surname"].apply(sanitize_name)
-    players_df["Team_Full_For_Join"] = players_df["Team"].map(TEAM_SHORT_TO_FULL).fillna(players_df["Team"])
+    players_df["Team_Full_For_Join"] = (
+        players_df["Team"].map(TEAM_SHORT_TO_FULL).fillna(players_df["Team"])
+    )
 
     for _, row in set_pieces_df.iterrows():
         club_full_name = row["Club"]
         duties = {
             "Penalties": str(row["Penalties"]).split(","),
             "Direct Free Kicks": str(row["Direct Free Kicks"]).split(","),
-            "Corners & Indirect Free Kicks": str(row["Corners & Indirect Free Kicks"]).split(","),
+            "Corners & Indirect Free Kicks": str(
+                row["Corners & Indirect Free Kicks"]
+            ).split(","),
         }
 
         for duty_type, takers in duties.items():
@@ -87,25 +95,30 @@ def forge_pyomo_squad(gameweek_dir: str):
     Bench Potency Epsilon, and the Trinity constraint.
     """
     print("--- CHIMERA PYOMO ENGINE (V3 - SOVEREIGN TRINITY) ONLINE ---")
-    
+
     # --- Load Master Configuration ---
     try:
         with open("config.yaml", "r") as f:
             config = yaml.safe_load(f).get("pyomo_solver", {})
-        
+
         THRIFT_FACTOR = config.get("thrift_factor", 0.001)
         BENCH_POTENCY_EPSILON = config.get("bench_potency_epsilon", 0.00001)
         FORM_FACTOR_WEIGHT = config.get("form_factor_weight", 0.7)
         RED_ZONE_THRESHOLD = config.get("red_zone_threshold", 1250)
         RED_ZONE_LIMIT = config.get("red_zone_limit", 5)
-        SPP_SCORES = config.get("spp_scores", {
-            "Penalties": {"primary": 5.0, "secondary": 2.5},
-            "Direct Free Kicks": {"primary": 2.5, "secondary": 1.25},
-            "Corners & Indirect Free Kicks": {"primary": 1.5, "secondary": 0.75},
-        })
+        SPP_SCORES = config.get(
+            "spp_scores",
+            {
+                "Penalties": {"primary": 5.0, "secondary": 2.5},
+                "Direct Free Kicks": {"primary": 2.5, "secondary": 1.25},
+                "Corners & Indirect Free Kicks": {"primary": 1.5, "secondary": 0.75},
+            },
+        )
         print("[+] Master configuration for Pyomo solver loaded.")
     except (FileNotFoundError, yaml.YAMLError) as e:
-        print(f"!!! WARNING: Could not load or parse config.yaml: {e}. Using default fallbacks.")
+        print(
+            f"!!! WARNING: Could not load or parse config.yaml: {e}. Using default fallbacks."
+        )
         THRIFT_FACTOR = 0.001
         BENCH_POTENCY_EPSILON = 0.00001
         FORM_FACTOR_WEIGHT = 0.7
@@ -116,7 +129,7 @@ def forge_pyomo_squad(gameweek_dir: str):
             "Direct Free Kicks": {"primary": 2.5, "secondary": 1.25},
             "Corners & Indirect Free Kicks": {"primary": 1.5, "secondary": 0.75},
         }
-        
+
     # --- File Paths ---
     FINAL_FORM_DB_PATH = f"{gameweek_dir}/fpl_master_database_FINAL_v5.csv"
     OMNISCIENT_DB_PATH = f"{gameweek_dir}/fpl_master_database_OMNISCIENT.csv"
@@ -124,20 +137,19 @@ def forge_pyomo_squad(gameweek_dir: str):
 
     if not os.path.exists(FINAL_FORM_DB_PATH):
         if not os.path.exists(OMNISCIENT_DB_PATH):
-            print(f"!!! CRITICAL FAILURE: Neither '{FINAL_FORM_DB_PATH}' nor '{OMNISCIENT_DB_PATH}' found. Aborting.")
+            print(
+                f"!!! CRITICAL FAILURE: Neither '{FINAL_FORM_DB_PATH}' nor '{OMNISCIENT_DB_PATH}' found. Aborting."
+            )
             return False
-        
+
         print(f"[+] Forging '{FINAL_FORM_DB_PATH}' from Omniscient database...")
         players_df = pd.read_csv(OMNISCIENT_DB_PATH)
         players_df = enrich_with_set_pieces(players_df, SET_PIECE_DB_PATH, SPP_SCORES)
         players_df["Final_Score"] = (
-            (
-                players_df["PP"]
-                + players_df["SPP"]
-                + (players_df["Form_Factor"] * FORM_FACTOR_WEIGHT)
-            )
-            / players_df["Effective_FDR_Horizon_5GW"]
-        )
+            players_df["PP"]
+            + players_df["SPP"]
+            + (players_df["Form_Factor"] * FORM_FACTOR_WEIGHT)
+        ) / players_df["Effective_FDR_Horizon_5GW"]
         players_df.to_csv(FINAL_FORM_DB_PATH, index=False)
         print(f"[+] Final Form database forged at '{FINAL_FORM_DB_PATH}'.")
     else:

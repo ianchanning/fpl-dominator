@@ -15,15 +15,18 @@ from .grand_synthesis import perform_grand_synthesis
 from .process_fixtures_html import create_fixture_csv_from_html
 from .process_players_html import process_players_for_gameweek  # NEW IMPORT
 from .process_prior_season_html import parse_prior_season_html
-from .process_set_pieces_html import generate_empirical_set_pieces_csv, parse_set_pieces_html
+from .process_set_pieces_html import (
+    generate_empirical_set_pieces_csv,
+    parse_set_pieces_html,
+)
 from .update_prices import reconcile_timeline
 from .wildcard_evaluator import calculate_squad_divergence
-
 
 # We'll need a new function for our scenario runner, let's pretend it exists
 # from .scenario_chimera import run_a_what_if_scenario
 
 # --- UTILS ---
+
 
 def get_latest_gw():
     """Returns the most recently modified gwX directory."""
@@ -32,13 +35,16 @@ def get_latest_gw():
         return None
     # Sort by numeric value if possible, else by modification time
     try:
+
         def extract_gw_num(d):
-            match = re.search(r'\d+', d)
+            match = re.search(r"\d+", d)
             return int(match.group()) if match else 0
+
         dirs.sort(key=extract_gw_num, reverse=True)
     except (AttributeError, ValueError, IndexError):
         dirs.sort(key=os.path.getmtime, reverse=True)
     return dirs[0]
+
 
 # --- THE ARTIFICER'S FORGE: OUR CUSTOM HELP CLASS ---
 
@@ -258,10 +264,10 @@ def process_set_pieces(html, output, detailed_output):
 def get_clipboard_content() -> str:
     """Defensively fetches clipboard content across X11 (xclip), Wayland (wl-paste), and fallback utilities."""
     commands = [
-        ['xclip', '-selection', 'clipboard', '-o'],
-        ['wl-paste'],
-        ['xsel', '--clipboard', '--output'],
-        ['pbpaste'],
+        ["xclip", "-selection", "clipboard", "-o"],
+        ["wl-paste"],
+        ["xsel", "--clipboard", "--output"],
+        ["pbpaste"],
     ]
     for cmd in commands:
         try:
@@ -281,17 +287,38 @@ def get_clipboard_content() -> str:
 
 
 @bamf.command()
-@click.argument("target", type=click.Choice(['fix', 'fix-a', 'fix-d', 'gkp', 'def', 'def2', 'mid', 'mid2', 'fwd', 'fwd2', 'squad']))
+@click.argument(
+    "target",
+    type=click.Choice(
+        [
+            "fix",
+            "fix-a",
+            "fix-d",
+            "gkp",
+            "def",
+            "def2",
+            "mid",
+            "mid2",
+            "fwd",
+            "fwd2",
+            "squad",
+        ]
+    ),
+)
 def rip(target):
     """
     Rips clipboard content to a specific HTML file in the latest GW directory.
-    
-    Since FPL market data is ephemeral and only reflects the current live state, 
+
+    Since FPL market data is ephemeral and only reflects the current live state,
     this command automatically targets the most recently initialized gameweek vault.
     """
     gw_dir = get_latest_gw()
     if not gw_dir:
-        click.secho("Error: No gameweek directory found. Run 'bamf init' first.", fg="red", err=True)
+        click.secho(
+            "Error: No gameweek directory found. Run 'bamf init' first.",
+            fg="red",
+            err=True,
+        )
         return
 
     mapping = {
@@ -307,18 +334,20 @@ def rip(target):
         "fwd2": "forwards_2.html",
         "squad": "squad.html",
     }
-    
+
     filename = mapping[target]
     filepath = os.path.join(gw_dir, filename)
-    
+
     click.echo(f"Ripping clipboard to {filepath}...")
-    
+
     try:
         content = get_clipboard_content()
-        with open(filepath, 'w', encoding='utf-8') as f:
+        with open(filepath, "w", encoding="utf-8") as f:
             f.write(content)
-            
-        click.secho(f"Successfully ripped {len(content)} characters to {filepath}", fg="green")
+
+        click.secho(
+            f"Successfully ripped {len(content)} characters to {filepath}", fg="green"
+        )
     except Exception as e:
         click.secho(f"Failed to rip: {e}", fg="red", err=True)
 
@@ -332,34 +361,38 @@ def finalize(gameweek_dir):
     """
     Executes the full ritual from ripped HTML to final prophecy.
     """
-    click.secho(f"=== FINALIZING {gameweek_dir.upper()} RITUAL ===", fg="cyan", bold=True)
-    
+    click.secho(
+        f"=== FINALIZING {gameweek_dir.upper()} RITUAL ===", fg="cyan", bold=True
+    )
+
     click.echo("\n[1/8] Ingesting HTML Data...")
     create_fixture_csv_from_html(gameweek_dir)
     process_players_for_gameweek(gameweek_dir)
-    
+
     click.echo("\n[2/8] Aligning Price Reality...")
     reconcile_timeline(gameweek_dir)
-    
+
     click.echo("\n[3/8] Forging the Data Cauldron...")
     forge_cauldron(gameweek_dir)
-    
+
     click.echo("\n[4/8] Prophetic Enrichment...")
     enrich_with_insight(gameweek_dir)
-    
+
     click.echo("\n[5/8] Grand Synthesis...")
     perform_grand_synthesis(gameweek_dir)
-    
+
     click.echo("\n[6/8] Auditing Reality...")
     audit_team_name_realities(gameweek_dir)
-    
+
     click.echo("\n[7/8] Auditing Player Resolution...")
     audit_player_name_resolution_v3(gameweek_dir)
-    
+
     click.echo("\n[8/8] Unleashing the Chimera...")
     run_the_gauntlet(gameweek_dir)
-    
-    click.secho(f"\n=== {gameweek_dir.upper()} PROPHECY FORGED ===", fg="green", bold=True)
+
+    click.secho(
+        f"\n=== {gameweek_dir.upper()} PROPHECY FORGED ===", fg="green", bold=True
+    )
 
 
 @bamf.command()
@@ -419,7 +452,7 @@ def archive_season(season_tag):
 
     # Sort numerically before moving for deterministic execution
     def extract_gw_num(d):
-        match = re.search(r'\d+', d)
+        match = re.search(r"\d+", d)
         return int(match.group()) if match else 0
 
     gw_dirs.sort(key=extract_gw_num)
@@ -427,7 +460,9 @@ def archive_season(season_tag):
     for d in gw_dirs:
         dest = os.path.join(archive_dir, d)
         if os.path.exists(dest):
-            click.secho(f"Warning: Destination '{dest}' already exists. Skipping.", fg="yellow")
+            click.secho(
+                f"Warning: Destination '{dest}' already exists. Skipping.", fg="yellow"
+            )
             continue
         shutil.move(d, dest)
         click.echo(f" - Archived {d} -> {dest}")
@@ -496,31 +531,69 @@ def evaluate_wildcard(gameweek_dir):
     """
     Evaluates Wildcard trigger timing using 3-Path Gauntlet & American Option model (RFC-004).
     """
-    click.secho(f"\n=== EVALUATING WILDCARD TRIGGER FOR {gameweek_dir.upper()} ===", fg="cyan", bold=True)
+    click.secho(
+        f"\n=== EVALUATING WILDCARD TRIGGER FOR {gameweek_dir.upper()} ===",
+        fg="cyan",
+        bold=True,
+    )
     res = calculate_squad_divergence(gameweek_dir)
 
     click.echo(f"\n--- SQUAD DIVERGENCE ANALYSIS (GW{res['gameweek']}) ---")
-    click.echo(f"Current Squad Projected Starting XI (5-GW):  {res['projected_pts_current_5gw']:.1f} pts (Score: {res['current_xi_score']:.3f})")
-    click.echo(f"Global Optimal Starting XI (5-GW):           {res['projected_pts_optimal_5gw']:.1f} pts (Score: {res['optimal_xi_score']:.3f})")
-    click.secho(f"Point Divergence Gap:                        +{res['pts_divergence']:.1f} pts", fg="yellow", bold=True)
-    click.echo(f"Squad Transfer Distance:                     {res['transfers_needed']} transfers needed to align with optimum")
-    click.echo(f"Core Retained Assets:                        {', '.join(res['players_to_keep']).upper()}")
+    click.echo(
+        f"Current Squad Projected Starting XI (5-GW):  {res['projected_pts_current_5gw']:.1f} pts (Score: {res['current_xi_score']:.3f})"
+    )
+    click.echo(
+        f"Global Optimal Starting XI (5-GW):           {res['projected_pts_optimal_5gw']:.1f} pts (Score: {res['optimal_xi_score']:.3f})"
+    )
+    click.secho(
+        f"Point Divergence Gap:                        +{res['pts_divergence']:.1f} pts",
+        fg="yellow",
+        bold=True,
+    )
+    click.echo(
+        f"Squad Transfer Distance:                     {res['transfers_needed']} transfers needed to align with optimum"
+    )
+    click.echo(
+        f"Core Retained Assets:                        {', '.join(res['players_to_keep']).upper()}"
+    )
 
     click.echo("\n--- 3-PATH GAUNTLET TRAJECTORY (5-GW HORIZON) ---")
-    click.echo(f"  [Path A] Status Quo (Free Transfers only):     {res['path_a_pts']:.1f} pts")
-    click.echo(f"  [Path B] Manual Migration (Hits capped -12):  {res['path_b_pts']:.1f} pts")
-    click.secho(f"  [Path C] Wildcard Reset (Instant Optimum):     {res['path_c_pts']:.1f} pts", fg="magenta", bold=True)
+    click.echo(
+        f"  [Path A] Status Quo (Free Transfers only):     {res['path_a_pts']:.1f} pts"
+    )
+    click.echo(
+        f"  [Path B] Manual Migration (Hits capped -12):  {res['path_b_pts']:.1f} pts"
+    )
+    click.secho(
+        f"  [Path C] Wildcard Reset (Instant Optimum):     {res['path_c_pts']:.1f} pts",
+        fg="magenta",
+        bold=True,
+    )
 
     click.echo("\n--- FINANCIAL OPTION EVALUATION (RFC-004) ---")
-    click.echo(f"Net Wildcard Advantage:                      +{res['wc_advantage']:.1f} pts")
-    click.echo(f"Time-Decay Exercise Threshold:               {res['threshold_pts']:.1f} pts")
+    click.echo(
+        f"Net Wildcard Advantage:                      +{res['wc_advantage']:.1f} pts"
+    )
+    click.echo(
+        f"Time-Decay Exercise Threshold:               {res['threshold_pts']:.1f} pts"
+    )
 
     if res["should_trigger"]:
-        click.secho("\n>>> RECOMMENDATION: [FIRE WILDCARD] - Divergence exceeds option time value threshold!", fg="green", bold=True)
+        click.secho(
+            "\n>>> RECOMMENDATION: [FIRE WILDCARD] - Divergence exceeds option time value threshold!",
+            fg="green",
+            bold=True,
+        )
     else:
-        click.secho(f"\n>>> RECOMMENDATION: [HOLD WILDCARD] - Time value ({res['threshold_pts']:.1f} pts) > Advantage ({res['wc_advantage']:.1f} pts).", fg="yellow", bold=True)
-        click.secho("    Strategy: Bank early price equity (RFC-007) and await Bayesian prior stabilization (RFC-005).", fg="cyan")
-
+        click.secho(
+            f"\n>>> RECOMMENDATION: [HOLD WILDCARD] - Time value ({res['threshold_pts']:.1f} pts) > Advantage ({res['wc_advantage']:.1f} pts).",
+            fg="yellow",
+            bold=True,
+        )
+        click.secho(
+            "    Strategy: Bank early price equity (RFC-007) and await Bayesian prior stabilization (RFC-005).",
+            fg="cyan",
+        )
 
 
 # --- Audit Command Group (Perfect as is, but let's add validation) ---

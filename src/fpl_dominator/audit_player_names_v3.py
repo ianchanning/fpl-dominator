@@ -5,6 +5,7 @@ import pandas as pd
 
 from .chimera_pyomo_v2 import TEAM_SHORT_TO_FULL
 
+
 def sanitize_name(name: str) -> str:
     """The heart of the Sanitization Bridge."""
     return re.sub(r"[\.\-\s\(\)]", "", name.lower())

@@ -2,7 +2,6 @@
 import glob
 import io
 import os
-import sys
 from contextlib import redirect_stdout
 
 from .chimera_pyomo_v2 import forge_pyomo_squad  # The perfected Pyomo engine

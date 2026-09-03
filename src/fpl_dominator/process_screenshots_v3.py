@@ -51,7 +51,7 @@ def main():
         print(f">>> Processing Target: {screenshot_path}")
 
         # Construct the prompt for the gemini CLI
-        master_prompt = f"""From the provided FPL screenshot of a position list, extract player data into CSV format.
+        master_prompt = """From the provided FPL screenshot of a position list, extract player data into CSV format.
 The CSV must have these 6 columns: Surname, Team, Position, Price, TP, Status.
 The 'Status' column is based on the icon next to the player's name:
 - A red icon means 'INJURY'.
@@ -156,7 +156,7 @@ CRITICAL: Your entire output must be ONLY the raw CSV data. Do NOT include a hea
 
     print("--------------------------------------------------")
     print(
-        f">>> [NYX] ALL SCREENSHOTS PROCESSED. FPL DOMINATOR DATA FORGE IS COMPLETE. (⊕)"
+        ">>> [NYX] ALL SCREENSHOTS PROCESSED. FPL DOMINATOR DATA FORGE IS COMPLETE. (⊕)"
     )
     print(
         f">>> Summary: Processed {processed_count} files, Skipped {skipped_count} files, Errors {errors_count} files."

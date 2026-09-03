@@ -77,7 +77,7 @@ def calculate_prophetic_score_with_prior(
     """
     # Calculate decay weight alpha_t: 1.0 at GW1 down to 0.0 at GW6
     alpha = max(0.0, 1.0 - (gameweek_num - 1) / float(form_lookback))
-    
+
     merged = pd.merge(
         current_df,
         prior_baseline_df[["Surname", "Team", "Prior_PPM", "Prior_TP"]],
@@ -85,16 +85,20 @@ def calculate_prophetic_score_with_prior(
         how="left",
     )
     # Fill newcomers / promoted assets with position-average prior
-    merged["Prior_TP"] = merged["Prior_TP"].fillna(merged.groupby("Position")["Prior_TP"].transform("median"))
-    
+    merged["Prior_TP"] = merged["Prior_TP"].fillna(
+        merged.groupby("Position")["Prior_TP"].transform("median")
+    )
+
     # Calculate synthetic baseline points scaled to 2026/27 price
     merged["Baseline_TP"] = merged["Prior_TP"]
-    
+
     if alpha > 0.0:
-        merged["Effective_TP"] = (1.0 - alpha) * merged["TP"] + alpha * merged["Baseline_TP"]
+        merged["Effective_TP"] = (1.0 - alpha) * merged["TP"] + alpha * merged[
+            "Baseline_TP"
+        ]
     else:
         merged["Effective_TP"] = merged["TP"]
-        
+
     merged["PP"] = (merged["Effective_TP"] * merged["Captaincy_Coef"]).round(2)
     return merged
 ```

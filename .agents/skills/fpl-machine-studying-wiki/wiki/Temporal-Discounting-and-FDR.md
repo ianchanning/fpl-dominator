@@ -31,6 +31,7 @@ $$\text{Naive\_FDR} = \frac{1}{5} \sum_{t=1}^5 \text{FDR}_t$$
 import numpy as np
 import pandas as pd
 
+
 def calculate_temporal_fdr(fixtures_df, weights=None):
     """
     Calculates weighted FDR for each team across upcoming horizon.
@@ -47,7 +48,7 @@ def calculate_temporal_fdr(fixtures_df, weights=None):
     for team, group in fixtures_df.groupby("Team"):
         # Sort chronologically by gameweek
         sorted_fixtures = group.sort_values("GW").head(5)
-        
+
         attack_fdr = sorted_fixtures["FDR_Attack"].values
         defense_fdr = sorted_fixtures["FDR_Defense"].values
 
@@ -55,7 +56,7 @@ def calculate_temporal_fdr(fixtures_df, weights=None):
         n = len(attack_fdr)
         if n == 0:
             continue
-            
+
         current_weights = weights[:n]
         current_sum = current_weights.sum()
 
@@ -64,7 +65,7 @@ def calculate_temporal_fdr(fixtures_df, weights=None):
 
         team_fdr_scores[team] = {
             "FDR_A_Horizon_5GW": weighted_attack,
-            "FDR_D_Horizon_5GW": weighted_defense
+            "FDR_D_Horizon_5GW": weighted_defense,
         }
 
     return pd.DataFrame.from_dict(team_fdr_scores, orient="index")

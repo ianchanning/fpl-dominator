@@ -29,7 +29,7 @@ def reconcile_timeline(gameweek_dir):
     The main function where we reach into a specific, named timeline (e.g., gw12)
     and perform our glorious data manipulation.
     """
-    print(f"\n--- Initiating Price Reconciliation Protocol ---")
+    print("\n--- Initiating Price Reconciliation Protocol ---")
     print(f"--- Targeting directory: '{gameweek_dir}' ---")
 
     # First, verify the target timeline even exists.
@@ -93,7 +93,6 @@ def reconcile_timeline(gameweek_dir):
                 open(target_file_path, "r", newline="", encoding="utf-8") as f_market,
                 open(temp_file_path, "w", newline="", encoding="utf-8") as f_temp,
             ):
-
                 market_reader = csv.reader(f_market)
                 market_writer = csv.writer(f_temp)
 

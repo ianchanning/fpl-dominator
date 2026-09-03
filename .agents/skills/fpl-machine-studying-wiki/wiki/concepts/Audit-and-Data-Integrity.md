@@ -38,14 +38,20 @@ CANONICAL_ALIASES = {
     "Bruno Fernandes": "Bruno Borges Fernandes",
 }
 
-def normalize_player_names(df: pd.DataFrame, name_col: str = "player_name") -> pd.DataFrame:
+
+def normalize_player_names(
+    df: pd.DataFrame, name_col: str = "player_name"
+) -> pd.DataFrame:
     """Applies canonical name normalization and strips non-ASCII noise."""
     df = df.copy()
     df[name_col] = df[name_col].str.strip()
     df[name_col] = df[name_col].map(lambda n: CANONICAL_ALIASES.get(n, n))
     return df
 
-def audit_merge_integrity(left_df: pd.DataFrame, right_df: pd.DataFrame, on: str = "player_name") -> None:
+
+def audit_merge_integrity(
+    left_df: pd.DataFrame, right_df: pd.DataFrame, on: str = "player_name"
+) -> None:
     """Verifies that no high-value records are lost during merge."""
     unmatched_left = set(left_df[on]) - set(right_df[on])
     if unmatched_left:

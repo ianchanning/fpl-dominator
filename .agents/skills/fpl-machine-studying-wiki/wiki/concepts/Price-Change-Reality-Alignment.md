@@ -28,21 +28,26 @@ In Fantasy Premier League, player prices fluctuate daily based on transfer volum
 ```python
 import pandas as pd
 
-def align_treasury_reality(market_df: pd.DataFrame, squad_df: pd.DataFrame, bank_balance: float) -> tuple[pd.DataFrame, float]:
+
+def align_treasury_reality(
+    market_df: pd.DataFrame, squad_df: pd.DataFrame, bank_balance: float
+) -> tuple[pd.DataFrame, float]:
     """
     Overwrites market prices for currently owned players with their exact selling values
     and calculates total available purchasing power.
     """
     merged = market_df.copy()
-    
+
     # Map selling price for owned players
     selling_price_map = squad_df.set_index("player_name")["selling_price"].to_dict()
-    
+
     merged["Effective_Price"] = merged["player_name"].map(
-        lambda name: selling_price_map.get(name, merged.loc[merged["player_name"] == name, "Price"].values[0])
+        lambda name: selling_price_map.get(
+            name, merged.loc[merged["player_name"] == name, "Price"].values[0]
+        )
     )
-    
+
     total_liquid_treasury = bank_balance + squad_df["selling_price"].sum()
-    
+
     return merged, total_liquid_treasury
 ```

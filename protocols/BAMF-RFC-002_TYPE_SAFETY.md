@@ -33,6 +33,7 @@ Instead of passing the raw `ConcreteModel` around, we define a `Protocol` or `Da
 ```python
 from typing import Protocol, Dict
 
+
 class ChimeraModel(Protocol):
     # Explicitly declare the components we expect to exist
     squad_vars: Dict[str, Any]

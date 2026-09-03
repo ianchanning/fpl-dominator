@@ -1,8 +1,9 @@
 import os
-import sys
 import re
+import sys
 import unicodedata
-from typing import List, Dict, Any, cast, Optional
+from typing import Any, Dict, cast
+
 import pandas as pd
 import yaml
 
@@ -31,7 +32,7 @@ def normalize_name(name: str) -> str:
 def inject_bayesian_prior_baseline(
     players_df: pd.DataFrame,
     current_gw: int,
-    prior_stats_path: str = "archive/2025-26/fpl_player_stats_2025_26.csv"
+    prior_stats_path: str = "archive/2025-26/fpl_player_stats_2025_26.csv",
 ) -> pd.DataFrame:
     """
     Applies the Bayesian Cold Start & Season Transition Protocol (P4).
@@ -46,12 +47,18 @@ def inject_bayesian_prior_baseline(
         alpha_t = max(0.0, 1.0 - (current_gw - 1) / 5.0)
 
     if alpha_t <= 0.0:
-        print(f"[+] Gameweek {current_gw} >= 6: Operating on 100% current season performance (alpha=0.0).")
+        print(
+            f"[+] Gameweek {current_gw} >= 6: Operating on 100% current season performance (alpha=0.0)."
+        )
         return players_df
 
-    print(f"[+] Applying Bayesian Prior Cold Start (GW{current_gw}, alpha={alpha_t:.2f})...")
+    print(
+        f"[+] Applying Bayesian Prior Cold Start (GW{current_gw}, alpha={alpha_t:.2f})..."
+    )
     if not os.path.exists(prior_stats_path):
-        print(f"!!! WARNING: Prior season statistics not found at '{prior_stats_path}'. Skipping prior injection.")
+        print(
+            f"!!! WARNING: Prior season statistics not found at '{prior_stats_path}'. Skipping prior injection."
+        )
         return players_df
 
     prior_df = pd.read_csv(prior_stats_path)
@@ -72,9 +79,14 @@ def inject_bayesian_prior_baseline(
         raw_current_tp = float(row.get("TP", 0.0))
 
         # Search match by normalized surname + position
-        match = prior_df[(prior_df["norm_surname"] == norm_s) & (prior_df["Position"] == pos)]
+        match = prior_df[
+            (prior_df["norm_surname"] == norm_s) & (prior_df["Position"] == pos)
+        ]
         if match.empty or len(match) > 1:
-            fullname_match = prior_df[(prior_df["norm_fullname"].str.contains(norm_s, na=False)) & (prior_df["Position"] == pos)]
+            fullname_match = prior_df[
+                (prior_df["norm_fullname"].str.contains(norm_s, na=False))
+                & (prior_df["Position"] == pos)
+            ]
             if not fullname_match.empty:
                 match = fullname_match
 
@@ -83,7 +95,9 @@ def inject_bayesian_prior_baseline(
                 # If initial prefix present in surname (e.g. B.Fernandes vs M.Fernandes)
                 if "." in surname:
                     init = surname.split(".")[0].lower()
-                    init_match = match[match["FullName"].str.lower().str.startswith(init)]
+                    init_match = match[
+                        match["FullName"].str.lower().str.startswith(init)
+                    ]
                     if not init_match.empty:
                         match = init_match
                 # Check team match
@@ -113,7 +127,9 @@ def inject_bayesian_prior_baseline(
         else:
             # Scale current in-season points to 38-game equivalent
             annualized_current_tp = raw_current_tp * (38.0 / (current_gw - 1))
-            effective_tp = round(alpha_t * prior_tp + (1.0 - alpha_t) * annualized_current_tp)
+            effective_tp = round(
+                alpha_t * prior_tp + (1.0 - alpha_t) * annualized_current_tp
+            )
             form_factor = raw_current_tp
 
         effective_tps.append(effective_tp)
@@ -123,7 +139,9 @@ def inject_bayesian_prior_baseline(
     players_df["PPM"] = (players_df["TP"] / players_df["Price"]).round(2)
     players_df["Form_Factor"] = form_factors
 
-    print(f"    - Prior baseline synthesized: {matched_count} historical matches, {imputed_count} imputed assets.")
+    print(
+        f"    - Prior baseline synthesized: {matched_count} historical matches, {imputed_count} imputed assets."
+    )
     return players_df
 
 
@@ -138,17 +156,29 @@ def enrich_with_insight(gameweek_dir: str):
     try:
         with open("config.yaml", "r") as f:
             config = yaml.safe_load(f)
-        
+
         insight_config = config.get("enrich_insight", {})
         CAPTAINCY_TIERS = insight_config.get("captaincy_tiers", {})
         FORM_LOOKBACK = insight_config.get("form_lookback_weeks", 2)
         print("[+] Master configuration loaded.")
     except (FileNotFoundError, yaml.YAMLError) as e:
-        print(f"!!! WARNING: Could not load or parse config.yaml: {e}. Using default fallbacks.")
+        print(
+            f"!!! WARNING: Could not load or parse config.yaml: {e}. Using default fallbacks."
+        )
         CAPTAINCY_TIERS = {
-            "Gods": {"players": ["Haaland", "B.Fernandes", "Bruno Fernandes"], "coefficient": 1.20},
+            "Gods": {
+                "players": ["Haaland", "B.Fernandes", "Bruno Fernandes"],
+                "coefficient": 1.20,
+            },
             "Demigods": {
-                "players": ["Semenyo", "João Pedro", "Gabriel", "Saka", "Palmer", "Thiago"],
+                "players": [
+                    "Semenyo",
+                    "João Pedro",
+                    "Gabriel",
+                    "Saka",
+                    "Palmer",
+                    "Thiago",
+                ],
                 "coefficient": 1.08,
             },
         }
@@ -197,7 +227,9 @@ def enrich_with_insight(gameweek_dir: str):
                 players["TP_past"] = players["TP_past"].fillna(0)
                 players["Form_Factor"] = players["TP"] - players["TP_past"]
                 players.drop(columns=["TP_past"], inplace=True)
-                print(f"    - Form Factor calculated based on performance since GW{past_gw}.")
+                print(
+                    f"    - Form Factor calculated based on performance since GW{past_gw}."
+                )
             else:
                 players["Form_Factor"] = players["TP"]
         else:
@@ -217,12 +249,24 @@ def enrich_with_insight(gameweek_dir: str):
             for p in player_list:
                 if p == "Palmer":
                     # Disambiguate Cole Palmer (MID) from GKP Palmer
-                    tier_mask = tier_mask | ((players["Surname"] == "Palmer") & (players["Position"] == "MID"))
+                    tier_mask = tier_mask | (
+                        (players["Surname"] == "Palmer")
+                        & (players["Position"] == "MID")
+                    )
                 elif p in ["B.Fernandes", "Bruno Fernandes"]:
-                    tier_mask = tier_mask | (players["Surname"].isin(["B.Fernandes", "Bruno Fernandes"]))
-                    tier_mask = tier_mask | ((players["Surname"] == "Fernandes") & (players["Team"] == "Man Utd"))
+                    tier_mask = tier_mask | (
+                        players["Surname"].isin(["B.Fernandes", "Bruno Fernandes"])
+                    )
+                    tier_mask = tier_mask | (
+                        (players["Surname"] == "Fernandes")
+                        & (players["Team"] == "Man Utd")
+                    )
                 else:
-                    tier_mask = tier_mask | (players["Surname"] == p) | (players["Surname"].str.contains(p, na=False))
+                    tier_mask = (
+                        tier_mask
+                        | (players["Surname"] == p)
+                        | (players["Surname"].str.contains(p, na=False))
+                    )
 
             tier_indices = players[tier_mask].index
             players.loc[tier_indices, "Captaincy_Coef"] = coef
@@ -230,8 +274,9 @@ def enrich_with_insight(gameweek_dir: str):
                 f"    - Anointing {len(tier_indices)} players as {tier_name} (Coef {coef})."
             )
     else:
-        print("    - WARNING: No Captaincy Tiers defined in config. Skipping anointment.")
-
+        print(
+            "    - WARNING: No Captaincy Tiers defined in config. Skipping anointment."
+        )
 
     # 3. Forge the Prophetic Points (PP)
     players["PP"] = (players["TP"] * players["Captaincy_Coef"]).round(2)
@@ -241,11 +286,20 @@ def enrich_with_insight(gameweek_dir: str):
     print("\n--- VERIFICATION: THE CHOSEN ONES ---")
     if CAPTAINCY_TIERS:
         anointed_surnames = [
-            p for t in CAPTAINCY_TIERS.values() for p in cast(Dict[str, Any], t).get("players", [])
+            p
+            for t in CAPTAINCY_TIERS.values()
+            for p in cast(Dict[str, Any], t).get("players", [])
         ]
         verification_df = players[players["Surname"].isin(anointed_surnames)]
         if not verification_df.empty:
-            cols_to_show = ["Surname", "Team", "TP", "Form_Factor", "Captaincy_Coef", "PP"]
+            cols_to_show = [
+                "Surname",
+                "Team",
+                "TP",
+                "Form_Factor",
+                "Captaincy_Coef",
+                "PP",
+            ]
             # Cast to DataFrame to help type checkers resolve to_string
             subset_df = cast(pd.DataFrame, verification_df[cols_to_show])
             print(subset_df.to_string(index=False))
@@ -253,7 +307,6 @@ def enrich_with_insight(gameweek_dir: str):
             print("No anointed players found to verify.")
     else:
         print("No Captaincy Tiers to verify.")
-
 
     # 5. Save the Prophetic Database
     try:

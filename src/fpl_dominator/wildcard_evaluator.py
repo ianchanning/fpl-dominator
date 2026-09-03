@@ -5,15 +5,19 @@ Quantifies squad divergence, transition friction, and option value to determine 
 
 import os
 import re
-from typing import Dict, List, Tuple, Any, Optional
+from typing import Any, Dict, List
+
 import pandas as pd
 import pyomo.environ as pyo
 import yaml
 
-from .grand_synthesis import perform_grand_synthesis
+from .chimera_pyomo_v2 import (
+    forge_pyomo_squad,
+    sanitize_name,
+)
 from .enrich_with_insight import enrich_with_insight
 from .forge_cauldron import forge_cauldron
-from .chimera_pyomo_v2 import forge_pyomo_squad, enrich_with_set_pieces, sanitize_name, TEAM_SHORT_TO_FULL
+from .grand_synthesis import perform_grand_synthesis
 
 
 def calculate_squad_divergence(gameweek_dir: str) -> Dict[str, Any]:
@@ -52,19 +56,36 @@ def calculate_squad_divergence(gameweek_dir: str) -> Dict[str, Any]:
     # Join current squad with master metrics
     joined_current = pd.merge(
         current_squad_df,
-        master_df[["match_key", "Team", "Position", "Final_Score", "Effective_FDR_Horizon_5GW", "Price"]],
+        master_df[
+            [
+                "match_key",
+                "Team",
+                "Position",
+                "Final_Score",
+                "Effective_FDR_Horizon_5GW",
+                "Price",
+            ]
+        ],
         on=["match_key", "Position"],
         how="left",
-        suffixes=("", "_master")
+        suffixes=("", "_master"),
     )
 
     joined_current["Final_Score"] = joined_current["Final_Score"].fillna(0.0)
 
     # Determine best starting XI for current squad (respecting FPL formation rules: 1 GKP, >=3 DEF, >=1 FWD, exactly 11 players)
-    gkps = joined_current[joined_current["Position"] == "GKP"].sort_values(by="Final_Score", ascending=False)
-    defs = joined_current[joined_current["Position"] == "DEF"].sort_values(by="Final_Score", ascending=False)
-    mids = joined_current[joined_current["Position"] == "MID"].sort_values(by="Final_Score", ascending=False)
-    fwds = joined_current[joined_current["Position"] == "FWD"].sort_values(by="Final_Score", ascending=False)
+    gkps = joined_current[joined_current["Position"] == "GKP"].sort_values(
+        by="Final_Score", ascending=False
+    )
+    defs = joined_current[joined_current["Position"] == "DEF"].sort_values(
+        by="Final_Score", ascending=False
+    )
+    mids = joined_current[joined_current["Position"] == "MID"].sort_values(
+        by="Final_Score", ascending=False
+    )
+    fwds = joined_current[joined_current["Position"] == "FWD"].sort_values(
+        by="Final_Score", ascending=False
+    )
 
     best_current_xi_score = -1.0
     best_current_xi_players: List[pd.Series] = []
@@ -72,13 +93,21 @@ def calculate_squad_divergence(gameweek_dir: str) -> Dict[str, Any]:
     for d_count in [3, 4, 5]:
         for f_count in [1, 2, 3]:
             m_count = 10 - d_count - f_count
-            if 2 <= m_count <= 5 and len(defs) >= d_count and len(fwds) >= f_count and len(mids) >= m_count and len(gkps) >= 1:
-                selected = pd.concat([
-                    gkps.iloc[:1],
-                    defs.iloc[:d_count],
-                    mids.iloc[:m_count],
-                    fwds.iloc[:f_count]
-                ])
+            if (
+                2 <= m_count <= 5
+                and len(defs) >= d_count
+                and len(fwds) >= f_count
+                and len(mids) >= m_count
+                and len(gkps) >= 1
+            ):
+                selected = pd.concat(
+                    [
+                        gkps.iloc[:1],
+                        defs.iloc[:d_count],
+                        mids.iloc[:m_count],
+                        fwds.iloc[:f_count],
+                    ]
+                )
                 score = selected["Final_Score"].sum()
                 if score > best_current_xi_score:
                     best_current_xi_score = score
@@ -106,38 +135,77 @@ def calculate_squad_divergence(gameweek_dir: str) -> Dict[str, Any]:
 
     def objective_rule(m):
         starter_score = sum(final_scores[i] * m.is_starter[i] for i in m.players)
-        bench_penalty = sum((m.in_squad[i] - m.is_starter[i]) * prices[i] * thrift_factor for i in m.players)
-        bench_bonus = sum((m.in_squad[i] - m.is_starter[i]) * final_scores[i] * bench_potency_epsilon for i in m.players)
+        bench_penalty = sum(
+            (m.in_squad[i] - m.is_starter[i]) * prices[i] * thrift_factor
+            for i in m.players
+        )
+        bench_bonus = sum(
+            (m.in_squad[i] - m.is_starter[i]) * final_scores[i] * bench_potency_epsilon
+            for i in m.players
+        )
         return starter_score - bench_penalty + bench_bonus
 
     model.objective = pyo.Objective(rule=objective_rule, sense=pyo.maximize)
 
-    current_team_value = current_squad_df["SP"].astype(float).sum() if "SP" in current_squad_df.columns else 100.0
+    current_team_value = (
+        current_squad_df["SP"].astype(float).sum()
+        if "SP" in current_squad_df.columns
+        else 100.0
+    )
     budget_limit = max(100.0, current_team_value)
 
-    model.squad_cost = pyo.Constraint(expr=sum(prices[i] * model.in_squad[i] for i in model.players) <= budget_limit)
-    model.squad_size = pyo.Constraint(expr=sum(model.in_squad[i] for i in model.players) == 15)
-    model.gkp_limit = pyo.Constraint(expr=sum(model.in_squad[i] for i in model.players if positions[i] == "GKP") == 2)
-    model.def_limit = pyo.Constraint(expr=sum(model.in_squad[i] for i in model.players if positions[i] == "DEF") == 5)
-    model.mid_limit = pyo.Constraint(expr=sum(model.in_squad[i] for i in model.players if positions[i] == "MID") == 5)
-    model.fwd_limit = pyo.Constraint(expr=sum(model.in_squad[i] for i in model.players if positions[i] == "FWD") == 3)
+    model.squad_cost = pyo.Constraint(
+        expr=sum(prices[i] * model.in_squad[i] for i in model.players) <= budget_limit
+    )
+    model.squad_size = pyo.Constraint(
+        expr=sum(model.in_squad[i] for i in model.players) == 15
+    )
+    model.gkp_limit = pyo.Constraint(
+        expr=sum(model.in_squad[i] for i in model.players if positions[i] == "GKP") == 2
+    )
+    model.def_limit = pyo.Constraint(
+        expr=sum(model.in_squad[i] for i in model.players if positions[i] == "DEF") == 5
+    )
+    model.mid_limit = pyo.Constraint(
+        expr=sum(model.in_squad[i] for i in model.players if positions[i] == "MID") == 5
+    )
+    model.fwd_limit = pyo.Constraint(
+        expr=sum(model.in_squad[i] for i in model.players if positions[i] == "FWD") == 3
+    )
 
     model.team_list = pyo.Set(initialize=master_df["Team_TLA"].unique())
+
     def team_limit_rule(m, team_tla):
         return sum(m.in_squad[i] for i in m.players if teams[i] == team_tla) <= 3
+
     model.team_limit = pyo.Constraint(model.team_list, rule=team_limit_rule)
 
-    model.starter_size = pyo.Constraint(expr=sum(model.is_starter[i] for i in model.players) == 11)
-    model.starter_gkp = pyo.Constraint(expr=sum(model.is_starter[i] for i in model.players if positions[i] == "GKP") == 1)
-    model.starter_def = pyo.Constraint(expr=sum(model.is_starter[i] for i in model.players if positions[i] == "DEF") >= 3)
-    model.starter_fwd = pyo.Constraint(expr=sum(model.is_starter[i] for i in model.players if positions[i] == "FWD") >= 1)
-    model.bridge = pyo.Constraint(model.players, rule=lambda m, i: m.is_starter[i] <= m.in_squad[i])
+    model.starter_size = pyo.Constraint(
+        expr=sum(model.is_starter[i] for i in model.players) == 11
+    )
+    model.starter_gkp = pyo.Constraint(
+        expr=sum(model.is_starter[i] for i in model.players if positions[i] == "GKP")
+        == 1
+    )
+    model.starter_def = pyo.Constraint(
+        expr=sum(model.is_starter[i] for i in model.players if positions[i] == "DEF")
+        >= 3
+    )
+    model.starter_fwd = pyo.Constraint(
+        expr=sum(model.is_starter[i] for i in model.players if positions[i] == "FWD")
+        >= 1
+    )
+    model.bridge = pyo.Constraint(
+        model.players, rule=lambda m, i: m.is_starter[i] <= m.in_squad[i]
+    )
 
     solver = pyo.SolverFactory("glpk")
     solver.solve(model, tee=False)
 
     opt_squad_indices = [i for i in model.players if pyo.value(model.in_squad[i]) == 1]
-    opt_starter_indices = [i for i in model.players if pyo.value(model.is_starter[i]) == 1]
+    opt_starter_indices = [
+        i for i in model.players if pyo.value(model.is_starter[i]) == 1
+    ]
 
     optimal_squad_df = master_df.loc[opt_squad_indices].copy()
     optimal_starters_df = master_df.loc[opt_starter_indices].copy()

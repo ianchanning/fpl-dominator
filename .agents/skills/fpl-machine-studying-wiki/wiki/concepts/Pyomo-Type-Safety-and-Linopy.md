@@ -31,6 +31,7 @@ Pyomo is an industrial-strength algebraic modeling language, but its internal ar
 from typing import Protocol, Dict, Any, List
 import pandas as pd
 
+
 class OptimizationResult(Protocol):
     squad_ids: List[str]
     starter_ids: List[str]
@@ -39,9 +40,9 @@ class OptimizationResult(Protocol):
     expected_points: float
     total_cost: float
 
+
 class ChimeraSolverProtocol(Protocol):
-    def solve(self, data: pd.DataFrame, budget: float) -> OptimizationResult:
-        ...
+    def solve(self, data: pd.DataFrame, budget: float) -> OptimizationResult: ...
 ```
 
 ### 2. The Long-Term Linopy Vectorized Migration
@@ -49,6 +50,7 @@ class ChimeraSolverProtocol(Protocol):
 ```python
 import linopy
 import xarray as xr
+
 
 def solve_with_linopy(df: pd.DataFrame, budget: float = 100.0) -> xr.Dataset:
     m = linopy.Model()

@@ -1,8 +1,9 @@
 import os
 import re
+from typing import Dict, Optional
+
 import pandas as pd
 from bs4 import BeautifulSoup
-from typing import Dict, List, Optional
 
 TLA_TO_CLUB: Dict[str, str] = {
     "ARS": "Arsenal",
@@ -74,7 +75,11 @@ def parse_set_pieces_html(html_path: str) -> pd.DataFrame:
 
     thead = table.find("thead")
     header_rows = thead.find_all("tr") if thead else []
-    th_row = header_rows[1] if len(header_rows) > 1 else (header_rows[0] if header_rows else [])
+    th_row = (
+        header_rows[1]
+        if len(header_rows) > 1
+        else (header_rows[0] if header_rows else [])
+    )
     th_tags = th_row.find_all("th") if th_row else []
 
     col_names = []
@@ -105,9 +110,16 @@ def parse_set_pieces_html(html_path: str) -> pd.DataFrame:
 
     # Numeric conversions
     numeric_cols = [
-        "Appearances", "Time Played - Exact", "Goals From Penalties", "Goals From Set Plays",
-        "Headed Goal Attempts From Set Plays", "Shots From Set Plays", "Corners",
-        "Corners - Successful", "Crosses From Free Kick", "Crosses From Free Kick - Successful"
+        "Appearances",
+        "Time Played - Exact",
+        "Goals From Penalties",
+        "Goals From Set Plays",
+        "Headed Goal Attempts From Set Plays",
+        "Shots From Set Plays",
+        "Corners",
+        "Corners - Successful",
+        "Crosses From Free Kick",
+        "Crosses From Free Kick - Successful",
     ]
     for col in numeric_cols:
         if col in df.columns:
@@ -127,7 +139,9 @@ def parse_set_pieces_html(html_path: str) -> pd.DataFrame:
 def generate_empirical_set_pieces_csv(
     detailed_df: pd.DataFrame,
     output_path: str = "set_pieces.csv",
-    save_detailed_path: Optional[str] = "archive/2025-26/set_pieces_detailed_2025_26.csv"
+    save_detailed_path: Optional[
+        str
+    ] = "archive/2025-26/set_pieces_detailed_2025_26.csv",
 ) -> pd.DataFrame:
     """
     Synthesizes empirical volume into a ranked set_pieces.csv table.
@@ -141,13 +155,22 @@ def generate_empirical_set_pieces_csv(
 
     for tla, club_name in sorted(TLA_TO_CLUB.items()):
         # Check if promoted club fallback
-        if club_name in PROMOTED_FALLBACKS and detailed_df[detailed_df["Team"] == tla].empty:
-            empirical_clubs.append({
-                "Club": club_name,
-                "Penalties": PROMOTED_FALLBACKS[club_name]["Penalties"],
-                "Direct Free Kicks": PROMOTED_FALLBACKS[club_name]["Direct Free Kicks"],
-                "Corners & Indirect Free Kicks": PROMOTED_FALLBACKS[club_name]["Corners & Indirect Free Kicks"],
-            })
+        if (
+            club_name in PROMOTED_FALLBACKS
+            and detailed_df[detailed_df["Team"] == tla].empty
+        ):
+            empirical_clubs.append(
+                {
+                    "Club": club_name,
+                    "Penalties": PROMOTED_FALLBACKS[club_name]["Penalties"],
+                    "Direct Free Kicks": PROMOTED_FALLBACKS[club_name][
+                        "Direct Free Kicks"
+                    ],
+                    "Corners & Indirect Free Kicks": PROMOTED_FALLBACKS[club_name][
+                        "Corners & Indirect Free Kicks"
+                    ],
+                }
+            )
             continue
 
         team_df = detailed_df[detailed_df["Team"] == tla]
@@ -162,9 +185,11 @@ def generate_empirical_set_pieces_csv(
 
         # Direct Free Kicks: Rank by crosses + shots
         fks = team_df[
-            (team_df["Crosses From Free Kick"] > 0) | (team_df["Shots From Set Plays"] > 0)
+            (team_df["Crosses From Free Kick"] > 0)
+            | (team_df["Shots From Set Plays"] > 0)
         ].sort_values(
-            by=["Crosses From Free Kick", "Shots From Set Plays"], ascending=[False, False]
+            by=["Crosses From Free Kick", "Shots From Set Plays"],
+            ascending=[False, False],
         )
         fk_takers = fks["Surname"].tolist()[:3]
 
@@ -174,16 +199,20 @@ def generate_empirical_set_pieces_csv(
         )
         cnr_takers = cnrs["Surname"].tolist()[:4]
 
-        empirical_clubs.append({
-            "Club": club_name,
-            "Penalties": ", ".join(pen_takers),
-            "Direct Free Kicks": ", ".join(fk_takers),
-            "Corners & Indirect Free Kicks": ", ".join(cnr_takers),
-        })
+        empirical_clubs.append(
+            {
+                "Club": club_name,
+                "Penalties": ", ".join(pen_takers),
+                "Direct Free Kicks": ", ".join(fk_takers),
+                "Corners & Indirect Free Kicks": ", ".join(cnr_takers),
+            }
+        )
 
     result_df = pd.DataFrame(empirical_clubs)
     result_df.to_csv(output_path, index=False)
-    print(f"--- SUCCESS: Empirical set piece taker matrix forged at '{output_path}' ---")
+    print(
+        f"--- SUCCESS: Empirical set piece taker matrix forged at '{output_path}' ---"
+    )
     return result_df
 
 
