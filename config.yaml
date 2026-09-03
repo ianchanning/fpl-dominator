@@ -20,7 +20,7 @@ pyomo_solver:
   thrift_factor: 0.001
   bench_potency_epsilon: 1.0e-05
   form_factor_weight: 0.7
-  red_zone_threshold: 1290
+  red_zone_threshold: 1200
   red_zone_limit: 5
   spp_scores:
     Penalties:

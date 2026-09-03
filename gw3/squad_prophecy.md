@@ -15,7 +15,7 @@
 [+] Dual-layer decision variables created.
 [+] Prime Directive (Final Apotheosis Objective) set.
 [+] Applying the Chains of Reality (Game Constraints)...
-[+] STRATEGIC CONSTRAINT: Red Zone limit active (Max 5 starters with FDR > 1290).
+[+] STRATEGIC CONSTRAINT: Red Zone limit active (Max 5 starters with FDR > 1200).
 [+] All constraints are locked in.
 
 >>> Summoning the GLPK Solver Demon...

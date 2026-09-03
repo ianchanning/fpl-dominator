@@ -21,7 +21,9 @@ $$x_{i,t} = x_{i,t-1} + u_{i,t} - v_{i,t} \quad \forall i, \forall t$$
 
 ### 3.2 Temporal Budget Tracking
 Instead of a static budget constraint, we track the bank balance as a state variable:
-$$\text{Bank}_t = \text{Bank}_{t-1} + \sum_{i} (v_{i,t} \cdot \text{Price}_{i,t}) - \sum_{j} (u_{j,t} \cdot \text{Price}_{j,t})$$
+$$
+\text{Bank}_t = \text{Bank}_{t-1} + \sum_{i} (v_{i,t} \cdot \text{Price}_{i,t}) - \sum_{j} (u_{j,t} \cdot \text{Price}_{j,t})
+$$
 **Constraint:** $\text{Bank}_t \ge 0 \quad \forall t$
 
 This ensures that "Premium Pivots" (bringing in a more expensive player) are only possible if the solver sells enough value in the same window to keep the bank non-negative.
