@@ -76,18 +76,21 @@ def audit_player_name_resolution_v3(gameweek_dir: str):
                 if len(matches) == 1:
                     matched_surname = matches.iloc[0]["Surname"]
                     print(
-                        f"[   OK    ] '{taker_name}' ({club_full_name}) -> '{matched_surname}'"
+                        f"[   OK    ] '{taker_name}' ({club_full_name}) "
+                        f"-> '{matched_surname}'"
                     )
                     success_count += 1
                 elif len(matches) > 1:
                     colliding_surnames = list(matches["Surname"])
                     print(
-                        f"[COLLISION] '{taker_name}' ({club_full_name}) ambiguously matched: {colliding_surnames}"
+                        f"[COLLISION] '{taker_name}' ({club_full_name}) "
+                        f"ambiguously matched: {colliding_surnames}"
                     )
                     collision_count += 1
                 else:
                     print(
-                        f"[NO MATCH ] '{taker_name}' ({club_full_name}) - No corresponding player found."
+                        f"[NO MATCH ] '{taker_name}' ({club_full_name}) - "
+                        f"No corresponding player found."
                     )
                     no_match_count += 1
 
@@ -98,7 +101,8 @@ def audit_player_name_resolution_v3(gameweek_dir: str):
     print("-------------------")
     if collision_count == 0:
         print(
-            ">>> VERDICT: The QUANTUM bridge appears stable. Review results for final confirmation."
+            ">>> VERDICT: The QUANTUM bridge appears stable. "
+            "Review results for final confirmation."
         )
     else:
         print(">>> VERDICT: CRITICAL COLLISIONS DETECTED. The universe is unstable.")

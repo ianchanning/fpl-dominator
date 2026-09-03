@@ -38,7 +38,8 @@ def audit_team_name_realities(gameweek_dir: str):
     print("\n--- AIRLOCK ANOMALY REPORT ---")
     if not player_db_only and not set_piece_db_only:
         print(
-            ">>> SUCCESS: All team names are perfectly aligned across realities. No anomalies detected."
+            ">>> SUCCESS: All team names are perfectly aligned across realities. "
+            "No anomalies detected."
         )
     else:
         if player_db_only:

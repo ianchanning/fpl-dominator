@@ -129,7 +129,8 @@ def bamf():
 
 
 @bamf.command()
-# <<< UPGRADE 1: Input validation. This command will now fail gracefully if the dir doesn't exist.
+# <<< UPGRADE 1: Input validation. This command will now fail 
+# gracefully if the dir doesn't exist.
 @click.argument(
     "gameweek_dir",
     type=click.Path(exists=True, file_okay=False, dir_okay=True, readable=True),
@@ -219,7 +220,8 @@ def process_prior_season(html, output):
     click.secho(f"--- Processing Prior Season HTML: {html} ---", fg="cyan", bold=True)
     df = parse_prior_season_html(html, output)
     click.secho(
-        f"--- Successfully forged {len(df)} player prior season records at '{output}' ---",
+        f"--- Successfully forged {len(df)} player prior season "
+        f"records at '{output}' ---",
         fg="green",
         bold=True,
     )
@@ -255,14 +257,16 @@ def process_set_pieces(html, output, detailed_output):
     df = parse_set_pieces_html(html)
     result_df = generate_empirical_set_pieces_csv(df, output, detailed_output)
     click.secho(
-        f"--- Successfully forged empirical set piece matrix for {len(result_df)} clubs at '{output}' ---",
+        f"--- Successfully forged empirical set piece matrix for "
+        f"{len(result_df)} clubs at '{output}' ---",
         fg="green",
         bold=True,
     )
 
 
 def get_clipboard_content() -> str:
-    """Defensively fetches clipboard content across X11 (xclip), Wayland (wl-paste), and fallback utilities."""
+    """Defensively fetches clipboard content across X11 (xclip), Wayland 
+    (wl-paste), and fallback utilities."""
     commands = [
         ["xclip", "-selection", "clipboard", "-o"],
         ["wl-paste"],
@@ -281,7 +285,8 @@ def get_clipboard_content() -> str:
 
     raise RuntimeError(
         "No clipboard utility found or clipboard buffer is empty!\n"
-        "Please copy table HTML to clipboard and ensure xclip or wl-clipboard is installed:\n"
+        "Please copy table HTML to clipboard and ensure xclip or "
+        "wl-clipboard is installed:\n"
         "  sudo apt update && sudo apt install -y xclip wl-clipboard"
     )
 
@@ -529,7 +534,8 @@ def run_scenario(gameweek_dir, include, exclude):
 )
 def evaluate_wildcard(gameweek_dir):
     """
-    Evaluates Wildcard trigger timing using 3-Path Gauntlet & American Option model (RFC-004).
+    Evaluates Wildcard trigger timing using 3-Path Gauntlet & "
+    "American Option model (RFC-004).
     """
     click.secho(
         f"\n=== EVALUATING WILDCARD TRIGGER FOR {gameweek_dir.upper()} ===",
