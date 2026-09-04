@@ -17,7 +17,9 @@ from fpl_dominator.scenario_forge import (
     compute_scenario_weights,
     create_scenario,
     filter_static_bench_players,
+    format_ascii_matrix,
     format_dataframe_to_markdown,
+    format_weight_registry,
     generate_cartesian_matrix,
     generate_gradient_matrix,
     generate_gradient_scenarios,
@@ -412,6 +414,75 @@ class TestScenarioForge(unittest.TestCase):
         )
         self.assertIn("*Diff-First Noise Suppression:*", md_text)
         self.assertIn("*Legend:*", md_text)
+
+    def test_format_weight_registry(self):
+        scenarios = [
+            create_scenario("exponential", 1.0),
+            create_scenario("exponential", 0.75),
+            create_scenario("exponential", 0.5),
+            create_scenario("exponential", 0.25),
+            create_scenario("exponential", 0.0),
+        ]
+        registry_text = format_weight_registry(scenarios)
+        self.assertIn("--- WEIGHT REGISTRY (SOURCE OF TRUTH) ---", registry_text)
+        self.assertIn("EXP:1.00  -> [1.00, 1.00, 1.00, 1.00, 1.00]", registry_text)
+        self.assertIn("EXP:0.50  -> [1.00, 0.50, 0.25, 0.12, 0.06]", registry_text)
+        self.assertIn("EXP:0.00  -> [1.00, 0.00, 0.00, 0.00, 0.00]", registry_text)
+
+    def test_format_ascii_matrix(self):
+        df = pd.DataFrame(
+            [
+                {
+                    "Pos": "FWD",
+                    "Surname": "Haaland",
+                    "EXP:1.00": "[X]",
+                    "EXP:0.50": "[X]",
+                    "Robust": "100%",
+                },
+                {
+                    "Pos": "MID",
+                    "Surname": "Saka",
+                    "EXP:1.00": "[X]",
+                    "EXP:0.50": "[X]",
+                    "Robust": "100%",
+                },
+            ]
+        )
+        table_ascii = format_ascii_matrix(df)
+        self.assertIn("Haaland", table_ascii)
+        self.assertIn("Saka", table_ascii)
+        self.assertIn("-----", table_ascii)
+
+        empty_ascii = format_ascii_matrix(pd.DataFrame())
+        self.assertEqual(empty_ascii, "No players to display.")
+
+    def test_report_to_terminal_and_write_markdown(self):
+        if not os.path.exists("gw3/fpl_master_database_prophetic.csv"):
+            raise unittest.SkipTest("Missing gw3 test fixtures")
+
+        scenarios = [
+            create_scenario("flat", 1.0),
+            create_scenario("exponential", 0.6),
+            create_scenario("exponential", 0.2),
+        ]
+        report = run_scenario_matrix("gw3", scenarios=scenarios)
+
+        terminal_out = report.to_terminal(
+            suppress_static_bench=True, highlight_divergence=True
+        )
+        self.assertIn("=== SCENARIO FORGE STABILITY MATRIX (GW3) ===", terminal_out)
+        self.assertIn("[*] THE IMMORTALS", terminal_out)
+        self.assertIn("--- WEIGHT REGISTRY (SOURCE OF TRUTH) ---", terminal_out)
+
+        # Test writing report to gw3/scenario_forge.md
+        written_path = report.write_markdown_report()
+        self.assertEqual(written_path, "gw3/scenario_forge.md")
+        self.assertTrue(os.path.exists("gw3/scenario_forge.md"))
+
+        with open("gw3/scenario_forge.md", "r", encoding="utf-8") as f:
+            content = f.read()
+        self.assertIn("# Scenario Forge Analysis: GW3", content)
+        self.assertIn("--- WEIGHT REGISTRY (SOURCE OF TRUTH) ---", content)
 
 
 if __name__ == "__main__":

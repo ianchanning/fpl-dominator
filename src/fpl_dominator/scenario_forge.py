@@ -457,14 +457,140 @@ class ScenarioRunReport:
                 "## Weight Registry (Source of Truth)",
                 "",
                 "```text",
-                "--- WEIGHT REGISTRY (SOURCE OF TRUTH) ---",
+                format_weight_registry(self.scenarios),
+                "```",
+                "",
             ]
         )
-        for sc in self.scenarios:
-            weights_formatted = ", ".join(f"{w:.2f}" for w in sc.weights)
-            md_lines.append(f"{sc.name:<10} -> [{weights_formatted}]")
-        md_lines.extend(["```", ""])
         return "\n".join(md_lines)
+
+    def to_terminal(
+        self,
+        suppress_static_bench: bool = True,
+        suppress_all_bench: bool = False,
+        highlight_divergence: bool = True,
+        divergence_marker: str = "*",
+    ) -> str:
+        """Formats the stability matrix and weight registry for terminal CLI output."""
+        df = self.to_dataframe(
+            suppress_static_bench=suppress_static_bench,
+            suppress_all_bench=suppress_all_bench,
+            highlight_divergence=highlight_divergence,
+            divergence_marker=divergence_marker,
+        )
+        table_ascii = format_ascii_matrix(df)
+
+        imm_str = ", ".join(self.immortals) if self.immortals else "None"
+        hor_str = (
+            ", ".join(self.horizon_dependents) if self.horizon_dependents else "None"
+        )
+        punt_str = ", ".join(self.pure_punts) if self.pure_punts else "None"
+        fringe_str = ", ".join(self.fringe) if self.fringe else "None"
+
+        lines = [
+            f"=== SCENARIO FORGE STABILITY MATRIX ({self.gameweek_dir.upper()}) ===",
+            (
+                f"Scenarios Evaluated: "
+                f"{self.successful_solves}/{self.total_solves} successful"
+            ),
+            "",
+            table_ascii,
+            "",
+        ]
+
+        if highlight_divergence:
+            lines.extend(
+                [
+                    f"Legend: [X] = Starter | [X]{divergence_marker} = Alteration | "
+                    f"[b] = Bench | . = Unselected",
+                    "",
+                ]
+            )
+
+        if suppress_static_bench and self.static_bench_players:
+            bench_str = ", ".join(self.static_bench_players)
+            lines.extend(
+                [
+                    f"Diff-First: Filtered {len(self.static_bench_players)} "
+                    f"static bench players ({bench_str}).",
+                    "",
+                ]
+            )
+
+        lines.extend(
+            [
+                "=" * 78,
+                f"[*] THE IMMORTALS ({len(self.immortals)} Locks): {imm_str}",
+                f"[*] HORIZON-DEPENDENTS ({len(self.horizon_dependents)}): {hor_str}",
+                f"[*] PURE PUNTS ({len(self.pure_punts)}): {punt_str}",
+                f"[*] FRINGE / VOLATILE ({len(self.fringe)}): {fringe_str}",
+                "=" * 78,
+                "",
+                format_weight_registry(self.scenarios),
+            ]
+        )
+        return "\n".join(lines)
+
+    def write_markdown_report(
+        self,
+        output_path: Optional[str] = None,
+        suppress_static_bench: bool = True,
+        suppress_all_bench: bool = False,
+        highlight_divergence: bool = True,
+        divergence_marker: str = "*",
+    ) -> str:
+        """Writes detailed Scenario Forge Markdown report to disk.
+
+        Defaults to '{gameweek_dir}/scenario_forge.md'.
+        """
+        target_path = output_path or os.path.join(
+            self.gameweek_dir, "scenario_forge.md"
+        )
+        content = self.to_markdown(
+            suppress_static_bench=suppress_static_bench,
+            suppress_all_bench=suppress_all_bench,
+            highlight_divergence=highlight_divergence,
+            divergence_marker=divergence_marker,
+        )
+        with open(target_path, "w", encoding="utf-8") as f:
+            f.write(content)
+        return target_path
+
+
+def format_weight_registry(scenarios: Sequence[ScenarioDefinition]) -> str:
+    """Builds the Weight Registry Footer (Source of Truth) for terminal and markdown."""
+    lines = [
+        "--- WEIGHT REGISTRY (SOURCE OF TRUTH) ---",
+    ]
+    max_name_len = max((len(s.name) for s in scenarios), default=8)
+    for sc in scenarios:
+        weights_str = ", ".join(f"{w:.2f}" for w in sc.weights)
+        lines.append(f"{sc.name:<{max_name_len}}  -> [{weights_str}]")
+    return "\n".join(lines)
+
+
+def format_ascii_matrix(df: pd.DataFrame) -> str:
+    """Formats a DataFrame into a clean, aligned plain-text ASCII table."""
+    if df.empty:
+        return "No players to display."
+
+    columns = [str(col) for col in df.columns]
+    col_widths = {col: len(col) for col in columns}
+    for _, row in df.iterrows():
+        for col in columns:
+            val_str = str(row[col])
+            if len(val_str) > col_widths[col]:
+                col_widths[col] = len(val_str)
+
+    header_line = "  ".join(f"{col:<{col_widths[col]}}" for col in columns)
+    sep_line = "  ".join("-" * col_widths[col] for col in columns)
+    lines = [header_line, sep_line]
+
+    for _, row in df.iterrows():
+        row_str = "  ".join(f"{str(row[col]):<{col_widths[col]}}" for col in columns)
+        lines.append(row_str)
+
+    return "\n".join(lines)
 
 
 def format_dataframe_to_markdown(df: pd.DataFrame) -> str:
@@ -534,6 +660,9 @@ def run_scenario_matrix(
     set_pieces_path: str = "set_pieces.csv",
     config_path: str = "config.yaml",
     output_path: Optional[str] = None,
+    write_report: bool = True,
+    suppress_static_bench: bool = True,
+    highlight_divergence: bool = True,
 ) -> ScenarioRunReport:
     """Executes an ensemble of scenarios in memory and aggregates stability metrics.
 
@@ -542,7 +671,10 @@ def run_scenario_matrix(
         scenarios: Sequence of ScenarioDefinition instances to evaluate.
         set_pieces_path: Path to set pieces CSV database.
         config_path: Path to config.yaml for base solver parameters.
-        output_path: Optional path to write Markdown summary report.
+        output_path: Optional explicit path to write Markdown report.
+        write_report: Whether to write markdown report to disk (default: True).
+        suppress_static_bench: Whether to filter unchanging bench players.
+        highlight_divergence: Whether to apply visual alteration cues ([X]*).
 
     Returns:
         ScenarioRunReport containing full solutions, statistics, and classifications.
@@ -698,9 +830,12 @@ def run_scenario_matrix(
         successful_solves=len(successful_scenarios),
     )
 
-    if output_path is not None:
-        with open(output_path, "w", encoding="utf-8") as f:
-            f.write(report.to_markdown())
+    if write_report:
+        report.write_markdown_report(
+            output_path=output_path,
+            suppress_static_bench=suppress_static_bench,
+            highlight_divergence=highlight_divergence,
+        )
 
     return report
 
@@ -713,7 +848,9 @@ __all__ = [
     "compute_scenario_weights",
     "create_scenario",
     "filter_static_bench_players",
+    "format_ascii_matrix",
     "format_dataframe_to_markdown",
+    "format_weight_registry",
     "generate_cartesian_matrix",
     "generate_gradient_matrix",
     "generate_gradient_scenarios",

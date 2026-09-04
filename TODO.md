@@ -157,12 +157,12 @@ To avoid jumping off an architectural cliff, we decompose the grand vision into 
 - [x] **Task 4.1: Diff-First Noise Suppression**
   - [x] Filter out bench players that do not change across scenarios.
   - [x] Highlight starting XI alterations with visual divergence cues.
-- [ ] **Task 4.2: Terminal & Markdown Matrix Formatter**
-  - [ ] Build ASCII / Rich table for terminal CLI output:
+- [x] **Task 4.2: Terminal & Markdown Matrix Formatter**
+  - [x] Build ASCII / Rich table for terminal CLI output:
     - Rows: Position + Player Surname.
     - Columns: Scenario Signatures (`EXP:1.0`, `EXP:0.75`, `EXP:0.5`, `EXP:0.25`, `EXP:0.0`).
     - Cells: `[X]` (Selected Starter), `[b]` (Bench), `.` (Unselected).
-  - [ ] Build the **Weight Registry Footer**:
+  - [x] Build the **Weight Registry Footer**:
     ```text
     --- WEIGHT REGISTRY (SOURCE OF TRUTH) ---
     EXP:1.00  -> [1.00, 1.00, 1.00, 1.00, 1.00]
@@ -171,7 +171,7 @@ To avoid jumping off an architectural cliff, we decompose the grand vision into 
     EXP:0.25  -> [1.00, 0.25, 0.06, 0.01, 0.00]
     EXP:0.00  -> [1.00, 0.00, 0.00, 0.00, 0.00]
     ```
-  - [ ] Write detailed report to `{gameweek_dir}/scenario_forge.md`.
+  - [x] Write detailed report to `{gameweek_dir}/scenario_forge.md`.
 
 ---
 
