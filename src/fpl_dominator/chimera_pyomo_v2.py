@@ -90,7 +90,11 @@ def enrich_with_set_pieces(
     return players_df
 
 
-def forge_pyomo_squad(gameweek_dir: str):
+def forge_pyomo_squad(
+    gameweek_dir: str,
+    return_squad: bool = False,
+    force_reforge: bool = False,
+):
     """
     The Sovereign Pyomo Engine. Forges the optimal squad using the Pyomo framework,
     Bench Potency Epsilon, and the Trinity constraint.
@@ -137,12 +141,14 @@ def forge_pyomo_squad(gameweek_dir: str):
     OMNISCIENT_DB_PATH = f"{gameweek_dir}/fpl_master_database_OMNISCIENT.csv"
     SET_PIECE_DB_PATH = "set_pieces.csv"
 
-    if not os.path.exists(FINAL_FORM_DB_PATH):
+    if force_reforge or not os.path.exists(FINAL_FORM_DB_PATH):
         if not os.path.exists(OMNISCIENT_DB_PATH):
             print(
                 f"!!! CRITICAL FAILURE: Neither '{FINAL_FORM_DB_PATH}' nor "
                 f"'{OMNISCIENT_DB_PATH}' found. Aborting."
             )
+            if return_squad:
+                return False, pd.DataFrame(), pd.DataFrame()
             return False
 
         print(f"[+] Forging '{FINAL_FORM_DB_PATH}' from Omniscient database...")
@@ -341,9 +347,13 @@ def forge_pyomo_squad(gameweek_dir: str):
         print(f"Projected Starting Score:    {starters['Final_Score'].sum():.2f}")
         print(f"Money in the Bank:         £{100.0 - squad['Price'].sum():.1f}m")
         print("-------------------------------------------")
+        if return_squad:
+            return True, starters, bench
         return True
     else:
         print("\n!!! FAILURE: An optimal PYOMO solution could not be found.")
+        if return_squad:
+            return False, pd.DataFrame(), pd.DataFrame()
         return False
 
 

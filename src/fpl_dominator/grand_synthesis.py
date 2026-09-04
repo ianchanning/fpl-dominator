@@ -7,7 +7,9 @@ import pandas as pd
 import yaml
 
 
-def perform_grand_synthesis(gameweek_dir: str):
+def perform_grand_synthesis(
+    gameweek_dir: str, fixture_weights: list[float] | None = None
+):
     """
     Merges the Prophetic player database with the Temporal fixture database,
     creating the ultimate Omniscient dataset for our final Chimera.
@@ -15,28 +17,39 @@ def perform_grand_synthesis(gameweek_dir: str):
     print("--- [3/4] GRAND SYNTHESIS PROTOCOL ONLINE ---")
 
     # --- Load Master Configuration ---
-    try:
-        with open("config.yaml", "r") as f:
-            config = yaml.safe_load(f)
-
-        temporal_config = config.get("temporal_discounting", {})
-        FIXTURE_WEIGHTS = temporal_config.get(
-            "fixture_weights", [1.0, 1.0, 1.0, 1.0, 1.0]
-        )  # Fallback to mean
-        print("[+] Master configuration for Temporal Discounting loaded.")
-        if len(FIXTURE_WEIGHTS) != 5:
+    if fixture_weights is not None:
+        if len(fixture_weights) != 5:
             print(
-                f"!!! WARNING: 'fixture_weights' in config should have 5 values. "
-                f"Found {len(FIXTURE_WEIGHTS)}. Using equal weights."
+                f"!!! WARNING: 'fixture_weights' should have 5 values. "
+                f"Found {len(fixture_weights)}. Using equal weights."
             )
             FIXTURE_WEIGHTS = [1.0, 1.0, 1.0, 1.0, 1.0]
+        else:
+            FIXTURE_WEIGHTS = fixture_weights
+        print(f"[+] Custom fixture weights provided: {FIXTURE_WEIGHTS}")
+    else:
+        try:
+            with open("config.yaml", "r") as f:
+                config = yaml.safe_load(f)
 
-    except (FileNotFoundError, yaml.YAMLError) as e:
-        print(
-            f"!!! WARNING: Could not load or parse config.yaml: {e}. "
-            f"Using default fallbacks (equal weights)."
-        )
-        FIXTURE_WEIGHTS = [1.0, 1.0, 1.0, 1.0, 1.0]
+            temporal_config = config.get("temporal_discounting", {})
+            FIXTURE_WEIGHTS = temporal_config.get(
+                "fixture_weights", [1.0, 1.0, 1.0, 1.0, 1.0]
+            )  # Fallback to mean
+            print("[+] Master configuration for Temporal Discounting loaded.")
+            if len(FIXTURE_WEIGHTS) != 5:
+                print(
+                    f"!!! WARNING: 'fixture_weights' in config should have 5 values. "
+                    f"Found {len(FIXTURE_WEIGHTS)}. Using equal weights."
+                )
+                FIXTURE_WEIGHTS = [1.0, 1.0, 1.0, 1.0, 1.0]
+
+        except (FileNotFoundError, yaml.YAMLError) as e:
+            print(
+                f"!!! WARNING: Could not load or parse config.yaml: {e}. "
+                f"Using default fallbacks (equal weights)."
+            )
+            FIXTURE_WEIGHTS = [1.0, 1.0, 1.0, 1.0, 1.0]
 
     # --- File Paths & Mappings ---
     PROPHETIC_DB_PATH = f"{gameweek_dir}/fpl_master_database_prophetic.csv"

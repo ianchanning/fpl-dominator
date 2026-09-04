@@ -83,7 +83,7 @@ To avoid jumping off an architectural cliff, we decompose the grand vision into 
   - **Pass Criteria:** Assertions exit with code 0 and print confirmation; $W(0) = 1.0$; $W(t) \ge 0$.
   - **Lint & Format:** `uv run ruff check src/fpl_dominator/temporal_decay.py && uv run ruff format --check src/fpl_dominator/temporal_decay.py`
 
-- [ ] **Stone 2: The 3-Solve Comparison Script**
+- [x] **Stone 2: The 3-Solve Comparison Script**
   - **Action:** Create standalone script `src/fpl_dominator/compare_decay_scenarios.py` that runs the existing pipeline with 3 profiles:
     1. *Eternalist (Flat):* `[1.0, 1.0, 1.0, 1.0, 1.0]`
     2. *Balanced (Moderate):* `generate_exponential_weights(0.6)`

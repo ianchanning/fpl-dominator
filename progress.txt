@@ -1,1 +1,2 @@
 [2026-09-04 17:37] [Nyx] [Stone 1: The Micro-Spike] - [Created src/fpl_dominator/temporal_decay.py with pure functional linear, exponential, and step decay generators; validated invariants and boundary conditions]
+[2026-09-04 17:41] [Nyx] [Stone 2: The 3-Solve Comparison Script] - [Implemented compare_decay_scenarios.py; proved 3-decay solve on GW3 identifying 7 Immortals (Tzolakis, Calafiori, Ajayi, B.Fernandes, Saka, Cherki, João Pedro); restored baseline state cleanly]
