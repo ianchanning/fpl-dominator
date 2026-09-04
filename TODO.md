@@ -137,10 +137,10 @@ To avoid jumping off an architectural cliff, we decompose the grand vision into 
 ---
 
 ### Phase 3: The Scenario Forge Runner & Aggregator
-- [ ] **Task 3.1: Scenario Matrix Builder** (`src/fpl_dominator/scenario_forge.py`)
-  - [ ] Build `ScenarioDefinition` dataclass containing `name`, `model_type`, `param_value`, `weights`, `form_factor_weight`.
-  - [ ] Implement Cartesian product generator for multi-dimensional grid exploration (`decay_rate` $\times$ `form_factor_weight`).
-  - [ ] Implement gradient generator for single-axis interpolation (RFC-009).
+- [x] **Task 3.1: Scenario Matrix Builder** (`src/fpl_dominator/scenario_forge.py`)
+  - [x] Build `ScenarioDefinition` dataclass containing `name`, `model_type`, `param_value`, `weights`, `form_factor_weight`.
+  - [x] Implement Cartesian product generator for multi-dimensional grid exploration (`decay_rate` $\times$ `form_factor_weight`).
+  - [x] Implement gradient generator for single-axis interpolation (RFC-009).
 - [ ] **Task 3.2: Execution Loop & Robustness Calculation**
   - [ ] Implement `run_scenario_matrix(gameweek_dir, scenarios) -> ScenarioRunReport`.
   - [ ] Calculate **Robustness Score**:

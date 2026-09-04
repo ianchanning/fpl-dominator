@@ -34,9 +34,13 @@ Linter / Formatter Gate: ruff check (0 errors), ruff format (82 files compliant)
    - Solver Idempotence: 5 consecutive in-memory solves validated with zero state leakage, float drift, or GLPK symbol cross-talk.
 
 3. IMMEDIATE NEXT VECTOR (PHASE 3):
-   - Task 3.1: Build src/fpl_dominator/scenario_forge.py
-     * Implement ScenarioDefinition dataclass.
-     * Implement Cartesian product generator (decay_rate x form_factor_weight).
-     * Implement single-axis gradient generator (RFC-009).
+   - [COMPLETED] Task 3.1: Build src/fpl_dominator/scenario_forge.py
+     * Implemented immutable ScenarioDefinition dataclass with strict invariant assertions.
+     * Implemented compute_scenario_weights for exponential, linear, step, and flat archetypes.
+     * Implemented generate_cartesian_matrix for multi-dimensional grid exploration (RFC-008).
+     * Implemented generate_gradient_matrix / generate_gradient_scenarios for single-axis interpolation (RFC-009).
+     * Authored tests/test_scenario_forge.py with 7 new unit tests (21/21 test suite passing).
    - Task 3.2: Implement run_scenario_matrix and Robustness Score calculation R(p) = selections / total_solves.
 ================================================================================
+[2026-09-04 18:36] [Nyx] [Phase 3: Task 3.1] - [Built src/fpl_dominator/scenario_forge.py with ScenarioDefinition and Cartesian/gradient matrix generators per RFC-008 and RFC-009; verified 21/21 passing tests in 1.15s; ruff check & format compliant; no scratch files to archive]
+
