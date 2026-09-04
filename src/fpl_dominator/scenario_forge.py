@@ -211,8 +211,8 @@ def generate_cartesian_matrix(
 
 def generate_gradient_matrix(
     model_type: str = "exponential",
-    start: float = 1.0,
-    end: float = 0.0,
+    start: float = 0.0,
+    end: float = 1.0,
     steps: int = 5,
     horizon: int = 5,
     form_factor_weight: float | None = None,
@@ -220,12 +220,12 @@ def generate_gradient_matrix(
     """Generates single-axis parameter gradient scenarios (RFC-009).
 
     Interpolates `steps` parameter values from `start` to `end` to map
-    the selection survival curve.
+    the selection survival curve from current gameweek focus to deep horizon.
 
     Args:
         model_type: Decay model archetype ('exponential', 'linear', 'step').
-        start: Starting parameter extrema (e.g. 1.0 for Eternalist).
-        end: Ending parameter extrema (e.g. 0.0 for Pure Sniper).
+        start: Starting parameter extrema (e.g. 0.0 for current GW focus / Sniper).
+        end: Ending parameter extrema (e.g. 1.0 for deep horizon focus / Eternalist).
         steps: Total number of interpolated points (must be >= 2).
         horizon: Fixture horizon length (default: 5).
         form_factor_weight: Optional form factor weight modifier.

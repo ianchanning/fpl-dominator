@@ -1,33 +1,33 @@
 # Scenario Forge Analysis: GW3
 
-**Total Scenarios Evaluated:** 3 (3 Successful)
+**Total Scenarios Evaluated:** 5 (5 Successful)
 
 ## Temporal Stability Matrix
 
-| Surname | Position | Team | Price | FLAT:1.00 | EXP:0.60 | EXP:0.20 | Robustness | Classification |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Tzolakis | GKP | Hull City | 4.5 | [X] | [X] | [X] | 100% | IMMORTAL |
-| Dovin | GKP | Coventry City | 4.0 | [b] | [b] | . | 0% | UNSELECTED |
-| Forster | GKP | Bournemouth | 4.0 | . | . | [b] | 0% | UNSELECTED |
-| Calafiori | DEF | Arsenal | 5.6 | [X] | [X] | [X] | 100% | IMMORTAL |
-| Ajayi | DEF | Hull City | 4.1 | [X] | [X] | [X] | 100% | IMMORTAL |
-| Tarkowski | DEF | Everton | 6.0 | [X]* | [X]* | . | 67% | HORIZON-DEPENDENT |
-| Egan | DEF | Hull City | 4.0 | [b] | [X]* | [X]* | 67% | PURE PUNT |
-| Gabriel | DEF | Arsenal | 8.0 | [X]* | . | . | 33% | HORIZON-DEPENDENT |
-| Thomas | DEF | Coventry City | 4.0 | . | [b] | [b] | 0% | UNSELECTED |
-| Davis | DEF | Ipswich Town | 4.0 | . | . | [b] | 0% | UNSELECTED |
-| B.Fernandes | MID | Man Utd | 12.0 | [X] | [X] | [X] | 100% | IMMORTAL |
-| Saka | MID | Arsenal | 9.5 | [X] | [X] | [X] | 100% | IMMORTAL |
-| Cherki | MID | Man City | 7.7 | [X] | [X] | [X] | 100% | IMMORTAL |
-| Stach | MID | Leeds | 6.0 | . | [X]* | [X]* | 67% | PURE PUNT |
-| Palmer | MID | Chelsea | 9.6 | [X]* | . | . | 33% | HORIZON-DEPENDENT |
-| Gibbs-White | MID | Nott'm Forest | 7.9 | [X]* | . | . | 33% | HORIZON-DEPENDENT |
-| Gakpo | MID | Liverpool | 7.0 | . | . | [X]* | 33% | PURE PUNT |
-| Yalcouyé | MID | Brighton | 4.5 | . | [b] | . | 0% | UNSELECTED |
-| João Pedro | FWD | Chelsea | 7.6 | [X] | [X] | [X] | 100% | IMMORTAL |
-| Haaland | FWD | Man City | 15.5 | . | [X]* | [X]* | 67% | PURE PUNT |
-| Walle Egeli | FWD | Ipswich Town | 4.5 | [b] | . | [b] | 0% | UNSELECTED |
-| Obi | FWD | Man Utd | 4.5 | [b] | [b] | . | 0% | UNSELECTED |
+| Surname | Position | Team | Price | EXP:0.00 | EXP:0.25 | EXP:0.50 | EXP:0.75 | EXP:1.00 | Robustness | Classification |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Tzolakis | GKP | Hull City | 4.5 | [X] | [X] | [X] | [X] | [X] | 100% | IMMORTAL |
+| Dovin | GKP | Coventry City | 4.0 | [b] | . | [b] | [b] | [b] | 0% | UNSELECTED |
+| Forster | GKP | Bournemouth | 4.0 | . | [b] | . | . | . | 0% | UNSELECTED |
+| Calafiori | DEF | Arsenal | 5.6 | [X] | [X] | [X] | [X] | [X] | 100% | IMMORTAL |
+| Ajayi | DEF | Hull City | 4.1 | [X] | [X] | [X] | [X] | [X] | 100% | IMMORTAL |
+| Tarkowski | DEF | Everton | 6.0 | . | . | [X]* | [X]* | [X]* | 60% | HORIZON-DEPENDENT |
+| Egan | DEF | Hull City | 4.0 | [X]* | [X]* | [X]* | [b] | [b] | 60% | PURE PUNT |
+| Gabriel | DEF | Arsenal | 8.0 | . | . | . | [X]* | [X]* | 40% | HORIZON-DEPENDENT |
+| Thomas | DEF | Coventry City | 4.0 | [b] | [b] | [b] | . | . | 0% | UNSELECTED |
+| Davis | DEF | Ipswich Town | 4.0 | [b] | [b] | . | . | . | 0% | UNSELECTED |
+| B.Fernandes | MID | Man Utd | 12.0 | [X] | [X] | [X] | [X] | [X] | 100% | IMMORTAL |
+| Saka | MID | Arsenal | 9.5 | [X] | [X] | [X] | [X] | [X] | 100% | IMMORTAL |
+| Cherki | MID | Man City | 7.7 | [X] | [X] | [X] | [X] | [X] | 100% | IMMORTAL |
+| Stach | MID | Leeds | 6.0 | [X]* | [X]* | [X]* | . | . | 60% | PURE PUNT |
+| Palmer | MID | Chelsea | 9.6 | . | . | . | [X]* | [X]* | 40% | HORIZON-DEPENDENT |
+| Gibbs-White | MID | Nott'm Forest | 7.9 | . | . | . | [X]* | [X]* | 40% | HORIZON-DEPENDENT |
+| Gakpo | MID | Liverpool | 7.0 | [X]* | [X]* | . | . | . | 40% | PURE PUNT |
+| Yalcouyé | MID | Brighton | 4.5 | . | . | [b] | . | . | 0% | UNSELECTED |
+| João Pedro | FWD | Chelsea | 7.6 | [X] | [X] | [X] | [X] | [X] | 100% | IMMORTAL |
+| Haaland | FWD | Man City | 15.5 | [X]* | [X]* | [X]* | . | . | 60% | PURE PUNT |
+| Obi | FWD | Man Utd | 4.5 | [b] | . | [b] | [b] | [b] | 0% | UNSELECTED |
+| Walle Egeli | FWD | Ipswich Town | 4.5 | . | [b] | . | [b] | [b] | 0% | UNSELECTED |
 
 *Legend:* `[X]` = Unanimous Starter | `[X]*` = Starting Alteration | `[b]` = Bench | `.` = Unselected
 
@@ -42,7 +42,9 @@
 
 ```text
 --- WEIGHT REGISTRY (SOURCE OF TRUTH) ---
-FLAT:1.00  -> [1.00, 1.00, 1.00, 1.00, 1.00]
-EXP:0.60   -> [1.00, 0.60, 0.36, 0.22, 0.13]
-EXP:0.20   -> [1.00, 0.20, 0.04, 0.01, 0.00]
+EXP:0.00  -> [1.00, 0.00, 0.00, 0.00, 0.00]
+EXP:0.25  -> [1.00, 0.25, 0.06, 0.02, 0.00]
+EXP:0.50  -> [1.00, 0.50, 0.25, 0.12, 0.06]
+EXP:0.75  -> [1.00, 0.75, 0.56, 0.42, 0.32]
+EXP:1.00  -> [1.00, 1.00, 1.00, 1.00, 1.00]
 ```

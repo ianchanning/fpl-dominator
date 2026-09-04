@@ -764,11 +764,11 @@ def forge(
         )
     else:
         if clean_model in ("exponential", "exp"):
-            default_range = (1.0, 0.0)
+            default_range = (0.0, 1.0)
         elif clean_model in ("linear", "lin"):
-            default_range = (0.1, 0.5)
+            default_range = (0.5, 0.1)
         elif clean_model in ("step", "horizon"):
-            default_range = (5.0, 1.0)
+            default_range = (1.0, 5.0)
         else:
             default_range = (1.0, 1.0)
 
