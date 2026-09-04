@@ -1,0 +1,1 @@
+[2026-09-04 17:37] [Nyx] [Stone 1: The Micro-Spike] - [Created src/fpl_dominator/temporal_decay.py with pure functional linear, exponential, and step decay generators; validated invariants and boundary conditions]

@@ -11,3 +11,4 @@ archive/**/gw*/*.html
 archive/**/*.html
 screenshots/
 archive/**/screenshots/
+temp/
