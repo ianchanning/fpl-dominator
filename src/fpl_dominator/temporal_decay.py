@@ -75,3 +75,63 @@ def generate_step_weights(cutoff: int, horizon: int = 5) -> List[float]:
         raise ValueError(f"Cutoff must be >= 0, got {cutoff}")
 
     return [1.0 if t < cutoff else 0.0 for t in range(horizon)]
+
+
+def interpolate_gradient(start: float, end: float, steps: int) -> List[float]:
+    """Generates an evenly spaced gradient of parameter values from start to end.
+
+    Args:
+        start: Starting parameter value.
+        end: Ending parameter value.
+        steps: Total number of gradient steps (must be >= 2).
+
+    Returns:
+        List of float parameter values rounded to 6 decimal places.
+
+    Raises:
+        ValueError: If steps < 2.
+    """
+    if steps < 2:
+        raise ValueError(f"Steps must be >= 2, got {steps}")
+
+    step_size = (end - start) / (steps - 1)
+    return [round(start + i * step_size, 6) for i in range(steps)]
+
+
+def generate_scenario_signature(
+    model: str, param: float, form_weight: float | None = None
+) -> str:
+    """Generates a compact, standardized Scenario Signature for column headers.
+
+    Examples:
+        'exponential', 0.75 -> 'EXP:0.75'
+        'linear', 0.2 -> 'LIN:0.20'
+        'step', 3.0 -> 'STEP:3'
+        'linear', 0.2, form_weight=0.7 -> 'LIN:0.20_FW:0.7'
+
+    Args:
+        model: Decay model name ('linear', 'exponential', 'step').
+        param: Parameter value (decay_rate, slope, or horizon cutoff).
+        form_weight: Optional form factor weight modifier.
+
+    Returns:
+        Compact signature string.
+    """
+    clean_model = model.strip().lower()
+    if clean_model in ("exponential", "exp"):
+        prefix = "EXP"
+        param_str = f"{param:.2f}"
+    elif clean_model in ("linear", "lin"):
+        prefix = "LIN"
+        param_str = f"{param:.2f}"
+    elif clean_model in ("step", "horizon"):
+        prefix = "STEP"
+        param_str = f"{int(param)}"
+    else:
+        prefix = clean_model.upper()
+        param_str = f"{param:.2f}"
+
+    sig = f"{prefix}:{param_str}"
+    if form_weight is not None:
+        sig += f"_FW:{form_weight:.1f}"
+    return sig

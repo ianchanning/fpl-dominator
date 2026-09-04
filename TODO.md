@@ -110,16 +110,16 @@ To avoid jumping off an architectural cliff, we decompose the grand vision into 
 ## 📋 FULL ARCHITECTURAL TASK LIST (REFERENCE ROADMAP)
 
 ### Phase 1: Mathematical Foundations (Weight Generators & Gradients)
-- [ ] **Task 1.1: Functional Decay Functions** (`src/fpl_dominator/temporal_decay.py`)
-  - [ ] Implement `generate_linear_weights(slope: float, horizon: int = 5) -> list[float]` where $W(t) = \max(0.0, 1.0 - t \times \text{slope})$.
-  - [ ] Implement `generate_exponential_weights(decay_rate: float, horizon: int = 5) -> list[float]` where $W(t) = \text{decay\_rate}^t$.
-  - [ ] Implement `generate_step_weights(cutoff: int, horizon: int = 5) -> list[float]` where $W(t) = 1.0 \text{ if } t < \text{cutoff else } 0.0$.
-  - [ ] Add strict validation: $W(0) = 1.0$, non-negative weights, non-zero sum, horizon length sanity check.
-- [ ] **Task 1.2: Parameter Interpolation & Signature Generator**
-  - [ ] Implement `interpolate_gradient(start: float, end: float, steps: int) -> list[float]`.
-  - [ ] Implement `generate_scenario_signature(model: str, param: float, form_weight: float | None = None) -> str` (e.g., `EXP:0.75`, `LIN:0.20`, `STEP:3`).
-- [ ] **Task 1.3: Unit Tests for Weight Generators**
-  - [ ] Create `tests/test_temporal_decay.py` validating boundary conditions ($N=5$, $decay=0.0 \rightarrow [1, 0, 0, 0, 0]$, $decay=1.0 \rightarrow [1, 1, 1, 1, 1]$).
+- [x] **Task 1.1: Functional Decay Functions** (`src/fpl_dominator/temporal_decay.py`)
+  - [x] Implement `generate_linear_weights(slope: float, horizon: int = 5) -> list[float]` where $W(t) = \max(0.0, 1.0 - t \times \text{slope})$.
+  - [x] Implement `generate_exponential_weights(decay_rate: float, horizon: int = 5) -> list[float]` where $W(t) = \text{decay\_rate}^t$.
+  - [x] Implement `generate_step_weights(cutoff: int, horizon: int = 5) -> list[float]` where $W(t) = 1.0 \text{ if } t < \text{cutoff else } 0.0$.
+  - [x] Add strict validation: $W(0) = 1.0$, non-negative weights, non-zero sum, horizon length sanity check.
+- [x] **Task 1.2: Parameter Interpolation & Signature Generator**
+  - [x] Implement `interpolate_gradient(start: float, end: float, steps: int) -> list[float]`.
+  - [x] Implement `generate_scenario_signature(model: str, param: float, form_weight: float | None = None) -> str` (e.g., `EXP:0.75`, `LIN:0.20`, `STEP:3`).
+- [x] **Task 1.3: Unit Tests for Weight Generators**
+  - [x] Create `tests/test_temporal_decay.py` validating boundary conditions ($N=5$, $decay=0.0 \rightarrow [1, 0, 0, 0, 0]$, $decay=1.0 \rightarrow [1, 1, 1, 1, 1]$).
 
 ---
 

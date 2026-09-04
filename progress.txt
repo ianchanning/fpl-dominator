@@ -1,3 +1,4 @@
 [2026-09-04 17:37] [Nyx] [Stone 1: The Micro-Spike] - [Created src/fpl_dominator/temporal_decay.py with pure functional linear, exponential, and step decay generators; validated invariants and boundary conditions]
 [2026-09-04 17:41] [Nyx] [Stone 2: The 3-Solve Comparison Script] - [Implemented compare_decay_scenarios.py; proved 3-decay solve on GW3 identifying 7 Immortals (Tzolakis, Calafiori, Ajayi, B.Fernandes, Saka, Cherki, João Pedro); restored baseline state cleanly]
 [2026-09-04 17:49] [Nyx] [Stone 3: The Minimal CLI Command (bamf forge)] - [Integrated 'bamf forge [gwX] --steps 3' into CLI deck; verified markdown report generation in gw3/forge_summary.md with pure table formatter; passed ruff gate]
+[2026-09-04 17:57] [Nyx] [Phase 1: Tasks 1.1-1.3] - [Implemented interpolate_gradient and generate_scenario_signature in temporal_decay.py; authored tests/test_temporal_decay.py with 10 passing unit tests covering all boundary conditions and invariants]
