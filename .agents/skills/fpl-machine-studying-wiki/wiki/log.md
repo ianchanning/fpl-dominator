@@ -56,6 +56,17 @@ This file is an append-only timeline of all knowledge base updates, source inges
 - Hardened `enrich_with_insight.py` with collision-resistant matching respecting initials (`B.Fernandes` vs `M.Fernandes`), club membership, and positional roles (`Cole Palmer` MID vs `Palmer` GKP).
 - Finalized initial `gw2/` vault baseline with live GW2–GW6 fixture schedule.
 
+## [2026-09-04] feature | Scenario Forge & Temporal Gradients Engine (RFC-008 & RFC-009)
+- Implemented `src/fpl_dominator/temporal_decay.py` with pure functional exponential, linear, step, and flat fixture horizon weighting functions and gradient interpolation.
+- Decoupled Pyomo MILP optimization engine in `chimera_pyomo_v2.py` introducing frozen `SquadSolution` dataclass and pure in-memory `solve_chimera_squad()`, eliminating multi-scenario disk collisions.
+- Built `src/fpl_dominator/scenario_forge.py` supporting multi-dimensional Cartesian grid search (RFC-008) and continuous parameter gradients (RFC-009).
+- Formulated Effective Horizon Depth $\Omega(s) = \sum W_s(t)$ and automated survival curve classification: Immortals ($R=1.0$), Horizon-Dependents, Pure Punts, and Fringe/Volatile.
+- Implemented Diff-First noise suppression, visual starting alteration cues (`[X]*`), ASCII terminal formatters, ANSI rainbow color ramps, and automated markdown reports (`gwX/scenario_forge.md`).
+- Integrated `bamf forge` command deck into `bamf.py` with `--matrix`, `--model`, `--param-range`, `--steps`, `--diff-first/--full`, and `--color/--no-color`.
+- Empirically proved on active GW3 data that Bruno Fernandes (£12.0m, $R=100\%$) is an unconditional Immortal lock, whereas Erling Haaland (£15.5m, $R=60\%$) is a short-horizon Pure Punt.
+- Synthesized Living Grimoire nodes `wiki/concepts/The-Scenario-Forge.md` and `wiki/concepts/Temporal-Gradients-and-Survival-Curves.md`, and updated `wiki/index.md`.
+
+
 
 
 

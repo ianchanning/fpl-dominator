@@ -5,6 +5,8 @@ graph TD
     subgraph "🏛️ Mathematical Optimization & Solvers (cat:optimization)"
         O1[The-Chimera-Optimization-Engine]
         O2[Pyomo-Type-Safety-and-Linopy]
+        O3[concepts/The-Scenario-Forge]
+        O4[concepts/Temporal-Gradients-and-Survival-Curves]
     end
 
     subgraph "⚡ Data Pipeline & Features (cat:pipeline)"
@@ -35,6 +37,8 @@ graph TD
 ## 🏛️ Mathematical Optimization & Solvers
 - [[The-Chimera-Optimization-Engine]] - Mixed-Integer Linear Program (MILP) squad selection solved via Pyomo and GLPK.
 - [[concepts/Pyomo-Type-Safety-and-Linopy]] - Eliminating dynamic Pyomo attributes using Typed Protocols and Linopy.
+- [[concepts/The-Scenario-Forge]] - In-memory multi-scenario MILP stability matrix and diff-first noise suppression (RFC-008).
+- [[concepts/Temporal-Gradients-and-Survival-Curves]] - Parameter sensitivity gradients mapping Immortals, Horizon-Dependents, and Pure Punts (RFC-009).
 
 ## ⚡ Feature Engineering & Data Pipeline
 - [[Temporal-Discounting-and-FDR]] - Weighted decay horizon mathematics replacing naive arithmetic means for fixture difficulty.
