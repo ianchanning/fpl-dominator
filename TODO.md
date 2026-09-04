@@ -190,9 +190,9 @@ To avoid jumping off an architectural cliff, we decompose the grand vision into 
 ---
 
 ### Phase 6: Living Grimoire & Verification Cycle
-- [ ] **Task 6.1: Run Verification on GW3 / GW4 Reality**
-  - [ ] Execute `bamf forge gw3 --model exponential --steps 5` against our active September 2026 dataset.
-  - [ ] Verify if Haaland (£15.5m) and Bruno Fernandes (£12.0m) qualify as mathematical "Immortals".
+- [x] **Task 6.1: Run Verification on GW3 / GW4 Reality**
+  - [x] Execute `bamf forge gw3 --model exponential --steps 5` against our active September 2026 dataset.
+  - [x] Verify if Haaland (£15.5m) and Bruno Fernandes (£12.0m) qualify as mathematical "Immortals".
 - [ ] **Task 6.2: Knowledge Base Distillation**
   - [ ] Author `wiki/concepts/The-Scenario-Forge.md` conforming to the 4-Part Mental Model.
   - [ ] Author `wiki/concepts/Temporal-Gradients-and-Survival-Curves.md`.
