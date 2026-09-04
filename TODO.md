@@ -127,10 +127,10 @@ To avoid jumping off an architectural cliff, we decompose the grand vision into 
 - [x] **Task 2.1: Refactor `grand_synthesis.py` for Parametric Injection**
   - [x] Extract core weighting logic from [grand_synthesis.py](file:///home/ian/Projects/fpl-dominator/src/fpl_dominator/grand_synthesis.py) into a pure function `synthesize_omniscient_data(players_df, fixtures_df, fixture_weights) -> pd.DataFrame`.
   - [x] Retain backwards compatibility for CLI and `run_the_gauntlet`.
-- [ ] **Task 2.2: Refactor `chimera_pyomo_v2.py` for In-Memory Solving**
-  - [ ] Separate model construction and solver invocation from file disk I/O.
-  - [ ] Implement `solve_chimera_squad(omniscient_df, set_pieces_path, solver_config) -> SquadSolution` returning structured dataclasses (`starting_xi`, `bench`, `total_score`, `total_cost`, `bank`).
-  - [ ] Eliminate temporary disk collisions during multi-scenario runs.
+- [x] **Task 2.2: Refactor `chimera_pyomo_v2.py` for In-Memory Solving**
+  - [x] Separate model construction and solver invocation from file disk I/O.
+  - [x] Implement `solve_chimera_squad(omniscient_df, set_pieces_path, solver_config) -> SquadSolution` returning structured dataclasses (`starting_xi`, `bench`, `total_score`, `total_cost`, `bank`).
+  - [x] Eliminate temporary disk collisions during multi-scenario runs.
 - [ ] **Task 2.3: Anti-Gambit Smoke Test**
   - [ ] Verify that running 5 consecutive in-memory solves produces identical results to the disk-based baseline without state leakage or variable cross-talk.
 
