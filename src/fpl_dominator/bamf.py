@@ -9,7 +9,6 @@ import click
 from .audit_player_names_v3 import audit_player_name_resolution_v3
 from .audit_realities import audit_team_name_realities
 from .commander import run_the_gauntlet
-from .compare_decay_scenarios import run_decay_comparison
 from .enrich_with_insight import enrich_with_insight
 from .forge_cauldron import forge_cauldron
 from .grand_synthesis import perform_grand_synthesis
@@ -19,6 +18,11 @@ from .process_prior_season_html import parse_prior_season_html
 from .process_set_pieces_html import (
     generate_empirical_set_pieces_csv,
     parse_set_pieces_html,
+)
+from .scenario_forge import (
+    generate_cartesian_matrix,
+    generate_gradient_matrix,
+    run_scenario_matrix,
 )
 from .update_prices import reconcile_timeline
 from .wildcard_evaluator import calculate_squad_divergence
@@ -614,21 +618,102 @@ def evaluate_wildcard(gameweek_dir):
         )
 
 
+def parse_float_list(val, default):
+    """Parses a comma-separated string of float values, e.g. '0.4,0.6,0.8'."""
+    if not val or not str(val).strip():
+        return default
+    cleaned = (
+        str(val).replace("[", "").replace("]", "").replace("(", "").replace(")", "")
+    )
+    try:
+        return [float(p.strip()) for p in cleaned.split(",") if p.strip()]
+    except ValueError as e:
+        raise click.BadParameter(f"Expected comma-separated numbers, got '{val}': {e}")
+
+
+def parse_param_range(val, default_range):
+    """Parses parameter range string, e.g. '1.0,0.0' or '0.1,0.5'."""
+    if not val or not str(val).strip():
+        return default_range
+    cleaned = (
+        str(val).replace("[", "").replace("]", "").replace("(", "").replace(")", "")
+    )
+    parts = [p.strip() for p in cleaned.split(",") if p.strip()]
+    if len(parts) != 2:
+        raise click.BadParameter(
+            f"param-range must contain exactly two values (start,end), got '{val}'"
+        )
+    try:
+        return float(parts[0]), float(parts[1])
+    except ValueError as e:
+        raise click.BadParameter(f"Invalid numbers in param-range '{val}': {e}")
+
+
 # --- SCENARIO FORGE & TEMPORAL GRADIENTS (RFC-008 / RFC-009) ---
 @bamf.command(name="forge")
 @click.argument("gameweek_dir", required=False)
 @click.option(
+    "--model",
+    "-m",
+    type=click.Choice(["exponential", "linear", "step", "flat"], case_sensitive=False),
+    default="exponential",
+    show_default=True,
+    help="Decay model archetype (exponential, linear, step, flat).",
+)
+@click.option(
+    "--param-range",
+    "-p",
+    type=str,
+    default=None,
+    help="Parameter range for gradient interpolation (e.g. '1.0,0.0').",
+)
+@click.option(
     "--steps",
     "-s",
-    default=3,
+    default=5,
     type=int,
     show_default=True,
-    help="Number of decay gradient scenarios to compare.",
+    help="Number of decay gradient scenarios to evaluate (must be >= 2).",
 )
-def forge(gameweek_dir, steps):
-    """
-    Executes Scenario Forge and Temporal Gradient analysis (RFC-008 & RFC-009).
-    Compares Starting XI robustness across decay profiles (Flat, Moderate, Sniper).
+@click.option(
+    "--matrix",
+    is_flag=True,
+    default=False,
+    help="Enable Cartesian grid search (decay_rates x form_weights).",
+)
+@click.option(
+    "--decay-rates",
+    type=str,
+    default="0.4,0.6,0.8",
+    show_default=True,
+    help="Comma-separated decay rates for Cartesian matrix exploration.",
+)
+@click.option(
+    "--form-weights",
+    type=str,
+    default="0.5,0.7,0.9",
+    show_default=True,
+    help="Comma-separated form factor weights for Cartesian exploration.",
+)
+@click.option(
+    "--diff-first/--full",
+    default=True,
+    show_default=True,
+    help="Filter unchanging bench players and highlight starting alterations.",
+)
+def forge(
+    gameweek_dir,
+    model,
+    param_range,
+    steps,
+    matrix,
+    decay_rates,
+    form_weights,
+    diff_first,
+):
+    """Executes Scenario Forge and Temporal Gradient analysis (RFC-008 & RFC-009).
+
+    Explores sensitivity and survival curves across functional parameterizations.
     """
     target_gw = gameweek_dir if gameweek_dir else get_latest_gw()
     if not target_gw:
@@ -652,24 +737,68 @@ def forge(gameweek_dir, steps):
         fg="cyan",
         bold=True,
     )
-    click.secho(
-        f"Analyzing selection robustness across {steps} decay gradient profiles...",
-        fg="yellow",
+
+    clean_model = model.strip().lower()
+
+    if matrix:
+        rates = parse_float_list(decay_rates, default=[0.4, 0.6, 0.8])
+        f_weights = parse_float_list(form_weights, default=[0.5, 0.7, 0.9])
+        click.secho(
+            f"[*] Executing Cartesian Matrix Exploration: "
+            f"rates={rates} x form_weights={f_weights} "
+            f"({len(rates) * len(f_weights)} solves)...",
+            fg="yellow",
+        )
+        scenarios = generate_cartesian_matrix(
+            decay_rates=rates,
+            form_factor_weights=f_weights,
+            model_type=clean_model,
+            horizon=5,
+        )
+    else:
+        if clean_model in ("exponential", "exp"):
+            default_range = (1.0, 0.0)
+        elif clean_model in ("linear", "lin"):
+            default_range = (0.1, 0.5)
+        elif clean_model in ("step", "horizon"):
+            default_range = (5.0, 1.0)
+        else:
+            default_range = (1.0, 1.0)
+
+        start_val, end_val = parse_param_range(param_range, default_range)
+        click.secho(
+            f"[*] Executing Single-Axis Gradient Analysis: "
+            f"model={clean_model.upper()}, range=[{start_val}, {end_val}], "
+            f"steps={steps}...",
+            fg="yellow",
+        )
+        scenarios = generate_gradient_matrix(
+            model_type=clean_model,
+            start=start_val,
+            end=end_val,
+            steps=steps,
+            horizon=5,
+        )
+
+    report = run_scenario_matrix(
+        gameweek_dir=target_gw,
+        scenarios=scenarios,
+        write_report=True,
+        suppress_static_bench=diff_first,
+        highlight_divergence=True,
     )
 
-    comparison_df = run_decay_comparison(target_gw)
-
-    immortals = comparison_df[comparison_df["Classification"] == "IMMORTAL"][
-        "Surname"
-    ].tolist()
-
-    click.secho(
-        f"\n[+] Forge summary successfully recorded to '{target_gw}/forge_summary.md'",
-        fg="green",
-        bold=True,
+    click.echo(
+        "\n"
+        + report.to_terminal(
+            suppress_static_bench=diff_first,
+            highlight_divergence=True,
+        )
     )
+
     click.secho(
-        f"[*] THE IMMORTALS ({len(immortals)} Locks): {', '.join(immortals)}",
+        f"\n[+] Detailed Scenario Forge report written to "
+        f"'{target_gw}/scenario_forge.md'",
         fg="green",
         bold=True,
     )

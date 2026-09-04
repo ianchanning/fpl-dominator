@@ -176,14 +176,14 @@ To avoid jumping off an architectural cliff, we decompose the grand vision into 
 ---
 
 ### Phase 5: CLI Command Deck Integration (`bamf.py`)
-- [ ] **Task 5.1: Wire Up `bamf forge`**
-  - [ ] Add command to [bamf.py](file:///home/ian/Projects/fpl-dominator/src/fpl_dominator/bamf.py):
+- [x] **Task 5.1: Wire Up `bamf forge`**
+  - [x] Add command to [bamf.py](file:///home/ian/Projects/fpl-dominator/src/fpl_dominator/bamf.py):
     ```bash
     bamf forge [gwX] --model exponential --param-range 1.0,0.0 --steps 5
     bamf forge [gwX] --model linear --param-range 0.1,0.5 --steps 5
     bamf forge [gwX] --matrix --form-weights 0.5,0.7,0.9 --decay-rates 0.4,0.6,0.8
     ```
-  - [ ] Implement smart defaults (targets latest active GW directory automatically).
+  - [x] Implement smart defaults (targets latest active GW directory automatically).
 - [ ] **Task 5.2: Terminal Formatting & Rainbow Integration**
   - [ ] Style the output with ANSI color ramps reflecting player robustness (e.g., bright green for Immortals, cyan for Horizon-Dependents, magenta for Punts).
 
