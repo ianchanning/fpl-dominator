@@ -5,3 +5,38 @@
 [2026-09-04 18:00] [Nyx] [Phase 2: Task 2.1] - [Refactored grand_synthesis.py extracting pure in-memory synthesize_omniscient_data function; verified in-memory DataFrame execution and CLI backwards compatibility; passed ruff gate]
 [2026-09-04 18:03] [Nyx] [Phase 2: Task 2.2] - [Refactored chimera_pyomo_v2.py introducing SquadSolution dataclass and pure in-memory solve_chimera_squad function; eliminated disk collisions for scenario solving; preserved backwards compatibility; passed ruff gate]
 [2026-09-04 18:08] [Nyx] [Phase 2: Task 2.3] - [Authored tests/test_in_memory_solver.py executing 5 consecutive in-memory solves, proving 100% bit-identical results, zero state leakage, parametric recovery, and disk baseline parity; passed ruff gate]
+
+================================================================================
+HANDOVER CHECKPOINT: PHASE 2 COMPLETE -> READY FOR PHASE 3
+Timestamp: 2026-09-04 18:15 CEST
+Branch: feat/scenario-forge (Commit f919517)
+Active Gameweek Anchor: gw3 (2026/27 Season)
+Test Suite Status: 14/14 tests passing in 1.1s (uv run python -m unittest discover tests)
+Linter / Formatter Gate: ruff check (0 errors), ruff format (82 files compliant)
+
+1. SECURED IN-MEMORY INTERFACES:
+   - src/fpl_dominator/temporal_decay.py:
+     * generate_linear_weights(slope, horizon=5)
+     * generate_exponential_weights(decay_rate, horizon=5)
+     * generate_step_weights(cutoff, horizon=5)
+     * interpolate_gradient(start, end, steps)
+     * generate_scenario_signature(model, param, form_weight=None)
+   - src/fpl_dominator/grand_synthesis.py:
+     * synthesize_omniscient_data(players_df, fixtures_df, fixture_weights) -> pd.DataFrame
+   - src/fpl_dominator/chimera_pyomo_v2.py:
+     * SquadSolution (frozen dataclass): success, starters, bench, squad, enriched_df, total_score, total_cost, bank
+     * solve_chimera_squad(omniscient_df, set_pieces_path, solver_config) -> SquadSolution
+     * forge_pyomo_squad(gameweek_dir, return_squad, force_reforge) [CLI backwards-compatible harness]
+
+2. DEFEATED TRAPS & INVARIANTS:
+   - Disk Truncation / Stagnation: Never overwrite FINAL_v5.csv with a 15-player squad subset; SquadSolution.enriched_df carries all 201 players.
+   - Missing Dependencies: 'tabulate' is NOT installed in uv environment. Use pure-Python format_dataframe_to_markdown() or native strings.
+   - Solver Idempotence: 5 consecutive in-memory solves validated with zero state leakage, float drift, or GLPK symbol cross-talk.
+
+3. IMMEDIATE NEXT VECTOR (PHASE 3):
+   - Task 3.1: Build src/fpl_dominator/scenario_forge.py
+     * Implement ScenarioDefinition dataclass.
+     * Implement Cartesian product generator (decay_rate x form_factor_weight).
+     * Implement single-axis gradient generator (RFC-009).
+   - Task 3.2: Implement run_scenario_matrix and Robustness Score calculation R(p) = selections / total_solves.
+================================================================================
