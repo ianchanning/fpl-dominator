@@ -242,6 +242,48 @@ class PlayerScenarioStats:
     classification: str
     scenario_selections: Dict[str, str]
 
+    @property
+    def is_static_bench(self) -> bool:
+        """Indicates if player is purely on the bench across all evaluated scenarios."""
+        return self.starter_appearances == 0 and all(
+            status == "[b]" for status in self.scenario_selections.values()
+        )
+
+    @property
+    def is_divergent_starter(self) -> bool:
+        """Indicates if player starts in some scenarios but not all (0 < R < 1.0)."""
+        return 0.0 < self.robustness_score < 1.0
+
+
+def filter_static_bench_players(
+    players: Sequence[PlayerScenarioStats],
+) -> List[PlayerScenarioStats]:
+    """Filters out bench players that do not change across scenarios (RFC-008).
+
+    Removes players who never appear in the Starting XI and whose status
+    remains '[b]' across all evaluated scenarios.
+    """
+    return [p for p in players if not p.is_static_bench]
+
+
+def highlight_starting_alterations(
+    scenario_selections: Dict[str, str],
+    robustness_score: float,
+    divergence_marker: str = "*",
+) -> Dict[str, str]:
+    """Applies visual divergence cues to starting XI alterations.
+
+    For non-immortal starters (0 < R < 1.0), marks '[X]' as '[X]*'
+    (or custom divergence marker).
+    """
+    if not (0.0 < robustness_score < 1.0):
+        return dict(scenario_selections)
+
+    return {
+        sc_name: (f"[X]{divergence_marker}" if status == "[X]" else status)
+        for sc_name, status in scenario_selections.items()
+    }
+
 
 @dataclass(frozen=True)
 class ScenarioRunReport:
@@ -262,18 +304,71 @@ class ScenarioRunReport:
     total_solves: int
     successful_solves: int
 
-    def to_dataframe(self) -> pd.DataFrame:
-        """Constructs a consolidated stability grid DataFrame."""
+    @property
+    def static_bench_players(self) -> List[str]:
+        """List of player surnames who are purely static bench fodder."""
+        return sorted([p.surname for p in self.player_stats if p.is_static_bench])
+
+    @property
+    def divergent_starters(self) -> List[str]:
+        """List of player surnames who start in some but not all scenarios."""
+        return sorted([p.surname for p in self.player_stats if p.is_divergent_starter])
+
+    def filter_players(
+        self,
+        suppress_static_bench: bool = False,
+        suppress_all_bench: bool = False,
+        divergent_only: bool = False,
+    ) -> List[PlayerScenarioStats]:
+        """Filters player stats according to diff-first noise suppression criteria."""
+        filtered = self.player_stats
+        if suppress_all_bench:
+            filtered = [p for p in filtered if p.starter_appearances > 0]
+        elif suppress_static_bench:
+            filtered = filter_static_bench_players(filtered)
+        if divergent_only:
+            filtered = [p for p in filtered if p.is_divergent_starter]
+        return list(filtered)
+
+    def to_dataframe(
+        self,
+        suppress_static_bench: bool = False,
+        suppress_all_bench: bool = False,
+        highlight_divergence: bool = False,
+        divergence_marker: str = "*",
+    ) -> pd.DataFrame:
+        """Constructs a consolidated stability grid DataFrame.
+
+        Args:
+            suppress_static_bench: If True, filters out unchanging bench fodder.
+            suppress_all_bench: If True, filters out all pure bench players.
+            highlight_divergence: If True, marks altered starting slots.
+            divergence_marker: Suffix appended to [X] for starting alterations.
+        """
         records: List[Dict[str, object]] = []
-        for p in self.player_stats:
+        players = self.filter_players(
+            suppress_static_bench=suppress_static_bench,
+            suppress_all_bench=suppress_all_bench,
+        )
+
+        for p in players:
             rec: Dict[str, object] = {
                 "Surname": p.surname,
                 "Position": p.position,
                 "Team": p.team,
                 "Price": p.price,
             }
+            selections = (
+                highlight_starting_alterations(
+                    p.scenario_selections,
+                    p.robustness_score,
+                    divergence_marker=divergence_marker,
+                )
+                if highlight_divergence
+                else p.scenario_selections
+            )
             for sc in self.scenarios:
-                rec[sc.name] = p.scenario_selections.get(sc.name, ".")
+                rec[sc.name] = selections.get(sc.name, ".")
             rec["Robustness"] = f"{int(round(p.robustness_score * 100))}%"
             rec["Classification"] = p.classification
             records.append(rec)
@@ -282,7 +377,8 @@ class ScenarioRunReport:
         if not df.empty:
             pos_order = {"GKP": 0, "DEF": 1, "MID": 2, "FWD": 3}
             df["pos_rank"] = df["Position"].map(pos_order).fillna(99)
-            df["_rob_num"] = [p.robustness_score for p in self.player_stats]
+            rob_map = {p.surname: p.robustness_score for p in players}
+            df["_rob_num"] = df["Surname"].map(rob_map).fillna(0.0)
             df.sort_values(
                 by=["pos_rank", "_rob_num", "Price"],
                 ascending=[True, False, False],
@@ -291,9 +387,20 @@ class ScenarioRunReport:
             df.drop(columns=["pos_rank", "_rob_num"], inplace=True)
         return df
 
-    def to_markdown(self) -> str:
+    def to_markdown(
+        self,
+        suppress_static_bench: bool = False,
+        suppress_all_bench: bool = False,
+        highlight_divergence: bool = False,
+        divergence_marker: str = "*",
+    ) -> str:
         """Formats the stability matrix and strategic classification into Markdown."""
-        df = self.to_dataframe()
+        df = self.to_dataframe(
+            suppress_static_bench=suppress_static_bench,
+            suppress_all_bench=suppress_all_bench,
+            highlight_divergence=highlight_divergence,
+            divergence_marker=divergence_marker,
+        )
         table_md = format_dataframe_to_markdown(df)
 
         imm_str = ", ".join(self.immortals) if self.immortals else "None"
@@ -313,19 +420,46 @@ class ScenarioRunReport:
             "",
             table_md,
             "",
-            "## Strategic Asset Classification",
-            "",
-            f"- **The Immortals ({len(self.immortals)} Locks):** {imm_str}",
-            f"- **The Horizon-Dependents ({len(self.horizon_dependents)} Assets):** "
-            f"{hor_str}",
-            f"- **The Pure Punts ({len(self.pure_punts)} Assets):** {punt_str}",
-            f"- **The Fringe / Volatile ({len(self.fringe)} Assets):** {fringe_str}",
-            "",
-            "## Weight Registry (Source of Truth)",
-            "",
-            "```text",
-            "--- WEIGHT REGISTRY (SOURCE OF TRUTH) ---",
         ]
+
+        if highlight_divergence:
+            md_lines.extend(
+                [
+                    f"*Legend:* `[X]` = Unanimous Starter | "
+                    f"`[X]{divergence_marker}` = Starting Alteration | "
+                    f"`[b]` = Bench | `.` = Unselected",
+                    "",
+                ]
+            )
+
+        if suppress_static_bench and self.static_bench_players:
+            bench_fodder_str = ", ".join(self.static_bench_players)
+            md_lines.extend(
+                [
+                    f"*Diff-First Noise Suppression:* Filtered "
+                    f"{len(self.static_bench_players)} static bench players "
+                    f"({bench_fodder_str}).",
+                    "",
+                ]
+            )
+
+        md_lines.extend(
+            [
+                "## Strategic Asset Classification",
+                "",
+                f"- **The Immortals ({len(self.immortals)} Locks):** {imm_str}",
+                f"- **The Horizon-Dependents "
+                f"({len(self.horizon_dependents)} Assets):** {hor_str}",
+                f"- **The Pure Punts ({len(self.pure_punts)} Assets):** {punt_str}",
+                f"- **The Fringe / Volatile "
+                f"({len(self.fringe)} Assets):** {fringe_str}",
+                "",
+                "## Weight Registry (Source of Truth)",
+                "",
+                "```text",
+                "--- WEIGHT REGISTRY (SOURCE OF TRUTH) ---",
+            ]
+        )
         for sc in self.scenarios:
             weights_formatted = ", ".join(f"{w:.2f}" for w in sc.weights)
             md_lines.append(f"{sc.name:<10} -> [{weights_formatted}]")
@@ -578,9 +712,11 @@ __all__ = [
     "classify_survival_curve",
     "compute_scenario_weights",
     "create_scenario",
+    "filter_static_bench_players",
     "format_dataframe_to_markdown",
     "generate_cartesian_matrix",
     "generate_gradient_matrix",
     "generate_gradient_scenarios",
+    "highlight_starting_alterations",
     "run_scenario_matrix",
 ]

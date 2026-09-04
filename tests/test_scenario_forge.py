@@ -16,10 +16,12 @@ from fpl_dominator.scenario_forge import (
     classify_survival_curve,
     compute_scenario_weights,
     create_scenario,
+    filter_static_bench_players,
     format_dataframe_to_markdown,
     generate_cartesian_matrix,
     generate_gradient_matrix,
     generate_gradient_scenarios,
+    highlight_starting_alterations,
     run_scenario_matrix,
 )
 
@@ -290,6 +292,126 @@ class TestScenarioForge(unittest.TestCase):
         # Cleanup test artifact
         if os.path.exists(report_md_path):
             os.remove(report_md_path)
+
+    def test_filter_static_bench_players(self):
+        static_bench = PlayerScenarioStats(
+            surname="Dovin",
+            position="GKP",
+            team="COV",
+            price=4.0,
+            starter_appearances=0,
+            bench_appearances=3,
+            total_appearances=3,
+            robustness_score=0.0,
+            classification="UNSELECTED",
+            scenario_selections={"S1": "[b]", "S2": "[b]", "S3": "[b]"},
+        )
+        immortal_starter = PlayerScenarioStats(
+            surname="Haaland",
+            position="FWD",
+            team="MCI",
+            price=15.5,
+            starter_appearances=3,
+            bench_appearances=0,
+            total_appearances=3,
+            robustness_score=1.0,
+            classification="IMMORTAL",
+            scenario_selections={"S1": "[X]", "S2": "[X]", "S3": "[X]"},
+        )
+        divergent_starter = PlayerScenarioStats(
+            surname="Tarkowski",
+            position="DEF",
+            team="EVE",
+            price=6.0,
+            starter_appearances=2,
+            bench_appearances=1,
+            total_appearances=3,
+            robustness_score=0.67,
+            classification="HORIZON-DEPENDENT",
+            scenario_selections={"S1": "[X]", "S2": "[X]", "S3": "[b]"},
+        )
+
+        self.assertTrue(static_bench.is_static_bench)
+        self.assertFalse(immortal_starter.is_static_bench)
+        self.assertFalse(divergent_starter.is_static_bench)
+
+        self.assertFalse(static_bench.is_divergent_starter)
+        self.assertFalse(immortal_starter.is_divergent_starter)
+        self.assertTrue(divergent_starter.is_divergent_starter)
+
+        filtered = filter_static_bench_players(
+            [static_bench, immortal_starter, divergent_starter]
+        )
+        self.assertEqual(len(filtered), 2)
+        self.assertEqual(filtered[0].surname, "Haaland")
+        self.assertEqual(filtered[1].surname, "Tarkowski")
+
+    def test_highlight_starting_alterations(self):
+        # Immortal: R=1.0 -> no divergence marker
+        imm_selections = {"S1": "[X]", "S2": "[X]"}
+        self.assertEqual(
+            highlight_starting_alterations(imm_selections, robustness_score=1.0),
+            {"S1": "[X]", "S2": "[X]"},
+        )
+
+        # Divergent starter: R=0.5 -> [X] marked as [X]*
+        div_selections = {"S1": "[X]", "S2": "[b]", "S3": "."}
+        highlighted = highlight_starting_alterations(
+            div_selections, robustness_score=0.5, divergence_marker="*"
+        )
+        self.assertEqual(
+            highlighted,
+            {"S1": "[X]*", "S2": "[b]", "S3": "."},
+        )
+
+    def test_diff_first_noise_suppression_and_cues(self):
+        if not os.path.exists("gw3/fpl_master_database_prophetic.csv"):
+            raise unittest.SkipTest("Missing gw3 test fixtures")
+
+        # 1. Test static bench suppression with near-identical scenarios
+        scenarios_static = [
+            create_scenario("flat", 1.0),
+            create_scenario("exponential", 0.99),
+        ]
+        report_static = run_scenario_matrix("gw3", scenarios=scenarios_static)
+        self.assertTrue(len(report_static.static_bench_players) > 0)
+
+        full_df = report_static.to_dataframe(suppress_static_bench=False)
+        diff_df = report_static.to_dataframe(
+            suppress_static_bench=True, highlight_divergence=True
+        )
+        self.assertGreater(len(full_df), len(diff_df))
+        for bench_surname in report_static.static_bench_players:
+            self.assertNotIn(bench_surname, diff_df["Surname"].tolist())
+
+        # Test suppress_all_bench isolates starting XI players (11 starters)
+        starter_only_df = report_static.to_dataframe(suppress_all_bench=True)
+        self.assertEqual(len(starter_only_df), 11)
+
+        # 2. Test starting alterations with divergent scenarios
+        scenarios_divergent = [
+            create_scenario("flat", 1.0),
+            create_scenario("exponential", 0.2),
+        ]
+        report_div = run_scenario_matrix("gw3", scenarios=scenarios_divergent)
+        diff_div_df = report_div.to_dataframe(
+            suppress_static_bench=True, highlight_divergence=True
+        )
+        for div_surname in report_div.divergent_starters:
+            div_row = diff_div_df[diff_div_df["Surname"] == div_surname]
+            if not div_row.empty:
+                has_cue = any(
+                    "[X]*" in str(div_row.iloc[0][sc.name])
+                    for sc in scenarios_divergent
+                )
+                self.assertTrue(has_cue)
+
+        # Markdown includes Diff-First and Legend notes
+        md_text = report_static.to_markdown(
+            suppress_static_bench=True, highlight_divergence=True
+        )
+        self.assertIn("*Diff-First Noise Suppression:*", md_text)
+        self.assertIn("*Legend:*", md_text)
 
 
 if __name__ == "__main__":

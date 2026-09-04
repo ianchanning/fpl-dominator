@@ -48,4 +48,6 @@ Linter / Formatter Gate: ruff check (0 errors), ruff format (82 files compliant)
 ================================================================================
 [2026-09-04 18:36] [Nyx] [Phase 3: Task 3.1] - [Built src/fpl_dominator/scenario_forge.py with ScenarioDefinition and Cartesian/gradient matrix generators per RFC-008 and RFC-009; verified 21/21 passing tests in 1.15s; ruff check & format compliant; no scratch files to archive]
 [2026-09-04 18:39] [Nyx] [Phase 3: Task 3.2] - [Implemented run_scenario_matrix, PlayerScenarioStats, ScenarioRunReport, and classify_survival_curve in src/fpl_dominator/scenario_forge.py; validated on GW3 identifying 7 Immortals (Ajayi, B.Fernandes, Calafiori, Cherki, João Pedro, Saka, Tzolakis); 25/25 tests passing; ruff check & format compliant; no scratch files to archive]
+[2026-09-04 18:43] [Nyx] [Phase 4: Task 4.1] - [Implemented Diff-First Noise Suppression (filter_static_bench_players, suppress_static_bench, suppress_all_bench) and starting alteration visual divergence cues (highlight_starting_alterations, [X]*) in scenario_forge.py; verified 28/28 tests passing in 1.90s; ruff check & format compliant; no scratch files to archive]
+
 

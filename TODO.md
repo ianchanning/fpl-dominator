@@ -154,9 +154,9 @@ To avoid jumping off an architectural cliff, we decompose the grand vision into 
 ---
 
 ### Phase 4: Diff-First Visualization (Stability Grid & Weight Registry)
-- [ ] **Task 4.1: Diff-First Noise Suppression**
-  - [ ] Filter out bench players that do not change across scenarios.
-  - [ ] Highlight starting XI alterations with visual divergence cues.
+- [x] **Task 4.1: Diff-First Noise Suppression**
+  - [x] Filter out bench players that do not change across scenarios.
+  - [x] Highlight starting XI alterations with visual divergence cues.
 - [ ] **Task 4.2: Terminal & Markdown Matrix Formatter**
   - [ ] Build ASCII / Rich table for terminal CLI output:
     - Rows: Position + Player Surname.
