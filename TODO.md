@@ -141,11 +141,11 @@ To avoid jumping off an architectural cliff, we decompose the grand vision into 
   - [x] Build `ScenarioDefinition` dataclass containing `name`, `model_type`, `param_value`, `weights`, `form_factor_weight`.
   - [x] Implement Cartesian product generator for multi-dimensional grid exploration (`decay_rate` $\times$ `form_factor_weight`).
   - [x] Implement gradient generator for single-axis interpolation (RFC-009).
-- [ ] **Task 3.2: Execution Loop & Robustness Calculation**
-  - [ ] Implement `run_scenario_matrix(gameweek_dir, scenarios) -> ScenarioRunReport`.
-  - [ ] Calculate **Robustness Score**:
+- [x] **Task 3.2: Execution Loop & Robustness Calculation**
+  - [x] Implement `run_scenario_matrix(gameweek_dir, scenarios) -> ScenarioRunReport`.
+  - [x] Calculate **Robustness Score**:
     $$R(p) = \frac{\text{Count of appearances in Starting XI}}{\text{Total successful scenario solves}}$$
-  - [ ] Implement survival curve classifier:
+  - [x] Implement survival curve classifier:
     - **The Immortals:** $R(p) = 1.0$ (Selected across all parameter permutations).
     - **The Horizon-Dependents:** Selected only when decay is gentle / horizon is deep.
     - **The Pure Punts:** Selected only under aggressive decay / hyper-short horizons.

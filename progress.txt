@@ -40,7 +40,12 @@ Linter / Formatter Gate: ruff check (0 errors), ruff format (82 files compliant)
      * Implemented generate_cartesian_matrix for multi-dimensional grid exploration (RFC-008).
      * Implemented generate_gradient_matrix / generate_gradient_scenarios for single-axis interpolation (RFC-009).
      * Authored tests/test_scenario_forge.py with 7 new unit tests (21/21 test suite passing).
-   - Task 3.2: Implement run_scenario_matrix and Robustness Score calculation R(p) = selections / total_solves.
+   - [COMPLETED] Task 3.2: Implement run_scenario_matrix and Robustness Score calculation
+     * Implemented PlayerScenarioStats and ScenarioRunReport containers with to_dataframe() and to_markdown().
+     * Implemented classify_survival_curve classifying Immortals (R=1.0), Horizon-Dependents, Pure Punts, and Fringe based on effective horizon depth Omega(s).
+     * Implemented pure in-memory run_scenario_matrix executing parametric solves with zero disk collisions.
+     * Authored comprehensive unit and integration tests in tests/test_scenario_forge.py (25/25 tests passing in 1.42s).
 ================================================================================
 [2026-09-04 18:36] [Nyx] [Phase 3: Task 3.1] - [Built src/fpl_dominator/scenario_forge.py with ScenarioDefinition and Cartesian/gradient matrix generators per RFC-008 and RFC-009; verified 21/21 passing tests in 1.15s; ruff check & format compliant; no scratch files to archive]
+[2026-09-04 18:39] [Nyx] [Phase 3: Task 3.2] - [Implemented run_scenario_matrix, PlayerScenarioStats, ScenarioRunReport, and classify_survival_curve in src/fpl_dominator/scenario_forge.py; validated on GW3 identifying 7 Immortals (Ajayi, B.Fernandes, Calafiori, Cherki, João Pedro, Saka, Tzolakis); 25/25 tests passing; ruff check & format compliant; no scratch files to archive]
 

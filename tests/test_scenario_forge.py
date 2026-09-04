@@ -4,15 +4,23 @@ Validates ScenarioDefinition invariants, Cartesian matrix products (RFC-008),
 and single-axis parameter gradients (RFC-009).
 """
 
+import os
 import unittest
 
+import pandas as pd
+
 from fpl_dominator.scenario_forge import (
+    PlayerScenarioStats,
     ScenarioDefinition,
+    ScenarioRunReport,
+    classify_survival_curve,
     compute_scenario_weights,
     create_scenario,
+    format_dataframe_to_markdown,
     generate_cartesian_matrix,
     generate_gradient_matrix,
     generate_gradient_scenarios,
+    run_scenario_matrix,
 )
 
 
@@ -183,6 +191,105 @@ class TestScenarioForge(unittest.TestCase):
         self.assertEqual(step_scenarios[0].weights, [1.0, 1.0, 1.0, 1.0, 1.0])
         self.assertEqual(step_scenarios[4].name, "STEP:1")
         self.assertEqual(step_scenarios[4].weights, [1.0, 0.0, 0.0, 0.0, 0.0])
+
+    def test_classify_survival_curve(self):
+        s_deep = create_scenario("flat", 1.0)  # sum = 5.0
+        s_mid = create_scenario("exponential", 0.6)  # sum = 2.31
+        s_shallow = create_scenario("exponential", 0.2)  # sum = 1.25
+        all_sc = [s_deep, s_mid, s_shallow]
+
+        # Immortal: selected in all scenarios
+        cls_imm, rob_imm = classify_survival_curve(
+            {s_deep.name, s_mid.name, s_shallow.name}, all_sc
+        )
+        self.assertEqual(cls_imm, "IMMORTAL")
+        self.assertEqual(rob_imm, 1.0)
+
+        # Horizon-Dependent: selected in deepest, not shallowest
+        cls_hor, rob_hor = classify_survival_curve({s_deep.name, s_mid.name}, all_sc)
+        self.assertEqual(cls_hor, "HORIZON-DEPENDENT")
+        self.assertAlmostEqual(rob_hor, 0.6667, places=3)
+
+        # Pure Punt: selected in shallowest, not deepest
+        cls_punt, rob_punt = classify_survival_curve({s_shallow.name}, all_sc)
+        self.assertEqual(cls_punt, "PURE PUNT")
+        self.assertAlmostEqual(rob_punt, 0.3333, places=3)
+
+        # Fringe: selected in deepest and shallowest (skipping middle)
+        cls_fringe, rob_fringe = classify_survival_curve(
+            {s_deep.name, s_shallow.name}, all_sc
+        )
+        self.assertEqual(cls_fringe, "FRINGE")
+        self.assertAlmostEqual(rob_fringe, 0.6667, places=3)
+
+        # Unselected
+        cls_none, rob_none = classify_survival_curve(set(), all_sc)
+        self.assertEqual(cls_none, "UNSELECTED")
+        self.assertEqual(rob_none, 0.0)
+
+    def test_format_dataframe_to_markdown(self):
+        df = pd.DataFrame(
+            [
+                {"Surname": "Haaland", "Position": "FWD", "Robustness": "100%"},
+                {"Surname": "Saka", "Position": "MID", "Robustness": "100%"},
+            ]
+        )
+        md = format_dataframe_to_markdown(df)
+        self.assertIn("| Surname | Position | Robustness |", md)
+        self.assertIn("| Haaland | FWD | 100% |", md)
+
+        empty_md = format_dataframe_to_markdown(pd.DataFrame())
+        self.assertEqual(empty_md, "*Empty Matrix*")
+
+    def test_run_scenario_matrix_validation(self):
+        with self.assertRaises(ValueError):
+            run_scenario_matrix("gw3", scenarios=[])
+
+        with self.assertRaises(FileNotFoundError):
+            sc = [create_scenario("flat", 1.0)]
+            run_scenario_matrix("nonexistent_gw_vault", scenarios=sc)
+
+    def test_run_scenario_matrix_gw3_smoke(self):
+        if not os.path.exists("gw3/fpl_master_database_prophetic.csv"):
+            raise unittest.SkipTest("Missing gw3 test fixtures")
+
+        scenarios = [
+            create_scenario("flat", 1.0),
+            create_scenario("exponential", 0.6),
+            create_scenario("exponential", 0.2),
+        ]
+        os.makedirs("temp/test_forge", exist_ok=True)
+        report_md_path = "temp/test_forge/report_smoke.md"
+
+        report = run_scenario_matrix(
+            gameweek_dir="gw3",
+            scenarios=scenarios,
+            output_path=report_md_path,
+        )
+
+        self.assertIsInstance(report, ScenarioRunReport)
+        self.assertEqual(report.total_solves, 3)
+        self.assertEqual(report.successful_solves, 3)
+        self.assertTrue(len(report.immortals) > 0)
+        self.assertIsInstance(report.player_stats[0], PlayerScenarioStats)
+
+        # Validate DataFrame generation
+        df = report.to_dataframe()
+        self.assertFalse(df.empty)
+        self.assertIn("Surname", df.columns)
+        self.assertIn("Position", df.columns)
+        self.assertIn("Robustness", df.columns)
+        self.assertIn("Classification", df.columns)
+
+        # Validate Markdown output
+        md_text = report.to_markdown()
+        self.assertIn("# Scenario Forge Analysis: GW3", md_text)
+        self.assertIn("--- WEIGHT REGISTRY (SOURCE OF TRUTH) ---", md_text)
+        self.assertTrue(os.path.exists(report_md_path))
+
+        # Cleanup test artifact
+        if os.path.exists(report_md_path):
+            os.remove(report_md_path)
 
 
 if __name__ == "__main__":
