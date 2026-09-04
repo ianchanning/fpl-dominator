@@ -9,6 +9,7 @@ import click
 from .audit_player_names_v3 import audit_player_name_resolution_v3
 from .audit_realities import audit_team_name_realities
 from .commander import run_the_gauntlet
+from .compare_decay_scenarios import run_decay_comparison
 from .enrich_with_insight import enrich_with_insight
 from .forge_cauldron import forge_cauldron
 from .grand_synthesis import perform_grand_synthesis
@@ -611,6 +612,67 @@ def evaluate_wildcard(gameweek_dir):
             "await Bayesian prior stabilization (RFC-005).",
             fg="cyan",
         )
+
+
+# --- SCENARIO FORGE & TEMPORAL GRADIENTS (RFC-008 / RFC-009) ---
+@bamf.command(name="forge")
+@click.argument("gameweek_dir", required=False)
+@click.option(
+    "--steps",
+    "-s",
+    default=3,
+    type=int,
+    show_default=True,
+    help="Number of decay gradient scenarios to compare.",
+)
+def forge(gameweek_dir, steps):
+    """
+    Executes Scenario Forge and Temporal Gradient analysis (RFC-008 & RFC-009).
+    Compares Starting XI robustness across decay profiles (Flat, Moderate, Sniper).
+    """
+    target_gw = gameweek_dir if gameweek_dir else get_latest_gw()
+    if not target_gw:
+        click.secho(
+            "Error: No gameweek directory specified and none found.",
+            fg="red",
+            bold=True,
+        )
+        return
+
+    if not os.path.isdir(target_gw):
+        click.secho(
+            f"Error: Gameweek directory '{target_gw}' not found.",
+            fg="red",
+            bold=True,
+        )
+        return
+
+    click.secho(
+        f"\n{'=' * 20} THE SCENARIO FORGE ({target_gw.upper()}) {'=' * 20}",
+        fg="cyan",
+        bold=True,
+    )
+    click.secho(
+        f"Analyzing selection robustness across {steps} decay gradient profiles...",
+        fg="yellow",
+    )
+
+    comparison_df = run_decay_comparison(target_gw)
+
+    immortals = comparison_df[comparison_df["Classification"] == "IMMORTAL"][
+        "Surname"
+    ].tolist()
+
+    click.secho(
+        f"\n[+] Forge summary successfully recorded to '{target_gw}/forge_summary.md'",
+        fg="green",
+        bold=True,
+    )
+    click.secho(
+        f"[*] THE IMMORTALS ({len(immortals)} Locks): {', '.join(immortals)}",
+        fg="green",
+        bold=True,
+    )
 
 
 # --- Audit Command Group (Perfect as is, but let's add validation) ---

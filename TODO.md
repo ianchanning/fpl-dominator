@@ -93,7 +93,7 @@ To avoid jumping off an architectural cliff, we decompose the grand vision into 
   - **Pass Criteria:** Exits with code 0; outputs side-by-side Starting XI comparison table across the 3 decay profiles; identifies locked Immortals (e.g. Haaland, Bruno).
   - **Lint & Format:** `uv run ruff check src/fpl_dominator/compare_decay_scenarios.py && uv run ruff format --check src/fpl_dominator/compare_decay_scenarios.py`
 
-- [ ] **Stone 3: The Minimal CLI Command (`bamf forge`)**
+- [x] **Stone 3: The Minimal CLI Command (`bamf forge`)**
   - **Action:** Wire the Stone 2 comparison into `bamf.py` under command `bamf forge [gwX] --steps 3`.
   - **Blast Radius:** Surgical addition to `bamf.py`.
   - **Verification:** `uv run bamf forge gw3 --steps 3`

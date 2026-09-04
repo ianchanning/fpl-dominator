@@ -8,6 +8,7 @@ Runs the Chimera solver against three decay profiles:
 Identifies locked Immortals (Robustness = 1.0), Horizon-Dependents, and Pure Punts.
 """
 
+import os
 import sys
 from typing import Dict, List, Set, Tuple
 
@@ -128,6 +129,10 @@ def run_decay_comparison(gameweek_dir: str) -> pd.DataFrame:
     print(f"[*] THE IMMORTALS ({len(immortals)} Locks): {', '.join(immortals)}")
     print("-" * 78)
 
+    # Write summary report to gwX/forge_summary.md
+    summary_file = write_forge_summary_markdown(gameweek_dir, comparison_df)
+    print(f"\n[+] Forge summary written to '{summary_file}'")
+
     # Restore default master database from config.yaml
     print("\n[+] Restoring baseline config.yaml state...")
     perform_grand_synthesis(gameweek_dir)
@@ -135,6 +140,47 @@ def run_decay_comparison(gameweek_dir: str) -> pd.DataFrame:
     print("[+] Baseline state fully restored.")
 
     return comparison_df
+
+
+def format_dataframe_to_markdown(df: pd.DataFrame) -> str:
+    """Converts a pandas DataFrame into standard GitHub Flavored Markdown table."""
+    headers = [str(c) for c in df.columns]
+    lines = [
+        "| " + " | ".join(headers) + " |",
+        "| " + " | ".join(["---"] * len(headers)) + " |",
+    ]
+    for _, row in df.iterrows():
+        lines.append("| " + " | ".join(str(val) for val in row) + " |")
+    return "\n".join(lines)
+
+
+def write_forge_summary_markdown(gameweek_dir: str, comparison_df: pd.DataFrame) -> str:
+    """Writes a formatted markdown summary report of the Scenario Forge run."""
+    summary_path = os.path.join(gameweek_dir, "forge_summary.md")
+    immortals = comparison_df[comparison_df["Classification"] == "IMMORTAL"][
+        "Surname"
+    ].tolist()
+
+    table_md = format_dataframe_to_markdown(comparison_df)
+
+    md_content = f"# Scenario Forge Summary for {gameweek_dir.upper()}\n\n"
+    md_content += "## Temporal Stability Matrix\n\n"
+    md_content += f"{table_md}\n\n"
+    md_content += "## Strategic Asset Classification\n\n"
+    md_content += (
+        f"- **The Immortals ({len(immortals)} Locks):** {', '.join(immortals)}\n"
+    )
+    md_content += (
+        "- **Profiles Evaluated:**\n"
+        "  - *Flat (1.0):* `[1.0, 1.0, 1.0, 1.0, 1.0]` (Equal Weight Horizon)\n"
+        "  - *Moderate (0.6):* `[1.0, 0.6, 0.36, 0.22, 0.13]` (Exponential Decay)\n"
+        "  - *Sniper (0.2):* `[1.0, 0.2, 0.04, 0.01, 0.00]` (Immediate Bias)\n"
+    )
+
+    with open(summary_path, "w", encoding="utf-8") as f:
+        f.write(md_content)
+
+    return summary_path
 
 
 if __name__ == "__main__":
