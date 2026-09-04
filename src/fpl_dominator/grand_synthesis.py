@@ -1,18 +1,112 @@
 import os
 import sys
-from typing import cast
+from typing import List, cast
 
 import numpy as np
 import pandas as pd
 import yaml
 
+TEAM_NAME_TO_TLA = {
+    "Arsenal": "ARS",
+    "Aston Villa": "AVL",
+    "Bournemouth": "BOU",
+    "Brentford": "BRE",
+    "Brighton": "BHA",
+    "Chelsea": "CHE",
+    "Coventry City": "COV",
+    "Crystal Palace": "CRY",
+    "Everton": "EVE",
+    "Fulham": "FUL",
+    "Hull City": "HUL",
+    "Ipswich Town": "IPS",
+    "Leeds": "LEE",
+    "Liverpool": "LIV",
+    "Man City": "MCI",
+    "Man Utd": "MUN",
+    "Newcastle": "NEW",
+    "Nott'm Forest": "NFO",
+    "Spurs": "TOT",
+    "Sunderland": "SUN",
+}
+
+
+def synthesize_omniscient_data(
+    players_df: pd.DataFrame,
+    fixtures_df: pd.DataFrame,
+    fixture_weights: List[float],
+) -> pd.DataFrame:
+    """Merges prophetic player database with temporally weighted fixture FDR.
+
+    Pure function operating entirely in memory.
+
+    Args:
+        players_df: Prophetic player DataFrame with 'Team', 'Position', 'PP', etc.
+        fixtures_df: Fixture difficulty DataFrame with 'Team', 'Gameweek',
+            'FDR_A', 'FDR_D'.
+        fixture_weights: Array of temporal weights for discounting future fixtures.
+
+    Returns:
+        Omniscient DataFrame containing Effective_FDR_Horizon_5GW and Projected_Score.
+
+    Raises:
+        ValueError: If unmapped team names are encountered.
+    """
+    p_df = players_df.copy()
+    f_df = fixtures_df.copy()
+
+    # 1. Prepare player team acronyms
+    p_df["Team_TLA"] = p_df["Team"].replace(TEAM_NAME_TO_TLA)
+
+    # Check for unmapped teams
+    mask = p_df["Team_TLA"].isnull()
+    if bool(mask.any()):
+        unmapped_teams = list(set(p_df[mask]["Team"].tolist()))
+        raise ValueError(
+            f"Could not map the following team names to an acronym: {unmapped_teams}"
+        )
+
+    # 2. Sort fixtures chronologically before applying weights
+    f_df["GW_Num"] = f_df["Gameweek"].str.extract(r"(\d+)").astype(int)
+    f_df = f_df.sort_values(by=["Team", "GW_Num"])
+
+    def weighted_fdr(series: pd.Series) -> float:
+        weights_slice = fixture_weights[: len(series)]
+        return float(np.average(series, weights=weights_slice))
+
+    fdr_horizon = (
+        f_df.groupby("Team")
+        .agg(
+            FDR_A_Horizon_5GW=("FDR_A", weighted_fdr),
+            FDR_D_Horizon_5GW=("FDR_D", weighted_fdr),
+        )
+        .reset_index()
+    )
+    fdr_horizon = fdr_horizon.rename(columns={"Team": "Team_TLA"})
+
+    # 3. Merge prophetic and temporal realities
+    omniscient_df = pd.merge(p_df, fdr_horizon, on="Team_TLA", how="left")
+
+    # 4. Positional bifurcation
+    omniscient_df["Effective_FDR_Horizon_5GW"] = np.where(
+        omniscient_df["Position"].isin(["GKP", "DEF"]),
+        omniscient_df["FDR_D_Horizon_5GW"],
+        omniscient_df["FDR_A_Horizon_5GW"],
+    )
+
+    # 5. Forge Projected Score
+    omniscient_df["Projected_Score"] = (
+        omniscient_df["PP"] / omniscient_df["Effective_FDR_Horizon_5GW"]
+    ).round(2)
+
+    return omniscient_df
+
 
 def perform_grand_synthesis(
     gameweek_dir: str, fixture_weights: list[float] | None = None
-):
-    """
-    Merges the Prophetic player database with the Temporal fixture database,
-    creating the ultimate Omniscient dataset for our final Chimera.
+) -> bool:
+    """Merges Prophetic and Temporal realities and persists the Omniscient DB.
+
+    Maintains full backwards compatibility with commander and CLI gauntlet.
     """
     print("--- [3/4] GRAND SYNTHESIS PROTOCOL ONLINE ---")
 
@@ -23,133 +117,58 @@ def perform_grand_synthesis(
                 f"!!! WARNING: 'fixture_weights' should have 5 values. "
                 f"Found {len(fixture_weights)}. Using equal weights."
             )
-            FIXTURE_WEIGHTS = [1.0, 1.0, 1.0, 1.0, 1.0]
+            weights = [1.0, 1.0, 1.0, 1.0, 1.0]
         else:
-            FIXTURE_WEIGHTS = fixture_weights
-        print(f"[+] Custom fixture weights provided: {FIXTURE_WEIGHTS}")
+            weights = fixture_weights
+        print(f"[+] Custom fixture weights provided: {weights}")
     else:
         try:
             with open("config.yaml", "r") as f:
                 config = yaml.safe_load(f)
 
             temporal_config = config.get("temporal_discounting", {})
-            FIXTURE_WEIGHTS = temporal_config.get(
-                "fixture_weights", [1.0, 1.0, 1.0, 1.0, 1.0]
-            )  # Fallback to mean
+            weights = temporal_config.get("fixture_weights", [1.0, 1.0, 1.0, 1.0, 1.0])
             print("[+] Master configuration for Temporal Discounting loaded.")
-            if len(FIXTURE_WEIGHTS) != 5:
+            if len(weights) != 5:
                 print(
                     f"!!! WARNING: 'fixture_weights' in config should have 5 values. "
-                    f"Found {len(FIXTURE_WEIGHTS)}. Using equal weights."
+                    f"Found {len(weights)}. Using equal weights."
                 )
-                FIXTURE_WEIGHTS = [1.0, 1.0, 1.0, 1.0, 1.0]
+                weights = [1.0, 1.0, 1.0, 1.0, 1.0]
 
         except (FileNotFoundError, yaml.YAMLError) as e:
             print(
                 f"!!! WARNING: Could not load or parse config.yaml: {e}. "
                 f"Using default fallbacks (equal weights)."
             )
-            FIXTURE_WEIGHTS = [1.0, 1.0, 1.0, 1.0, 1.0]
+            weights = [1.0, 1.0, 1.0, 1.0, 1.0]
 
-    # --- File Paths & Mappings ---
-    PROPHETIC_DB_PATH = f"{gameweek_dir}/fpl_master_database_prophetic.csv"
-    FIXTURE_DB_PATH = f"{gameweek_dir}/fixtures.csv"
-    OMNISCIENT_DB_PATH = f"{gameweek_dir}/fpl_master_database_OMNISCIENT.csv"
-    TEAM_NAME_TO_TLA = {
-        "Arsenal": "ARS",
-        "Aston Villa": "AVL",
-        "Bournemouth": "BOU",
-        "Brentford": "BRE",
-        "Brighton": "BHA",
-        "Chelsea": "CHE",
-        "Coventry City": "COV",
-        "Crystal Palace": "CRY",
-        "Everton": "EVE",
-        "Fulham": "FUL",
-        "Hull City": "HUL",
-        "Ipswich Town": "IPS",
-        "Leeds": "LEE",
-        "Liverpool": "LIV",
-        "Man City": "MCI",
-        "Man Utd": "MUN",
-        "Newcastle": "NEW",
-        "Nott'm Forest": "NFO",
-        "Spurs": "TOT",
-        "Sunderland": "SUN",
-    }
+    # --- File Paths ---
+    prophetic_db_path = f"{gameweek_dir}/fpl_master_database_prophetic.csv"
+    fixture_db_path = f"{gameweek_dir}/fixtures.csv"
+    omniscient_db_path = f"{gameweek_dir}/fpl_master_database_OMNISCIENT.csv"
 
-    # 1. Load the Sacred Artifacts
-    if not all(os.path.exists(p) for p in [PROPHETIC_DB_PATH, FIXTURE_DB_PATH]):
+    # 1. Load Artifacts
+    if not all(os.path.exists(p) for p in [prophetic_db_path, fixture_db_path]):
         print("!!! CRITICAL FAILURE: One or more source databases not found. Aborting.")
         return False
 
-    players_df = pd.read_csv(PROPHETIC_DB_PATH)
-    fixtures_df = pd.read_csv(FIXTURE_DB_PATH)
+    players_df = pd.read_csv(prophetic_db_path)
+    fixtures_df = pd.read_csv(fixture_db_path)
     print("[+] Both Prophetic and Fixture databases have been loaded.")
 
-    # 2. Prepare the Player Data
-    players_df["Team_TLA"] = players_df["Team"].replace(TEAM_NAME_TO_TLA)
+    try:
+        omniscient_df = synthesize_omniscient_data(players_df, fixtures_df, weights)
+    except ValueError as e:
+        print(f"!!! CRITICAL FAILURE: {e}")
+        return False
 
-    # Check for unmapped teams
-    mask = players_df["Team_TLA"].isnull()
-    if bool(mask.any()):
-        unmapped_teams = list(set(players_df[mask]["Team"].tolist()))
-        print(
-            f"!!! CRITICAL FAILURE: Could not map the following team names "
-            f"to an acronym: {unmapped_teams}."
-        )
-        print("!!! Please update the player CSVs and re-run.")
-        sys.exit(1)
-
-    print("[+] Player data prepared for temporal merging.")
-
-    # 3. Evolve the FDR Horizon Calculation (Temporal Lens)
-
-    # CRITICAL FIX: Ensure fixtures are sorted chronologically before applying weights.
-    fixtures_df["GW_Num"] = fixtures_df["Gameweek"].str.extract(r"(\d+)").astype(int)
-    # Using assignment instead of inplace for type safety
-    fixtures_df = fixtures_df.sort_values(by=["Team", "GW_Num"])
-    print(
-        "[+] Fixture data sorted chronologically to ensure correct temporal weighting."
-    )
-
-    def weighted_fdr(series):
-        return np.average(series, weights=FIXTURE_WEIGHTS[: len(series)])
-
-    print("[+] Calculating Temporally-Weighted FDR Horizons...")
-    fdr_horizon = (
-        fixtures_df.groupby("Team")
-        .agg(
-            FDR_A_Horizon_5GW=("FDR_A", weighted_fdr),
-            FDR_D_Horizon_5GW=("FDR_D", weighted_fdr),
-        )
-        .reset_index()
-    )
-    # Avoid inplace=True for better type checking
-    fdr_horizon = fdr_horizon.rename(columns={"Team": "Team_TLA"})
-    print("[+] Trinity FDR Horizons (Attack/Defence) calculated using Temporal Lens.")
-
-    # 4. The Grand Synthesis (The Merge)
-    omniscient_df = pd.merge(players_df, fdr_horizon, on="Team_TLA", how="left")
     print("[+] Prophetic and Temporal realities have been merged.")
-
-    # 5. Positional Bifurcation
-    omniscient_df["Effective_FDR_Horizon_5GW"] = np.where(
-        omniscient_df["Position"].isin(["GKP", "DEF"]),
-        omniscient_df["FDR_D_Horizon_5GW"],
-        omniscient_df["FDR_A_Horizon_5GW"],
-    )
     print("[+] 'Effective_FDR_Horizon_5GW' forged using positional bifurcation logic.")
-
-    # 6. Forge the Ultimate Metric: Projected Score
-    omniscient_df["Projected_Score"] = (
-        omniscient_df["PP"] / omniscient_df["Effective_FDR_Horizon_5GW"]
-    ).round(2)
     print("[+] Ultimate metric 'Projected_Score' has been forged using effective FDR.")
 
-    # 7. Verification
+    # 2. Verification / Top prospects display
     print("\n--- TOP 15 PROSPECTS (BY PROJECTED SCORE OVER NEXT 5GW) ---")
-
     top_prospects = omniscient_df.sort_values(
         by="Projected_Score", ascending=False
     ).head(15)
@@ -163,12 +182,12 @@ def perform_grand_synthesis(
     subset_df = cast(pd.DataFrame, top_prospects[cols_to_show])
     print(subset_df.to_string(index=False))
 
-    # 8. Save the Omniscient Database
+    # 3. Save the Omniscient Database
     try:
-        omniscient_df.to_csv(OMNISCIENT_DB_PATH, index=False)
+        omniscient_df.to_csv(omniscient_db_path, index=False)
         print(
             f"\n--- SUCCESS: THE OMNISCIENT Database has been forged "
-            f"at '{OMNISCIENT_DB_PATH}' ---"
+            f"at '{omniscient_db_path}' ---"
         )
         return True
     except Exception as e:
@@ -178,7 +197,6 @@ def perform_grand_synthesis(
         return False
 
 
-# --- Main Execution Block ---
 if __name__ == "__main__":
     if len(sys.argv) != 2:
         print(">>> ERROR: A gameweek directory must be provided.")

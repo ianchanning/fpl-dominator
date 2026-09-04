@@ -124,9 +124,9 @@ To avoid jumping off an architectural cliff, we decompose the grand vision into 
 ---
 
 ### Phase 2: Solver Decoupling & In-Memory Execution Harness
-- [ ] **Task 2.1: Refactor `grand_synthesis.py` for Parametric Injection**
-  - [ ] Extract core weighting logic from [grand_synthesis.py](file:///home/ian/Projects/fpl-dominator/src/fpl_dominator/grand_synthesis.py) into a pure function `synthesize_omniscient_data(players_df, fixtures_df, fixture_weights) -> pd.DataFrame`.
-  - [ ] Retain backwards compatibility for CLI and `run_the_gauntlet`.
+- [x] **Task 2.1: Refactor `grand_synthesis.py` for Parametric Injection**
+  - [x] Extract core weighting logic from [grand_synthesis.py](file:///home/ian/Projects/fpl-dominator/src/fpl_dominator/grand_synthesis.py) into a pure function `synthesize_omniscient_data(players_df, fixtures_df, fixture_weights) -> pd.DataFrame`.
+  - [x] Retain backwards compatibility for CLI and `run_the_gauntlet`.
 - [ ] **Task 2.2: Refactor `chimera_pyomo_v2.py` for In-Memory Solving**
   - [ ] Separate model construction and solver invocation from file disk I/O.
   - [ ] Implement `solve_chimera_squad(omniscient_df, set_pieces_path, solver_config) -> SquadSolution` returning structured dataclasses (`starting_xi`, `bench`, `total_score`, `total_cost`, `bank`).
