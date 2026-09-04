@@ -131,8 +131,8 @@ To avoid jumping off an architectural cliff, we decompose the grand vision into 
   - [x] Separate model construction and solver invocation from file disk I/O.
   - [x] Implement `solve_chimera_squad(omniscient_df, set_pieces_path, solver_config) -> SquadSolution` returning structured dataclasses (`starting_xi`, `bench`, `total_score`, `total_cost`, `bank`).
   - [x] Eliminate temporary disk collisions during multi-scenario runs.
-- [ ] **Task 2.3: Anti-Gambit Smoke Test**
-  - [ ] Verify that running 5 consecutive in-memory solves produces identical results to the disk-based baseline without state leakage or variable cross-talk.
+- [x] **Task 2.3: Anti-Gambit Smoke Test**
+  - [x] Verify that running 5 consecutive in-memory solves produces identical results to the disk-based baseline without state leakage or variable cross-talk.
 
 ---
 
