@@ -184,8 +184,8 @@ To avoid jumping off an architectural cliff, we decompose the grand vision into 
     bamf forge [gwX] --matrix --form-weights 0.5,0.7,0.9 --decay-rates 0.4,0.6,0.8
     ```
   - [x] Implement smart defaults (targets latest active GW directory automatically).
-- [ ] **Task 5.2: Terminal Formatting & Rainbow Integration**
-  - [ ] Style the output with ANSI color ramps reflecting player robustness (e.g., bright green for Immortals, cyan for Horizon-Dependents, magenta for Punts).
+- [x] **Task 5.2: Terminal Formatting & Rainbow Integration**
+  - [x] Style the output with ANSI color ramps reflecting player robustness (e.g., bright green for Immortals, cyan for Horizon-Dependents, magenta for Punts).
 
 ---
 

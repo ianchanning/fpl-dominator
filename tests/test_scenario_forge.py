@@ -10,6 +10,10 @@ import unittest
 import pandas as pd
 
 from fpl_dominator.scenario_forge import (
+    ANSI_BOLD_CYAN,
+    ANSI_BOLD_GREEN,
+    ANSI_BOLD_MAGENTA,
+    ANSI_RESET,
     PlayerScenarioStats,
     ScenarioDefinition,
     ScenarioRunReport,
@@ -25,6 +29,7 @@ from fpl_dominator.scenario_forge import (
     generate_gradient_scenarios,
     highlight_starting_alterations,
     run_scenario_matrix,
+    style_cell_badge,
 )
 
 
@@ -483,6 +488,41 @@ class TestScenarioForge(unittest.TestCase):
             content = f.read()
         self.assertIn("# Scenario Forge Analysis: GW3", content)
         self.assertIn("--- WEIGHT REGISTRY (SOURCE OF TRUTH) ---", content)
+
+    def test_terminal_ansi_colors_and_clean_plain_text(self):
+        if not os.path.exists("gw3/fpl_master_database_prophetic.csv"):
+            raise unittest.SkipTest("Missing gw3 test fixtures")
+
+        scenarios = [
+            create_scenario("flat", 1.0),
+            create_scenario("exponential", 0.6),
+            create_scenario("exponential", 0.2),
+        ]
+        report = run_scenario_matrix("gw3", scenarios=scenarios)
+
+        # 1. Test color=True output has ANSI escape codes and styled elements
+        color_out = report.to_terminal(color=True)
+        self.assertIn("\033[", color_out)
+        self.assertIn(ANSI_RESET, color_out)
+        self.assertIn(ANSI_BOLD_GREEN, color_out)
+        self.assertIn(ANSI_BOLD_CYAN, color_out)
+        self.assertIn(ANSI_BOLD_MAGENTA, color_out)
+
+        # 2. Test color=False output has zero ANSI escape codes
+        plain_out = report.to_terminal(color=False)
+        self.assertNotIn("\033[", plain_out)
+        self.assertNotIn(ANSI_RESET, plain_out)
+        self.assertIn("[*] THE IMMORTALS", plain_out)
+
+        # 3. Test badge styling helper
+        self.assertIn("\033[", style_cell_badge("[X]*", color=True))
+        self.assertIn("\033[", style_cell_badge("[X]", color=True))
+        self.assertIn("\033[", style_cell_badge("[b]", color=True))
+        self.assertIn("\033[", style_cell_badge(".", color=True))
+        self.assertEqual(style_cell_badge("[X]*", color=False), "[X]*")
+        self.assertEqual(style_cell_badge("[X]", color=False), "[X]")
+        self.assertEqual(style_cell_badge("[b]", color=False), "[b]")
+        self.assertEqual(style_cell_badge(".", color=False), ".")
 
 
 if __name__ == "__main__":

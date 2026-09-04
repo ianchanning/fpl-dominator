@@ -701,6 +701,12 @@ def parse_param_range(val, default_range):
     show_default=True,
     help="Filter unchanging bench players and highlight starting alterations.",
 )
+@click.option(
+    "--color/--no-color",
+    default=True,
+    show_default=True,
+    help="Enable ANSI rainbow color styling in terminal output.",
+)
 def forge(
     gameweek_dir,
     model,
@@ -710,6 +716,7 @@ def forge(
     decay_rates,
     form_weights,
     diff_first,
+    color,
 ):
     """Executes Scenario Forge and Temporal Gradient analysis (RFC-008 & RFC-009).
 
@@ -793,6 +800,7 @@ def forge(
         + report.to_terminal(
             suppress_static_bench=diff_first,
             highlight_divergence=True,
+            color=color,
         )
     )
 

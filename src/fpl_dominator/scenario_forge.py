@@ -21,6 +21,45 @@ from .temporal_decay import (
     interpolate_gradient,
 )
 
+# --- ANSI Terminal Styling & Color Ramps (RFC-008 & RFC-009) ---
+ANSI_RESET = "\033[0m"
+ANSI_BOLD = "\033[1m"
+ANSI_DIM = "\033[2m"
+ANSI_GREEN = "\033[92m"
+ANSI_BOLD_GREEN = "\033[1;92m"
+ANSI_CYAN = "\033[96m"
+ANSI_BOLD_CYAN = "\033[1;96m"
+ANSI_MAGENTA = "\033[95m"
+ANSI_BOLD_MAGENTA = "\033[1;95m"
+ANSI_YELLOW = "\033[93m"
+ANSI_BOLD_YELLOW = "\033[1;93m"
+ANSI_GRAY = "\033[90m"
+ANSI_WHITE = "\033[97m"
+ANSI_BOLD_WHITE = "\033[1;97m"
+
+CLASSIFICATION_ANSI: Dict[str, str] = {
+    "IMMORTAL": ANSI_BOLD_GREEN,
+    "HORIZON-DEPENDENT": ANSI_BOLD_CYAN,
+    "PURE PUNT": ANSI_BOLD_MAGENTA,
+    "FRINGE / VOLATILE": ANSI_BOLD_YELLOW,
+    "UNSELECTED": ANSI_GRAY,
+}
+
+
+def style_cell_badge(badge: str, color: bool = True) -> str:
+    """Applies ANSI terminal styling to scenario cell badges."""
+    if not color:
+        return badge
+    if badge.startswith("[X]*"):
+        return f"{ANSI_BOLD_YELLOW}{badge}{ANSI_RESET}"
+    if badge.startswith("[X]"):
+        return f"{ANSI_BOLD_GREEN}{badge}{ANSI_RESET}"
+    if badge == "[b]":
+        return f"{ANSI_CYAN}{badge}{ANSI_RESET}"
+    if badge == ".":
+        return f"{ANSI_GRAY}{badge}{ANSI_RESET}"
+    return badge
+
 
 @dataclass(frozen=True)
 class ScenarioDefinition:
@@ -470,6 +509,7 @@ class ScenarioRunReport:
         suppress_all_bench: bool = False,
         highlight_divergence: bool = True,
         divergence_marker: str = "*",
+        color: bool = True,
     ) -> str:
         """Formats the stability matrix and weight registry for terminal CLI output."""
         df = self.to_dataframe(
@@ -478,7 +518,7 @@ class ScenarioRunReport:
             highlight_divergence=highlight_divergence,
             divergence_marker=divergence_marker,
         )
-        table_ascii = format_ascii_matrix(df)
+        table_ascii = format_ascii_matrix(df, color=color)
 
         imm_str = ", ".join(self.immortals) if self.immortals else "None"
         hor_str = (
@@ -487,46 +527,97 @@ class ScenarioRunReport:
         punt_str = ", ".join(self.pure_punts) if self.pure_punts else "None"
         fringe_str = ", ".join(self.fringe) if self.fringe else "None"
 
-        lines = [
-            f"=== SCENARIO FORGE STABILITY MATRIX ({self.gameweek_dir.upper()}) ===",
-            (
+        gw_upper = self.gameweek_dir.upper()
+        if color:
+            title = (
+                f"{ANSI_BOLD_CYAN}=== SCENARIO FORGE STABILITY MATRIX "
+                f"({gw_upper}) ==={ANSI_RESET}"
+            )
+            eval_info = (
+                f"{ANSI_DIM}Scenarios Evaluated: "
+                f"{self.successful_solves}/{self.total_solves} successful{ANSI_RESET}"
+            )
+        else:
+            title = f"=== SCENARIO FORGE STABILITY MATRIX ({gw_upper}) ==="
+            eval_info = (
                 f"Scenarios Evaluated: "
                 f"{self.successful_solves}/{self.total_solves} successful"
-            ),
+            )
+
+        lines = [
+            title,
+            eval_info,
             "",
             table_ascii,
             "",
         ]
 
         if highlight_divergence:
-            lines.extend(
-                [
+            if color:
+                legend = (
+                    f"{ANSI_DIM}Legend: {ANSI_BOLD_GREEN}[X]{ANSI_RESET}{ANSI_DIM} "
+                    f"= Starter | "
+                    f"{ANSI_BOLD_YELLOW}[X]{divergence_marker}{ANSI_RESET}{ANSI_DIM} "
+                    f"= Alteration | "
+                    f"{ANSI_CYAN}[b]{ANSI_RESET}{ANSI_DIM} = Bench | "
+                    f"{ANSI_GRAY}.{ANSI_RESET}{ANSI_DIM} = Unselected{ANSI_RESET}"
+                )
+            else:
+                legend = (
                     f"Legend: [X] = Starter | [X]{divergence_marker} = Alteration | "
-                    f"[b] = Bench | . = Unselected",
-                    "",
-                ]
-            )
+                    f"[b] = Bench | . = Unselected"
+                )
+            lines.extend([legend, ""])
 
         if suppress_static_bench and self.static_bench_players:
             bench_str = ", ".join(self.static_bench_players)
-            lines.extend(
-                [
+            suppress_msg = (
+                f"{ANSI_DIM}Diff-First: Filtered {len(self.static_bench_players)} "
+                f"static bench players ({bench_str}).{ANSI_RESET}"
+                if color
+                else (
                     f"Diff-First: Filtered {len(self.static_bench_players)} "
-                    f"static bench players ({bench_str}).",
-                    "",
-                ]
+                    f"static bench players ({bench_str})."
+                )
             )
+            lines.extend([suppress_msg, ""])
+
+        sep = f"{ANSI_GRAY}{'=' * 78}{ANSI_RESET}" if color else "=" * 78
+        imm_line = (
+            f"{ANSI_BOLD_GREEN}[*] THE IMMORTALS ({len(self.immortals)} Locks): "
+            f"{imm_str}{ANSI_RESET}"
+            if color
+            else f"[*] THE IMMORTALS ({len(self.immortals)} Locks): {imm_str}"
+        )
+        hor_line = (
+            f"{ANSI_BOLD_CYAN}[*] HORIZON-DEPENDENTS "
+            f"({len(self.horizon_dependents)}): {hor_str}{ANSI_RESET}"
+            if color
+            else f"[*] HORIZON-DEPENDENTS ({len(self.horizon_dependents)}): {hor_str}"
+        )
+        punt_line = (
+            f"{ANSI_BOLD_MAGENTA}[*] PURE PUNTS ({len(self.pure_punts)}): "
+            f"{punt_str}{ANSI_RESET}"
+            if color
+            else f"[*] PURE PUNTS ({len(self.pure_punts)}): {punt_str}"
+        )
+        fringe_line = (
+            f"{ANSI_BOLD_YELLOW}[*] FRINGE / VOLATILE ({len(self.fringe)}): "
+            f"{fringe_str}{ANSI_RESET}"
+            if color
+            else f"[*] FRINGE / VOLATILE ({len(self.fringe)}): {fringe_str}"
+        )
 
         lines.extend(
             [
-                "=" * 78,
-                f"[*] THE IMMORTALS ({len(self.immortals)} Locks): {imm_str}",
-                f"[*] HORIZON-DEPENDENTS ({len(self.horizon_dependents)}): {hor_str}",
-                f"[*] PURE PUNTS ({len(self.pure_punts)}): {punt_str}",
-                f"[*] FRINGE / VOLATILE ({len(self.fringe)}): {fringe_str}",
-                "=" * 78,
+                sep,
+                imm_line,
+                hor_line,
+                punt_line,
+                fringe_line,
+                sep,
                 "",
-                format_weight_registry(self.scenarios),
+                format_weight_registry(self.scenarios, color=color),
             ]
         )
         return "\n".join(lines)
@@ -557,20 +648,31 @@ class ScenarioRunReport:
         return target_path
 
 
-def format_weight_registry(scenarios: Sequence[ScenarioDefinition]) -> str:
+def format_weight_registry(
+    scenarios: Sequence[ScenarioDefinition], color: bool = False
+) -> str:
     """Builds the Weight Registry Footer (Source of Truth) for terminal and markdown."""
-    lines = [
-        "--- WEIGHT REGISTRY (SOURCE OF TRUTH) ---",
-    ]
+    header = (
+        f"{ANSI_BOLD_YELLOW}--- WEIGHT REGISTRY (SOURCE OF TRUTH) ---{ANSI_RESET}"
+        if color
+        else "--- WEIGHT REGISTRY (SOURCE OF TRUTH) ---"
+    )
+    lines = [header]
     max_name_len = max((len(s.name) for s in scenarios), default=8)
     for sc in scenarios:
         weights_str = ", ".join(f"{w:.2f}" for w in sc.weights)
-        lines.append(f"{sc.name:<{max_name_len}}  -> [{weights_str}]")
+        if color:
+            name_part = f"{ANSI_BOLD_CYAN}{sc.name:<{max_name_len}}{ANSI_RESET}"
+            arrow_part = f"{ANSI_GRAY}->{ANSI_RESET}"
+            weights_part = f"{ANSI_BOLD_GREEN}[{weights_str}]{ANSI_RESET}"
+            lines.append(f"{name_part}  {arrow_part} {weights_part}")
+        else:
+            lines.append(f"{sc.name:<{max_name_len}}  -> [{weights_str}]")
     return "\n".join(lines)
 
 
-def format_ascii_matrix(df: pd.DataFrame) -> str:
-    """Formats a DataFrame into a clean, aligned plain-text ASCII table."""
+def format_ascii_matrix(df: pd.DataFrame, color: bool = False) -> str:
+    """Formats a DataFrame into a clean, aligned plain-text or ANSI-colored table."""
     if df.empty:
         return "No players to display."
 
@@ -582,13 +684,59 @@ def format_ascii_matrix(df: pd.DataFrame) -> str:
             if len(val_str) > col_widths[col]:
                 col_widths[col] = len(val_str)
 
-    header_line = "  ".join(f"{col:<{col_widths[col]}}" for col in columns)
-    sep_line = "  ".join("-" * col_widths[col] for col in columns)
+    if color:
+        header_line = "  ".join(
+            f"{ANSI_BOLD_WHITE}{col:<{col_widths[col]}}{ANSI_RESET}" for col in columns
+        )
+        sep_line = "  ".join(
+            f"{ANSI_GRAY}{'-' * col_widths[col]}{ANSI_RESET}" for col in columns
+        )
+    else:
+        header_line = "  ".join(f"{col:<{col_widths[col]}}" for col in columns)
+        sep_line = "  ".join("-" * col_widths[col] for col in columns)
+
     lines = [header_line, sep_line]
 
     for _, row in df.iterrows():
-        row_str = "  ".join(f"{str(row[col]):<{col_widths[col]}}" for col in columns)
-        lines.append(row_str)
+        classification = str(row.get("Classification", ""))
+        class_style = CLASSIFICATION_ANSI.get(classification, ANSI_WHITE)
+
+        row_cells = []
+        for col in columns:
+            raw_val = str(row[col])
+            padding = " " * (col_widths[col] - len(raw_val))
+            if not color:
+                row_cells.append(f"{raw_val}{padding}")
+                continue
+
+            if col in ("Surname", "Classification"):
+                row_cells.append(f"{class_style}{raw_val}{ANSI_RESET}{padding}")
+            elif col == "Robustness":
+                try:
+                    pct_val = int(raw_val.rstrip("%"))
+                except ValueError:
+                    pct_val = 0
+                if pct_val == 100:
+                    rob_style = ANSI_BOLD_GREEN
+                elif pct_val >= 60:
+                    rob_style = ANSI_BOLD_CYAN
+                elif pct_val >= 30:
+                    rob_style = ANSI_BOLD_MAGENTA
+                elif pct_val > 0:
+                    rob_style = ANSI_BOLD_YELLOW
+                else:
+                    rob_style = ANSI_GRAY
+                row_cells.append(f"{rob_style}{raw_val}{ANSI_RESET}{padding}")
+            elif col in ("Position", "Team", "Price"):
+                if classification == "UNSELECTED":
+                    row_cells.append(f"{ANSI_GRAY}{raw_val}{ANSI_RESET}{padding}")
+                else:
+                    row_cells.append(f"{raw_val}{padding}")
+            else:
+                styled_badge = style_cell_badge(raw_val, color=True)
+                row_cells.append(f"{styled_badge}{padding}")
+
+        lines.append("  ".join(row_cells))
 
     return "\n".join(lines)
 
