@@ -190,8 +190,9 @@ def calculate_retrospective_form(
 
         # Fallback if player not in historical snapshots (e.g. GW1 or new addition)
         if not player_deltas and target_gws:
-            raw_tp = float(row.get("TP", 0.0))
-            avg_per_gw = raw_tp / max(1, len(target_gws))
+            raw_tp = float(row.get("Raw_TP", row.get("TP", 0.0)))
+            games_played = max(1, current_gw - 1)
+            avg_per_gw = raw_tp / games_played
             player_deltas = {gw: avg_per_gw for gw in target_gws}
 
         total_raw_points = 0.0
