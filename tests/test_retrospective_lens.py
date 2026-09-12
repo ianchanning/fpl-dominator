@@ -742,7 +742,14 @@ class TestRetrospectiveLensVaultIntegration(unittest.TestCase):
         self.assertEqual(haaland_deltas.get(3), 13.0)
 
     def test_calculate_retrospective_form_gw4_prophetic_sanity(self):
-        """Verify calculate_retrospective_form runs on gw4 without anomalous blowups."""
+        """Verify calculate_retrospective_form runs on gw4 without anomalous blowups.
+
+        Replaces brittle single-player name checks with population-wide invariants:
+        1. Universal sanity bounds (no player exceeds maximum realistic 2-week form).
+        2. Strict non-negativity across all metrics.
+        3. Systematic verification of the fallback invariant across the entire
+           cohort of un-snapshotted players.
+        """
         if not os.path.exists("gw4/fpl_master_database_prophetic.csv"):
             raise unittest.SkipTest("Missing gw4 prophetic database")
 
@@ -751,28 +758,49 @@ class TestRetrospectiveLensVaultIntegration(unittest.TestCase):
         self.assertIn("Adjusted_Form", df_pro.columns)
         self.assertIn("Form_Efficiency", df_pro.columns)
 
-        # No NaNs or infinities
+        # 1. No NaNs or infinities
         self.assertFalse(df_pro["Raw_Form"].isna().any())
         self.assertFalse(df_pro["Adjusted_Form"].isna().any())
         self.assertFalse(df_pro["Form_Efficiency"].isna().any())
 
-        # Mitchell sanity check (must NOT be 220.44!)
-        mitchell = df_pro[df_pro["Surname"] == "Mitchell"]
-        if not mitchell.empty:
-            mitchell_adj_form = float(mitchell.iloc[0]["Adjusted_Form"])
-            self.assertLess(
-                mitchell_adj_form,
-                30.0,
-                f"Mitchell Adjusted_Form exploded to {mitchell_adj_form}!",
-            )
-            self.assertGreater(mitchell_adj_form, 0.0)
+        # 2. Universal population bounds (in 2 GWs, form cannot exceed 40).
+        # Prevents any 38-game annualized prior leakage (>200) across the dataset.
+        self.assertLess(
+            float(df_pro["Adjusted_Form"].max()),
+            40.0,
+            f"Population max Adjusted_Form exploded: {df_pro['Adjusted_Form'].max()}",
+        )
+        self.assertGreaterEqual(float(df_pro["Adjusted_Form"].min()), 0.0)
+        self.assertGreaterEqual(float(df_pro["Raw_Form"].min()), 0.0)
+        self.assertGreaterEqual(float(df_pro["Form_Efficiency"].min()), 0.0)
 
-        # Calafiori sanity check
-        calafiori = df_pro[df_pro["Surname"] == "Calafiori"]
-        if not calafiori.empty:
-            calafiori_adj_form = float(calafiori.iloc[0]["Adjusted_Form"])
-            self.assertLess(calafiori_adj_form, 30.0)
-            self.assertGreater(calafiori_adj_form, 0.0)
+        # 3. Systematic fallback cohort invariant:
+        # For ALL players missing from historical snapshots, Raw_Form must strictly
+        # obey the formula: (Raw_TP / games_played) * lookback_weeks
+        points_map = extract_historical_player_points(current_gw=4, lookback_weeks=2)
+        games_played = 4 - 1
+        lookback_weeks = 2
+
+        fallback_count = 0
+        for _, row in df_pro.iterrows():
+            key = (str(row["Surname"]).strip(), str(row.get("Team", "")).strip())
+            if key not in points_map or not points_map[key]:
+                raw_tp = float(row.get("Raw_TP", row["TP"]))
+                expected_raw = round((raw_tp / games_played) * lookback_weeks, 2)
+                actual_raw = float(row["Raw_Form"])
+                self.assertAlmostEqual(
+                    actual_raw,
+                    expected_raw,
+                    places=1,
+                    msg=(
+                        f"Fallback invariant violated for {key}: "
+                        f"{actual_raw} != {expected_raw}"
+                    ),
+                )
+                fallback_count += 1
+
+        # Ensure that the fallback cohort actually exists and was verified (>0 players)
+        self.assertGreater(fallback_count, 0)
 
 
 if __name__ == "__main__":
