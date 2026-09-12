@@ -151,9 +151,16 @@ def solve_chimera_squad(
     if "SPP" not in df.columns:
         df = enrich_with_set_pieces(df, set_pieces_path, spp_scores)
 
+    # Form Metric Selection (RFC-011 Retrospective Lens)
+    form_model = str(solver_config.get("form_model", "retrospective")).lower()
+    if form_model == "retrospective" and "Adjusted_Form" in df.columns:
+        form_metric = df["Adjusted_Form"]
+    else:
+        form_metric = df["Form_Factor"]
+
     # Compute Final_Score
     df["Final_Score"] = (
-        df["PP"] + df["SPP"] + (df["Form_Factor"] * form_factor_weight)
+        df["PP"] + df["SPP"] + (form_metric * form_factor_weight)
     ) / df["Effective_FDR_Horizon_5GW"]
 
     # --- 1. Pyomo Model Construction ---

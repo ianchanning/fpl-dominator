@@ -21,6 +21,7 @@ from .process_set_pieces_html import (
 )
 from .scenario_forge import (
     generate_cartesian_matrix,
+    generate_form_comparison_matrix,
     generate_gradient_matrix,
     run_scenario_matrix,
 )
@@ -696,6 +697,12 @@ def parse_param_range(val, default_range):
     help="Comma-separated form factor weights for Cartesian exploration.",
 )
 @click.option(
+    "--compare-form",
+    is_flag=True,
+    default=False,
+    help="Compare raw form vs retrospective form to detect Form Frauds (RFC-011).",
+)
+@click.option(
     "--diff-first/--full",
     default=True,
     show_default=True,
@@ -715,6 +722,7 @@ def forge(
     matrix,
     decay_rates,
     form_weights,
+    compare_form,
     diff_first,
     color,
 ):
@@ -747,7 +755,19 @@ def forge(
 
     clean_model = model.strip().lower()
 
-    if matrix:
+    if compare_form:
+        click.secho(
+            "[*] Executing RFC-011 Retrospective Lens Comparison: "
+            "RAW_FORM vs RETRO_LENS...",
+            fg="yellow",
+        )
+        scenarios = generate_form_comparison_matrix(
+            decay_rate=0.6,
+            form_factor_weight=None,
+            model_type=clean_model,
+            horizon=5,
+        )
+    elif matrix:
         rates = parse_float_list(decay_rates, default=[0.4, 0.6, 0.8])
         f_weights = parse_float_list(form_weights, default=[0.5, 0.7, 0.9])
         click.secho(

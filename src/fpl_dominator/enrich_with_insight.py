@@ -7,6 +7,8 @@ from typing import Any, Dict, cast
 import pandas as pd
 import yaml
 
+from fpl_dominator.retrospective_lens import calculate_retrospective_form
+
 POSITION_PPM_BENCHMARKS = {
     "GKP": 24.0,  # e.g., £4.5m -> ~108 pts
     "DEF": 22.0,  # e.g., £4.5m -> ~99 pts, £6.0m -> ~132 pts
@@ -214,34 +216,29 @@ def enrich_with_insight(gameweek_dir: str):
     current_gw_match = re.search(r"\d+", gameweek_dir)
     current_gw = int(current_gw_match.group()) if current_gw_match else 1
 
+    # Preserve raw in-season Total Points before Bayesian baseline synthesis
+    players["Raw_TP"] = players["TP"].copy()
+
     # === BAYESIAN PRIOR & FORM SYNTHESIS ===
     players = inject_bayesian_prior_baseline(players, current_gw)
 
-    # If GW >= 6, calculate rolling Form Factor from past GWs
-    if current_gw >= 6:
-        past_gw = current_gw - FORM_LOOKBACK
-        if past_gw > 0:
-            past_db_path = f"gw{past_gw}/fpl_master_database_enriched.csv"
-            if os.path.exists(past_db_path):
-                df_past = pd.read_csv(past_db_path)
-                players = pd.merge(
-                    players,
-                    df_past[["Surname", "Team", "TP"]],
-                    on=["Surname", "Team"],
-                    how="left",
-                    suffixes=("", "_past"),
-                )
-                players["TP_past"] = players["TP_past"].fillna(0)
-                players["Form_Factor"] = players["TP"] - players["TP_past"]
-                players.drop(columns=["TP_past"], inplace=True)
-                print(
-                    f"    - Form Factor calculated based on performance "
-                    f"since GW{past_gw}."
-                )
-            else:
-                players["Form_Factor"] = players["TP"]
-        else:
-            players["Form_Factor"] = players["TP"]
+    # === RETROSPECTIVE LENS & FORM SYNTHESIS (RFC-011) ===
+    if current_gw > 1:
+        form_df = calculate_retrospective_form(
+            players, current_gw, lookback_weeks=FORM_LOOKBACK
+        )
+        players["Raw_Form"] = form_df["Raw_Form"]
+        players["Adjusted_Form"] = form_df["Adjusted_Form"]
+        players["Form_Efficiency"] = form_df["Form_Efficiency"]
+        players["Form_Factor"] = form_df["Raw_Form"]
+        print(
+            f"    - Retrospective Lens applied over {FORM_LOOKBACK}-week lookback. "
+            f"Forged 'Adjusted_Form' and 'Form_Efficiency'."
+        )
+    else:
+        players["Raw_Form"] = players["Form_Factor"]
+        players["Adjusted_Form"] = players["Form_Factor"]
+        players["Form_Efficiency"] = 1.0
 
     # 1. Initialize all players as Mortals (Coef 1.0)
     players["Captaincy_Coef"] = 1.0
@@ -306,6 +303,8 @@ def enrich_with_insight(gameweek_dir: str):
                 "Team",
                 "TP",
                 "Form_Factor",
+                "Adjusted_Form",
+                "Form_Efficiency",
                 "Captaincy_Coef",
                 "PP",
             ]

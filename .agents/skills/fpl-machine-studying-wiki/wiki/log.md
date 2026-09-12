@@ -66,6 +66,15 @@ This file is an append-only timeline of all knowledge base updates, source inges
 - Empirically proved on active GW3 data that Bruno Fernandes (£12.0m, $R=100\%$) is an unconditional Immortal lock, whereas Erling Haaland (£15.5m, $R=60\%$) is a short-horizon Pure Punt.
 - Synthesized Living Grimoire nodes `wiki/concepts/The-Scenario-Forge.md` and `wiki/concepts/Temporal-Gradients-and-Survival-Curves.md`, and updated `wiki/index.md`.
 
+## [2026-09-12] feature | The Retrospective Lens & Form Fraud Detection (RFC-011)
+- Implemented `src/fpl_dominator/retrospective_lens.py` providing pure extraction of historical fixture difficulties (`FDR_A` for attackers, `FDR_D` for defenders) and per-gameweek delta points from historical vaults.
+- Fixed critical latent gremlin in `enrich_with_insight.py` that previously subtracted historical raw points from 38-game Bayesian annualized points; preserved `Raw_TP` defensively.
+- Forged `Adjusted_Form` ($\sum \Delta \text{Pts} \times \frac{\text{FDR}_{\text{past}}}{1000.0}$) and `Form_Efficiency` ($\frac{\text{Actual}}{\text{Expected}}$) across all player intelligence databases.
+- Parameterized `form_model` ('retrospective' vs 'raw') in `chimera_pyomo_v2.py` and `config.yaml`.
+- Integrated `--compare-form` into `scenario_forge.py` and `bamf forge`, automated classification of **Form Frauds** and **Sleepers**.
+- Empirically proved on active GW4 data: Ajayi (£4.1m, Hull City) unmasked as a **Form Fraud** (50% robustness, dropped under retrospective lens), while Van Hecke (£4.9m, Spurs) elevated as a **Sleeper** (promoted to Starting XI under retrospective lens).
+- Synthesized Living Grimoire node `wiki/concepts/The-Retrospective-Lens-and-Contextual-Form.md` and updated `wiki/index.md`.
+
 
 
 

@@ -79,6 +79,7 @@ class ScenarioDefinition:
     param_value: float
     weights: list[float]
     form_factor_weight: float | None = None
+    form_model: str = "retrospective"
 
     def __post_init__(self) -> None:
         """Validates scenario integrity and mathematical invariants."""
@@ -138,6 +139,7 @@ def create_scenario(
     param_value: float,
     horizon: int = 5,
     form_factor_weight: float | None = None,
+    form_model: str = "retrospective",
     name: str | None = None,
 ) -> ScenarioDefinition:
     """Factory helper to construct a validated ScenarioDefinition.
@@ -149,6 +151,7 @@ def create_scenario(
         param_value: Parameter value for the model.
         horizon: Temporal fixture horizon length (default: 5).
         form_factor_weight: Optional form factor weight modifier.
+        form_model: Form calculation model ('retrospective' or 'raw').
         name: Optional explicit scenario name.
 
     Returns:
@@ -165,7 +168,49 @@ def create_scenario(
         param_value=param_value,
         weights=weights,
         form_factor_weight=form_factor_weight,
+        form_model=form_model,
     )
+
+
+def generate_form_comparison_matrix(
+    decay_rate: float = 0.6,
+    form_factor_weight: float | None = None,
+    model_type: str = "exponential",
+    horizon: int = 5,
+) -> list[ScenarioDefinition]:
+    """Generates binary scenario matrix comparing raw form vs retrospective form.
+
+    Conforms to RFC-011 Section 4.3 for Form Fraud and Sleeper detection.
+
+    Args:
+        decay_rate: Fixture temporal decay rate.
+        form_factor_weight: Optional form factor weight.
+        model_type: Decay model archetype.
+        horizon: Fixture horizon length.
+
+    Returns:
+        List of 2 ScenarioDefinitions: [RAW_FORM, RETRO_LENS].
+    """
+    clean_model = model_type.strip().lower()
+    weights = compute_scenario_weights(clean_model, decay_rate, horizon=horizon)
+    return [
+        ScenarioDefinition(
+            name="RAW_FORM",
+            model_type=clean_model,
+            param_value=decay_rate,
+            weights=weights,
+            form_factor_weight=form_factor_weight,
+            form_model="raw",
+        ),
+        ScenarioDefinition(
+            name="RETRO_LENS",
+            model_type=clean_model,
+            param_value=decay_rate,
+            weights=weights,
+            form_factor_weight=form_factor_weight,
+            form_model="retrospective",
+        ),
+    ]
 
 
 def generate_cartesian_matrix(
@@ -775,6 +820,17 @@ def classify_survival_curve(
     selections = len(starter_scenarios)
     robustness = round(selections / total, 4)
 
+    # Check if this is a binary Form Fraud comparison matrix (RFC-011)
+    scenario_names = {s.name for s in all_scenarios}
+    if {"RAW_FORM", "RETRO_LENS"}.issubset(scenario_names) and len(all_scenarios) == 2:
+        if "RAW_FORM" in starter_scenarios and "RETRO_LENS" not in starter_scenarios:
+            return "FORM FRAUD", robustness
+        if "RAW_FORM" not in starter_scenarios and "RETRO_LENS" in starter_scenarios:
+            return "SLEEPER", robustness
+        if "RAW_FORM" in starter_scenarios and "RETRO_LENS" in starter_scenarios:
+            return "ROBUST", robustness
+        return "UNSELECTED", 0.0
+
     if selections == 0:
         return "UNSELECTED", 0.0
 
@@ -872,6 +928,8 @@ def run_scenario_matrix(
         solver_cfg = dict(base_solver_config)
         if sc.form_factor_weight is not None:
             solver_cfg["form_factor_weight"] = sc.form_factor_weight
+        if getattr(sc, "form_model", None) is not None:
+            solver_cfg["form_model"] = sc.form_model
 
         sol = solve_chimera_squad(
             omniscient_df=omniscient_df,
@@ -1000,6 +1058,7 @@ __all__ = [
     "format_dataframe_to_markdown",
     "format_weight_registry",
     "generate_cartesian_matrix",
+    "generate_form_comparison_matrix",
     "generate_gradient_matrix",
     "generate_gradient_scenarios",
     "highlight_starting_alterations",
