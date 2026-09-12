@@ -8,24 +8,19 @@
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | Tzolakis | GKP | Hull City | 4.6 | [X] | [X] | 100% | ROBUST |
 | Tarkowski | DEF | Everton | 6.0 | [X] | [X] | 100% | ROBUST |
-| Mitchell | DEF | Crystal Palace | 4.5 | [X] | [X] | 100% | ROBUST |
-| Van Hecke | DEF | Spurs | 4.9 | . | [X]* | 50% | SLEEPER |
-| Ajayi | DEF | Hull City | 4.1 | [X]* | . | 50% | FORM FRAUD |
-| Thomas | DEF | Coventry City | 4.0 | [b] | . | 0% | UNSELECTED |
-| Giles | DEF | Hull City | 4.0 | . | [b] | 0% | UNSELECTED |
+| Calafiori | DEF | Arsenal | 5.7 | [X] | [X] | 100% | ROBUST |
+| Ajayi | DEF | Hull City | 4.1 | [X] | [X] | 100% | ROBUST |
 | B.Fernandes | MID | Man Utd | 12.0 | [X] | [X] | 100% | ROBUST |
 | Saka | MID | Arsenal | 9.5 | [X] | [X] | 100% | ROBUST |
-| Barnes | MID | Newcastle | 6.0 | [X] | [X] | 100% | ROBUST |
-| Ndiaye | MID | Man City | 5.9 | [X] | [X] | 100% | ROBUST |
-| Damsgaard | MID | Brentford | 5.5 | [X] | [X] | 100% | ROBUST |
+| Gakpo | MID | Liverpool | 7.2 | [X] | [X] | 100% | ROBUST |
+| Lewis-Potter | MID | Brentford | 5.5 | [X] | [X] | 100% | ROBUST |
+| Janelt | MID | Brentford | 5.0 | [X] | [X] | 100% | ROBUST |
 | Haaland | FWD | Man City | 15.5 | [X] | [X] | 100% | ROBUST |
 | João Pedro | FWD | Chelsea | 7.7 | [X] | [X] | 100% | ROBUST |
-| Danns | FWD | Liverpool | 4.5 | [b] | . | 0% | UNSELECTED |
-| Mateo Joseph | FWD | Leeds | 4.5 | . | [b] | 0% | UNSELECTED |
 
 *Legend:* `[X]` = Unanimous Starter | `[X]*` = Starting Alteration | `[b]` = Bench | `.` = Unselected
 
-*Diff-First Noise Suppression:* Filtered 2 static bench players (Mendy, Steele).
+*Diff-First Noise Suppression:* Filtered 4 static bench players (Mendy, Obi, Steele, Thomas).
 
 ## Strategic Asset Classification
 
