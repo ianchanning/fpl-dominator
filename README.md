@@ -197,6 +197,59 @@ bamf finalize gw4
 
 ---
 
+## TESTING & DEFENSIVE INVARIANTS (DAN LUU METHODOLOGY)
+
+To guarantee the mathematical integrity of the Chimera optimization core and eradicate regression gremlins (such as Bayesian annualized prior leakage during snapshot fallbacks), the codebase enforces a rigorous testing regimen inspired by **Dan Luu's Testing Heuristics** and structured around **Polya's Problem-Solving Engine**:
+
+```mermaid
+flowchart TD
+    subgraph Step1["1. Understanding Failure Surfaces"]
+        A["Annualized TP vs Raw_TP"]
+        B["Cold-Start GW1 Boundary"]
+        C["Lookback Asymmetry (GW2 vs Lookback 5)"]
+        D["Positional FDR Bifurcation (DEF: FDR_D vs MID: FDR_A)"]
+        E["Negative Delta Stat Adjustments"]
+    end
+
+    subgraph Step2["2. Independent Re-Derivation (Oracle)"]
+        F["Zero Helper Imports"]
+        G["Pure RFC-011 Formulae Re-implementation"]
+        H["Bit-for-Bit Mathematical Parity Check"]
+    end
+
+    subgraph Step3["3. Structured Random Property Testing"]
+        I["100 Structured Synthetic Profiles"]
+        J["Parity Identity: FDR == 1000 => Form == Raw"]
+        K["Monotonic Scaling: FDR > 1000 => Form > Raw"]
+        L["Strict Non-Negativity & Failsafe Clamping"]
+    end
+
+    subgraph Step4["4. Real Vault Integration"]
+        M["GW1-GW4 Real Filesystem Ingestion"]
+        N["Haaland Haul Verification (GW2: 2, GW3: 13)"]
+        O["Mitchell & Calafiori Sanity Verification"]
+    end
+
+    Step1 --> Step2 --> Step3 --> Step4
+```
+
+### Running the Test Battery
+
+All tests are orchestrated via Python's standard `unittest` suite executed through `uv`:
+
+```bash
+# Execute entire test crucible (Chimera, Scenario Forge, Temporal Decay, Retrospective Lens)
+uv run python -m unittest discover tests
+
+# Execute targeted Dan Luu test suite for Retrospective Lens (RFC-011)
+uv run python -m unittest -v tests.test_retrospective_lens
+
+# Enforce strict code formatting and linter quality gates
+uv run ruff check . && uv run ruff format --check .
+```
+
+---
+
 ## THE ARSENAL: FILE MANIFEST
 
 All core package sources reside within `src/fpl_dominator/`:
@@ -213,6 +266,13 @@ All core package sources reside within `src/fpl_dominator/`:
 - `src/fpl_dominator/process_fixtures_html.py`: HTML fixture ticker decoder converting RGB styles to FDR metrics.
 - `src/fpl_dominator/update_prices.py`: Bank balance and selling profit tax reconciliation.
 - `src/fpl_dominator/wildcard_evaluator.py`: Squad divergence analysis for optimal chip timing.
+
+**Test Battery & Invariant Fortresses:**
+
+- `tests/test_retrospective_lens.py`: Dan Luu-style edge cases, independent oracle, property invariants, and vault integration (RFC-011).
+- `tests/test_scenario_forge.py`: Multi-scenario Cartesian and gradient matrix testing (RFC-008, RFC-009).
+- `tests/test_temporal_decay.py`: Functional decay weighting algorithms and mathematical clamping tests.
+- `tests/test_in_memory_solver.py`: 5-run anti-gambit solver memory isolation and parity checks.
 
 ---
 
