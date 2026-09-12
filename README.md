@@ -203,7 +203,7 @@ To guarantee the mathematical integrity of the Chimera optimization core and era
 
 ```mermaid
 flowchart TD
-    subgraph Step1["1. Understanding Failure Surfaces"]
+    subgraph Step1["1\. Understanding Failure Surfaces"]
         A["Annualized TP vs Raw_TP"]
         B["Cold-Start GW1 Boundary"]
         C["Lookback Asymmetry (GW2 vs Lookback 5)"]
@@ -211,20 +211,20 @@ flowchart TD
         E["Negative Delta Stat Adjustments"]
     end
 
-    subgraph Step2["2. Independent Re-Derivation (Oracle)"]
+    subgraph Step2["2\. Independent Re-Derivation (Oracle)"]
         F["Zero Helper Imports"]
         G["Pure RFC-011 Formulae Re-implementation"]
         H["Bit-for-Bit Mathematical Parity Check"]
     end
 
-    subgraph Step3["3. Structured Random Property Testing"]
+    subgraph Step3["3\. Structured Random Property Testing"]
         I["100 Structured Synthetic Profiles"]
         J["Parity Identity: FDR == 1000 => Form == Raw"]
         K["Monotonic Scaling: FDR > 1000 => Form > Raw"]
         L["Strict Non-Negativity & Failsafe Clamping"]
     end
 
-    subgraph Step4["4. Real Vault Integration"]
+    subgraph Step4["4\. Real Vault Integration"]
         M["GW1-GW4 Real Filesystem Ingestion"]
         N["Haaland Haul Verification (GW2: 2, GW3: 13)"]
         O["Mitchell & Calafiori Sanity Verification"]
