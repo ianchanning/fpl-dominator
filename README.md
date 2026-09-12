@@ -1,4 +1,4 @@
-# PROJECT: BAMF DOMINATOR - OPERATIONAL GRIMOIRE (v5.2)
+# PROJECT: BAMF DOMINATOR - OPERATIONAL GRIMOIRE (v6.0)
 
 ![](bamf_rainbow.svg)
 
@@ -60,22 +60,39 @@ export PYTHON_GIL=0
 
 ## THE COMMAND DECK (`bamf` CLI)
 
-All operations are now channeled through our master command-line interface, `bamf`.
+All operations are channeled through our master command-line interface, `bamf`.
 
-**Available Commands:**
+**Core Lifecycle & Ritual Commands:**
 
-- `init`: Creates a new, clean gameweek vault.
-- `archive-season <tag>`: Archives completed season vaults into `archive/<tag>/`.
-- `rip <target>`: Rips clipboard content directly into the **latest** vault (Targets: `fix`, `gkp`, `def`, `mid`, `fwd`, `squad`, etc.).
-- `finalize`: Executes the **full** end-to-end processing ritual (HTML -> CSV -> Audit -> Solver).
-- `run-gauntlet`: Executes the core data-to-squad pipeline.
-- `audit`: A group of commands to inspect data integrity (`teams`, `players`).
+- `init <gwX>`: Creates a new, clean gameweek vault.
+- `rip <target>`: Rips clipboard content directly into the **latest** vault (`fix`, `fix-a`, `fix-d`, `gkp`, `def`, `def2`, `mid`, `mid2`, `fwd`, `fwd2`, `squad`).
+- `finalize [gwX]`: Executes the **full** end-to-end processing ritual (HTML -> CSV -> Audit -> Retrospective Lens -> MILP Solver).
+- `run-gauntlet [gwX]`: Executes the core data-to-squad optimization pipeline.
+- `audit`: Diagnostic suite to inspect entity resolution and data integrity (`teams`, `players`).
+
+**Strategic Sensitivity & Reconnaissance (`bamf forge`):**
+
+- `forge [gwX]`: Executes in-memory Scenario Forge and Temporal Gradient analysis (RFC-008 & RFC-009).
+  - `--steps <N>`: Single-axis gradient interpolation from current gameweek focus to deep horizon.
+  - `--model [exponential|linear|step]`: Functional decay model archetype (default: `exponential`).
+  - `--param-range <start,end>`: Extrema parameter range for gradient sweep (e.g. `0.0,1.0`).
+  - `--matrix`: Multi-dimensional Cartesian grid search (`decay_rates` x `form_weights`).
+  - `--compare-form`: Binary audit comparing Raw Form vs Retrospective Lens to unmask **Form Frauds** and surface **Sleepers** (RFC-011).
+  - `--diff-first / --full`: Noise-suppressed stability matrix filtering unchanging bench assets.
+  - `--color / --no-color`: ANSI rainbow color ramps visualizing selection robustness.
+
+**Seasonal & Specialized Tools:**
+
+- `archive-season <tag>`: Safely packages completed gameweek vaults into `archive/<tag>/`.
+- `process-set-pieces`: Synthesizes empirical corner, free kick, and penalty delivery matrices from raw HTML.
+- `process-prior-season`: Decodes full-year historical performance tables to prime Bayesian priors for GW1 cold start.
+- `evaluate-wildcard`: Calculates squad divergence against production solutions to trigger optimal Wildcard chips (RFC-004).
 
 ---
 
 ## SYSTEM ARCHITECTURE
 
-The `finalize` command automates the entire multi-stage pipeline, transforming raw clipboard rips into a final, optimized squad prophecy.
+The end-to-end pipeline integrates temporal discounting for future fixtures with historical fixture difficulty adjustments for past form:
 
 ```mermaid
 ---
@@ -83,89 +100,125 @@ config:
   look: neo
 ---
 graph TD
-    subgraph inputs["Gameweek Data (via bamf rip)"]
+    subgraph Inputs["Gameweek Ingestion (via bamf rip)"]
         A1[("Player HTMLs")]
         A2[("Fixture HTMLs")]
         A3[("Squad HTML")]
     end
 
-    B1("process_players_html.py")
-    C1[("Position CSVs")]
-    C2[("squad.csv")]
+    subgraph Historical["Past Vaults Ground Truth"]
+        H1[("gw{t-g}/fixtures.csv")]
+        H2[("gw{t-g}/fpl_master_database_enriched.csv")]
+    end
 
-    B2("process_fixtures_html.py")
-    C3[("fixtures.csv")]
+    subgraph Processors["Core Pipeline"]
+        B1("process_players_html.py")
+        B2("process_fixtures_html.py")
+        B3("update_prices.py")
+        B4("enrich_with_insight.py<br>(Retrospective Lens & Bayesian Prior)")
+        B5("grand_synthesis.py<br>(Positional Bifurcated FDR Horizon)")
+        B6("chimera_pyomo_v2.py<br>(MILP 0-1 Branch & Bound Solver)")
+    end
 
-    B3("update_prices.py")
+    subgraph Outputs["Strategic Artefacts"]
+        F1("squad_prophecy.md")
+        F2("scenario_forge.md<br>(Stability Grid & Form Frauds)")
+    end
 
-    B4("run_the_gauntlet (Commander)")
-    F1("squad_prophecy.md")
-
-    A1 --> B1
-    A3 --> B1
-    B1 --> C1
-    B1 --> C2
+    A1 & A3 --> B1
     A2 --> B2
-    B2 --> C3
-    C1 --> B3
-    C2 --> B3
-    C3 --> B4
-    B3 --> B4
-    B4 ==> F1
+    B1 & B2 --> B3
+    B3 & H1 & H2 --> B4
+    B4 --> B5
+    B5 --> B6
+    B6 ==> F1
+    B5 & B6 -.-> F2
 
-    classDef inputStyle fill:#e3f2fd,stroke:#42a5f5,stroke-width:3px,color:#1565c0,rx:10,ry:10
-    classDef processStyle fill:#f8f9fa,stroke:#6c757d,stroke-width:3px,color:#495057,rx:10,ry:10
-    classDef outputStyle fill:#b3e5fc,stroke:#29b6f6,stroke-width:3px,color:#01579b,rx:10,ry:10
+    classDef inputStyle fill:#e3f2fd,stroke:#42a5f5,stroke-width:2px,color:#1565c0,rx:8,ry:8
+    classDef histStyle fill:#fff3e0,stroke:#ff9800,stroke-width:2px,color:#e65100,rx:8,ry:8
+    classDef processStyle fill:#f8f9fa,stroke:#6c757d,stroke-width:2px,color:#495057,rx:8,ry:8
+    classDef outputStyle fill:#e8f5e9,stroke:#4caf50,stroke-width:2px,color:#1b5e20,rx:8,ry:8
 
     class A1,A2,A3 inputStyle
-    class B1,B2,B3,B4 processStyle
-    class F1 outputStyle
+    class H1,H2 histStyle
+    class B1,B2,B3,B4,B5,B6 processStyle
+    class F1,F2 outputStyle
 ```
 
 ---
 
-## THE WEEKLY RITUAL (RIP Protocol v1.4)
+## THE WEEKLY RITUAL (v2.0 - With Scenario Reconnaissance)
 
-This is the high-velocity workflow for the modern Carbon Pirate (π). For detailed steps, consult `protocols/BAMF-RFC-001_RIP.md`.
+This is the high-velocity, four-step workflow for the modern Carbon Pirate (π). Zero manual data entry is required.
 
 ### Step 1: Initialise the Vault
+Spawn the directory structure for the upcoming campaign:
 ```bash
-bamf init gw29
+bamf init gw4
 ```
 
 ### Step 2: The Ritual of the Rip
-Navigate to FPL/FFS, Copy OuterHTML of the relevant tables, and unleash the Rip. **Note:** `rip` automatically targets the latest `gwX` directory.
-*   `bamf rip fix` (Overall FDR)
-*   `bamf rip fix-a` (Attack FDR)
-*   `bamf rip fix-d` (Defence FDR)
-*   `bamf rip gkp` (Goalkeepers)
-*   `bamf rip def` / `bamf rip def2` (Defenders)
-*   `bamf rip mid` / `bamf rip mid2` (Midfielders)
-*   `bamf rip fwd` / `bamf rip fwd2` (Forwards)
-*   `bamf rip squad` (Current Squad Prices)
-
-### Step 3: The Single Strike (Finalize)
-Execute the full end-to-end transformation. **Zero manual data entry is required.**
+Navigate to FPL and Fantasy Football Scout, copy the OuterHTML of the relevant tables, and unleash the Rip (automatically directed to the newest vault):
 ```bash
-bamf finalize gw29
+bamf rip fix       # Overall FDR Ticker
+bamf rip fix-a     # Attack FDR Ticker
+bamf rip fix-d     # Defence FDR Ticker
+bamf rip gkp       # Goalkeepers table
+bamf rip def       # Defenders table 1
+bamf rip def2      # Defenders table 2
+bamf rip mid       # Midfielders table 1
+bamf rip mid2      # Midfielders table 2
+bamf rip fwd       # Forwards table 1
+bamf rip fwd2      # Forwards table 2
+bamf rip squad     # Current squad selling values & bank
 ```
+
+### Step 3: The Scenario Reconnaissance (Sensitivity & Form Fraud Audit)
+Before committing to transfers, interrogate the stability of the player pool using `bamf forge`:
+
+1. **Unmask Form Frauds (RFC-011):**
+   ```bash
+   bamf forge gw4 --compare-form
+   ```
+   *Exposes players selected under raw form who stat-padded against weak defenses and are dropped once fixture difficulty is weighted.*
+
+2. **Map the Survival Curves & Immortals (RFC-008 & RFC-009):**
+   ```bash
+   bamf forge gw4 --model exponential --steps 5
+   ```
+   *Reveals locked **Immortals** ($R=100\%$, e.g. Bruno Fernandes), **Horizon-Dependents**, and short-term **Pure Punts** (e.g. Erling Haaland).*
+
+### Step 4: The Single Strike (Finalize)
+Execute the complete end-to-end transformation and generate the squad prophecy:
+```bash
+bamf finalize gw4
+```
+*Executes HTML parsing, reality reconciliation, Bayesian shrinkage, Retrospective Lens FDR-weighting, and solves the sovereign MILP squad, outputting `gw4/squad_prophecy.md`.*
 
 ---
 
 ## THE ARSENAL: FILE MANIFEST
 
-All Python source files are now located within the `src/fpl_dominator/` package.
+All core package sources reside within `src/fpl_dominator/`:
 
-- `src/fpl_dominator/bamf.py` (The Command Deck): The master script and sole entry point.
-- `src/fpl_dominator/commander.py` (The Orchestrator): Contains the `run_the_gauntlet` logic.
-- `src/fpl_dominator/process_players_html.py`: High-speed HTML table parser for players and squad.
-- `src/fpl_dominator/process_fixtures_html.py`: Transmutes FFS HTML into structured fixture data.
-- `src/fpl_dominator/update_prices.py`: Aligns market reality with your treasury.
+- `src/fpl_dominator/bamf.py`: The master command deck and entry point.
+- `src/fpl_dominator/retrospective_lens.py`: Pure historical FDR extraction and contextual efficiency calculator (RFC-011).
+- `src/fpl_dominator/scenario_forge.py`: Multi-scenario in-memory MILP stability engine and Form Fraud classifier (RFC-008).
+- `src/fpl_dominator/temporal_decay.py`: Functional decay weighting algorithms (exponential, linear, step) and gradient interpolators (RFC-009).
+- `src/fpl_dominator/chimera_pyomo_v2.py`: The decoupled Pyomo MILP optimization core.
+- `src/fpl_dominator/commander.py`: Atomic pipeline orchestrator.
+- `src/fpl_dominator/enrich_with_insight.py`: Bayesian prior cold start and captaincy coefficient synthesis.
+- `src/fpl_dominator/grand_synthesis.py`: Positional bifurcation and temporal fixture horizon discounting.
+- `src/fpl_dominator/process_players_html.py`: High-speed HTML table parser for player rosters and squad prices.
+- `src/fpl_dominator/process_fixtures_html.py`: HTML fixture ticker decoder converting RGB styles to FDR metrics.
+- `src/fpl_dominator/update_prices.py`: Bank balance and selling profit tax reconciliation.
+- `src/fpl_dominator/wildcard_evaluator.py`: Squad divergence analysis for optimal chip timing.
 
 ---
 
-## FUTURE CAMPAIGNS
+## KNOWLEDGE & STRATEGIC FOUNDATIONS
 
-For the grand strategic vision and our ongoing `(⇌)` evolution, consult the sacred text: `TODO.md`.
-
----
+- **Living Grimoire:** Compiled architectural knowledge resides in `wiki/` (symlinked from `.agents/skills/fpl-machine-studying-wiki/wiki`).
+- **RFC Lifecycle Archive:** Ingested ground-truth specifications reside in `wiki/raw/specs/` (RFC-001, RFC-002, RFC-004, RFC-008, RFC-009, RFC-011).
+- **Active Proposals:** In-flight RFC drafts reside in `specs/` (RFC-003, RFC-005, RFC-006, RFC-007, RFC-010).
+- **Roadmap:** Consult `TODO.md` for active development sprints.
