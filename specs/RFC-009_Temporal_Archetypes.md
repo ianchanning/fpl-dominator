@@ -1,4 +1,5 @@
 # RFC-009: Temporal Gradients (Selection Stability Analysis)
+**STATUS: IMPLEMENTED**
 
 ## 1. Abstract
 Rather than utilizing static arrays for `fixture_weights`, RFC-009 proposes a **Gradient Analysis** approach based on functional parameterization. By interpolating the parameters of a chosen decay model (Linear, Exponential, or Step), we can map the "Survival Curve" of each player. This reveals the exact point where a player's value collapses as the strategic horizon shrinks.

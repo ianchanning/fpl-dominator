@@ -1,4 +1,5 @@
 # RFC-008: The Scenario Forge (Config Sensitivity Analysis)
+**STATUS: IMPLEMENTED**
 
 ## 1. Abstract
 Currently, the Chimera is executed against a single `config.yaml` state. This creates a "single point of failure" where a slight miscalibration of `form_factor_weight` or `red_zone_threshold` can lead to sub-optimal squad selection. The Scenario Forge introduces a mechanism to run the optimization engine across a multi-dimensional matrix of configuration parameters—now utilizing functional parameterization for temporal decay—to identify "Robust Assets."

@@ -1,4 +1,5 @@
 # RFC-010: The Equation Audit (Final Score Stress-Testing)
+**STATUS: PLANNED**
 
 ## 1. Abstract
 The "Final Score" equation is the heart of the Chimera, but its mathematical structure has not been rigorously stress-tested. This RFC proposes a framework to audit the current division-based scoring model against alternative mathematical structures to determine if we are unnecessarily penalizing high-quality assets in difficult fixtures.
