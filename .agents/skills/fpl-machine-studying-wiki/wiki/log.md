@@ -75,6 +75,12 @@ This file is an append-only timeline of all knowledge base updates, source inges
 - Empirically proved on active GW4 data: Ajayi (£4.1m, Hull City) unmasked as a **Form Fraud** (50% robustness, dropped under retrospective lens), while Van Hecke (£4.9m, Spurs) elevated as a **Sleeper** (promoted to Starting XI under retrospective lens).
 - Synthesized Living Grimoire node `wiki/concepts/The-Retrospective-Lens-and-Contextual-Form.md` and updated `wiki/index.md`.
 
+## [2026-09-12] protocol | Canonical RFC Archival Protocol & Layer 1 Ingestion
+- Codified canonical RFC lifecycle: active proposals reside in `specs/`; completed/verified RFCs migrate into Layer 1 (`wiki/raw/specs/`) as immutable ground truth.
+- Migrated completed RFCs (`RFC-001`, `RFC-002`, `RFC-004`, `RFC-008`, `RFC-009`, `RFC-011`) into `wiki/raw/specs/` via git history-preserving renames.
+- Forged `specs/README.md` cataloging the RFC lifecycle and mapping active vs ingested RFCs.
+- Updated `wiki/raw/sources.md` with Section 5 tracking all 11 architectural RFCs and linked in `wiki/index.md`.
+
 
 
 

@@ -1,5 +1,5 @@
 # BAMF DOMINATOR - IMPLEMENTATION ROADMAP: THE RETROSPECTIVE LENS
-**Target RFC:** [specs/RFC-011_Retrospective_Lens.md](./specs/RFC-011_Retrospective_Lens.md)  
+**Target RFC:** [wiki/raw/specs/RFC-011_Retrospective_Lens.md](./wiki/raw/specs/RFC-011_Retrospective_Lens.md)  
 **Branch:** `feat/rfc-011-retrospective-lens`  
 **Status:** Completed `(⊕) (⇌)`  
 **Objective:** Eliminate the "Stat-Padding" Fallacy by weighting past player points with historical fixture difficulty (FDR), forging Contextual Efficiency, and surfacing Form Frauds in the Scenario Forge.

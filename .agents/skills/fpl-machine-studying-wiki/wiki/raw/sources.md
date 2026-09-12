@@ -58,6 +58,25 @@ This document is the **Canonical Curriculum** for Machine Studying in the `fpl-d
 
 ---
 
+## 5. Architectural RFC Specifications (`cat:specs`)
+*Foundational RFCs, solver evolution, and feature engineering specifications.*
+
+| Status | Title / Topic | Type | Link / Source | Key Concepts |
+| :--- | :--- | :--- | :--- | :--- |
+| `[x]` | **RFC-001: The Temporal Lens** | RFC / Spec | `wiki/raw/specs/RFC-001_Temporal_Lens.md` | Weighted fixture difficulty decay over 5GW horizon; synthesized into `wiki/Temporal-Discounting-and-FDR.md` |
+| `[x]` | **RFC-002: Automated HTML Ingestion** | RFC / Spec | `wiki/raw/specs/RFC-002_Automated_Ingestion.md` | RIP protocol OuterHTML clipboard extraction; synthesized into `wiki/The-BAMF-CLI-Ritual.md` |
+| `[ ]` | **RFC-003: Trajectory Optimization** | RFC / Spec | `specs/RFC-003_Trajectory_Optimization.md` | Multi-period rolling horizon transfer friction and budget liquidity |
+| `[x]` | **RFC-004: The Wildcard Trigger** | RFC / Spec | `wiki/raw/specs/RFC-004_Wildcard_Trigger.md` | Squad divergence thresholds for triggering Wildcard chip |
+| `[/]` | **RFC-005: Bayesian Prior Calibration** | RFC / Spec | `specs/RFC-005_Bayesian_Prior_Calibration.md` | Process metrics decay; cold start baseline synthesized into `wiki/concepts/The-Cold-Start-and-Season-Transition.md` |
+| `[ ]` | **RFC-006: Stochastic Expected Minutes** | RFC / Spec | `specs/RFC-006_Stochastic_Expected_Minutes.md` | Probabilistic minute distributions and rotation risk |
+| `[ ]` | **RFC-007: Early Season Liquidity** | RFC / Spec | `specs/RFC-007_Early_Season_Liquidity.md` | Capital preservation and team value appreciation |
+| `[x]` | **RFC-008: The Scenario Forge** | RFC / Spec | `wiki/raw/specs/RFC-008_Scenario_Forge.md` | In-memory Cartesian parameter exploration; synthesized into `wiki/concepts/The-Scenario-Forge.md` |
+| `[x]` | **RFC-009: Temporal Gradients** | RFC / Spec | `wiki/raw/specs/RFC-009_Temporal_Archetypes.md` | Survival curve taxonomy (Immortals, Punts); synthesized into `wiki/concepts/Temporal-Gradients-and-Survival-Curves.md` |
+| `[ ]` | **RFC-010: The Equation Audit** | RFC / Spec | `specs/RFC-010_Equation_Audit.md` | Final Score stress-testing and alternative formulation benchmarking |
+| `[x]` | **RFC-011: The Retrospective Lens** | RFC / Spec | `wiki/raw/specs/RFC-011_Retrospective_Lens.md` | Fixture-adjusted form and efficiency; synthesized into `wiki/concepts/The-Retrospective-Lens-and-Contextual-Form.md` |
+
+---
+
 ## Ingestion & Synthesis Protocols
 
 1. **MILP Formulation Distillation:** When ingesting a solver script or mathematical paper, extract the mathematical objective function $\max \sum c_i x_i$ and the set of explicit linear inequality constraints $A x \le b$.

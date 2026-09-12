@@ -30,6 +30,7 @@ graph TD
 
 ## 📚 Sources & Curriculum
 - [[raw/sources]] - Master curriculum manifest and source ingestion tracker.
+- [[raw/sources#5-architectural-rfc-specifications-catspecs]] - Canonical archive of completed RFC specifications in Layer 1.
 - [[raw/llm-wiki]] - Architecture and operating principles for persistent LLM knowledge bases.
 - [[raw/machine-studying]] - Theory of token minimization and autonomous machine expertise.
 - [[raw/recursive-language-models]] - Mechanics of recursive agent loops and grimoire creation.
