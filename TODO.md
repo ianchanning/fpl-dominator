@@ -69,6 +69,8 @@ Every task executed MUST strictly satisfy the following before being committed:
 [Stone 4: Scenario Forge Audit]   --> Enable bamf forge --compare-form; unmask Form Frauds & Sleepers. [DONE]
         │
 [Stone 5: Living Grimoire]        --> Author wiki node, update index.md and log.md. [DONE]
+        │
+[Stone 6: Dan Luu Test Crucible]  --> Fortify invariants, independent oracle, and property tests. [DONE]
 ```
 
 - [x] **Stone 1: Historical FDR & Points Delta Extractor (Pure Logic)**
@@ -111,3 +113,15 @@ Every task executed MUST strictly satisfy the following before being committed:
     3. Append milestone to `wiki/log.md`.
   - **Blast Radius:** `wiki/`.
   - **Verification:** Check links and run wiki-lint if available.
+
+- [x] **Stone 6: Dan Luu Test Crucible & Defensive Invariant Verification (`SKILL.md`)**
+  - **Action:**
+    1. Implement pre-implementation edge cases and asymmetric boundaries (GW1 cold start, lookback overshoot, negative delta clamping, positional bifurcation).
+    2. Add regression test for the historical snapshot fallback bug (`Raw_TP / (gw - 1)` vs annualized Bayesian `TP`).
+    3. Build independent mathematical oracle re-derivation without production helpers or shared module constants.
+    4. Implement structured random property testing verifying parity identity, monotonic scaling, and non-negativity across 100 profiles.
+    5. Validate real vault integration against `gw1`–`gw4` data.
+  - **Blast Radius:** `tests/test_retrospective_lens.py`, `README.md`.
+  - **Verification:** `uv run python -m unittest -v tests.test_retrospective_lens`
+  - **Pass Criteria:** 14/14 tests pass cleanly with zero lint or formatting regressions.
+

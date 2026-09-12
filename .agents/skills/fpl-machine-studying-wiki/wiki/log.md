@@ -81,6 +81,15 @@ This file is an append-only timeline of all knowledge base updates, source inges
 - Forged `specs/README.md` cataloging the RFC lifecycle and mapping active vs ingested RFCs.
 - Updated `wiki/raw/sources.md` with Section 5 tracking all 11 architectural RFCs and linked in `wiki/index.md`.
 
+## [2026-09-12] test | Dan Luu Testing Heuristics & Defensive Invariant Crucible
+- Implemented comprehensive 14-test battery in `tests/test_retrospective_lens.py` following Dan Luu's Testing Heuristics.
+- Established independent mathematical oracle re-derivation without production helpers or shared module state.
+- Identified and exterminated critical fallback gremlin: snapshot missingness previously evaluated Bayesian annualized `TP` divided by lookback weeks, inflating un-snapshotted defenders (Mitchell, Van Hecke) to >220 Adjusted Form; fixed to `Raw_TP / max(1, current_gw - 1)`, vaulting Riccardo Calafiori to #1 starting Arsenal defender.
+- Added structured property-based testing verifying non-negativity, parity identity ($FDR=1000 \implies \text{Form}=\text{Raw}$), monotonic difficulty scaling, and FDR $\le 800$ clamping.
+- Verified real-world vault integration on `gw1`–`gw4` databases (Haaland 13pt haul delta in GW3).
+- Updated `README.md` with Dan Luu testing methodology, architectural flowchart, and test manifest.
+
+
 
 
 
