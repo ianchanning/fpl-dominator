@@ -3,9 +3,9 @@ enrich_insight:
   captaincy_tiers:
     Gods:
       players:
-      - Haaland
-      - B.Fernandes
-      - Bruno Fernandes
+        - Haaland
+        - B.Fernandes
+        - Bruno Fernandes
       coefficient: 1.2
     Demigods:
       players:
