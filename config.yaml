@@ -1,12 +1,12 @@
 enrich_insight:
-  form_lookback_weeks: 4
+  form_lookback_weeks: 5
   captaincy_tiers:
     Gods:
       players:
         - Haaland
         - B.Fernandes
         - Bruno Fernandes
-      coefficient: 1.1
+      coefficient: 1.10
     Demigods:
       players:
         - Semenyo
@@ -15,7 +15,7 @@ enrich_insight:
         - Saka
         - Palmer
         - Thiago
-      coefficient: 1.08
+      coefficient: 1.00
 pyomo_solver:
   thrift_factor: 0.001
   bench_potency_epsilon: 1.0e-05
