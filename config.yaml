@@ -1,12 +1,12 @@
 enrich_insight:
-  form_lookback_weeks: 2
+  form_lookback_weeks: 4
   captaincy_tiers:
     Gods:
       players:
         - Haaland
         - B.Fernandes
         - Bruno Fernandes
-      coefficient: 1.2
+      coefficient: 1.1
     Demigods:
       players:
         - Semenyo
@@ -22,7 +22,7 @@ pyomo_solver:
   form_factor_weight: 0.7
   form_model: "retrospective"
   red_zone_threshold: 1150
-  red_zone_limit: 5
+  red_zone_limit: 3
   spp_scores:
     Penalties:
       primary: 5.0
