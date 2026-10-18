@@ -71,15 +71,17 @@ The ingestion pipeline must extract and persist exactly 12 HTML files into the t
 ### 4.1 FPL Portal (`https://fantasy.premierleague.com/transfers`)
 
 #### A. Authentication Flow
-- **Login Endpoint:** `https://users.premierleague.com/` (or transfers auth modal)
+- **Entrypoint URL:** `https://fantasy.premierleague.com/en/transfers`
+- **SSO Authorization Endpoint:** `https://account.premierleague.com/as/authorize?...` (triggered via "Log in" button click on transfers page)
 - **Credential Storage:** Secrets `FPL_LOGIN` and `FPL_PASS`
 - **Cookie Consent Interceptor:** Premier League uses OneTrust cookie banners.
-  - Banner dismiss selector: `#onetrust-accept-btn-handler` (must click if visible before interaction).
-- **Form Selectors:**
-  - Username input: `input#login-username, input[name="login"]`
-  - Password input: `input#login-password, input[name="password"]`
-  - Submit button: `button[type="submit"]`
-  - Wait for navigation back to `/transfers` or presence of `#root`.
+  - Banner dismiss selector: `#onetrust-accept-btn-handler, button:has-text('Accept All Cookies')` (must click if visible before interaction).
+- **Form Selectors (Ping SSO):**
+  - Form container: `form#usernamePasswordForm`
+  - Username input: `input#username, input[name="username"]`
+  - Password input: `input#password, input[name="password"]`
+  - Submit button: `button#btnSignIn, button[data-skbuttonvalue="SIGNON"]`
+  - Wait for redirection back to `https://fantasy.premierleague.com/en/transfers`.
 
 #### B. Positional Dropdown Navigation
 - **Dropdown Trigger Button:**
@@ -122,13 +124,13 @@ The ingestion pipeline must extract and persist exactly 12 HTML files into the t
 ### 4.2 Fantasy Football Scout Members Portal (`https://members.fantasyfootballscout.co.uk/season-ticker/`)
 
 #### A. Authentication Flow
-- **Login Endpoint:** `https://members.fantasyfootballscout.co.uk/users/sign_in`
+- **Login Endpoint:** `https://members.fantasyfootballscout.co.uk/`
 - **Credential Storage:** Secrets `FFS_LOGIN` and `FFS_PASS`
 - **Form Selectors:**
-  - Username / Email: `input#user_login`
-  - Password: `input#user_password`
-  - Submit: `input[type="submit"][name="commit"]`
-  - Wait for successful redirect back to `/season-ticker/`.
+  - Username input: `input[name="username"], input#user_login`
+  - Password input: `input[name="password"], input#user_password`
+  - Submit button: `button#loginButton, button[name="login"]`
+  - Post-login navigation: Navigate directly to `https://members.fantasyfootballscout.co.uk/season-ticker/`.
 
 #### B. Gameweek Horizon & View Ticker Selection
 - **Dropdown Control Selector:**

@@ -19,10 +19,9 @@ from fpl_dominator.vault_contract import (
     verify_vault_contract,
 )
 
-FPL_TRANSFERS_URL = "https://fantasy.premierleague.com/transfers"
-FPL_LOGIN_URL = "https://users.premierleague.com/"
+FPL_TRANSFERS_URL = "https://fantasy.premierleague.com/en/transfers"
+FFS_HOME_URL = "https://members.fantasyfootballscout.co.uk/"
 FFS_TICKER_URL = "https://members.fantasyfootballscout.co.uk/season-ticker/"
-FFS_LOGIN_URL = "https://members.fantasyfootballscout.co.uk/users/sign_in"
 
 USER_AGENT = (
     "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
@@ -30,13 +29,36 @@ USER_AGENT = (
 )
 
 
-def dismiss_onetrust_cookie_banner(page: Page) -> None:
-    """Dismisses OneTrust cookie consent banner if present."""
+def purge_onetrust_overlay(page: Page) -> None:
+    """Neutralizes OneTrust banner and pointer-intercepting dark filters."""
     try:
-        banner_btn = page.locator("#onetrust-accept-btn-handler")
-        if banner_btn.is_visible(timeout=3000):
-            banner_btn.click()
-            page.wait_for_timeout(500)
+        page.wait_for_selector(
+            "#onetrust-accept-btn-handler, button:has-text('Accept All Cookies')",
+            timeout=3500,
+        )
+    except Exception:
+        pass
+
+    try:
+        accept_btn = page.locator(
+            "#onetrust-accept-btn-handler, button:has-text('Accept All Cookies')"
+        )
+        if accept_btn.count() > 0 and accept_btn.first.is_visible():
+            accept_btn.first.click()
+            page.wait_for_timeout(400)
+    except Exception:
+        pass
+
+    # Aggressive DOM neutralization to ensure pointer events are never blocked
+    try:
+        page.evaluate(
+            """() => {
+            const sdk = document.getElementById('onetrust-consent-sdk');
+            if (sdk) sdk.remove();
+            const filters = document.querySelectorAll('.onetrust-pc-dark-filter, #onetrust-banner-sdk');
+            filters.forEach(f => f.remove());
+        }"""
+        )
     except Exception:
         pass
 
@@ -45,7 +67,7 @@ def login_fpl(page: Page, username: str, password: str) -> None:
     """Authenticates with the Premier League portal."""
     click.echo("[*] Authenticating with Premier League portal...")
     page.goto(FPL_TRANSFERS_URL, wait_until="domcontentloaded")
-    dismiss_onetrust_cookie_banner(page)
+    purge_onetrust_overlay(page)
 
     # Check if already authenticated (squad table or user profile present)
     auth_check = page.locator(
@@ -55,51 +77,70 @@ def login_fpl(page: Page, username: str, password: str) -> None:
         click.secho("[+] FPL session active.", fg="green")
         return
 
-    # Check for login button or redirect to login endpoint
+    # Click the Log in button on the transfers page with force=True
     login_btn = page.locator(
-        "a:has-text('Sign In'), button:has-text('Sign In'), "
-        "a[href*='users.premierleague.com']"
-    )
-    if login_btn.count() > 0 and login_btn.first.is_visible():
-        login_btn.first.click()
-        page.wait_for_load_state("domcontentloaded")
-    else:
-        page.goto(FPL_LOGIN_URL, wait_until="domcontentloaded")
+        "button._loginButton_1mxyv_1, button:has-text('Log in'), a:has-text('Log in')"
+    ).first
+    login_btn.wait_for(state="visible", timeout=15000)
+    page.wait_for_timeout(500)
+    login_btn.click(force=True)
 
-    dismiss_onetrust_cookie_banner(page)
+    # Wait for account.premierleague.com Ping SSO form
+    page.wait_for_selector(
+        "input#username, input[name='username']", timeout=25000
+    )
+    purge_onetrust_overlay(page)
 
     # Fill credentials
-    page.locator("input#login-username, input[name='login']").first.fill(username)
-    page.locator("input#login-password, input[name='password']").first.fill(password)
-    page.locator("button[type='submit']").first.click()
+    page.locator("input#username, input[name='username']").first.fill(username)
+    page.locator("input#password, input[name='password']").first.fill(password)
 
-    # Wait for post-login redirection back to transfers
-    page.wait_for_url(lambda u: "fantasy.premierleague.com" in u, timeout=15000)
-    page.goto(FPL_TRANSFERS_URL, wait_until="networkidle")
-    dismiss_onetrust_cookie_banner(page)
+    # Submit login
+    sign_in_btn = page.locator(
+        "button#btnSignIn, button[data-skbuttonvalue='SIGNON'], "
+        "form#usernamePasswordForm button[type='submit']"
+    ).first
+    sign_in_btn.click()
+
+    # Wait for redirection out of account.premierleague.com back to fantasy
+    page.wait_for_url(
+        lambda u: "account.premierleague.com" not in u
+        and "fantasy.premierleague.com" in u,
+        timeout=25000,
+    )
+    page.wait_for_timeout(2000)
+
+    # Navigate to Transfers view and verify tables render
+    page.goto(FPL_TRANSFERS_URL, wait_until="domcontentloaded")
+    page.wait_for_timeout(2000)
+    purge_onetrust_overlay(page)
     click.secho("[+] FPL authentication successful.", fg="green")
 
 
 def harvest_fpl_squad(page: Page, staging_dir: str) -> None:
     """Extracts the active squad list table into squad.html."""
     click.echo("[*] Harvesting active Squad table...")
-    page.goto(FPL_TRANSFERS_URL, wait_until="networkidle")
-    dismiss_onetrust_cookie_banner(page)
+    if "fantasy.premierleague.com/en/transfers" not in page.url:
+        page.goto(FPL_TRANSFERS_URL, wait_until="domcontentloaded")
+    purge_onetrust_overlay(page)
+
+    # Wait for the transfers canvas to mount (pitch view or list view)
+    page.wait_for_selector(
+        "div[role='radiogroup'], table[aria-label='Transfers List']",
+        timeout=15000,
+    )
 
     # Switch to 'List' view if in pitch view
-    list_toggle = page.locator(
-        "button.ktbkv41.ktbkv40._4xqwov0, button:has-text('List'), "
-        "[aria-label='List view']"
-    )
-    if list_toggle.count() > 0 and list_toggle.first.is_visible():
+    list_toggle = page.locator("div[role='radiogroup'] >> text='List'")
+    if list_toggle.count() > 0:
         try:
             list_toggle.first.click()
-            page.wait_for_timeout(500)
+            page.wait_for_timeout(800)
         except Exception:
             pass
 
     # Wait for the squad table to render
-    squad_sel = "table._4xqwov8, table[aria-label='Transfers List']"
+    squad_sel = "table[aria-label='Transfers List'], table._4xqwov8"
     page.wait_for_selector(squad_sel, timeout=10000)
     squad_table = page.locator(squad_sel).first
     squad_html = squad_table.evaluate("el => el.outerHTML")
@@ -124,21 +165,23 @@ def harvest_fpl_positions(page: Page, staging_dir: str) -> None:
     for pos_label, page1_file, page2_file, has_page_2 in positions:
         click.echo(f"  [+] Selecting position: {pos_label}...")
 
-        # Open React-Aria dropdown
-        dropdown_btn = page.locator(
-            "div.react-aria-Select button, button[aria-haspopup='listbox'], "
-            "button[id^='react-aria']"
+        # Open position selection dropdown
+        filter_btn = page.locator(
+            "div:has(> button:has-text('Reset')) button._1gkly0o2, "
+            "button:has-text('All players'), "
+            f"button:has-text('{pos_label}')"
         ).first
-        dropdown_btn.click()
-        page.wait_for_selector("[role='listbox'], [role='option']", timeout=5000)
+        filter_btn.click()
+        page.wait_for_selector("div[role='option']", timeout=5000)
 
         # Select target position option
-        page.locator(f"[role='option']:has-text('{pos_label}')").first.click()
-        page.wait_for_timeout(600)
+        page.locator(f"div[role='option']:has-text('{pos_label}')").first.click()
+        page.wait_for_timeout(1000)
 
-        # Wait for table rows to stabilize
-        page.wait_for_selector("table._1nvnlp41, tr._1trl5ao0", timeout=10000)
-        table_elem = page.locator("table._1nvnlp41, div._1nvnlp49 table").first
+        # Wait for table to render
+        table_sel = f"table[aria-label='{pos_label}'], table._1nvnlp41"
+        page.wait_for_selector(table_sel, timeout=10000)
+        table_elem = page.locator(table_sel).first
         p1_html = table_elem.evaluate("el => el.outerHTML")
 
         p1_path = os.path.join(staging_dir, page1_file)
@@ -148,16 +191,14 @@ def harvest_fpl_positions(page: Page, staging_dir: str) -> None:
 
         # Ingest Page 2 if present
         if has_page_2:
-            page2_btn = page.locator(
-                "nav[aria-label='Pagination'] button:has-text('2'), "
-                "button[aria-label='Next page'], "
-                "div._1nvnlp40 nav button:nth-child(2)"
-            )
-            if page2_btn.count() > 0 and page2_btn.first.is_visible():
+            next_btn = page.locator(
+                "div.vzix9s0 button[aria-label='Next'], button[aria-label='Next']"
+            ).first
+            if next_btn.count() > 0 and next_btn.is_enabled():
                 click.echo(f"  [+] Navigating to {pos_label} Page 2...")
-                page2_btn.first.click()
-                page.wait_for_timeout(800)
-                page.wait_for_selector("table._1nvnlp41, tr._1trl5ao0", timeout=10000)
+                next_btn.click()
+                page.wait_for_timeout(1000)
+                page.wait_for_selector(table_sel, timeout=10000)
 
                 p2_html = table_elem.evaluate("el => el.outerHTML")
                 p2_path = os.path.join(staging_dir, page2_file)
@@ -168,59 +209,72 @@ def harvest_fpl_positions(page: Page, staging_dir: str) -> None:
                 )
 
                 # Reset back to Page 1 for next position
-                page1_btn = page.locator(
-                    "nav[aria-label='Pagination'] button:has-text('1')"
-                )
-                if page1_btn.count() > 0 and page1_btn.first.is_visible():
-                    page1_btn.first.click()
-                    page.wait_for_timeout(400)
+                first_btn = page.locator(
+                    "div.vzix9s0 button[aria-label='First'], button[aria-label='First']"
+                ).first
+                if first_btn.count() > 0 and first_btn.is_enabled():
+                    first_btn.click()
+                    page.wait_for_timeout(500)
 
 
 def login_ffs(page: Page, username: str, password: str) -> None:
     """Authenticates with Fantasy Football Scout members area."""
     click.echo("[*] Authenticating with Fantasy Football Scout...")
-    page.goto(FFS_LOGIN_URL, wait_until="domcontentloaded")
+    page.goto(FFS_HOME_URL, wait_until="domcontentloaded")
 
     # Check if already authenticated
     if page.locator("a:has-text('Log out'), a[href*='sign_out']").count() > 0:
         click.secho("[+] FFS session active.", fg="green")
         return
 
-    page.locator("input#user_login").fill(username)
-    page.locator("input#user_password").fill(password)
-    page.locator("input[type='submit'][name='commit']").click()
+    # Fill username and password
+    user_input = page.locator("input[name='username'], input#user_login").first
+    pass_input = page.locator("input[name='password'], input#user_password").first
+    user_input.fill(username)
+    pass_input.fill(password)
 
-    page.wait_for_url(lambda u: "users/sign_in" not in u, timeout=15000)
+    submit_btn = page.locator(
+        "button#loginButton, button[name='login'], input[type='submit'][name='commit']"
+    ).first
+    submit_btn.click()
+
+    page.wait_for_timeout(2000)
+    page.goto(FFS_TICKER_URL, wait_until="domcontentloaded")
     click.secho("[+] FFS authentication successful.", fg="green")
 
 
 def harvest_ffs_tickers(page: Page, staging_dir: str) -> None:
     """Extracts Overall, Attack, and Defence FDR tickers from FFS Season Ticker."""
     click.echo("[*] Harvesting Fantasy Football Scout FDR Tickers...")
-    page.goto(FFS_TICKER_URL, wait_until="networkidle")
+    page.goto(FFS_TICKER_URL, wait_until="domcontentloaded")
+    page.wait_for_timeout(1000)
 
     ticker_views = [
-        ("All", "fixtures_5w.html"),
-        ("Attack", "fixtures_attack_5w.html"),
-        ("Defence", "fixtures_defence_5w.html"),
+        ("overall", "fixtures_5w.html"),
+        ("attack", "fixtures_attack_5w.html"),
+        ("defence", "fixtures_defence_5w.html"),
     ]
 
-    for view_label, filename in ticker_views:
-        click.echo(f"  [+] Selecting Ticker View: {view_label}...")
-        select_elem = page.locator("div.ticker-controls select.control-select").first
+    # Ensure 5 GWs window is selected on Season Ticker
+    try:
+        gw_count_select = page.locator(
+            "select.gw-select[title*='gameweeks shown'], div.gw-display-controls select.gw-select"
+        ).first
+        if gw_count_select.count() > 0:
+            gw_count_select.select_option(label="5 GWs")
+            page.wait_for_timeout(600)
+    except Exception:
+        pass
 
-        # Select view
-        try:
-            select_elem.select_option(label=view_label)
-        except Exception:
-            select_elem.select_option(value=view_label.lower())
+    for view_val, filename in ticker_views:
+        click.echo(f"  [+] Selecting Ticker View: {view_val.capitalize()}...")
+        select_elem = page.locator("div.ticker-controls select.control-select").first
+        select_elem.select_option(value=view_val)
         page.wait_for_timeout(600)
 
         # Wait for ticker grid
-        page.wait_for_selector(
-            "div#fpl-ticker-root div.advanced-ticker, .team-row", timeout=10000
-        )
-        ticker_container = page.locator("div#fpl-ticker-root div.advanced-ticker").first
+        page.wait_for_selector("div.advanced-ticker", timeout=10000)
+        ticker_container = page.locator("div.advanced-ticker").first
         ticker_html = ticker_container.evaluate("el => el.outerHTML")
 
         out_path = os.path.join(staging_dir, filename)

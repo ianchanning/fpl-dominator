@@ -263,20 +263,38 @@ class TestIngestContractOracle(unittest.TestCase):
         )
         self.assertEqual(violations, [])
 
-    def test_real_vault_gw8_incomplete_state_caught_deterministically(self):
-        """Step 1 & 4: Incomplete gw8 vault MUST be caught deterministically."""
+    def test_incomplete_vault_state_caught_deterministically(self):
+        """Step 1 & 4: Incomplete vault state MUST be caught deterministically."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            # Create incomplete state (1-byte dummy files, missing squad.html & defenders_2.html)
+            for fname in ["defenders.html", "forwards.html", "goalkeepers.html", "midfielders.html"]:
+                with open(os.path.join(tmpdir, fname), "w") as f:
+                    f.write("<html><table>" + "<tr><td>Player</td><td>£5.0</td></tr>" * 25 + "</table></html>")
+            for fname in ["fixtures_5w.html", "fixtures_attack_5w.html", "fixtures_defence_5w.html"]:
+                with open(os.path.join(tmpdir, fname), "w") as f:
+                    f.write(" ")  # 1 byte
+
+            is_valid, violations = independently_verify_vault_contract(tmpdir)
+            self.assertFalse(is_valid, "Incomplete vault was expected to fail validation!")
+
+            violation_text = "\n".join(violations)
+            self.assertIn("fixtures_5w.html", violation_text)
+            self.assertIn("below threshold", violation_text)
+            self.assertIn("Missing required artifact: squad.html", violation_text)
+            self.assertIn("Missing required artifact: defenders_2.html", violation_text)
+
+    def test_real_vault_gw8_passes_contract(self):
+        """Verifies that the live-harvested gw8 vault passes contract oracle."""
         gw8_dir = "gw8"
         if not os.path.isdir(gw8_dir):
             self.skipTest(f"Directory {gw8_dir} not found.")
 
         is_valid, violations = independently_verify_vault_contract(gw8_dir)
-        self.assertFalse(is_valid, "gw8 was expected to fail validation!")
-
-        violation_text = "\n".join(violations)
-        self.assertIn("fixtures_5w.html", violation_text)
-        self.assertIn("below threshold", violation_text)
-        self.assertIn("Missing required artifact: squad.html", violation_text)
-        self.assertIn("Missing required artifact: defenders_2.html", violation_text)
+        self.assertTrue(
+            is_valid,
+            "gw8 failed contract oracle! Violations:\n" + "\n".join(violations),
+        )
+        self.assertEqual(violations, [])
 
     def test_failure_surface_truncated_player_table(self):
         """Step 1: Ghost React hydration with < 20 rows triggers violation."""

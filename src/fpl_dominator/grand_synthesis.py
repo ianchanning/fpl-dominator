@@ -70,8 +70,9 @@ def synthesize_omniscient_data(
     f_df = f_df.sort_values(by=["Team", "GW_Num"])
 
     def weighted_fdr(series: pd.Series) -> float:
-        weights_slice = fixture_weights[: len(series)]
-        return float(np.average(series, weights=weights_slice))
+        s = series.iloc[: len(fixture_weights)]
+        w = fixture_weights[: len(s)]
+        return float(np.average(s, weights=w))
 
     fdr_horizon = (
         f_df.groupby("Team")
