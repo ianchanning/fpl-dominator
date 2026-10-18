@@ -96,3 +96,12 @@ This file is an append-only timeline of all knowledge base updates, source inges
 - Synthesized `wiki/concepts/Data-Integrity-and-Point-Rewind.md` detailing the "Surgical Purge" pattern and the danger of non-idempotent recovery scripts.
 - Purged 61 affected players across 7 positional HTML files.
 - Updated `wiki/index.md` and `wiki/log.md` to institutionalize the recovery protocol.
+
+## [2026-10-18] feature | Automated Ingestion Pipeline & Dan Luu Contract Oracle (RFC-012)
+- Formalized `specs/RFC-012_Pipeline.md` with end-to-end Mermaid sequence diagram, resilient React-Aria and FFS selectors, multi-page pagination protocols, and zero-leak secrets architecture.
+- Forged `tests/test_ingest_contract.py` implementing an independent verification oracle and Dan Luu testing crucible; verified bit-parity on `gw7` and confirmed defect detection on `gw8`.
+- Implemented `src/fpl_dominator/vault_contract.py` providing `verify_vault_contract()` and `assert_vault_contract()` invariant gates.
+- Implemented `src/fpl_dominator/ingest_playwright.py` with OneTrust cookie dismissal, FPL/FFS credential handling, multi-page positional table harvesting, and atomic staging.
+- Added `bamf fetch [gwX]` command to CLI deck and expanded `bamf rip` with `gkp2`.
+- Deployed `.github/workflows/fpl_data_ingest.yml` for scheduled pre-deadline automated ingestion and commit-back.
+

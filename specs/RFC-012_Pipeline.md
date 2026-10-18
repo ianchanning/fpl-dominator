@@ -21,11 +21,33 @@ As formalized in `wiki/concepts/Data-Integrity-and-Point-Rewind.md`:
 - **The Point-Rewind Cost:** Recovering from contamination requires dangerous retro-subtraction hacks (`point-rewind-recovery.py`) that risk non-idempotent data decay.
 - **The Sovereign Solution:** Automated, unattended scheduled ingestion executed **2 to 6 hours prior to every gameweek deadline**.
 
+```mermaid
+sequenceDiagram
+    autonumber
+    participant GHA as GitHub Actions Runner
+    participant PW as Headless Playwright
+    participant FPL as FPL Transfers SPA
+    participant FFS as FFS Season Ticker
+    participant Staging as gwX/.staging/
+    participant Oracle as Ingestion Contract Oracle
+    participant Vault as gwX/ Production Vault
+    participant Git as Git Repository
+
+    GHA->>PW: 1. Launch headless run (bamf fetch gwX)
+    PW->>FPL: 2. Auth & extract 8x position + squad tables
+    PW->>FFS: 3. Auth & extract 3x FDR ticker matrices
+    PW->>Staging: 4. Atomic dump 12x HTML artifacts
+    GHA->>Oracle: 5. Verify vault invariants & schemas
+    Oracle-->>GHA: Invariants pass (100% verified)
+    GHA->>Vault: 6. Promote staging to production vault
+    GHA->>Git: 7. Commit & push harvested vault
+```
+
 ---
 
-## 3. The 11 Target Artefacts & Vault Mapping
+## 3. The 12 Target Artefacts & Vault Mapping
 
-The ingestion pipeline must extract and persist exactly 11 HTML files into the target vault (`gwX/`), adhering to the contracts expected by `process_players_html.py` and `process_fixtures_html.py`:
+The ingestion pipeline must extract and persist exactly 12 HTML files into the target vault (`gwX/`), adhering to the contracts expected by `process_players_html.py` and `process_fixtures_html.py`:
 
 | Target Slug | Source Portal | Artifact File | Description / Pagination |
 | :--- | :--- | :--- | :--- |
@@ -33,6 +55,7 @@ The ingestion pipeline must extract and persist exactly 11 HTML files into the t
 | `fix-a` | FFS Season Ticker | `fixtures_attack_5w.html` | Attack FDR Ticker matrix (for Midfielders/Forwards) |
 | `fix-d` | FFS Season Ticker | `fixtures_defence_5w.html` | Defence FDR Ticker matrix (for Goalkeepers/Defenders) |
 | `gkp` | FPL Transfers | `goalkeepers.html` | Goalkeepers Page 1 (Top 30 by selected sort) |
+| `gkp2` | FPL Transfers | `goalkeepers_2.html` | Goalkeepers Page 2 (Subsequent 30 - captures £4.0m backup starters) |
 | `def` | FPL Transfers | `defenders.html` | Defenders Page 1 (Top 30 by selected sort) |
 | `def2` | FPL Transfers | `defenders_2.html` | Defenders Page 2 (Subsequent 30) |
 | `mid` | FPL Transfers | `midfielders.html` | Midfielders Page 1 (Top 30 by selected sort) |
@@ -215,17 +238,116 @@ jobs:
 
 ---
 
-## 7. Implementation Roadmap
+---
 
-1. **Phase 1: Ingestion Engine Development**
-   - Implement `src/fpl_dominator/ingest_playwright.py` handling authentication, navigation, and atomic table dumping.
-   - Support CLI invocation: `bamf fetch <gwX>`.
-2. **Phase 2: Local Verification & Credentials Setup**
-   - Populate local `.env` with `FPL_LOGIN`, `FPL_PASS`, `FFS_LOGIN`, `FFS_PASS`.
-   - Test headless extraction on active Gameweek (`gw8`).
-3. **Phase 3: GitHub Actions Deployment**
-   - Store GitHub Repository Secrets.
-   - Deploy `.github/workflows/fpl_data_ingest.yml`.
-   - Test on manual `workflow_dispatch`.
+## 7. Secret Management & GitHub Secrets Security Fortress
+
+Automated browser authentication requires handling high-privilege credentials in unattended environments without risking credential leakage into git history or public CI build logs.
+
+### 7.1 The Zero-Leak Credential Policy
+- **Never Log Secrets:** Playwright scripts must never dump request headers, login form POST payloads, or URLs with authentication query tokens to `stdout` or `stderr`.
+- **Sanitized Trace & Failure Artifacts:** On scraper failure, Playwright error screenshots must be restricted to DOM elements outside password input fields, or stored in private workflow artifact bundles that expire after 48 hours.
+- **Strict Git-Ignored Local Baseline:** Local development strictly sources credentials from `.env` (enforced by root `.gitignore`).
+
+### 7.2 GitHub Repository Secrets Setup
+Credentials must be provisioned as GitHub Repository Secrets under `Settings > Secrets and variables > Actions > Repository secrets`:
+
+```bash
+# Provisioning via GitHub CLI (gh)
+gh secret set FPL_LOGIN -b "your_fpl_email@domain.com"
+gh secret set FPL_PASS -b "your_fpl_password"
+gh secret set FFS_LOGIN -b "your_ffs_username"
+gh secret set FFS_PASS -b "your_ffs_password"
+```
+
+### 7.3 Session State Caching (Anti-Bot & Rate-Limit Shield)
+Repeated logins from cloud runner IPs (GitHub Actions runners) can trigger bot defense heuristics or temporary IP blocks.
+- **Storage State Persistence:** Playwright supports exporting authenticated browser context cookies and local storage via `context.storage_state(path="auth_state.json")`.
+- **Runner Cache Integration:** The GitHub Actions workflow can cache `~/.cache/fpl_auth/` across runs. If the session cookies remain valid, the runner skips the login form entirely and navigates straight to the transfers and ticker portals.
+
+---
+
+## 8. Testing & Defensive Invariants (Dan Luu Methodology)
+
+To guarantee that automated headless scraping never pollutes our data cauldron with malformed, truncated, or hallucinated tables, we establish a dedicated test battery in `tests/test_ingest_pipeline.py` adhering to **Dan Luu's Testing Heuristics**:
+
+```mermaid
+flowchart TD
+    subgraph Step1["1. Failure Surface Analysis"]
+        A["SSO Auth Failure / Captcha Trigger"]
+        B["OneTrust Cookie Modal Blocking Clicks"]
+        C["React-Aria Hydration Race Condition"]
+        D["Pagination Race / Truncated Dump"]
+        E["Deadline Look-Ahead Time Drift"]
+    end
+
+    subgraph Step2["2. Independent Ingestion Oracle"]
+        F["Zero Scraper Code Imports"]
+        G["Independent BeautifulSoup Contract Verifier"]
+        H["Strict Schema Invariant Assertions"]
+    end
+
+    subgraph Step3["3. Synthetic & Property Testing"]
+        I["Offline HTML Fixture Replay"]
+        J["OneTrust Modal Present vs Absent"]
+        K["Idempotency: Ingest(t) == Ingest(t)"]
+        L["Atomic Staging Rollback on Error"]
+    end
+
+    subgraph Step4["4. Real Vault Parity"]
+        M["GW8 Automated vs Manual Rip Bit-Parity"]
+        N["Player Count Parity across Positions"]
+        O["Zero Missing Price / Bank Cells"]
+    end
+
+    Step1 --> Step2 --> Step3 --> Step4
+```
+
+### 8.1 Step 1: Failure Surface Taxonomy
+We systematically document every way headless scraping can catastrophically fail:
+1. **The Ghost Hydration:** Playwright grabs `table._1nvnlp41` before React finishes rendering rows, dumping a shell with 0 players.
+2. **The Modal Interceptor:** OneTrust or Scout promotional popups sit on a higher `z-index`, silently absorbing clicks intended for position dropdowns or pagination buttons.
+3. **The Silent Desync:** Pagination click registers, but network latency delays row updates; Playwright snapshots Page 1 twice instead of Page 2.
+4. **The Partial Dump Disaster:** 9 files succeed, but FFS throws a 502 on `fixtures_defence_5w.html`, leaving an incomplete vault that crashes `bamf finalize`.
+5. **The Deadline Drift (Look-Ahead Poison):** Ingestion runs after matches have kicked off, dragging post-match points into historical vaults.
+
+### 8.2 Step 2: The Independent Ingestion Oracle (`tests/test_ingest_contract.py`)
+Following Dan Luu's heuristic, the test suite implements an **independent verification oracle** that does not share any helper functions, classes, or constants with `ingest_playwright.py`.
+
+The Oracle asserts the following strict contract on any harvested vault directory (`gwX/`):
+- **File Completeness Invariant:** Exactly 12 files must exist (3x fixture tickers, 8x position files including page 2s, 1x squad file).
+- **Non-Triviality Invariant:** Every file size must strictly exceed $1,024$ bytes.
+- **Position Row Quota:** Every positional HTML table must contain $\ge 25$ player rows (`tr._1trl5ao0`).
+- **Squad Completeness:** `squad.html` must contain exactly 15 valid players with non-null `CP`, `SP`, and `PP` price structures and valid position distribution (2 GKP, 5 DEF, 5 MID, 3 FWD).
+- **Fixture Matrix Dimension:** `fixtures_*.html` must resolve exactly 20 Premier League teams with 5 consecutive gameweek cells each, with FDR values strictly clamped within $[800, 1500]$.
+
+### 8.3 Step 3: Structured Synthetic & Property-Based Testing
+- **Offline HTML Mocks:** Test the scraper against saved snapshot HTML files representing:
+  - Standard transfer table with OneTrust banner overlay.
+  - Transfer table without banner.
+  - Page 2 transitions with artificial 500ms network latency.
+- **Idempotency Property Test:** Re-running the parser against identical HTML inputs produces bit-for-bit identical CSV outputs without duplicating rows or mutating index orders.
+- **Atomic Rollback Assertion:** If the scraper simulates a network abort during table 10 of 12, verify that the staging directory (`gwX/.staging/`) is purged and the target vault (`gwX/`) remains untouched.
+
+### 8.4 Step 4: Real Vault Integration & Parity Check
+- Ingest `gw8` using headless Playwright and compare extracted CSVs against the manually ripped baseline files currently stored in `gw8/`.
+- Ensure zero regression in player names, clubs, prices, or fixture difficulties.
+
+---
+
+## 9. Implementation Roadmap
+
+1. **Phase 1: Secret Provisioning & Local Environment**
+   - Configure local `.env` with `FPL_LOGIN`, `FPL_PASS`, `FFS_LOGIN`, `FFS_PASS`.
+   - Provision GitHub Repository Secrets via `gh secret set`.
+2. **Phase 2: Ingestion Engine Development (`src/fpl_dominator/ingest_playwright.py`)**
+   - Implement authentication, cookie dismissal, dropdown navigation, multi-page pagination, and atomic staging.
+   - Wire into CLI deck: `bamf fetch <gwX>`.
+3. **Phase 3: Dan Luu Test Crucible (`tests/test_ingest_pipeline.py`)**
+   - Implement failure surface unit tests, independent contract oracle, and synthetic HTML mocks.
+4. **Phase 4: GitHub Actions Workflow Deployment**
+   - Deploy `.github/workflows/fpl_data_ingest.yml` with scheduled cron and manual dispatch.
+   - Run live manual test on upcoming gameweek to verify end-to-end commit-back.
 
 *EX DATA, VICTORIA.* `(⊕) (⇌)`
+

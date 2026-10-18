@@ -10,6 +10,8 @@ dependencies = [
     "PyYAML",
     "beautifulsoup4",
     "lxml",
+    "playwright>=1.64.0",
+    "python-dotenv>=1.2.4",
 ]
 
 # THIS IS THE SACRED INCANTATION

@@ -306,6 +306,7 @@ def get_clipboard_content() -> str:
             "fix-a",
             "fix-d",
             "gkp",
+            "gkp2",
             "def",
             "def2",
             "mid",
@@ -337,6 +338,7 @@ def rip(target):
         "fix-a": "fixtures_attack_5w.html",
         "fix-d": "fixtures_defence_5w.html",
         "gkp": "goalkeepers.html",
+        "gkp2": "goalkeepers_2.html",
         "def": "defenders.html",
         "def2": "defenders_2.html",
         "mid": "midfielders.html",
@@ -361,6 +363,34 @@ def rip(target):
         )
     except Exception as e:
         click.secho(f"Failed to rip: {e}", fg="red", err=True)
+
+
+@bamf.command(name="fetch")
+@click.argument("gameweek_dir", required=False)
+@click.option(
+    "--headless/--headed",
+    default=True,
+    help="Run browser in headless (default) or headed visual mode.",
+)
+def fetch(gameweek_dir, headless):
+    """
+    Automated Headless Ingestion via Playwright (RFC-012).
+
+    Logs into FPL and FFS, harvests all 12 raw HTML tables,
+    verifies them against the Vault Contract, and promotes them.
+    """
+    from fpl_dominator.ingest_playwright import execute_headless_ingestion
+
+    target_gw = gameweek_dir or get_latest_gw()
+    if not target_gw:
+        click.secho(
+            "Error: No gameweek directory specified or found. Run 'bamf init' first.",
+            fg="red",
+            err=True,
+        )
+        return
+
+    execute_headless_ingestion(target_gw, headless=headless)
 
 
 @bamf.command()

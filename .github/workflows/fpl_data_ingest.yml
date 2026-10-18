@@ -1,0 +1,90 @@
+name: Automated Gameweek Data Ingest (RFC-012)
+
+on:
+  schedule:
+    # Trigger 6 hours and 2 hours before typical Friday evening deadlines (adjust per fixture calendar)
+    - cron: '0 12 * * 5'
+    - cron: '0 16 * * 5'
+  workflow_dispatch:
+    inputs:
+      gameweek:
+        description: 'Gameweek Vault to Populate (e.g. gw8, leave empty for latest/auto)'
+        required: false
+        default: ''
+      auto_finalize:
+        description: 'Execute bamf finalize after harvest'
+        type: boolean
+        default: true
+
+jobs:
+  harvest:
+    name: Harvest Gameweek Data
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout Codebase
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install System Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y glpk-utils
+
+      - name: Setup Python & uv
+        uses: astral-sh/setup-uv@v2
+        with:
+          enable-cache: true
+
+      - name: Install Dependencies
+        run: |
+          uv sync
+          uv run playwright install --with-deps chromium
+
+      - name: Cache Browser Session State
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/fpl_auth
+          key: fpl-auth-session-${{ runner.os }}-${{ github.run_id }}
+          restore-keys: |
+            fpl-auth-session-${{ runner.os }}-
+
+      - name: Execute Headless Ingestion via Playwright
+        env:
+          FPL_LOGIN: ${{ secrets.FPL_LOGIN }}
+          FPL_PASS: ${{ secrets.FPL_PASS }}
+          FFS_LOGIN: ${{ secrets.FFS_LOGIN }}
+          FFS_PASS: ${{ secrets.FFS_PASS }}
+        run: |
+          GW_ARG="${{ inputs.gameweek }}"
+          if [ -z "$GW_ARG" ]; then
+            uv run bamf fetch
+          else
+            uv run bamf fetch "$GW_ARG"
+          fi
+
+      - name: Execute Finalize Pipeline & Solver
+        if: ${{ inputs.auto_finalize }}
+        run: |
+          GW_ARG="${{ inputs.gameweek }}"
+          if [ -z "$GW_ARG" ]; then
+            uv run python -c "from fpl_dominator.bamf import get_latest_gw; import subprocess; gw = get_latest_gw(); subprocess.run(['uv', 'run', 'bamf', 'finalize', gw], check=True)"
+          else
+            uv run bamf finalize "$GW_ARG"
+          fi
+
+      - name: Commit & Push Harvested Vault
+        run: |
+          git config user.name "BAMF Autonomous Harvester"
+          git config user.email "bot@bamf-dominator.internal"
+          git add gw*/
+          if git diff --staged --quiet; then
+            echo "No data changes detected. Nothing to commit."
+          else
+            GW_NAME="${{ inputs.gameweek || 'latest gameweek' }}"
+            git commit -m "chore(data): automated headless ingest for $GW_NAME [skip ci]"
+            git push origin HEAD:${{ github.ref }}
+          fi
