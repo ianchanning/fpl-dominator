@@ -279,8 +279,8 @@ uv run python -m unittest discover tests
 # Execute targeted Dan Luu test suite for Retrospective Lens (RFC-011)
 uv run python -m unittest -v tests.test_retrospective_lens
 
-# Enforce strict code formatting and linter quality gates
-uv run ruff check . && uv run ruff format --check .
+# Enforce strict code formatting, linter quality gates, and static type safety (RFC-013)
+uv run ruff check . && uv run ruff format --check . && uv run ty check src tests
 ```
 
 ---
@@ -323,5 +323,5 @@ All core package sources reside within `src/fpl_dominator/`:
 
 - **Living Grimoire:** Compiled architectural knowledge resides in `wiki/` (symlinked from `.agents/skills/fpl-machine-studying-wiki/wiki`).
 - **RFC Lifecycle Archive:** Ingested ground-truth specifications reside in `wiki/raw/specs/` (RFC-001, RFC-002, RFC-004, RFC-008, RFC-009, RFC-011).
-- **Active Proposals:** In-flight RFC drafts reside in `specs/` (RFC-003, RFC-005, RFC-006, RFC-007, RFC-010, RFC-012).
+- **Active Proposals:** In-flight RFC drafts reside in `specs/` (RFC-003, RFC-005, RFC-006, RFC-007, RFC-010, RFC-012, RFC-013).
 - **Roadmap:** Consult `TODO.md` for active development sprints.

@@ -37,6 +37,8 @@ graph LR
 | **RFC-006** | [Stochastic Expected Minutes](./RFC-006_Stochastic_Expected_Minutes.md) | PLANNED | Probabilistic minute distributions and rotation risk modeling. |
 | **RFC-007** | [Early Season Liquidity](./RFC-007_Early_Season_Liquidity.md) | PLANNED | Capital preservation and team value appreciation dynamics. |
 | **RFC-010** | [The Equation Audit](./RFC-010_Equation_Audit.md) | PLANNED | Stress-testing the Chimera Final Score equation against additive and multiplicative variants. |
+| **RFC-012** | [Automated Ingestion Pipeline (Playwright & Contract Oracle)](./RFC-012_Pipeline.md) | IMPLEMENTED | Automated headless Playwright ingestion with Ping SSO & Dan Luu contract oracle. |
+| **RFC-013** | [Modern Static Type Safety & The Ty Verification Gate](./RFC-013_Static_Type_Safety_With_Ty.md) | IMPLEMENTED | Astral `ty` integration, zero-diagnostic static typing, and algebraic solver invariants. |
 
 ---
 

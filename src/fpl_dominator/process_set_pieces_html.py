@@ -78,9 +78,9 @@ def parse_set_pieces_html(html_path: str) -> pd.DataFrame:
     th_row = (
         header_rows[1]
         if len(header_rows) > 1
-        else (header_rows[0] if header_rows else [])
+        else (header_rows[0] if header_rows else None)
     )
-    th_tags = th_row.find_all("th") if th_row else []
+    th_tags = th_row.find_all("th") if th_row is not None else []
 
     col_names = []
     for th in th_tags:

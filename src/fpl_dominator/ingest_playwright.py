@@ -298,7 +298,7 @@ def execute_headless_ingestion(
     ffs_user = os.environ.get("FFS_LOGIN")
     ffs_pass = os.environ.get("FFS_PASS")
 
-    if not all([fpl_user, fpl_pass, ffs_user, ffs_pass]):
+    if not (fpl_user and fpl_pass and ffs_user and ffs_pass):
         missing = [
             k
             for k, v in [
@@ -317,6 +317,8 @@ def execute_headless_ingestion(
         )
         sys.exit(1)
 
+    assert fpl_user and fpl_pass and ffs_user and ffs_pass
+
     staging_dir = os.path.join(gameweek_dir, ".staging")
     os.makedirs(staging_dir, exist_ok=True)
 
@@ -332,14 +334,17 @@ def execute_headless_ingestion(
             args=["--no-sandbox", "--disable-setuid-sandbox"],
         )
 
-        context_kwargs = {
-            "viewport": {"width": 1920, "height": 1080},
-            "user_agent": USER_AGENT,
-        }
-        if storage_state_path and os.path.exists(storage_state_path):
-            context_kwargs["storage_state"] = storage_state_path
+        valid_storage_state = (
+            storage_state_path
+            if storage_state_path and os.path.exists(storage_state_path)
+            else None
+        )
 
-        context: BrowserContext = browser.new_context(**context_kwargs)
+        context: BrowserContext = browser.new_context(
+            viewport={"width": 1920, "height": 1080},
+            user_agent=USER_AGENT,
+            storage_state=valid_storage_state,
+        )
         page: Page = context.new_page()
 
         try:

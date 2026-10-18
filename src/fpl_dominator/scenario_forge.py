@@ -6,7 +6,7 @@ Implements ScenarioDefinition and generators for multi-dimensional Cartesian exp
 
 import os
 from dataclasses import dataclass
-from typing import Dict, List, Optional, Sequence, Set, Tuple
+from typing import Dict, List, Optional, Sequence, Set, Tuple, TypedDict
 
 import pandas as pd
 import yaml
@@ -20,6 +20,14 @@ from .temporal_decay import (
     generate_step_weights,
     interpolate_gradient,
 )
+
+
+class PlayerMetadata(TypedDict):
+    Surname: str
+    Position: str
+    Team: str
+    Price: float
+
 
 # --- ANSI Terminal Styling & Color Ramps (RFC-008 & RFC-009) ---
 ANSI_RESET = "\033[0m"
@@ -914,7 +922,7 @@ def run_scenario_matrix(
     solutions: Dict[str, SquadSolution] = {}
     player_starters_map: Dict[str, Set[str]] = {}
     player_bench_map: Dict[str, Set[str]] = {}
-    player_info: Dict[str, Dict[str, object]] = {}
+    player_info: Dict[str, PlayerMetadata] = {}
 
     successful_scenarios: List[ScenarioDefinition] = []
 
@@ -947,23 +955,23 @@ def run_scenario_matrix(
             surname = str(row["Surname"])
             player_starters_map.setdefault(surname, set()).add(sc.name)
             if surname not in player_info:
-                player_info[surname] = {
-                    "Surname": surname,
-                    "Position": row["Position"],
-                    "Team": row["Team"],
-                    "Price": float(row["Price"]),
-                }
+                player_info[surname] = PlayerMetadata(
+                    Surname=surname,
+                    Position=str(row["Position"]),
+                    Team=str(row["Team"]),
+                    Price=float(row["Price"]),
+                )
 
         for _, row in sol.bench.iterrows():
             surname = str(row["Surname"])
             player_bench_map.setdefault(surname, set()).add(sc.name)
             if surname not in player_info:
-                player_info[surname] = {
-                    "Surname": surname,
-                    "Position": row["Position"],
-                    "Team": row["Team"],
-                    "Price": float(row["Price"]),
-                }
+                player_info[surname] = PlayerMetadata(
+                    Surname=surname,
+                    Position=str(row["Position"]),
+                    Team=str(row["Team"]),
+                    Price=float(row["Price"]),
+                )
 
     # Aggregate stats for each player
     player_stats_list: List[PlayerScenarioStats] = []
@@ -992,9 +1000,9 @@ def run_scenario_matrix(
 
         stats = PlayerScenarioStats(
             surname=surname,
-            position=str(info["Position"]),
-            team=str(info["Team"]),
-            price=float(info["Price"]),
+            position=info["Position"],
+            team=info["Team"],
+            price=info["Price"],
             starter_appearances=len(starters_set),
             bench_appearances=len(bench_set),
             total_appearances=len(starters_set) + len(bench_set),

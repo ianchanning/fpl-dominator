@@ -245,10 +245,15 @@ def enrich_with_insight(gameweek_dir: str):
     print("[+] All players initialized as Mortals (Coef 1.0).")
 
     # 2. Anoint the Gods and Demigods
-    if CAPTAINCY_TIERS:
+    if CAPTAINCY_TIERS and isinstance(CAPTAINCY_TIERS, dict):
         for tier_name, tier_data in CAPTAINCY_TIERS.items():
+            if not isinstance(tier_data, dict):
+                continue
             player_list = tier_data.get("players", [])
-            coef = tier_data.get("coefficient", 1.0)
+            if not isinstance(player_list, list):
+                continue
+            raw_coef = tier_data.get("coefficient", 1.0)
+            coef = float(raw_coef) if isinstance(raw_coef, (int, float, str)) else 1.0
 
             tier_mask = pd.Series(False, index=players.index)
             for p in player_list:

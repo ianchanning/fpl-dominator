@@ -137,12 +137,14 @@ def calculate_squad_divergence(gameweek_dir: str) -> Dict[str, Any]:
     model.is_starter = pyo.Var(model.players, within=pyo.Binary)
 
     def objective_rule(m):
-        starter_score = sum(final_scores[i] * m.is_starter[i] for i in m.players)
-        bench_penalty = sum(
+        starter_score = pyo.quicksum(
+            final_scores[i] * m.is_starter[i] for i in m.players
+        )
+        bench_penalty = pyo.quicksum(
             (m.in_squad[i] - m.is_starter[i]) * prices[i] * thrift_factor
             for i in m.players
         )
-        bench_bonus = sum(
+        bench_bonus = pyo.quicksum(
             (m.in_squad[i] - m.is_starter[i]) * final_scores[i] * bench_potency_epsilon
             for i in m.players
         )
@@ -158,44 +160,65 @@ def calculate_squad_divergence(gameweek_dir: str) -> Dict[str, Any]:
     budget_limit = max(100.0, current_team_value)
 
     model.squad_cost = pyo.Constraint(
-        expr=sum(prices[i] * model.in_squad[i] for i in model.players) <= budget_limit
+        expr=pyo.quicksum(prices[i] * model.in_squad[i] for i in model.players)
+        <= budget_limit
     )
     model.squad_size = pyo.Constraint(
-        expr=sum(model.in_squad[i] for i in model.players) == 15
+        expr=pyo.quicksum(model.in_squad[i] for i in model.players) == 15
     )
     model.gkp_limit = pyo.Constraint(
-        expr=sum(model.in_squad[i] for i in model.players if positions[i] == "GKP") == 2
+        expr=pyo.quicksum(
+            model.in_squad[i] for i in model.players if positions[i] == "GKP"
+        )
+        == 2
     )
     model.def_limit = pyo.Constraint(
-        expr=sum(model.in_squad[i] for i in model.players if positions[i] == "DEF") == 5
+        expr=pyo.quicksum(
+            model.in_squad[i] for i in model.players if positions[i] == "DEF"
+        )
+        == 5
     )
     model.mid_limit = pyo.Constraint(
-        expr=sum(model.in_squad[i] for i in model.players if positions[i] == "MID") == 5
+        expr=pyo.quicksum(
+            model.in_squad[i] for i in model.players if positions[i] == "MID"
+        )
+        == 5
     )
     model.fwd_limit = pyo.Constraint(
-        expr=sum(model.in_squad[i] for i in model.players if positions[i] == "FWD") == 3
+        expr=pyo.quicksum(
+            model.in_squad[i] for i in model.players if positions[i] == "FWD"
+        )
+        == 3
     )
 
     model.team_list = pyo.Set(initialize=master_df["Team_TLA"].unique())
 
     def team_limit_rule(m, team_tla):
-        return sum(m.in_squad[i] for i in m.players if teams[i] == team_tla) <= 3
+        return (
+            pyo.quicksum(m.in_squad[i] for i in m.players if teams[i] == team_tla) <= 3
+        )
 
     model.team_limit = pyo.Constraint(model.team_list, rule=team_limit_rule)
 
     model.starter_size = pyo.Constraint(
-        expr=sum(model.is_starter[i] for i in model.players) == 11
+        expr=pyo.quicksum(model.is_starter[i] for i in model.players) == 11
     )
     model.starter_gkp = pyo.Constraint(
-        expr=sum(model.is_starter[i] for i in model.players if positions[i] == "GKP")
+        expr=pyo.quicksum(
+            model.is_starter[i] for i in model.players if positions[i] == "GKP"
+        )
         == 1
     )
     model.starter_def = pyo.Constraint(
-        expr=sum(model.is_starter[i] for i in model.players if positions[i] == "DEF")
+        expr=pyo.quicksum(
+            model.is_starter[i] for i in model.players if positions[i] == "DEF"
+        )
         >= 3
     )
     model.starter_fwd = pyo.Constraint(
-        expr=sum(model.is_starter[i] for i in model.players if positions[i] == "FWD")
+        expr=pyo.quicksum(
+            model.is_starter[i] for i in model.players if positions[i] == "FWD"
+        )
         >= 1
     )
     model.bridge = pyo.Constraint(

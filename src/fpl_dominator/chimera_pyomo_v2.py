@@ -1,7 +1,7 @@
 import os
 import re
 from dataclasses import dataclass
-from typing import Dict, Optional, Tuple
+from typing import Dict, Literal, Mapping, Optional, Tuple, overload
 
 import pandas as pd
 import pyomo.environ as pyo
@@ -113,10 +113,32 @@ def enrich_with_set_pieces(
     return df
 
 
+def _get_float(config: Mapping[str, object], key: str, default: float) -> float:
+    """Safely extracts a float value from config with defensive type validation."""
+    val = config.get(key, default)
+    if isinstance(val, (int, float, str)):
+        try:
+            return float(val)
+        except ValueError:
+            return default
+    return default
+
+
+def _get_int(config: Mapping[str, object], key: str, default: int) -> int:
+    """Safely extracts an int value from config with defensive type validation."""
+    val = config.get(key, default)
+    if isinstance(val, (int, float, str)):
+        try:
+            return int(val)
+        except ValueError:
+            return default
+    return default
+
+
 def solve_chimera_squad(
     omniscient_df: pd.DataFrame,
     set_pieces_path: str = "set_pieces.csv",
-    solver_config: Optional[Dict[str, object]] = None,
+    solver_config: Optional[Mapping[str, object]] = None,
 ) -> SquadSolution:
     """Solves the Chimera MILP optimization entirely in memory.
 
@@ -135,16 +157,22 @@ def solve_chimera_squad(
     if solver_config is None:
         try:
             with open("config.yaml", "r") as f:
-                solver_config = yaml.safe_load(f).get("pyomo_solver", {}) or {}
+                loaded = yaml.safe_load(f)
+                solver_config = (
+                    loaded.get("pyomo_solver", {}) if isinstance(loaded, dict) else {}
+                )
         except (FileNotFoundError, yaml.YAMLError):
             solver_config = {}
 
-    thrift_factor = float(solver_config.get("thrift_factor", 0.001))
-    bench_potency_epsilon = float(solver_config.get("bench_potency_epsilon", 0.00001))
-    form_factor_weight = float(solver_config.get("form_factor_weight", 0.7))
-    red_zone_threshold = float(solver_config.get("red_zone_threshold", 1250))
-    red_zone_limit = int(solver_config.get("red_zone_limit", 5))
-    spp_scores = solver_config.get("spp_scores", DEFAULT_SPP_SCORES)
+    thrift_factor = _get_float(solver_config, "thrift_factor", 0.001)
+    bench_potency_epsilon = _get_float(solver_config, "bench_potency_epsilon", 0.00001)
+    form_factor_weight = _get_float(solver_config, "form_factor_weight", 0.7)
+    red_zone_threshold = _get_float(solver_config, "red_zone_threshold", 1250.0)
+    red_zone_limit = _get_int(solver_config, "red_zone_limit", 5)
+    raw_spp = solver_config.get("spp_scores")
+    spp_scores: Dict[str, Dict[str, float]] = (
+        raw_spp if isinstance(raw_spp, dict) else DEFAULT_SPP_SCORES
+    )
 
     # Prepare DataFrame and enrich
     df = omniscient_df.copy()
@@ -180,12 +208,14 @@ def solve_chimera_squad(
 
     # --- 3. Objective Function ---
     def objective_rule(m):
-        starter_score = sum(final_scores[i] * m.is_starter[i] for i in m.players)
-        bench_penalty = sum(
+        starter_score = pyo.quicksum(
+            final_scores[i] * m.is_starter[i] for i in m.players
+        )
+        bench_penalty = pyo.quicksum(
             (m.in_squad[i] - m.is_starter[i]) * prices[i] * thrift_factor
             for i in m.players
         )
-        bench_bonus = sum(
+        bench_bonus = pyo.quicksum(
             (m.in_squad[i] - m.is_starter[i]) * final_scores[i] * bench_potency_epsilon
             for i in m.players
         )
@@ -195,47 +225,67 @@ def solve_chimera_squad(
 
     # --- 4. Constraints ---
     model.squad_cost = pyo.Constraint(
-        expr=sum(prices[i] * model.in_squad[i] for i in model.players) <= 100.0
+        expr=pyo.quicksum(prices[i] * model.in_squad[i] for i in model.players) <= 100.0
     )
     model.squad_size = pyo.Constraint(
-        expr=sum(model.in_squad[i] for i in model.players) == 15
+        expr=pyo.quicksum(model.in_squad[i] for i in model.players) == 15
     )
 
     model.gkp_squad_limit = pyo.Constraint(
-        expr=sum(model.in_squad[i] for i in model.players if positions[i] == "GKP") == 2
+        expr=pyo.quicksum(
+            model.in_squad[i] for i in model.players if positions[i] == "GKP"
+        )
+        == 2
     )
     model.def_squad_limit = pyo.Constraint(
-        expr=sum(model.in_squad[i] for i in model.players if positions[i] == "DEF") == 5
+        expr=pyo.quicksum(
+            model.in_squad[i] for i in model.players if positions[i] == "DEF"
+        )
+        == 5
     )
     model.mid_squad_limit = pyo.Constraint(
-        expr=sum(model.in_squad[i] for i in model.players if positions[i] == "MID") == 5
+        expr=pyo.quicksum(
+            model.in_squad[i] for i in model.players if positions[i] == "MID"
+        )
+        == 5
     )
     model.fwd_squad_limit = pyo.Constraint(
-        expr=sum(model.in_squad[i] for i in model.players if positions[i] == "FWD") == 3
+        expr=pyo.quicksum(
+            model.in_squad[i] for i in model.players if positions[i] == "FWD"
+        )
+        == 3
     )
 
     # Team Limits (Max 3 per club)
     model.team_list = pyo.Set(initialize=df["Team_TLA"].unique())
 
     def team_limit_rule(m, team_tla):
-        return sum(m.in_squad[i] for i in m.players if teams[i] == team_tla) <= 3
+        return (
+            pyo.quicksum(m.in_squad[i] for i in m.players if teams[i] == team_tla) <= 3
+        )
 
     model.team_limit = pyo.Constraint(model.team_list, rule=team_limit_rule)
 
     # Starter Size and Formations
     model.starter_size = pyo.Constraint(
-        expr=sum(model.is_starter[i] for i in model.players) == 11
+        expr=pyo.quicksum(model.is_starter[i] for i in model.players) == 11
     )
     model.starter_gkp = pyo.Constraint(
-        expr=sum(model.is_starter[i] for i in model.players if positions[i] == "GKP")
+        expr=pyo.quicksum(
+            model.is_starter[i] for i in model.players if positions[i] == "GKP"
+        )
         == 1
     )
     model.starter_def = pyo.Constraint(
-        expr=sum(model.is_starter[i] for i in model.players if positions[i] == "DEF")
+        expr=pyo.quicksum(
+            model.is_starter[i] for i in model.players if positions[i] == "DEF"
+        )
         >= 3
     )
     model.starter_fwd = pyo.Constraint(
-        expr=sum(model.is_starter[i] for i in model.players if positions[i] == "FWD")
+        expr=pyo.quicksum(
+            model.is_starter[i] for i in model.players if positions[i] == "FWD"
+        )
         >= 1
     )
 
@@ -252,7 +302,7 @@ def solve_chimera_squad(
         ]
         if not red_zone_players:
             return pyo.Constraint.Feasible
-        return sum(m.is_starter[i] for i in red_zone_players) <= red_zone_limit
+        return pyo.quicksum(m.is_starter[i] for i in red_zone_players) <= red_zone_limit
 
     model.red_zone_limit = pyo.Constraint(rule=red_zone_rule)
 
@@ -301,6 +351,30 @@ def solve_chimera_squad(
         total_cost=round(total_cost, 1),
         bank=round(bank, 1),
     )
+
+
+@overload
+def forge_pyomo_squad(
+    gameweek_dir: str,
+    return_squad: Literal[False] = False,
+    force_reforge: bool = False,
+) -> bool: ...
+
+
+@overload
+def forge_pyomo_squad(
+    gameweek_dir: str,
+    return_squad: Literal[True],
+    force_reforge: bool = False,
+) -> Tuple[bool, pd.DataFrame, pd.DataFrame]: ...
+
+
+@overload
+def forge_pyomo_squad(
+    gameweek_dir: str,
+    return_squad: bool = False,
+    force_reforge: bool = False,
+) -> bool | Tuple[bool, pd.DataFrame, pd.DataFrame]: ...
 
 
 def forge_pyomo_squad(

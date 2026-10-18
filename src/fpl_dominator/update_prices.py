@@ -101,7 +101,7 @@ def reconcile_timeline(gameweek_dir):
 
                 for market_row in market_reader:
                     if market_row and market_row[0] == surname:
-                        market_row[3] = purchase_price  # Column 3 is the price.
+                        market_row[3] = str(purchase_price)  # Column 3 is the price.
                         player_found = True
                     market_writer.writerow(market_row)
 

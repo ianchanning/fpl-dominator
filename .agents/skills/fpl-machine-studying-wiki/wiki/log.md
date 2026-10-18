@@ -108,3 +108,17 @@ This file is an append-only timeline of all knowledge base updates, source inges
 - Executed live full gauntlet (`bamf finalize gw8`) on freshly harvested automated data, forging `gw8/squad_prophecy.md` via GLPK MILP solver; maintained 55 passing unit and contract tests in 3.4s.
 - Synthesized Living Grimoire node `wiki/concepts/Automated-Data-Ingestion-and-Contract-Oracle.md` and indexed in `wiki/index.md`.
 
+## [2026-10-18] feature | Modern Static Type Safety & The Ty Verification Gate (RFC-013)
+- Forged `specs/RFC-013_Static_Type_Safety_With_Ty.md` formalizing zero-diagnostic static typing with Astral's `ty` Rust-based type checker.
+- Eradicated 75 static typing diagnostics across `src/` and `tests/`:
+  - Replaced Python built-in `sum()` over Pyomo expressions with `pyo.quicksum()`, resolving generator overload failures and speeding up linear expression tree generation.
+  - Implemented `@overload` signatures for `forge_pyomo_squad()` enabling compile-time return shape narrowing (`bool` vs `Tuple[bool, DataFrame, DataFrame]`).
+  - Switched `solver_config` parameter typing to covariant `Optional[Mapping[str, object]]` to support subtype dictionary parameters without variance friction.
+  - Hardened config extraction with defensive `_get_float` and `_get_int` helpers and type validation.
+  - Replaced Playwright `**context_kwargs` dynamic unpacking with explicit named parameters, eradicating 36 overload diagnostics.
+  - Added type guards and assertions for environment credentials, BeautifulSoup attributes, table header tags, and CSV price string formatting.
+  - Formalized `PlayerMetadata` TypedDict in `scenario_forge.py`.
+- Integrated `ty` into `pyproject.toml` dev dependencies and updated `README.md` quality gates.
+- Achieved **zero diagnostics** with `ty check src tests` while passing all 55 unit tests and ruff format/lint checks.
+
+

@@ -114,8 +114,10 @@ def parse_prior_season_html(
         name_td = tds[1]
         a_tag = name_td.find("a")
         display_name = a_tag.text.strip() if a_tag else name_td.text.strip()
-        full_name = a_tag.get("oldtitle", "").strip() if a_tag else ""
-        slug = a_tag.get("href", "").strip() if a_tag else ""
+        oldtitle_attr = a_tag.get("oldtitle", "") if a_tag else ""
+        full_name = oldtitle_attr.strip() if isinstance(oldtitle_attr, str) else ""
+        href_attr = a_tag.get("href", "") if a_tag else ""
+        slug = href_attr.strip() if isinstance(href_attr, str) else ""
 
         # Extract profile title metadata if rendered
         profile_div = name_td.find("div", class_="profile-title")
