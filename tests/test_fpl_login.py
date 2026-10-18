@@ -56,7 +56,9 @@ def purge_onetrust_overlay(page: Page) -> None:
             """() => {
             const sdk = document.getElementById('onetrust-consent-sdk');
             if (sdk) sdk.remove();
-            const filters = document.querySelectorAll('.onetrust-pc-dark-filter, #onetrust-banner-sdk');
+            const filters = document.querySelectorAll(
+                '.onetrust-pc-dark-filter, #onetrust-banner-sdk'
+            );
             filters.forEach(f => f.remove());
         }"""
         )
@@ -90,9 +92,7 @@ def execute_fpl_login_flow(
     login_btn.click(force=True)
 
     # Wait for Ping SSO form
-    page.wait_for_selector(
-        "input#username, input[name='username']", timeout=20000
-    )
+    page.wait_for_selector("input#username, input[name='username']", timeout=20000)
     purge_onetrust_overlay(page)
 
     # Fill credentials
@@ -108,8 +108,9 @@ def execute_fpl_login_flow(
 
     # Wait for redirection out of account.premierleague.com back to fantasy
     page.wait_for_url(
-        lambda u: "account.premierleague.com" not in u
-        and "fantasy.premierleague.com" in u,
+        lambda u: (
+            "account.premierleague.com" not in u and "fantasy.premierleague.com" in u
+        ),
         timeout=25000,
     )
     page.wait_for_timeout(2000)
@@ -159,9 +160,7 @@ def execute_ffs_login_flow(
     if screenshot_path:
         page.screenshot(path=screenshot_path)
 
-    ticker_count = page.locator(
-        "div#fpl-ticker-root, div.advanced-ticker"
-    ).count()
+    ticker_count = page.locator("div#fpl-ticker-root, div.advanced-ticker").count()
     return ticker_count > 0
 
 
@@ -195,9 +194,7 @@ class TestLiveAuthentication(unittest.TestCase):
                 user_agent=USER_AGENT,
             )
             try:
-                success = execute_fpl_login_flow(
-                    page, self.fpl_user, self.fpl_pass
-                )
+                success = execute_fpl_login_flow(page, self.fpl_user, self.fpl_pass)
                 self.assertTrue(
                     success,
                     "FPL login succeeded but transfers tables failed to render.",
@@ -220,9 +217,7 @@ class TestLiveAuthentication(unittest.TestCase):
                 user_agent=USER_AGENT,
             )
             try:
-                success = execute_ffs_login_flow(
-                    page, self.ffs_user, self.ffs_pass
-                )
+                success = execute_ffs_login_flow(page, self.ffs_user, self.ffs_pass)
                 self.assertTrue(
                     success,
                     "FFS login succeeded but season ticker failed to render.",

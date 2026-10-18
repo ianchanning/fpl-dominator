@@ -39,9 +39,23 @@ source .venv/bin/activate
 
 # 3. Install the project and all dependencies in editable mode
 uv pip install -e .
+
+# 4. Install Playwright browser binaries for automated headless ingestion
+uv run playwright install chromium
 ```
 
-### 3. Advanced Shell Integration (Optimised Auto-Complete & Performance)
+### 3. Portal Credentials Configuration (.env)
+
+For automated headless ingestion (`bamf fetch`), configure your credentials in `.env` (or via GitHub Actions secrets `FPL_LOGIN`, `FPL_PASS`, `FFS_LOGIN`, `FFS_PASS`):
+
+```bash
+FPL_LOGIN="your_fpl_email@domain.com"
+FPL_PASS="your_fpl_password"
+FFS_LOGIN="your_ffs_username"
+FFS_PASS="your_ffs_password"
+```
+
+### 4. Advanced Shell Integration (Optimised Auto-Complete & Performance)
 
 ```bash
 # Forge the Completion Artefact
@@ -65,7 +79,10 @@ All operations are channeled through our master command-line interface, `bamf`.
 **Core Lifecycle & Ritual Commands:**
 
 - `init <gwX>`: Creates a new, clean gameweek vault.
-- `rip <target>`: Rips clipboard content directly into the **latest** vault (`fix`, `fix-a`, `fix-d`, `gkp`, `def`, `def2`, `mid`, `mid2`, `fwd`, `fwd2`, `squad`).
+- `fetch [gwX]`: Automated Headless Ingestion via Playwright & Ping SSO with Dan Luu Contract Oracle (RFC-012).
+  - `--headed / --headless`: Toggle browser GUI for live visual inspection.
+  - `--storage-state <PATH>`: Load or persist browser session authentication state.
+- `rip <target>`: Manual clipboard fallback into latest vault (`fix`, `fix-a`, `fix-d`, `gkp`, `gkp2`, `def`, `def2`, `mid`, `mid2`, `fwd`, `fwd2`, `squad`).
 - `finalize [gwX]`: Executes the **full** end-to-end processing ritual (HTML -> CSV -> Audit -> Retrospective Lens -> MILP Solver).
 - `run-gauntlet [gwX]`: Executes the core data-to-squad optimization pipeline.
 - `audit`: Diagnostic suite to inspect entity resolution and data integrity (`teams`, `players`).
@@ -147,57 +164,50 @@ graph TD
 
 ---
 
-## THE WEEKLY RITUAL (v2.0 - With Scenario Reconnaissance)
+## THE WEEKLY RITUAL (v3.0 - Automated Ingestion with Playwright & Dan Luu Contract Oracle)
 
-This is the high-velocity, four-step workflow for the modern Carbon Pirate (π). Zero manual data entry is required.
+This is the high-velocity, four-step workflow for the modern Carbon Pirate (π). Zero manual data entry or browser clipboard gymnastics are required.
 
 ### Step 1: Initialise the Vault
 Spawn the directory structure for the upcoming campaign:
 ```bash
-bamf init gw4
+bamf init gw8
 ```
 
-### Step 2: The Ritual of the Rip
-Navigate to FPL and Fantasy Football Scout, copy the OuterHTML of the relevant tables, and unleash the Rip (automatically directed to the newest vault):
+### Step 2: Automated Headless Ingestion (`bamf fetch` - RFC-012)
+Execute fully automated ingestion across Premier League Ping SSO and Fantasy Football Scout members portal with live OneTrust overlay neutralization and Dan Luu invariant verification:
+```bash
+bamf fetch gw8
+```
+*What happens under the hood:*
+1. **Quarantine:** Harvests into an isolated staging sandbox (`gw8/.staging/`).
+2. **Ping SSO Handshake:** Authenticates with `account.premierleague.com` and navigates OIDC challenge redirects.
+3. **OneTrust Neutralization:** Purges asynchronous pointer-intercepting cookie banners and dark filters.
+4. **Multi-Page Player Market:** Navigates ARIA radiogroups and pagination to harvest Page 1 & Page 2 tables across all 4 positions.
+5. **5-Week FDR Lock:** Synchronizes Fantasy Football Scout Season Ticker to the exact 5-gameweek window.
+6. **Contract Oracle Verification:** Strictly verifies all 12 target artifacts before atomic promotion (`shutil.move`) into `gw8/`.
+
+*Visual Debugging:* Add `--headed` to run with a visible browser window:
+```bash
+bamf fetch gw8 --headed
+```
+
+#### Optional Manual Fallback: The Ritual of the Rip (`bamf rip`)
+If running without portal credentials, copy OuterHTML from browser developer tools and rip directly into the latest vault:
 ```bash
 bamf rip fix       # Overall FDR Ticker
 bamf rip fix-a     # Attack FDR Ticker
 bamf rip fix-d     # Defence FDR Ticker
-bamf rip gkp       # Goalkeepers table
-bamf rip def       # Defenders table 1
-bamf rip def2      # Defenders table 2
-bamf rip mid       # Midfielders table 1
-bamf rip mid2      # Midfielders table 2
-bamf rip fwd       # Forwards table 1
-bamf rip fwd2      # Forwards table 2
+bamf rip gkp       # Goalkeepers table (Page 1)
+bamf rip gkp2      # Goalkeepers table (Page 2)
+bamf rip def       # Defenders table (Page 1)
+bamf rip def2      # Defenders table (Page 2)
+bamf rip mid       # Midfielders table (Page 1)
+bamf rip mid2      # Midfielders table (Page 2)
+bamf rip fwd       # Forwards table (Page 1)
+bamf rip fwd2      # Forwards table (Page 2)
 bamf rip squad     # Current squad selling values & bank
 ```
-
-These are the CSS paths of the tables that we ingest for `bamf rip`:
-
-#### Gameweek data for `bamf rip [gkp|def|mid|fwd|squad]`
-
-https://fantasy.premierleague.com/en/transfers
-
-- log-in
-
-- select dropdown select at `html.light-theme body.is-logged-out main#mainContent.ism div#root div._1ksll754x div.ism div.eu9oece div.eu9oec1.eu9oec0 section div.eu9oec5 div.jw51ht0 div._1nvnlp40 div._1nvnlp42 div.enaqz30 div.react-aria-Select button#react-aria7861781041-_r_2if_._1gkly0o2._1gkly0o1._1gkly0o0._1gkly0o3`
-
-- Copy the Outer HTML for, Goalkeepers/Defenders/Midfielders/Forwards, CSS Path for the `<table>`: `html.light-theme body.is-logged-out main#mainContent.ism div#root div._1ksll754x div.ism div.eu9oece div.eu9oec1.eu9oec0 section div.eu9oec5 div.jw51ht0 div._1nvnlp40 div._1nvnlp49 table._1nvnlp41`
-
-- select radio button for Squad 'list' at `html.light-theme body.is-logged-out main#mainContent.ism div#root div._1ksll754x div.ism div.eu9oece div.eu9oec1.eu9oec0 div.eu9oec4 section div.jw51ht0 div.eu9oec3 div._187da710 div._187da711 div._1zmuz70 button.ktbkv41.ktbkv40._4xqwov0`
-
-- Copy Outer HTML for Squad: `html.light-theme body.is-logged-out main#mainContent.ism div#root div._1ksll754x div.ism div.eu9oece div.eu9oec1.eu9oec0 div.eu9oec4 section div.jw51ht0 div.eu9oec3 div._4xqwov7 table._4xqwov8`
-
-#### Gameweek data for `bamf rip [fix|fix-a|fix-d]`
-
-https://members.fantasyfootballscout.co.uk/season-ticker/
-
-- log-in
-
-- select dropdown at `html.wf-francoisoneregular-n4-inactive.wf-inactive body.page.js div.antialiased.bg-gray-50.dark:bg-gray-900 main.p-4.md:ml-64.h-auto.pt-20 div.section div#fpl-ticker-root div.fpl-ticker-app div.advanced-ticker div div.ticker-controls div.control-group select.control-select`
-
-- Copy the Outer HTML for Overall, Attack, Defence: `html.wf-francoisoneregular-n4-inactive.wf-inactive body.page.js div.antialiased.bg-gray-50.dark:bg-gray-900 main.p-4.md:ml-64.h-auto.pt-20 div.section div#fpl-ticker-root div.fpl-ticker-app div.advanced-ticker`
 ### Step 3: The Scenario Reconnaissance (Sensitivity & Form Fraud Audit)
 Before committing to transfers, interrogate the stability of the player pool using `bamf forge`:
 
@@ -289,15 +299,23 @@ All core package sources reside within `src/fpl_dominator/`:
 - `src/fpl_dominator/grand_synthesis.py`: Positional bifurcation and temporal fixture horizon discounting.
 - `src/fpl_dominator/process_players_html.py`: High-speed HTML table parser for player rosters and squad prices.
 - `src/fpl_dominator/process_fixtures_html.py`: HTML fixture ticker decoder converting RGB styles to FDR metrics.
+- `src/fpl_dominator/ingest_playwright.py`: Headless browser crawler with OneTrust dismissal, Ping SSO handshake, and multi-page pagination (RFC-012).
+- `src/fpl_dominator/vault_contract.py`: Deterministic contract oracle and invariant gate enforcing vault payload completeness (RFC-012).
 - `src/fpl_dominator/update_prices.py`: Bank balance and selling profit tax reconciliation.
 - `src/fpl_dominator/wildcard_evaluator.py`: Squad divergence analysis for optimal chip timing.
 
 **Test Battery & Invariant Fortresses:**
 
+- `tests/test_ingest_contract.py`: Dan Luu testing crucible and independent verification oracle for vault artifacts (RFC-012).
+- `tests/test_fpl_login.py`: Dedicated live portal authentication test battery for Ping SSO and FFS members area.
 - `tests/test_retrospective_lens.py`: Dan Luu-style edge cases, independent oracle, property invariants, and vault integration (RFC-011).
 - `tests/test_scenario_forge.py`: Multi-scenario Cartesian and gradient matrix testing (RFC-008, RFC-009).
 - `tests/test_temporal_decay.py`: Functional decay weighting algorithms and mathematical clamping tests.
 - `tests/test_in_memory_solver.py`: 5-run anti-gambit solver memory isolation and parity checks.
+
+**CI/CD Automation:**
+
+- `.github/workflows/fpl_data_ingest.yml`: Scheduled GitHub Actions workflow running automated pre-deadline crawls on Fridays (12:00 & 16:00 UTC).
 
 ---
 
@@ -305,5 +323,5 @@ All core package sources reside within `src/fpl_dominator/`:
 
 - **Living Grimoire:** Compiled architectural knowledge resides in `wiki/` (symlinked from `.agents/skills/fpl-machine-studying-wiki/wiki`).
 - **RFC Lifecycle Archive:** Ingested ground-truth specifications reside in `wiki/raw/specs/` (RFC-001, RFC-002, RFC-004, RFC-008, RFC-009, RFC-011).
-- **Active Proposals:** In-flight RFC drafts reside in `specs/` (RFC-003, RFC-005, RFC-006, RFC-007, RFC-010).
+- **Active Proposals:** In-flight RFC drafts reside in `specs/` (RFC-003, RFC-005, RFC-006, RFC-007, RFC-010, RFC-012).
 - **Roadmap:** Consult `TODO.md` for active development sprints.

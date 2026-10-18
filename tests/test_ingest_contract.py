@@ -266,16 +266,35 @@ class TestIngestContractOracle(unittest.TestCase):
     def test_incomplete_vault_state_caught_deterministically(self):
         """Step 1 & 4: Incomplete vault state MUST be caught deterministically."""
         with tempfile.TemporaryDirectory() as tmpdir:
-            # Create incomplete state (1-byte dummy files, missing squad.html & defenders_2.html)
-            for fname in ["defenders.html", "forwards.html", "goalkeepers.html", "midfielders.html"]:
+            # Create incomplete state (1-byte files, missing squad & defenders_2)
+            pos_files = [
+                "defenders.html",
+                "forwards.html",
+                "goalkeepers.html",
+                "midfielders.html",
+            ]
+            sample_content = (
+                "<html><table>"
+                + "<tr><td>Player</td><td>£5.0</td></tr>" * 25
+                + "</table></html>"
+            )
+            for fname in pos_files:
                 with open(os.path.join(tmpdir, fname), "w") as f:
-                    f.write("<html><table>" + "<tr><td>Player</td><td>£5.0</td></tr>" * 25 + "</table></html>")
-            for fname in ["fixtures_5w.html", "fixtures_attack_5w.html", "fixtures_defence_5w.html"]:
+                    f.write(sample_content)
+
+            fix_files = [
+                "fixtures_5w.html",
+                "fixtures_attack_5w.html",
+                "fixtures_defence_5w.html",
+            ]
+            for fname in fix_files:
                 with open(os.path.join(tmpdir, fname), "w") as f:
                     f.write(" ")  # 1 byte
 
             is_valid, violations = independently_verify_vault_contract(tmpdir)
-            self.assertFalse(is_valid, "Incomplete vault was expected to fail validation!")
+            self.assertFalse(
+                is_valid, "Incomplete vault was expected to fail validation!"
+            )
 
             violation_text = "\n".join(violations)
             self.assertIn("fixtures_5w.html", violation_text)

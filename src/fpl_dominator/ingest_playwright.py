@@ -55,7 +55,9 @@ def purge_onetrust_overlay(page: Page) -> None:
             """() => {
             const sdk = document.getElementById('onetrust-consent-sdk');
             if (sdk) sdk.remove();
-            const filters = document.querySelectorAll('.onetrust-pc-dark-filter, #onetrust-banner-sdk');
+            const filters = document.querySelectorAll(
+                '.onetrust-pc-dark-filter, #onetrust-banner-sdk'
+            );
             filters.forEach(f => f.remove());
         }"""
         )
@@ -86,9 +88,7 @@ def login_fpl(page: Page, username: str, password: str) -> None:
     login_btn.click(force=True)
 
     # Wait for account.premierleague.com Ping SSO form
-    page.wait_for_selector(
-        "input#username, input[name='username']", timeout=25000
-    )
+    page.wait_for_selector("input#username, input[name='username']", timeout=25000)
     purge_onetrust_overlay(page)
 
     # Fill credentials
@@ -104,8 +104,9 @@ def login_fpl(page: Page, username: str, password: str) -> None:
 
     # Wait for redirection out of account.premierleague.com back to fantasy
     page.wait_for_url(
-        lambda u: "account.premierleague.com" not in u
-        and "fantasy.premierleague.com" in u,
+        lambda u: (
+            "account.premierleague.com" not in u and "fantasy.premierleague.com" in u
+        ),
         timeout=25000,
     )
     page.wait_for_timeout(2000)
@@ -258,7 +259,8 @@ def harvest_ffs_tickers(page: Page, staging_dir: str) -> None:
     # Ensure 5 GWs window is selected on Season Ticker
     try:
         gw_count_select = page.locator(
-            "select.gw-select[title*='gameweeks shown'], div.gw-display-controls select.gw-select"
+            "select.gw-select[title*='gameweeks shown'], "
+            "div.gw-display-controls select.gw-select"
         ).first
         if gw_count_select.count() > 0:
             gw_count_select.select_option(label="5 GWs")

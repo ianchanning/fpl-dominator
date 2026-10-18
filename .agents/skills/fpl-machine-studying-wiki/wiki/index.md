@@ -19,6 +19,7 @@ graph TD
     subgraph "🛠️ Operational Protocols (cat:operations)"
         R1[The-BAMF-CLI-Ritual]
         R2[Audit-and-Data-Integrity]
+        R3[concepts/Automated-Data-Ingestion-and-Contract-Oracle]
     end
 
     subgraph "📚 Foundations & Cognitive Engine"
@@ -52,3 +53,5 @@ graph TD
 - [[The-BAMF-CLI-Ritual]] - End-to-end Gameweek workflow: init vault, rip clipboard HTML, finalize prophecy.
 - [[concepts/Audit-and-Data-Integrity]] - Automated player name aliasing and reality verification tests.
 - [[concepts/Data-Integrity-and-Point-Rewind]] - Recovery protocol for look-ahead bias and point contamination.
+- [[concepts/Automated-Data-Ingestion-and-Contract-Oracle]] - Automated Playwright ingestion, Ping SSO bypass, and Dan Luu contract oracle (RFC-012).
+

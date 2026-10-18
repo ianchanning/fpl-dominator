@@ -104,4 +104,7 @@ This file is an append-only timeline of all knowledge base updates, source inges
 - Implemented `src/fpl_dominator/ingest_playwright.py` with OneTrust cookie dismissal, FPL/FFS credential handling, multi-page positional table harvesting, and atomic staging.
 - Added `bamf fetch [gwX]` command to CLI deck and expanded `bamf rip` with `gkp2`.
 - Deployed `.github/workflows/fpl_data_ingest.yml` for scheduled pre-deadline automated ingestion and commit-back.
+- Diagnosed and resolved live portal friction: navigated Ping Identity SSO (`account.premierleague.com`) challenge redirects, neutralized late-injected OneTrust banners (`#onetrust-banner-sdk`) via asynchronous barriers, switched React ARIA radiogroup to List view, synchronized FFS Season Ticker to 5 GWs horizon (`37,311 bytes`), and verified 100% Invariant Contract Oracle pass.
+- Executed live full gauntlet (`bamf finalize gw8`) on freshly harvested automated data, forging `gw8/squad_prophecy.md` via GLPK MILP solver; maintained 55 passing unit and contract tests in 3.4s.
+- Synthesized Living Grimoire node `wiki/concepts/Automated-Data-Ingestion-and-Contract-Oracle.md` and indexed in `wiki/index.md`.
 
