@@ -121,4 +121,23 @@ This file is an append-only timeline of all knowledge base updates, source inges
 - Integrated `ty` into `pyproject.toml` dev dependencies and updated `README.md` quality gates.
 - Achieved **zero diagnostics** with `ty check src tests` while passing all 55 unit tests and ruff format/lint checks.
 
+## [2026-10-18] test | Dan Luu Test Crucible & Rich Type Surface Expansion (RFC-013 & RFC-004)
+- Enriched `SquadSolution` in `src/fpl_dominator/chimera_pyomo_v2.py` with rich, strongly-typed domain properties:
+  - `formation`: Standard FPL starting formation string derived from starter position distribution (e.g., `'3-5-2'`, `'4-4-2'`).
+  - `captain` / `vice_captain`: Strongly-typed surname properties resolving top-2 starters by `Final_Score`.
+  - `position_costs`: Granular dictionary mapping position TLAs to expenditure across the 15-man squad.
+  - `red_zone_starters`: Filtered list of starters facing fixture difficulty `FDR > 1250.0`.
+  - Empty/undersized pool defense: Gracefully returns an unsuccessful `SquadSolution` when candidate pool has `< 15` players.
+- Formalized `WildcardEvaluationResult` TypedDict in `src/fpl_dominator/wildcard_evaluator.py` documenting the complete 17-key contract for squad divergence analysis.
+- Expanded `tests/test_in_memory_solver.py` (from 4 to 11 tests) applying Dan Luu Testing Heuristics:
+  - **Principle 1 (Edge Cases):** Impossible astronomical budget infeasibility, empty and undersized (<15 players) DataFrame guard, string-coerced hyperparameter extraction, and unrecognized form model fallback.
+  - **Principle 2 (Independent Oracle):** Implemented `_independently_verify_fpl_rules` verifying all 15 FPL combinatorial rules, subset/disjointness laws, positional quotas, 3-per-club ceilings, and budget conservation without Pyomo.
+  - **Principle 3 (Property Invariants):** Validated `@overload` return signatures for `forge_pyomo_squad()` and rich domain properties.
+- Forged `tests/test_wildcard_evaluator.py` (3 tests) covering the RFC-004 Wildcard Evaluator:
+  - **Principle 1 (Edge Cases):** Missing vault directory `FileNotFoundError` handling.
+  - **Principle 2 (Independent Oracle):** Implemented `_independently_rederived_wildcard_decision` independently re-deriving Path A (Hold), Path B (Mini-Wildcard), Path C (Wildcard Now), and dynamic threshold curves without production helpers.
+  - **Principle 3 (Property Invariants):** Contract invariant verification on `WildcardEvaluationResult` ensuring formation validity and transfer conservation ($15 - \text{players\_to\_keep} = \text{transfers\_needed}$).
+  - **Principle 4 (Real Vault):** Historical integration test against `gw3` production vault artifacts.
+- Maintained **zero diagnostics** with `uv run ty check src tests`, zero Ruff lints, and 100% test pass rate across 65 tests in ~3.8s.
+
 

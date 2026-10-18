@@ -1,7 +1,7 @@
 import os
 import re
 from dataclasses import dataclass
-from typing import Dict, Literal, Mapping, Optional, Tuple, overload
+from typing import Dict, List, Literal, Mapping, Optional, Tuple, overload
 
 import pandas as pd
 import pyomo.environ as pyo
@@ -52,6 +52,79 @@ class SquadSolution:
     total_score: float
     total_cost: float
     bank: float
+
+    @property
+    def formation(self) -> str:
+        """Derives standard FPL starting formation string (e.g. '3-5-2')."""
+        if (
+            not self.success
+            or self.starters.empty
+            or "Position" not in self.starters.columns
+        ):
+            return "0-0-0"
+        pos_counts = self.starters["Position"].value_counts()
+        d = int(pos_counts.get("DEF", 0))
+        m = int(pos_counts.get("MID", 0))
+        f = int(pos_counts.get("FWD", 0))
+        return f"{d}-{m}-{f}"
+
+    @property
+    def captain(self) -> Optional[str]:
+        """Identifies primary captain: starter with highest Final_Score."""
+        if (
+            not self.success
+            or self.starters.empty
+            or "Final_Score" not in self.starters.columns
+            or "Surname" not in self.starters.columns
+        ):
+            return None
+        top_row = self.starters.sort_values(by="Final_Score", ascending=False).iloc[0]
+        return str(top_row["Surname"])
+
+    @property
+    def vice_captain(self) -> Optional[str]:
+        """Identifies vice-captain: starter with second highest Final_Score."""
+        if (
+            not self.success
+            or len(self.starters) < 2
+            or "Final_Score" not in self.starters.columns
+            or "Surname" not in self.starters.columns
+        ):
+            return None
+        second_row = self.starters.sort_values(by="Final_Score", ascending=False).iloc[
+            1
+        ]
+        return str(second_row["Surname"])
+
+    @property
+    def position_costs(self) -> Dict[str, float]:
+        """Calculates total cost spent by position across the 15-man squad."""
+        if (
+            not self.success
+            or self.squad.empty
+            or "Price" not in self.squad.columns
+            or "Position" not in self.squad.columns
+        ):
+            return {}
+        return {
+            str(pos): round(float(cost), 1)
+            for pos, cost in self.squad.groupby("Position", observed=False)["Price"]
+            .sum()
+            .items()
+        }
+
+    @property
+    def red_zone_starters(self) -> List[str]:
+        """Returns starters facing high-difficulty fixtures (FDR > 1250)."""
+        if (
+            not self.success
+            or self.starters.empty
+            or "Effective_FDR_Horizon_5GW" not in self.starters.columns
+            or "Surname" not in self.starters.columns
+        ):
+            return []
+        rz = self.starters[self.starters["Effective_FDR_Horizon_5GW"] > 1250.0]
+        return [str(s) for s in rz["Surname"].tolist()]
 
 
 def sanitize_name(name: str) -> str:
@@ -173,6 +246,18 @@ def solve_chimera_squad(
     spp_scores: Dict[str, Dict[str, float]] = (
         raw_spp if isinstance(raw_spp, dict) else DEFAULT_SPP_SCORES
     )
+
+    if omniscient_df.empty or len(omniscient_df) < 15:
+        return SquadSolution(
+            success=False,
+            starters=pd.DataFrame(),
+            bench=pd.DataFrame(),
+            squad=pd.DataFrame(),
+            enriched_df=omniscient_df.copy(),
+            total_score=0.0,
+            total_cost=0.0,
+            bank=0.0,
+        )
 
     # Prepare DataFrame and enrich
     df = omniscient_df.copy()

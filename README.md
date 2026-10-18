@@ -311,7 +311,8 @@ All core package sources reside within `src/fpl_dominator/`:
 - `tests/test_retrospective_lens.py`: Dan Luu-style edge cases, independent oracle, property invariants, and vault integration (RFC-011).
 - `tests/test_scenario_forge.py`: Multi-scenario Cartesian and gradient matrix testing (RFC-008, RFC-009).
 - `tests/test_temporal_decay.py`: Functional decay weighting algorithms and mathematical clamping tests.
-- `tests/test_in_memory_solver.py`: 5-run anti-gambit solver memory isolation and parity checks.
+- `tests/test_in_memory_solver.py`: Dan Luu independent mathematical oracle, 15-rule FPL verification, and SquadSolution structural domain properties.
+- `tests/test_wildcard_evaluator.py`: Dan Luu 3-path independent mathematical oracle and WildcardEvaluationResult contract invariants (RFC-004).
 
 **CI/CD Automation:**
 

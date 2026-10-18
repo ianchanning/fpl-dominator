@@ -6,7 +6,7 @@ determine whether to trigger the Wildcard.
 
 import os
 import re
-from typing import Any, Dict, List
+from typing import List, TypedDict
 
 import pandas as pd
 import pyomo.environ as pyo
@@ -21,7 +21,29 @@ from .forge_cauldron import forge_cauldron
 from .grand_synthesis import perform_grand_synthesis
 
 
-def calculate_squad_divergence(gameweek_dir: str) -> Dict[str, Any]:
+class WildcardEvaluationResult(TypedDict):
+    """Structured evaluation report for RFC-004 Wildcard trigger determination."""
+
+    gameweek: int
+    current_xi_score: float
+    optimal_xi_score: float
+    projected_pts_current_5gw: float
+    projected_pts_optimal_5gw: float
+    pts_divergence: float
+    transfers_needed: int
+    players_to_keep: List[str]
+    path_a_pts: float
+    path_b_pts: float
+    path_c_pts: float
+    wc_advantage: float
+    threshold_pts: float
+    should_trigger: bool
+    current_xi_df: pd.DataFrame
+    optimal_starters_df: pd.DataFrame
+    optimal_squad_df: pd.DataFrame
+
+
+def calculate_squad_divergence(gameweek_dir: str) -> WildcardEvaluationResult:
     """
     Performs a evaluation comparing the current squad to the global optimal squad.
     Calculates:
