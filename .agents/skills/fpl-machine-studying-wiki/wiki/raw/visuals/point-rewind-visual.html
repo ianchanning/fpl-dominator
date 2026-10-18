@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="content=width=device-width, initial-scale=1.0">
+    <title>Surgical Point Rewind: GW7 $\leftarrow$ GW8</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;900&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0a0c;
+            color: #e2e8f0;
+        }
+        .mono { font-family: 'JetBrains Mono', monospace; }
+        .neon-border {
+            border: 1px solid #3b82f6;
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+        }
+        .neon-text-blue { color: #60a5fa; text-shadow: 0 0 5px rgba(96, 165, 250, 0.5); }
+        .neon-text-green { color: #4ade80; text-shadow: 0 0 5px rgba(74, 222, 128, 0.5); }
+        .neon-text-red { color: #f87171; text-shadow: 0 0 5px rgba(248, 113, 113, 0.5); }
+        .gradient-bg {
+            background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%);
+        }
+        .card {
+            background: rgba(30, 41, 59, 0.5);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .flow-arrow {
+            position: relative;
+        }
+        .flow-arrow::after {
+            content: '→';
+            position: absolute;
+            right: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #64748b;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body class="p-8">
+    <div class="max-w-5xl mx-auto">
+        <!-- Header -->
+        <header class="mb-12 text-center">
+            <h1 class="text-5xl font-black mb-4 tracking-tighter uppercase italic">
+                <span class="neon-text-blue">Surgical Point Rewind</span>
+            </h1>
+            <p class="text-slate-400 mono text-sm uppercase tracking-widest">Operation: GW7 $\leftarrow$ GW8 Point Extraction</p>
+            <div class="mt-4 inline-block px-3 py-1 rounded-full bg-blue-900/30 border border-blue-500/50 text-blue-400 text-xs mono">
+                STATUS: COMPLETED | PRECISION: 100%
+            </div>
+        </header>
+
+        <!-- The Problem Section -->
+        <section class="mb-16">
+            <h2 class="text-xl font-bold mb-6 flex items-center gap-2">
+                <span class="w-2 h-6 bg-red-500 inline-block"></span> THE DATA LEAKAGE
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div class="card p-6 rounded-2xl border-red-500/30">
+                    <div class="text-xs mono text-slate-500 mb-4 uppercase">Conceptual State: GW7 Vault</div>
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center p-3 bg-red-900/20 border border-red-500/20 rounded-lg">
+                            <span class="font-bold">Player: Neto</span>
+                            <div class="text-right">
+                                <div class="text-xs text-slate-500">Current Total Points (TP)</div>
+                                <div class="text-2xl font-black neon-text-red">53 <span class="text-sm text-slate-500"> (Laced)</span></div>
+                            </div>
+                        </div>
+                        <div class="text-center py-2 text-slate-500 text-xs mono">
+                            $\text{TP}_{\text{incorrect}} = \text{TP}_{\text{gw7}} + \text{GWP}_{\text{gw8}}$
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-red-900/20 border border-red-500/20 rounded-lg">
+                            <span class="font-bold">Player: Saka</span>
+                            <div class="text-right">
+                                <div class="text-xs text-slate-500">Current Total Points (TP)</div>
+                                <div class="text-2xl font-black neon-text-red">34 <span class="text-sm text-slate-500"> (Laced)</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-slate-400 space-y-4 leading-relaxed">
+                    <p>The <span class="text-white font-semibold">GW7 vault</span> was accidentally contaminated with points from the subsequent gameweek (<span class="text-white font-semibold">GW8</span>). </p>
+                    <p>This creates a "look-ahead" bias that corrupts the historical ground truth needed for the <span class="text-blue-400">Retrospective Lens</span> and <span class="text-blue-400">Chimera MILP</span> optimization.</p>
+                    <div class="p-4 bg-slate-900/50 rounded-lg border border-slate-700 mono text-xs">
+                        <span class="text-red-400">⚠ ERROR:</span> Data pollution detected in positional HTML files.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- The Solution Flow -->
+        <section class="mb-16">
+            <h2 class="text-xl font-bold mb-6 flex items-center gap-2">
+                <span class="w-2 h-6 bg-blue-500 inline-block"></span> THE SURGICAL PROCESS
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Step 1 -->
+                <div class="card p-6 rounded-2xl flex flex-col">
+                    <div class="text-xs mono text-blue-400 mb-2 uppercase font-bold">Step 01: Harvest</div>
+                    <div class="text-sm mb-4 text-slate-300">Scan all fragmented HTMLs in <span class="text-white font-mono">gw8/</span> to build a <span class="text-white font-mono">Name $\rightarrow$ GWP</span> map.</div>
+                    <div class="mt-auto p-3 bg-black/40 rounded-lg mono text-xs text-slate-400">
+                        <div class="flex justify-between mb-1"><span>Neto</span><span class="text-blue-400">15 pts</span></div>
+                        <div class="flex justify-between mb-1"><span>Saka</span><span class="text-blue-400">4 pts</span></div>
+                        <div class="flex justify-between"><span>Iwobi</span><span class="text-blue-400">11 pts</span></div>
+                    </div>
+                    <div class="text-center mt-4 text-slate-600 text-xs mono uppercase">Total Harvested: 120</div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="card p-6 rounded-2xl flex flex-col border-blue-500/50 shadow-lg shadow-blue-500/10">
+                    <div class="text-xs mono text-blue-400 mb-2 uppercase font-bold">Step 02: Match</div>
+                    <div class="text-sm mb-4 text-slate-300">Locate players in <span class="text-white font-mono">gw7/</span> roster files by matching names extracted from <span class="text-white font-mono">&lt;th&gt;</span> elements.</div>
+                    <div class="mt-auto p-3 bg-black/40 rounded-lg mono text-xs text-slate-400">
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="text-blue-400">✓</span> <span>Neto $\rightarrow$ Found</span>
+                        </div>
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="text-blue-400">✓</span> <span>Saka $\rightarrow$ Found</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-blue-400">✓</span> <span>Iwobi $\rightarrow$ Found</span>
+                        </div>
+                    </div>
+                    <div class="text-center mt-4 text-slate-600 text-xs mono uppercase">Target: 7 HTML Files</div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="card p-6 rounded-2xl flex flex-col">
+                    <div class="text-xs mono text-blue-400 mb-2 uppercase font-bold">Step 03: Excise</div>
+                    <div class="text-sm mb-4 text-slate-300">Perform the subtraction on the <span class="text-white font-mono">TP</span> column in the GW7 HTML structure.</div>
+                    <div class="mt-auto p-3 bg-black/40 rounded-lg mono text-xs text-slate-400">
+                        <div class="flex justify-between mb-1 text-red-400"><span>53</span><span>- 15</span></div>
+                        <div class="border-t border-slate-700 my-1"></div>
+                        <div class="flex justify-between font-bold text-green-400"><span>Neto</span><span>38</span></div>
+                    </div>
+                    <div class="text-center mt-4 text-slate-600 text-xs mono uppercase">Surgical Result: Purged</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Surgical Tally -->
+        <section class="mb-16">
+            <h2 class="text-xl font-bold mb-6 flex items-center gap-2">
+                <span class="w-2 h-6 bg-green-500 inline-block"></span> SURGICAL TALLY
+            </h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="card p-4 rounded-2xl text-center">
+                    <div class="text-xs mono text-slate-500 uppercase mb-1">Goalkeepers</div>
+                    <div class="text-3xl font-black neon-text-green">9</div>
+                </div>
+                <div class="card p-4 rounded-2xl text-center">
+                    <div class="text-xs mono text-slate-500 uppercase mb-1">Defenders</div>
+                    <div class="text-3xl font-black neon-text-green">23</div>
+                </div>
+                <div class="card p-4 rounded-2xl text-center">
+                    <div class="text-xs mono text-slate-500 uppercase mb-1">Midfielders</div>
+                    <div class="text-3xl font-black neon-text-green">18</div>
+                </div>
+                <div class="card p-4 rounded-2xl text-center">
+                    <div class="text-xs mono text-slate-500 uppercase mb-1">Forwards</div>
+                    <div class="text-3xl font-black neon-text-green">12</div>
+                </div>
+            </div>
+            <div class="mt-4 text-right text-xs mono text-slate-500">
+                TOTAL ENTITIES PURGED: <span class="text-white font-bold">62</span>
+            </div>
+        </section>
+
+        <!-- Summary Table -->
+        <section>
+            <h2 class="text-xl font-bold mb-6 flex items-center gap-2">
+                <span class="w-2 h-6 bg-green-500 inline-block"></span> OPERATION LOG
+            </h2>
+            <div class="card rounded-2xl overflow-hidden">
+                <table class="w-full text-left text-sm mono">
+                    <thead class="bg-slate-800/50 text-slate-400 uppercase text-xs">
+                        <tr>
+                            <th class="p-4">Target File</th>
+                            <th class="p-4">Action</th>
+                            <th class="p-4 text-right">Outcome</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-800">
+                        <tr>
+                            <td class="p-4 text-blue-300">gw7/goalkeepers.html</td>
+                            <td class="p-4 text-slate-400">Points Subtracted</td>
+                            <td class="p-4 text-right neon-text-green">SUCCESS</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 text-blue-300">gw7/defenders.html</td>
+                            <td class="p-4 text-slate-400">Points Subtracted</td>
+                            <td class="p-4 text-right neon-text-green">SUCCESS</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 text-blue-300">gw7/defenders_2.html</td>
+                            <td class="p-4 text-slate-400">Points Subtracted</td>
+                            <td class="p-4 text-right neon-text-green">SUCCESS</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 text-blue-300">gw7/midfielders.html</td>
+                            <td class="p-4 text-slate-400">Points Subtracted</td>
+                            <td class="p-4 text-right neon-text-green">SUCCESS</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 text-blue-300">gw7/midfielders_2.html</td>
+                            <td class="p-4 text-slate-400">Points Subtracted</td>
+                            <td class="p-4 text-right neon-text-green">SUCCESS</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 text-blue-300">gw7/forwards.html</td>
+                            <td class="p-4 text-slate-400">Points Subtracted</td>
+                            <td class="p-4 text-right neon-text-green">SUCCESS</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 text-blue-300">gw7/forwards_2.html</td>
+                            <td class="p-4 text-slate-400">Points Subtracted</td>
+                            <td class="p-4 text-right neon-text-green">SUCCESS</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="mt-16 text-center text-slate-600 mono text-xs">
+            Generated by NYX | BAMF Dominator Core | (⊕) (⇌) (⁂) (π)
+        </footer>
+    </div>
+</body>
+</html>

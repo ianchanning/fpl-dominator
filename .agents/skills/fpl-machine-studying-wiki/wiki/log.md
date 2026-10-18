@@ -29,8 +29,8 @@ This file is an append-only timeline of all knowledge base updates, source inges
 ## [2026-08-23] ingestion | Ingest 2025/26 Aggregate HTML Dump & Forge Baseline Dataset
 - Ingested `archive/2025-26/fpl_player_stats.html` (33,871 lines, dual-header schema).
 - Forged `src/fpl_dominator/process_prior_season_html.py` equipped with dual-header decoding, `profile-title` position/club parsing, and historical fallback resolution.
-- Extracted all 491 players to `archive/2025-26/fpl_player_stats_2025_26.csv` with calculated `Pts_per_90` and normalized canonical team TLAs.
-- Added `bamf process-prior-season` to master CLI deck.
+- Extracted all 491 players to `archive/2025-26/fpl_player_stats_2025_26 l.csv` with calculated `Pts_per_90` and normalized canonical team TLAs.
+- Added `bamf process-prior-season` command to CLI deck.
 
 ## [2026-08-23] refactor | Purge Legacy PuLP & Unify Sovereign Pyomo Engine
 - Purged `pulp` from `pyproject.toml` dependencies.
@@ -89,10 +89,10 @@ This file is an append-only timeline of all knowledge base updates, source inges
 - Verified real-world vault integration on `gw1`–`gw4` databases (Haaland 13pt haul delta in GW3).
 - Updated `README.md` with Dan Luu testing methodology, architectural flowchart, and test manifest.
 
-
-
-
-
-
-
-
+## [2025-01-23] recovery | Surgical Point Rewind & Look-Ahead Bias Purge
+- Resolved critical data pollution in `gw7` vault where subsequent GW8 points had been ingested into historical totals.
+- Developed a name-mapped subtraction protocol to excise GW8 GWP from GW7 TP without requiring full vault re-import.
+- Forged `wiki/raw/point-rewind-recovery.py` as an immutable record of the recovery logic.
+- Synthesized `wiki/concepts/Data-Integrity-and-Point-Rewind.md` detailing the "Surgical Purge" pattern and the danger of non-idempotent recovery scripts.
+- Purged 61 affected players across 7 positional HTML files.
+- Updated `wiki/index.md` and `wiki/log.md` to institutionalize the recovery protocol.

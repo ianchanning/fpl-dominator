@@ -51,3 +51,4 @@ graph TD
 ## 🛠️ Operational Protocols & CLI Deck
 - [[The-BAMF-CLI-Ritual]] - End-to-end Gameweek workflow: init vault, rip clipboard HTML, finalize prophecy.
 - [[concepts/Audit-and-Data-Integrity]] - Automated player name aliasing and reality verification tests.
+- [[concepts/Data-Integrity-and-Point-Rewind]] - Recovery protocol for look-ahead bias and point contamination.
