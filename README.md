@@ -70,6 +70,21 @@ fi
 export PYTHON_GIL=0
 ```
 
+### 5. Docker & Container Deck (Zero-Setup Alternative)
+
+To execute the entire stack without installing external solvers (`glpsol`) or Playwright browser dependencies directly on your host:
+
+```bash
+# 1. Build or pull the container
+docker compose build
+
+# 2. Execute automated headless harvest into active vault
+docker compose run --rm dominator fetch gw8
+
+# 3. Finalize prophecy via Chimera GLPK solver
+docker compose run --rm dominator finalize gw8
+```
+
 ---
 
 ## THE COMMAND DECK (`bamf` CLI)

@@ -1,0 +1,15 @@
+services:
+  dominator:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ghcr.io/ianchanning/fpl-dominator-runner:latest
+    env_file:
+      - path: .env
+        required: false
+    volumes:
+      - .:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+    # Default to bamf CLI; pass arguments via `docker compose run --rm dominator fetch gw8`
+    command: ["--help"]
