@@ -27,21 +27,15 @@ COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
 WORKDIR /app
 
-# Copy dependency specifications for layer caching
-COPY pyproject.toml uv.lock ./
+# Copy source code and dependency specifications
+COPY pyproject.toml uv.lock README.md ./
+COPY src/ /app/src/
 
-# Create virtual environment, install dependencies, and bake Playwright Chromium + OS deps
+# Create virtual environment, install dependencies & package, and bake Playwright Chromium + OS deps
 RUN uv venv /app/.venv && \
-    uv sync --frozen --no-install-project && \
+    uv sync --frozen && \
     uv run playwright install --with-deps chromium && \
     chmod -R 777 /ms-playwright
-
-# Copy source code and grimoire
-COPY src/ /app/src/
-COPY README.md /app/README.md
-
-# Install project package into virtualenv
-RUN uv sync --frozen
 
 # Entrypoint default for CLI invocations
 ENTRYPOINT ["bamf"]
