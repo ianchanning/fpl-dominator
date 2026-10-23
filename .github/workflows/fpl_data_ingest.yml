@@ -67,7 +67,7 @@ jobs:
           fi
 
       - name: Execute Finalize Pipeline & Solver
-        if: ${{ inputs.auto_finalize }}
+        if: ${{ github.event_name == 'schedule' || inputs.auto_finalize }}
         run: |
           GW_ARG="${{ inputs.gameweek }}"
           if [ -z "$GW_ARG" ]; then
