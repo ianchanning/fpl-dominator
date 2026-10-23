@@ -28,7 +28,7 @@ João Pedro   Chelsea      FWD    7.9     0.069800                1081.619048
 --- BENCH (Potency & Cost Optimized) ---
   Surname          Team Position  Price  Final_Score  Effective_FDR_Horizon_5GW
    Wright   Aston Villa      GKP    4.0     0.000000                1007.333333
-     Diop  Ipswich Town      DEF    3.9     0.032845                1066.571429
+     Diop  Ipswich Town      DEF    3.9     0.033783                1066.571429
    Rudoni Coventry City      MID    4.9     0.040205                1071.714286
 Henderson       Chelsea      MID    4.9     0.036810                1081.619048
 
