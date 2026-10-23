@@ -12,3 +12,4 @@ archive/**/*.html
 screenshots/
 archive/**/screenshots/
 temp/
+*.obsidian/
