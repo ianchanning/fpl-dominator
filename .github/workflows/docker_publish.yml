@@ -48,6 +48,12 @@ jobs:
             type=raw,value=latest
             type=sha,format=short
 
+      - name: Extract Playwright Version from Lockfile
+        id: pw
+        run: |
+          PW_VERSION=$(grep -A1 '^name = "playwright"$' uv.lock | grep '^version' | sed 's/version = "\(.*\)"/\1/')
+          echo "version=$PW_VERSION" >> "$GITHUB_OUTPUT"
+
       - name: Build and Push Docker Image
         uses: docker/build-push-action@v5
         with:
@@ -55,5 +61,6 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          build-args: PLAYWRIGHT_VERSION=${{ steps.pw.outputs.version }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
