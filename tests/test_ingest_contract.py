@@ -252,8 +252,8 @@ class TestIngestContractOracle(unittest.TestCase):
     def test_real_vault_gw7_golden_master_passes(self):
         """Step 4: The completed gw7 vault MUST satisfy the contract."""
         gw7_dir = "gw7"
-        if not os.path.isdir(gw7_dir):
-            self.skipTest(f"Directory {gw7_dir} not found.")
+        if not os.path.isfile(os.path.join(gw7_dir, "squad.html")):
+            self.skipTest(f"Vault HTML artifacts not found in {gw7_dir} (gitignored).")
 
         is_valid, violations = independently_verify_vault_contract(gw7_dir)
         self.assertTrue(
@@ -305,8 +305,8 @@ class TestIngestContractOracle(unittest.TestCase):
     def test_real_vault_gw8_passes_contract(self):
         """Verifies that the live-harvested gw8 vault passes contract oracle."""
         gw8_dir = "gw8"
-        if not os.path.isdir(gw8_dir):
-            self.skipTest(f"Directory {gw8_dir} not found.")
+        if not os.path.isfile(os.path.join(gw8_dir, "squad.html")):
+            self.skipTest(f"Vault HTML artifacts not found in {gw8_dir} (gitignored).")
 
         is_valid, violations = independently_verify_vault_contract(gw8_dir)
         self.assertTrue(
@@ -384,8 +384,8 @@ class TestIngestContractOracle(unittest.TestCase):
     def test_idempotency_contract_verification_has_zero_side_effects(self):
         """Step 3: Contract verification is strictly read-only and idempotent."""
         gw7_dir = "gw7"
-        if not os.path.isdir(gw7_dir):
-            self.skipTest(f"Directory {gw7_dir} not found.")
+        if not os.path.isfile(os.path.join(gw7_dir, "squad.html")):
+            self.skipTest(f"Vault HTML artifacts not found in {gw7_dir} (gitignored).")
 
         mtimes_before = {
             f: os.path.getmtime(os.path.join(gw7_dir, f)) for f in os.listdir(gw7_dir)
