@@ -63,5 +63,11 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: PLAYWRIGHT_VERSION=${{ steps.pw.outputs.version }}
+          # Buildx >= 0.13 / docker 25+ defaults push to bundle a SLSA provenance
+          # attestation sibling manifest (platform: unknown/unknown) inside the
+          # OCI index, which GHCR's package page renders as a phantom second
+          # "architecture". We push a single-platform amd64 image, so attestations
+          # add no value here — disable them for a clean single-manifest tag.
+          provenance: false
           cache-from: type=gha
           cache-to: type=gha,mode=max

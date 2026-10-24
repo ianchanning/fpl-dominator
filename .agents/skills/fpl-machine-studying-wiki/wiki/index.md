@@ -56,4 +56,5 @@ graph TD
 - [[concepts/Data-Integrity-and-Point-Rewind]] - Recovery protocol for look-ahead bias and point contamination.
 - [[concepts/Automated-Data-Ingestion-and-Contract-Oracle]] - Automated Playwright ingestion, Ping SSO bypass, and Dan Luu contract oracle (RFC-012).
 - [[concepts/UV-Ty-Unified-Toolchain-Integration]] - Unified `uv check` command, `[tool.ty]` config, and pre-commit hook (RFC-013).
+- [[concepts/GHCR-Provenance-Attestation-Gremlin]] - Registry manifest dissection: the phantom `unknown/unknown` architecture on GHCR pages.
 

@@ -169,3 +169,10 @@ This file is an append-only timeline of all knowledge base updates, source inges
 - Updated `docker_publish.yml` trigger paths to include `src/**` changes.
 - Updated `README.md` with Section 5 (Pre-Commit Hooks setup) and expanded CI/CD Automation manifest.
 - Verified complete fortress integrity: 0 ruff issues, 61 files formatted, 0 ty diagnostics via `uv check`, 65/65 tests passing in 3.9s.
+
+## [2026-10-24] diagnosis | GHCR Phantom `unknown/unknown` Architecture & Provenance Attestation
+- Diagnosed `ghcr.io/ianchanning/fpl-dominator-runner` package page showing two platform rows (`linux/amd64` + `unknown/unknown`) under a single tag (`sha-26966c6`).
+- Verified against the live registry (anonymous GHCR token + `GET /v2/<image>/manifests/<tag>`): the tag resolves to ONE OCI index with two members — the real `linux/amd64` image manifest (`sha256:7fa1dfe…`) and an 838-byte sibling annotated `vnd.docker.reference.type: attestation-manifest` (platform `unknown/unknown`, `vnd.docker.reference.digest` → the image manifest). Not two OS/architectures.
+- Root cause: BuildKit ≥ 0.13 / Docker 25+ bundles SLSA build-provenance attestations by default into `buildx --push`; `docker/build-push-action@v7` left provenance enabled. GHCR's UI flattens index members and labels the platform-less attestation `unknown/unknown`. `docker pull` by tag is unaffected (index resolution picks the amd64 member).
+- Surgical fix (MSIP, one line): `provenance: false` on the build step in `.github/workflows/docker_publish.yml` — future tags ship as bare single-manifest images with a clean registry page.
+- Synthesized Living Grimoire node `wiki/concepts/GHCR-Provenance-Attestation-Gremlin.md` and linked in `wiki/index.md`.

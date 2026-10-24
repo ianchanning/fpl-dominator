@@ -1,0 +1,52 @@
+{
+  "fetched": "2026-10-24",
+  "tags": {
+    "latest": {
+      "top_media_type": "application/vnd.oci.image.index.v1+json",
+      "top_digest": null,
+      "members": [
+        "sha256:3563640d2aa9be54d5aa1b443fc6fd14f6a687dd08040b890f1e5686f22e072b (linux/amd64)",
+        "sha256:ba1eb15d51a76dea9bab483953f13dead92d40b578bef32fb2f83c788e4f82c2 (unknown/unknown)"
+      ]
+    },
+    "sha-26966c6": {
+      "top_media_type": "application/vnd.oci.image.index.v1+json",
+      "top_digest": null,
+      "members": [
+        "sha256:7fa1dfe1222942936ba9b8deeca907ce79b4c5442500b3a36c15ab672be17862 (linux/amd64)",
+        "sha256:b6784a79310089485c01880b2f55a59c52bf5384d9690700bedb5137cbb2a062 (unknown/unknown)"
+      ]
+    },
+    "sha-7b28d51": {
+      "top_media_type": "application/vnd.oci.image.index.v1+json",
+      "top_digest": null,
+      "members": [
+        "sha256:3563640d2aa9be54d5aa1b443fc6fd14f6a687dd08040b890f1e5686f22e072b (linux/amd64)",
+        "sha256:ba1eb15d51a76dea9bab483953f13dead92d40b578bef32fb2f83c788e4f82c2 (unknown/unknown)"
+      ]
+    },
+    "sha-e4c8b72": {
+      "top_media_type": "application/vnd.oci.image.index.v1+json",
+      "top_digest": null,
+      "members": [
+        "sha256:a9c55de90aaeda146f5c6fb02b3eb793116eeb3e098703043d7b1b28fcebd68c (linux/amd64)",
+        "sha256:ce4d4eeda3a8d530c608d247d30e5a9c91e0b99b3fac8b7e4182691d48e63bf3 (unknown/unknown)"
+      ]
+    },
+    "sha-ef4b0eb": {
+      "top_media_type": "application/vnd.oci.image.index.v1+json",
+      "top_digest": null,
+      "members": [
+        "sha256:7a8ff72793de9f3f1acf87fda4be2f3106859a9ed424d19bf5933f31de25a615 (linux/amd64)",
+        "sha256:5631a10991f982c6c3dcdc033dbd39f4f4ebe9a633f3bb8a12df38248fb05439 (unknown/unknown)"
+      ]
+    }
+  },
+  "tag_names": [
+    "latest",
+    "sha-ef4b0eb",
+    "sha-e4c8b72",
+    "sha-26966c6",
+    "sha-7b28d51"
+  ]
+}
