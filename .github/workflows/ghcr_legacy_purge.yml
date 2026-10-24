@@ -28,7 +28,7 @@ jobs:
           VERSIONS=$(curl -fsSL -H "Authorization: Bearer $GH_TOKEN" \
             -H "Accept: application/vnd.github+json" "$BASE?per_page=100")
           IDS=$(echo "$VERSIONS" | jq -r \
-            '.[] | select(((.metadata.container.tags // []) | map(.name) | index("latest") | not)) | "\(.id) \(.name)"')
+            '.[] | select(((.metadata.container.tags // []) | index("latest") | not)) | "\(.id) \(.name)"')
           COUNT=$(echo "$IDS" | grep -c . || true)
           if [ "$COUNT" -eq 0 ]; then
             echo "No non-latest versions found — nothing to purge."
