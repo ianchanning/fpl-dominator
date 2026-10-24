@@ -20,6 +20,11 @@ jobs:
   harvest:
     name: Harvest Gameweek Data
     runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/ianchanning/fpl-dominator-runner:latest
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
     permissions:
       contents: write
 
@@ -29,28 +34,11 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Install System Dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y glpk-utils
+      - name: Mark Workspace as Git Safe
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
 
-      - name: Setup Python & uv
-        uses: astral-sh/setup-uv@v2
-        with:
-          enable-cache: true
-
-      - name: Install Dependencies
-        run: |
-          uv sync
-          uv run playwright install --with-deps chromium
-
-      - name: Cache Browser Session State
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/fpl_auth
-          key: fpl-auth-session-${{ runner.os }}-${{ github.run_id }}
-          restore-keys: |
-            fpl-auth-session-${{ runner.os }}-
+      - name: Link Working Copy
+        run: uv pip install --no-deps -e .
 
       - name: Execute Headless Ingestion via Playwright
         env:
@@ -61,9 +49,9 @@ jobs:
         run: |
           GW_ARG="${{ inputs.gameweek }}"
           if [ -z "$GW_ARG" ]; then
-            uv run bamf fetch
+            bamf fetch
           else
-            uv run bamf fetch "$GW_ARG"
+            bamf fetch "$GW_ARG"
           fi
 
       - name: Execute Finalize Pipeline & Solver
@@ -71,9 +59,9 @@ jobs:
         run: |
           GW_ARG="${{ inputs.gameweek }}"
           if [ -z "$GW_ARG" ]; then
-            uv run python -c "from fpl_dominator.bamf import get_latest_gw; import subprocess; gw = get_latest_gw(); subprocess.run(['uv', 'run', 'bamf', 'finalize', gw], check=True)"
+            python -c "from fpl_dominator.bamf import get_latest_gw; import subprocess; gw = get_latest_gw(); subprocess.run(['bamf', 'finalize', gw], check=True)"
           else
-            uv run bamf finalize "$GW_ARG"
+            bamf finalize "$GW_ARG"
           fi
 
       - name: Commit & Push Harvested Vault
