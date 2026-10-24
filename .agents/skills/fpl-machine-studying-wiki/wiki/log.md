@@ -141,3 +141,31 @@ This file is an append-only timeline of all knowledge base updates, source inges
 - Maintained **zero diagnostics** with `uv run ty check src tests`, zero Ruff lints, and 100% test pass rate across 65 tests in ~3.8s.
 
 
+## [2026-10-24] ingestion | Ingest Astral uv-ty Integration Blog & Forge Unified Toolchain Grimoire
+- Ingested `wiki/raw/docs/uv-ty-integration-astral-blog-2026.md` from Astral's "Bringing uv and ty together" blog post into Layer 1.
+- Synthesized `wiki/concepts/UV-Ty-Unified-Toolchain-Integration.md` under the 4-Part Mental Model:
+  - Sovereign Law: Unify uv, ruff, and ty into a single Astral toolchain via `uv check` and `[tool.ty]` configuration.
+  - Documented the gap: project at uv 0.11.6 (no `uv check`), ty 0.0.89 with zero `[tool.ty]` config, manual CLI invocation only.
+  - Mapped upgrade path: uv ≥ 0.12.3, `[tool.ty]` pyproject.toml config, `uv check` in CI/README, pre-commit hook.
+- Updated `wiki/index.md` knowledge graph (new R4 node) and operational protocols section.
+
+## [2026-10-24] upgrade | uv 0.11.6 → 0.13.5 & Unified `uv check` Integration
+- Upgraded uv from 0.11.6 to 0.13.5 via `uv self update`, unlocking the `uv check` command.
+- `uv check` auto-downloaded ty 0.0.91 (from lockfile 0.0.89), surfacing 48 new Pyomo `Component` type diagnostics (`not-subscriptable`, `not-iterable`) in `chimera_pyomo_v2.py` and `wildcard_evaluator.py`.
+- Added `[tool.ty]` configuration to `pyproject.toml`:
+  - `[tool.ty.environment]` targeting `python-version = "3.10"` (matching `requires-python` floor).
+  - `[tool.ty.src]` with explicit include/exclude paths replacing ad-hoc CLI arguments.
+  - `[tool.ty.analysis]` with `replace-imports-with-any = ["pyomo.**"]` to handle Pyomo's fundamentally incomplete type stubs.
+  - `[[tool.ty.overrides]]` relaxing `redundant-cast` in test directories.
+- Eradicated all 48 diagnostics via surgical `replace-imports-with-any` config (zero code changes required).
+- Updated `README.md` quality gate: `uv run ty check src tests` → `uv check` (reads config from `[tool.ty.src]`).
+- Re-locked `uv.lock` and verified complete fortress integrity: 0 ruff issues, 61 files formatted, 0 ty diagnostics, 65/65 tests passing in 3.9s.
+
+
+## [2026-10-24] feature | Pre-commit Hooks, CI Quality Gate Workflow & Dockerfile Verification Stage
+- Created `.pre-commit-config.yaml` with ruff (v0.16.5, lint + format) and ty (v0.0.91, via `uv check`) pre-commit hooks.
+- Created `.github/workflows/quality_gate.yml` — dedicated push/PR CI workflow enforcing ruff lint, ruff format, `uv check` (ty static types), and full unittest battery on `ubuntu-latest` with `astral-sh/setup-uv@v6`.
+- Added Stage 2 (`verifier`) to `Dockerfile` — build-time `uv check` gate that fails the Docker build on any ty diagnostic before the runtime image ships. Tests and ty artifacts are isolated in the verifier stage and excluded from the final `runner` image via multi-stage build.
+- Updated `docker_publish.yml` trigger paths to include `src/**` changes.
+- Updated `README.md` with Section 5 (Pre-Commit Hooks setup) and expanded CI/CD Automation manifest.
+- Verified complete fortress integrity: 0 ruff issues, 61 files formatted, 0 ty diagnostics via `uv check`, 65/65 tests passing in 3.9s.

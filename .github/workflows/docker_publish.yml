@@ -9,6 +9,7 @@ on:
       - '.dockerignore'
       - 'pyproject.toml'
       - 'uv.lock'
+      - 'src/**'
       - '.github/workflows/docker_publish.yml'
   workflow_dispatch:
 

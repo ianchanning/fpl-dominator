@@ -1,0 +1,25 @@
+# ==============================================================================
+# BAMF DOMINATOR - PRE-COMMIT QUALITY GATES
+# ==============================================================================
+# Runs ruff (format + lint) and ty (static type checking) on every commit.
+# ty uses uv check under the hood for lockfile-pinned, environment-aware analysis.
+#
+# Setup:
+#   uv tool install pre-commit --with pre-commit-uv
+#   pre-commit install
+# ==============================================================================
+
+repos:
+  # ---- Ruff: Lint + Format ----
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.16.5
+    hooks:
+      - id: ruff
+        args: [--fix]
+      - id: ruff-format
+
+  # ---- ty: Static Type Checking (via uv check) ----
+  - repo: https://github.com/astral-sh/ty-pre-commit
+    rev: v0.0.91
+    hooks:
+      - id: ty

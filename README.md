@@ -70,7 +70,17 @@ fi
 export PYTHON_GIL=0
 ```
 
-### 5. Docker & Container Deck (Zero-Setup Alternative)
+### 5. Pre-Commit Hooks (Automated Quality Gates on Every Commit)
+
+The project ships a `.pre-commit-config.yaml` enforcing ruff (lint + format) and ty (static type checking via `uv check`) on every commit:
+
+```bash
+# Install pre-commit via uv and activate the hooks
+uv tool install pre-commit --with pre-commit-uv
+pre-commit install
+```
+
+### 6. Docker & Container Deck (Zero-Setup Alternative)
 
 To execute the entire stack without installing external solvers (`glpsol`) or Playwright browser dependencies directly on your host:
 
@@ -295,7 +305,7 @@ uv run python -m unittest discover tests
 uv run python -m unittest -v tests.test_retrospective_lens
 
 # Enforce strict code formatting, linter quality gates, and static type safety (RFC-013)
-uv run ruff check . && uv run ruff format --check . && uv run ty check src tests
+uv run ruff check . && uv run ruff format --check . && uv check
 ```
 
 ---
@@ -331,7 +341,10 @@ All core package sources reside within `src/fpl_dominator/`:
 
 **CI/CD Automation:**
 
+- `.github/workflows/quality_gate.yml`: Push/PR quality gate enforcing ruff lint, ruff format, `uv check` (ty static types), and full test battery.
 - `.github/workflows/fpl_data_ingest.yml`: Scheduled GitHub Actions workflow running automated pre-deadline crawls on Fridays (12:00 & 16:00 UTC).
+- `.github/workflows/docker_publish.yml`: Automated container image build and publish to GHCR on Dockerfile or source changes.
+- `.pre-commit-config.yaml`: Local pre-commit hooks for ruff (lint + format) and ty (static type checking via `uv check`).
 
 ---
 

@@ -31,6 +31,24 @@ dev = [
     "ty",
 ]
 
+[tool.ty.environment]
+python-version = "3.10"
+
+[tool.ty.src]
+include = ["src", "tests"]
+exclude = ["archive", ".agents", "wiki"]
+
+# Pyomo uses dynamic __setattr__ for model components (Set, Var, Constraint, Objective).
+# Its type stubs are fundamentally incomplete — Component lacks __getitem__ and __iter__.
+# See: wiki/concepts/Pyomo-Type-Safety-and-Linopy.md
+[tool.ty.analysis]
+replace-imports-with-any = ["pyomo.**"]
+
+[[tool.ty.overrides]]
+include = ["tests/**"]
+[tool.ty.overrides.rules]
+redundant-cast = "ignore"
+
 [tool.ruff]
 target-version = "py310"
 exclude = [

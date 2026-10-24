@@ -1,10 +1,11 @@
 # ==============================================================================
 # BAMF DOMINATOR - MULTI-STAGE HARVESTER & CHIMERA ENGINE (RFC-012)
 # ==============================================================================
-# Two-stage build with 3 independently-cached layer groups:
+# Three-stage build with 4 independently-cached layer groups:
 #   1. Playwright Chromium (cached until PLAYWRIGHT_VERSION arg changes)
 #   2. Python dependencies (cached until uv.lock changes)
-#   3. Source code (sub-second rebuild)
+#   3. Verification gate (uv check — static type safety)
+#   4. Source code (sub-second rebuild)
 # ==============================================================================
 
 FROM python:3.12-slim-bookworm AS builder
@@ -41,7 +42,21 @@ RUN uv venv /app/.venv && \
     uv sync --frozen --no-install-project
 
 # ------------------------------------------------------------------------------
-# Stage 2: Runtime (sub-second rebuild on src/ changes)
+# Stage 2: Verification Gate (catches type regressions before container ships)
+# ------------------------------------------------------------------------------
+FROM builder AS verifier
+
+ENV PATH="/app/.venv/bin:$PATH"
+
+COPY src/ /app/src/
+COPY tests/ /app/tests/
+RUN uv sync --frozen
+
+# Static type safety gate — fails the build on any ty diagnostic
+RUN uv check
+
+# ------------------------------------------------------------------------------
+# Stage 3: Runtime (sub-second rebuild on src/ changes)
 # ------------------------------------------------------------------------------
 FROM builder AS runner
 
