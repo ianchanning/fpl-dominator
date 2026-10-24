@@ -34,7 +34,7 @@ jobs:
       - name: Install Dependencies
         run: |
           sudo apt-get update && sudo apt-get install -y --no-install-recommends glpk-utils
-          uv sync --frozen
+          uv sync --frozen --extra dev
 
       - name: Ruff Lint
         run: uv run ruff check .
