@@ -84,3 +84,29 @@ Already-pushed attested tags are immutable content: per-commit `sha-*` tags keep
 
 ---
 *Forge date: 2026-10-24 · Verified live against `ghcr.io/ianchanning/fpl-dominator-runner:sha-26966c6` (index digest members `7fa1dfe…` + `b6784a7…`).* `(⊕)`
+
+## 5. Registry Forensics & Consumer Gremlin Census (post-purge addendum)
+
+### The versions API is per-manifest, not per-tag
+
+The GHCR REST packages API (`/user/packages/container/{name}/versions`) registers **every manifest digest as its own version**: for an attested single-platform push you get 3 rows — the index manifest (holds the tag), the `linux/amd64` image manifest, and the platform-less attestation manifest. `metadata.container.tags` is an **array of tag-name strings** (jq: `index("latest")`, *not* `map(.name)`). Deleting the version that a tag references removes the tag itself.
+
+### Downstream consumer breakage classes (the "provenance side effect" gremlins)
+
+An attested push means the tag resolves to an OCI **index** even when single-platform. Consumers coded against "tag → one manifest" assumptions break in four documented classes:
+
+| # | Consumer | Symptom |
+| --- | --- | --- |
+| 1 | `docker pull` on Docker engines < 20.10 (e.g. pinned self-hosted CI agent pools) | `no match for platform in manifest: not found` — whole pipeline red |
+| 2 | Shuttle pipelines (pull → retag → push to another registry, `docker save`/`load` hops) | `vnd.docker.reference.*` annotations dropped / index mangled → downstream tag exists but is empty or fails platform match |
+| 3 | Vulnerability scanners (Trivy/Grype/ACR built-in, older versions) | Resolves the platform-less attestation member → garbage/empty report → scan gate fails (or falsely green) |
+| 4 | `kind` / `minikube load docker-image` | Refuses to load a tag resolving to an index |
+
+`provenance: false` **cures** all four (artifact becomes a bare manifest, pullable by every engine). The rare reverse break — a consumer that hard-requires an index at the top — is unusual and usually `docker buildx imagetools` promotion logic, which still works with bare per-arch manifests.
+
+### The purge incident (2026-10-24, two RUDs)
+
+1. **jq shape RUD:** first purge run assumed `tags = [{name: …}]` → `Cannot index string with string "name"` (exit 5). Fix: treat tags as string array.
+2. **Word-split RUD (Lesson 1 recurrence):** `for LINE in $IDS` on two-column lines → second iteration submitted a digest as `version_id` → `HTTP 422: version_id must be an integer`. Fix: `while read -r ID NAME; do … done <<< "$IDS"`. See RUD Ledger, entry 4.
+
+**Final state:** all 12 pre-fix versions deleted (HTTP 204 × 12, idempotent re-runs tolerated); registry reduced to `latest` + `sha-1d8310f`, both bare `application/vnd.oci.image.manifest.v1+json`, no phantom `unknown/unknown` rows. Pre-cleanup snapshot: `wiki/raw/ghcr-tag-census-2026-10-24.json`.
