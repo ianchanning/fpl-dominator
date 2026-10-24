@@ -36,9 +36,8 @@ jobs:
           fi
           echo "Purging $COUNT legacy version(s):"
           echo "$IDS"
-          for LINE in $IDS; do
-            ID=$(echo "$LINE" | cut -d' ' -f1)
-            NAME=$(echo "$LINE" | cut -d' ' -f2)
+          while read -r ID NAME; do
+            [ -z "$ID" ] && continue
             CODE=$(curl -s -o /tmp/purge_resp.json -w '%{http_code}' -X DELETE \
               -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" \
               "$BASE/$ID")
@@ -48,5 +47,5 @@ jobs:
               echo "::error::Failed to delete version $ID (HTTP $CODE)"
               exit 1
             fi
-          done
+          done <<< "$IDS"
           echo "Purge complete."
