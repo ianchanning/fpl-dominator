@@ -13,7 +13,7 @@
 
 --- STARTING XI (Final Score Maximized) ---
    Surname      Team Position  Price  Final_Score  Effective_FDR_Horizon_5GW
-      Raya   Arsenal      GKP    6.1     0.062734                1029.238095
+      Raya   Arsenal      GKP    6.2     0.062734                1029.238095
  De Cuyper  Brighton      DEF    5.3     0.091364                1011.333333
   Vuskovic  Brighton      DEF    5.1     0.077388                1011.333333
  Tarkowski   Everton      DEF    6.2     0.074060                1049.666667
@@ -33,9 +33,9 @@ João Pedro   Chelsea      FWD    7.9     0.069800                1081.619048
 Henderson       Chelsea      MID    4.9     0.036810                1081.619048
 
 -------------------------------------------
-Total Squad Cost:          £98.1m
+Total Squad Cost:          £98.2m
 Projected Starting Score:    0.85
-Money in the Bank:         £1.9m
+Money in the Bank:         £1.8m
 -------------------------------------------
 
 ```
