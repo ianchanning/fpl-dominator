@@ -64,7 +64,7 @@ Gabriel,Arsenal,DEF,7.9,52,OK,6.58
 Vuskovic,Brighton,DEF,5.2,52,OK,10.0
 Bogle,Leeds,DEF,4.8,50,OK,10.42
 Tarkowski,Everton,DEF,6.2,48,OK,7.74
-Calafiori,Arsenal,DEF,6.0,45,OK,7.5
+Calafiori,Arsenal,DEF,6.0,45,DOUBT,7.5
 Muharemović,Leeds,DEF,5.1,43,OK,8.43
 White,Arsenal,DEF,5.4,42,OK,7.78
 Gvardiol,Man City,DEF,5.7,42,OK,7.37
@@ -83,7 +83,7 @@ Bassey,Fulham,DEF,4.5,33,OK,7.33
 Araujo,Liverpool,DEF,5.4,33,OK,6.11
 Hill,Bournemouth,DEF,5.5,32,OK,5.82
 Ajer,Brentford,DEF,4.5,32,OK,7.11
-Thomas,Coventry City,DEF,4.0,32,OK,8.0
+Thomas,Coventry City,DEF,4.0,32,DOUBT,8.0
 Branthwaite,Everton,DEF,5.5,31,OK,5.64
 N.Williams,Nott'm Forest,DEF,5.0,31,OK,6.2
 Dunk,Brighton,DEF,4.5,30,OK,6.67
@@ -130,7 +130,6 @@ Barnes,Newcastle,MID,6.1,40,OK,6.56
 Rice,Arsenal,MID,7.4,39,OK,5.27
 Gomez,Brighton,MID,5.0,39,OK,7.8
 Cunha,Man Utd,MID,7.8,38,OK,4.87
-Saka,Arsenal,MID,9.5,37,OK,3.89
 Palmer,Chelsea,MID,9.8,37,OK,3.78
 Neto,Chelsea,MID,6.6,37,OK,5.61
 Dewsbury-Hall,Everton,MID,6.6,37,OK,5.61
@@ -181,7 +180,6 @@ McAtee,Nott'm Forest,MID,5.5,23,OK,4.18
 Schlager,Nott'm Forest,MID,5.0,23,OK,4.6
 Haaland,Man City,FWD,15.8,66,OK,4.18
 Isak,Liverpool,FWD,9.1,51,OK,5.6
-João Pedro,Chelsea,FWD,7.8,47,OK,6.03
 Evanilson,Bournemouth,FWD,6.2,43,OK,6.94
 Kostoulas,Brighton,FWD,5.8,43,OK,7.41
 Calvert-Lewin,Leeds,FWD,6.1,35,OK,5.74
