@@ -342,7 +342,7 @@ All core package sources reside within `src/fpl_dominator/`:
 **CI/CD Automation:**
 
 - `.github/workflows/quality_gate.yml`: Push/PR quality gate enforcing ruff lint, ruff format, `uv check` (ty static types), and full test battery.
-- `.github/workflows/fpl_data_ingest.yml`: Scheduled GitHub Actions workflow running automated pre-deadline crawls on Fridays (12:00 & 16:00 UTC).
+- `.github/workflows/fpl_data_ingest.yml`: Scheduled GitHub Actions workflow running automated pre-deadline crawls on Wednesdays (12:00 UTC).
 - `.github/workflows/docker_publish.yml`: Automated container image build and publish to GHCR on Dockerfile or source changes.
 - `.pre-commit-config.yaml`: Local pre-commit hooks for ruff (lint + format) and ty (static type checking via `uv check`).
 

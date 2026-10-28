@@ -187,3 +187,10 @@ This file is an append-only timeline of all knowledge base updates, source inges
 - Forged Grimoire node `wiki/concepts/Container-Runner-Pitfalls.md` (4-Part schema incl. verification protocol: replay failing steps in rebuilt image; import-path assertion is the load-bearing check); linked in `wiki/index.md` (R5).
 - Noted pre-existing doc drift: README claims ingest cron "Fridays 12:00 & 16:00 UTC"; live cron is `0 12 * * 3` (Wed 12:00 UTC, single fire). Not touched — scope discipline.
 - Deployment path: push to master → `docker_publish.yml` auto-rebuilds `latest` → re-dispatch `fpl_data_ingest.yml`.
+
+## [2026-10-28] resolution | RUD 40661580420 Closed — First Full-Green Containerized Harvest
+- Pushed `3d80505` → `docker_publish.yml` rebuilt & republished `fpl-dominator-runner:latest` (with baked `git` + `VIRTUAL_ENV=/app/.venv`).
+- Re-dispatched `fpl_data_ingest.yml`: run `40693393108` green in 1m45s (2026-10-28 13:06 UTC) — the pre-baked container pipeline's first end-to-end success; every previously failing/latent step (safe.directory, real git checkout, venv-discovery, editable re-link, commit & push) executed clean.
+- Production confirmation of the terminal link: the autonomous harvester pushed `c289c00 chore(data): automated headless ingest for gw9 [skip ci]` to master with the complete `gw9/` vault incl. `squad_prophecy.md`.
+- Rectified `README.md` schedule drift: "Fridays (12:00 & 16:00 UTC)" → "Wednesdays (12:00 UTC)" matching live cron `0 12 * * 3` (single pre-deadline fire, confirmed by the Dreamer as the intended schedule).
+- Appended Resolution section to `wiki/concepts/Container-Runner-Pitfalls.md`; the RUD ledger entry is now closed with production evidence, not just local rehearsal.

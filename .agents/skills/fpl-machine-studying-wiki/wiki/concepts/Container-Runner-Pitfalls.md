@@ -81,4 +81,10 @@ The import-path assertion is the load-bearing check: it proves the editable re-l
 
 - Rebuild & republish via push to master — `docker_publish.yml` auto-triggers on `Dockerfile` changes (`latest` + short-sha tags), then re-dispatch `fpl_data_ingest.yml`.
 - Related: [[GHCR-Provenance-Attestation-Gremlin]] (image publishing hygiene), [[Automated-Data-Ingestion-and-Contract-Oracle]] (the workflow this fix serves).
-- Pre-existing drift (not this bug): `README.md` documents the ingest schedule as "Fridays 12:00 & 16:00 UTC" while the live cron is `0 12 * * 3` (Wed 12:00 UTC, single fire).
+
+## 6. Resolution (RUD Closed)
+
+- Fix shipped as `3d80505` (2026-10-28): `git` baked into the runner image + `ENV VIRTUAL_ENV=/app/.venv`.
+- First full-green containerized run: `40693393108` (2026-10-28 13:06 UTC, 1m45s) — the entire chain (checkout → safe.directory → venv link → fetch → finalize → commit → push) executed autonomously.
+- Terminal proof: the harvester bot itself pushed `c289c00 chore(data): automated headless ingest for gw9 [skip ci]` to master, carrying the full `gw9/` vault and `squad_prophecy.md`. The Commit & Push step — structurally doomed by the tarball-fallback `.git` absence — now works in production.
+- Schedule rectified in `README.md`: live cron is `0 12 * * 3` (Wednesday 12:00 UTC, single pre-deadline fire); the stale "Fridays 12:00 & 16:00 UTC" text is retired.
