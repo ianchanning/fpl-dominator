@@ -13,12 +13,24 @@ FROM python:3.12-slim-bookworm AS builder
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     PLAYWRIGHT_BROWSERS_PATH=/ms-playwright \
-    UV_LINK_MODE=copy
+    UV_LINK_MODE=copy \
+    VIRTUAL_ENV=/app/.venv
 
+# `git` is baked in because the GH Actions container job inherits NOTHING from
+# the host runner: checkout v7 silently falls back to a tarball without it
+# (no .git dir -> the harvester's commit/push step cannot work), and the
+# `git config --global --add safe.directory` step exits 127 (RUD 40661580420).
 RUN apt-get update && apt-get install -y --no-install-recommends \
+    git \
     glpk-utils \
     ca-certificates \
     && rm -rf /var/lib/apt/lists/*
+
+# VIRTUAL_ENV pins every `uv pip` / `python` invocation inside the image to the
+# baked /app/.venv regardless of CWD (steps run in /github/workspace, where no
+# .venv exists). Without it, `uv pip install --no-deps -e .` aborts with
+# "No virtual environment found" before it can re-link `fpl_dominator` to the
+# freshly checked-out source.
 
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
