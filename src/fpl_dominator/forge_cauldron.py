@@ -5,6 +5,26 @@ import sys
 
 import pandas as pd
 
+# Status severity ladder used by squad-page reconciliation. The INJURY purge
+# below is order-sensitive, so reconciliation must NEVER downgrade a player's
+# risk signal: the pool keeps the MAX severity seen across any source.
+_STATUS_SEVERITY = {"OK": 0, "DOUBT": 1, "INJURY": 2}
+
+
+def _max_severity_status(pool_status: str, squad_status: str) -> str:
+    """Return the most severe of two status tokens.
+
+    Unknown tokens yield to the known one, so a malformed value can never
+    mask a genuine INJURY signal from either source.
+    """
+    pool_sev = _STATUS_SEVERITY.get(pool_status)
+    squad_sev = _STATUS_SEVERITY.get(squad_status)
+    if pool_sev is None:
+        return squad_status
+    if squad_sev is None:
+        return pool_status
+    return pool_status if pool_sev >= squad_sev else squad_status
+
 
 def forge_cauldron(gameweek_dir: str):
     """
@@ -32,7 +52,51 @@ def forge_cauldron(gameweek_dir: str):
 
     enriched_df = pd.concat(df_list, ignore_index=True)
 
-    # Filter out any players with the 'INJURY' status
+    # --- Squad-Page Status Reconciliation (MAX-severity law) ---
+    # The market tables and the FPL squad page are independent scrapes that
+    # can disagree (gw9 RUD: the squad page flagged João Pedro and Saka as
+    # INJURY while the market table still read OK). The squad page is exactly
+    # what the owner sees on the FPL dashboard, so merge its Status column
+    # into the pool by (Surname, Position), keeping the most severe signal.
+    squad_path = f"{gameweek_dir}/squad.csv"
+    if os.path.exists(squad_path):
+        squad_df = pd.read_csv(squad_path)
+        if not {"Surname", "Position", "Status"} <= set(squad_df.columns):
+            print(
+                "    - WARNING: squad.csv lacks Surname/Position/Status columns; "
+                "skipping reconciliation."
+            )
+        else:
+            squad_status = {
+                (str(row["Surname"]).strip(), str(row["Position"]).strip()): str(
+                    row["Status"]
+                ).strip()
+                for _, row in squad_df.iterrows()
+                if pd.notna(row["Status"])
+            }
+            pool_keys = list(
+                zip(
+                    enriched_df["Surname"].astype(str).str.strip(),
+                    enriched_df["Position"].astype(str).str.strip(),
+                )
+            )
+            upgraded = 0
+            for idx, key in enumerate(pool_keys):
+                squad_sev_status = squad_status.get(key)
+                if squad_sev_status is None:
+                    continue
+                pool_status = str(enriched_df.at[idx, "Status"]).strip()
+                merged_status = _max_severity_status(pool_status, squad_sev_status)
+                if merged_status != pool_status:
+                    enriched_df.at[idx, "Status"] = merged_status
+                    upgraded += 1
+            if upgraded:
+                print(
+                    f"    - Squad-page reconciliation: {upgraded} player(s) upgraded "
+                    f"to a more severe status."
+                )
+
+    # Filter out any players with the 'INJURY' status (post-reconciliation)
     initial_player_count = len(enriched_df)
     enriched_df = enriched_df[enriched_df["Status"] != "INJURY"].copy()
     final_player_count = len(enriched_df)

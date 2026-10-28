@@ -14,6 +14,7 @@ graph TD
         P2[Price-Change-Reality-Alignment]
         P3[The-Cold-Start-and-Season-Transition]
         P4[concepts/The-Retrospective-Lens-and-Contextual-Form]
+        P5[concepts/Injury-Status-Reconciliation]
     end
 
     subgraph "🛠️ Operational Protocols (cat:operations)"
@@ -50,6 +51,7 @@ graph TD
 - [[concepts/Price-Change-Reality-Alignment]] - Harmonizing bank balances and selling values against market price shifts.
 - [[concepts/The-Cold-Start-and-Season-Transition]] - Bayesian prior decay schedule resolving GW1 zero-point singularity in player scoring.
 - [[concepts/The-Retrospective-Lens-and-Contextual-Form]] - Difficulty-weighted historical form and efficiency exposing stat-padding frauds (RFC-011).
+- [[concepts/Injury-Status-Reconciliation]] - MAX-severity status merge across scrape sources; injured never reach solver.
 
 ## 🛠️ Operational Protocols & CLI Deck
 - [[The-BAMF-CLI-Ritual]] - End-to-end Gameweek workflow: init vault, rip clipboard HTML, finalize prophecy.
