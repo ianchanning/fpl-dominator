@@ -18,7 +18,7 @@ De Cuyper    Brighton      DEF    5.4     0.106563                1047.571429
  Vuskovic    Brighton      DEF    5.2     0.085476                1047.571429
   Gabriel     Arsenal      DEF    8.0     0.085367                1080.809524
 Van Hecke       Spurs      DEF    5.0     0.082756                1062.095238
-    Konsa     Arsenal      DEF    4.7     0.081541                1080.809524
+    Konsa     Arsenal      DEF    4.8     0.081541                1080.809524
      Groß    Brighton      MID    6.2     0.096529                1073.904762
  Belloumi   Hull City      MID    5.3     0.073057                1025.428571
 Tavernier Bournemouth      MID    6.6     0.072048                1228.142857
@@ -33,9 +33,9 @@ Henderson       Chelsea      MID    4.9     0.041001                1114.761905
      Furo     Brentford      FWD    4.4     0.000000                1050.190476
 
 -------------------------------------------
-Total Squad Cost:          £95.8m
+Total Squad Cost:          £95.9m
 Projected Starting Score:    0.94
-Money in the Bank:         £4.2m
+Money in the Bank:         £4.1m
 -------------------------------------------
 
 ```

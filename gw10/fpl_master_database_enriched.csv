@@ -66,7 +66,7 @@ Tarkowski,Everton,DEF,6.2,54,OK,8.71
 Van Hecke,Spurs,DEF,5.0,53,OK,10.6
 Calafiori,Arsenal,DEF,5.9,51,OK,8.64
 Bogle,Leeds,DEF,4.8,51,OK,10.62
-Konsa,Arsenal,DEF,4.7,49,OK,10.43
+Konsa,Arsenal,DEF,4.8,49,OK,10.21
 Muharemović,Leeds,DEF,5.1,46,OK,9.02
 Gvardiol,Man City,DEF,5.7,44,OK,7.72
 White,Arsenal,DEF,5.4,42,OK,7.78
@@ -78,7 +78,7 @@ Jacquet,Liverpool,DEF,5.1,40,OK,7.84
 Boscagli,Brighton,DEF,4.5,39,OK,8.67
 Virgil,Liverpool,DEF,6.4,39,OK,6.09
 Hill,Bournemouth,DEF,5.5,38,OK,6.91
-Silva,Bournemouth,DEF,5.0,37,OK,7.4
+Silva,Bournemouth,DEF,5.1,37,OK,7.25
 Castagne,Fulham,DEF,4.5,37,OK,8.22
 Araujo,Liverpool,DEF,5.4,37,OK,6.85
 Guéhi,Man City,DEF,6.0,37,OK,6.17
@@ -88,7 +88,7 @@ Ajayi,Hull City,DEF,4.2,36,OK,8.57
 Robertson,Spurs,DEF,4.3,36,OK,8.37
 Mykolenko,Everton,DEF,4.6,34,OK,7.39
 Bassey,Fulham,DEF,4.5,34,OK,7.56
-Kayode,Brentford,DEF,4.6,33,OK,7.17
+Kayode,Brentford,DEF,4.5,33,OK,7.33
 Thomas,Coventry City,DEF,4.0,32,DOUBT,8.0
 Mitchell,Crystal Palace,DEF,4.5,32,OK,7.11
 N.Williams,Nott'm Forest,DEF,4.9,32,OK,6.53
@@ -121,7 +121,7 @@ Schuster,Brentford,DEF,4.5,22,OK,4.89
 Khalaili,Crystal Palace,DEF,5.0,22,OK,4.4
 Groß,Brighton,MID,6.2,60,OK,9.68
 Tavernier,Bournemouth,MID,6.6,55,OK,8.33
-Rogers,Chelsea,MID,8.1,50,OK,6.17
+Rogers,Chelsea,MID,8.2,50,OK,6.1
 Belloumi,Hull City,MID,5.3,48,OK,9.06
 Rice,Arsenal,MID,7.4,47,OK,6.35
 Schade,Brentford,MID,6.2,45,OK,7.26
@@ -174,7 +174,7 @@ Anderson,Man City,MID,6.3,27,OK,4.29
 Armstrong,Everton,MID,5.0,26,OK,5.2
 Mainoo,Man Utd,MID,5.5,26,OK,4.73
 McAtee,Nott'm Forest,MID,5.5,26,OK,4.73
-Kudus,Spurs,MID,6.5,26,OK,4.0
+Kudus,Spurs,MID,6.6,26,OK,3.94
 Bruno G.,Arsenal,MID,6.7,25,OK,3.73
 O.Dango,Brentford,MID,6.2,25,OK,4.03
 Henderson,Chelsea,MID,4.9,25,OK,5.1

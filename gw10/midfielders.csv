@@ -1,7 +1,7 @@
 Surname,Team,Position,Price,TP,Status
 Groß,Brighton,MID,6.2,60,OK
 Tavernier,Bournemouth,MID,6.6,55,OK
-Rogers,Chelsea,MID,8.1,50,OK
+Rogers,Chelsea,MID,8.2,50,OK
 Belloumi,Hull City,MID,5.3,48,OK
 Rice,Arsenal,MID,7.4,47,OK
 Schade,Brentford,MID,6.2,45,OK
@@ -54,7 +54,7 @@ Anderson,Man City,MID,6.3,27,OK
 Armstrong,Everton,MID,5.0,26,OK
 Mainoo,Man Utd,MID,5.5,26,OK
 McAtee,Nott'm Forest,MID,5.5,26,OK
-Kudus,Spurs,MID,6.5,26,OK
+Kudus,Spurs,MID,6.6,26,OK
 Bruno G.,Arsenal,MID,6.7,25,OK
 O.Dango,Brentford,MID,6.2,25,OK
 Henderson,Chelsea,MID,4.9,25,OK
