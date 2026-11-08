@@ -140,6 +140,7 @@ The end-to-end pipeline integrates temporal discounting for future fixtures with
 ---
 config:
   look: neo
+  theme: base
 ---
 graph TD
     subgraph Inputs["Gameweek Ingestion (via bamf rip)"]
