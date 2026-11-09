@@ -1,61 +1,61 @@
 Surname,Team,Position,Price,TP,Status
-De Cuyper,Brighton,DEF,5.4,69,OK
-Gabriel,Arsenal,DEF,8.0,58,OK
-Vuskovic,Brighton,DEF,5.2,58,OK
-Tarkowski,Everton,DEF,6.2,54,OK
-Van Hecke,Spurs,DEF,5.0,53,OK
-Calafiori,Arsenal,DEF,5.9,51,OK
-Bogle,Leeds,DEF,4.8,51,OK
-Konsa,Arsenal,DEF,4.8,49,OK
-Muharemović,Leeds,DEF,5.1,46,OK
-Gvardiol,Man City,DEF,5.7,44,OK
+De Cuyper,Brighton,DEF,5.5,75,OK
+Vuskovic,Brighton,DEF,5.3,70,OK
+Gabriel,Arsenal,DEF,8.1,66,OK
+Bogle,Leeds,DEF,4.8,58,OK
+Calafiori,Arsenal,DEF,5.9,57,OK
+Konsa,Arsenal,DEF,4.8,57,OK
+Van Hecke,Spurs,DEF,5.1,57,OK
+Tarkowski,Everton,DEF,6.2,56,OK
+Muharemović,Leeds,DEF,5.1,56,OK
+Justin,Leeds,DEF,4.5,51,OK
+Hall,Newcastle,DEF,5.2,46,OK
+Boscagli,Brighton,DEF,4.5,44,OK
+Castagne,Fulham,DEF,4.5,44,OK
+Jacquet,Liverpool,DEF,5.1,44,OK
+Araujo,Liverpool,DEF,5.5,44,OK
+Gvardiol,Man City,DEF,5.6,44,OK
+Branthwaite,Everton,DEF,5.5,43,OK
+Virgil,Liverpool,DEF,6.4,43,OK
 White,Arsenal,DEF,5.4,42,OK
-Justin,Leeds,DEF,4.5,42,OK
-Hall,Newcastle,DEF,5.3,42,OK
-Ajer,Brentford,DEF,4.5,40,OK
-Branthwaite,Everton,DEF,5.5,40,OK
-Jacquet,Liverpool,DEF,5.1,40,OK
-Boscagli,Brighton,DEF,4.5,39,OK
-Virgil,Liverpool,DEF,6.4,39,OK
-Hill,Bournemouth,DEF,5.5,38,OK
-Silva,Bournemouth,DEF,5.1,37,OK
-Castagne,Fulham,DEF,4.5,37,OK
-Araujo,Liverpool,DEF,5.4,37,OK
+Hill,Bournemouth,DEF,5.6,42,OK
+Ajer,Brentford,DEF,4.5,42,OK
+Mykolenko,Everton,DEF,4.6,42,OK
+Ajayi,Hull City,DEF,4.2,42,OK
+Dunk,Brighton,DEF,4.5,41,OK
+Silva,Bournemouth,DEF,5.1,40,OK
+Egan,Hull City,DEF,4.1,38,OK
+Robertson,Spurs,DEF,4.3,38,OK
 Guéhi,Man City,DEF,6.0,37,OK
-Dunk,Brighton,DEF,4.5,36,OK
-Egan,Hull City,DEF,4.1,36,OK
-Ajayi,Hull City,DEF,4.2,36,OK
-Robertson,Spurs,DEF,4.3,36,OK
-Mykolenko,Everton,DEF,4.6,34,OK
-Bassey,Fulham,DEF,4.5,34,OK
-Kayode,Brentford,DEF,4.5,33,OK
+Bassey,Fulham,DEF,4.5,36,OK
+Murillo,Nott'm Forest,DEF,5.5,35,OK
+Kayode,Brentford,DEF,4.5,34,OK
+Mendy,Hull City,DEF,4.1,34,OK
+N.Williams,Nott'm Forest,DEF,4.9,34,OK
+Truffert,Bournemouth,DEF,5.4,33,OK
+Mitchell,Crystal Palace,DEF,4.5,33,OK
 Thomas,Coventry City,DEF,4.0,32,OK
-Mitchell,Crystal Palace,DEF,4.5,32,OK
-N.Williams,Nott'm Forest,DEF,4.9,32,OK
-Truffert,Bournemouth,DEF,5.4,31,OK
-Mendy,Hull City,DEF,4.1,31,OK
-Murillo,Nott'm Forest,DEF,5.5,31,OK
-Robinson,Fulham,DEF,4.4,30,OK
-Affengruber,Fulham,DEF,4.5,30,OK
-Giles,Hull City,DEF,4.0,30,OK
-Van de Ven,Spurs,DEF,5.0,30,OK
-F.Kadıoğlu,Brighton,DEF,4.4,29,OK
-Dasilva,Coventry City,DEF,4.0,29,OK
-Davis,Ipswich Town,DEF,4.0,29,OK
-O'Shea,Ipswich Town,DEF,4.0,27,OK
-Gudmundsson,Leeds,DEF,4.5,27,OK
-Rúben,Man City,DEF,5.5,27,OK
-Richards,Crystal Palace,DEF,4.9,26,OK
+Robinson,Fulham,DEF,4.4,32,OK
+Affengruber,Fulham,DEF,4.5,32,OK
+Giles,Hull City,DEF,4.0,31,OK
+Van de Ven,Spurs,DEF,5.0,31,OK
+Dasilva,Coventry City,DEF,4.0,30,OK
+F.Kadıoğlu,Brighton,DEF,4.3,29,OK
+Ouattara,Ipswich Town,DEF,4.0,29,OK
+Dedić,Newcastle,DEF,4.4,29,OK
+Mukiele,Sunderland,DEF,5.3,29,OK
+Pinnock,Coventry City,DEF,4.5,28,OK
+O'Shea,Ipswich Town,DEF,4.0,28,OK
+Davis,Ipswich Town,DEF,4.0,28,OK
+Gudmundsson,Leeds,DEF,4.5,28,OK
+Rúben,Man City,DEF,5.5,28,OK
+Richards,Crystal Palace,DEF,4.9,27,OK
+Hume,Sunderland,DEF,4.2,27,OK
+Lindelöf,Aston Villa,DEF,4.5,26,OK
 Maitland-Niles,Everton,DEF,4.5,26,OK
+Elvedi,Leeds,DEF,4.5,26,OK
 Botman,Newcastle,DEF,5.0,26,OK
-Dedić,Newcastle,DEF,4.5,26,OK
 Hato,Chelsea,DEF,4.5,25,OK
-Pinnock,Coventry City,DEF,4.5,25,OK
-Ouattara,Ipswich Town,DEF,4.0,25,OK
-Lindelöf,Aston Villa,DEF,4.5,24,OK
-Acheampong,Chelsea,DEF,4.5,24,OK
-Lacroix,Chelsea,DEF,5.9,24,OK
-Kerkez,Liverpool,DEF,5.3,23,OK
-Smith,Bournemouth,DEF,4.5,22,OK
-Schuster,Brentford,DEF,4.5,22,OK
-Khalaili,Crystal Palace,DEF,5.0,22,OK
+Coyle,Hull City,DEF,4.0,25,OK
+Kerkez,Liverpool,DEF,5.3,25,OK
+Jair Cunha,Nott'm Forest,DEF,4.4,25,OK
