@@ -13,29 +13,29 @@
 
 --- STARTING XI (Final Score Maximized) ---
   Surname        Team Position  Price  Final_Score  Effective_FDR_Horizon_5GW
-     Raya     Arsenal      GKP    6.2     0.090199                1010.619048
-De Cuyper    Brighton      DEF    5.5     0.107773                1091.476190
-  Gabriel     Arsenal      DEF    8.1     0.099211                1010.619048
-    Konsa     Arsenal      DEF    4.8     0.095120                1010.619048
- Vuskovic    Brighton      DEF    5.3     0.093032                1091.476190
-Van Hecke       Spurs      DEF    5.1     0.085967                1068.952381
-     Groß    Brighton      MID    6.3     0.101064                1124.666667
-Tavernier Bournemouth      MID    6.7     0.087769                1042.333333
-  Haaland    Man City      FWD   15.8     0.109768                1067.095238
-Evanilson Bournemouth      FWD    6.5     0.089469                1042.333333
-     Isak   Liverpool      FWD    9.3     0.084089                1038.857143
+     Raya     Arsenal      GKP    6.2     0.078790                1080.809524
+De Cuyper    Brighton      DEF    5.4     0.106563                1047.571429
+ Vuskovic    Brighton      DEF    5.2     0.085476                1047.571429
+  Gabriel     Arsenal      DEF    8.0     0.085367                1080.809524
+Van Hecke       Spurs      DEF    5.0     0.082756                1062.095238
+    Konsa     Arsenal      DEF    4.8     0.081541                1080.809524
+     Groß    Brighton      MID    6.2     0.096529                1073.904762
+ Belloumi   Hull City      MID    5.3     0.073057                1025.428571
+Tavernier Bournemouth      MID    6.6     0.072048                1228.142857
+  Haaland    Man City      FWD   15.8     0.107214                1072.000000
+     Isak   Liverpool      FWD    9.2     0.073236                1083.571429
 
 --- BENCH (Potency & Cost Optimized) ---
- Surname          Team Position  Price  Final_Score  Effective_FDR_Horizon_5GW
-Dubravka         Spurs      GKP    4.0     0.000000                1068.952381
-  Rudoni Coventry City      MID    4.9     0.062486                1113.809524
-Schlager Nott'm Forest      MID    5.0     0.055567                1122.761905
- Alysson   Aston Villa      MID    4.9     0.035506                1133.619048
+  Surname          Team Position  Price  Final_Score  Effective_FDR_Horizon_5GW
+ Dubravka         Spurs      GKP    4.0     0.000000                1062.095238
+   Rudoni Coventry City      MID    4.9     0.063153                1070.380952
+Henderson       Chelsea      MID    4.9     0.041001                1114.761905
+     Furo     Brentford      FWD    4.4     0.000000                1050.190476
 
 -------------------------------------------
-Total Squad Cost:          £98.4m
-Projected Starting Score:    1.04
-Money in the Bank:         £1.6m
+Total Squad Cost:          £95.9m
+Projected Starting Score:    0.94
+Money in the Bank:         £4.1m
 -------------------------------------------
 
 ```
