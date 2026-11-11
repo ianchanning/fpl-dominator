@@ -1,6 +1,6 @@
 Surname,Team,Position,Price,TP,Status,PPM
 Raya,Arsenal,GKP,6.2,60,OK,9.68
-Verbruggen,Brighton,GKP,4.6,57,OK,12.39
+Verbruggen,Brighton,GKP,4.7,57,OK,12.13
 Trafford,Leeds,GKP,5.0,54,OK,10.8
 Tzolakis,Hull City,GKP,4.7,49,OK,10.43
 A.Becker,Liverpool,GKP,5.5,42,OK,7.64
@@ -126,7 +126,7 @@ Rogers,Chelsea,MID,8.2,52,OK,6.34
 Gomez,Brighton,MID,5.0,51,OK,10.2
 Rice,Arsenal,MID,7.5,50,OK,6.67
 Ødegaard,Arsenal,MID,6.7,50,OK,7.46
-Dewsbury-Hall,Everton,MID,6.6,50,OK,7.58
+Dewsbury-Hall,Everton,MID,6.7,50,OK,7.46
 Belloumi,Hull City,MID,5.3,48,OK,9.06
 Palmer,Chelsea,MID,9.8,47,OK,4.8
 Schade,Brentford,MID,6.1,46,OK,7.54
@@ -168,9 +168,9 @@ George,Everton,MID,5.5,30,OK,5.45
 Mainoo,Man Utd,MID,5.5,30,OK,5.45
 Willock,Newcastle,MID,5.0,30,OK,6.0
 Buendía,Aston Villa,MID,5.9,29,OK,4.92
-Wharton,Crystal Palace,MID,5.4,29,OK,5.37
+Wharton,Crystal Palace,MID,5.3,29,OK,5.47
 Szoboszlai,Liverpool,MID,6.7,29,OK,4.33
-Anderson,Man City,MID,6.3,29,OK,4.6
+Anderson,Man City,MID,6.2,29,OK,4.68
 Ndoye,Nott'm Forest,MID,5.5,29,OK,5.27
 Bruno G.,Arsenal,MID,6.7,28,OK,4.18
 Alysson,Aston Villa,MID,4.9,28,OK,5.71
@@ -225,7 +225,7 @@ Kalimuendo,Nott'm Forest,FWD,5.4,4,OK,0.74
 Jebbison,Bournemouth,FWD,5.0,3,OK,0.6
 Mateta,Crystal Palace,FWD,6.3,3,OK,0.48
 Walle Egeli,Ipswich Town,FWD,4.5,2,OK,0.44
-Madjo,Aston Villa,FWD,5.4,1,OK,0.19
+Madjo,Aston Villa,FWD,5.3,1,OK,0.19
 David,Brighton,FWD,5.9,1,OK,0.17
 Emegha,Chelsea,FWD,4.9,1,OK,0.2
 J.Angulo,Sunderland,FWD,4.5,1,OK,0.22
